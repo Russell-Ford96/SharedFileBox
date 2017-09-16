@@ -24,6 +24,7 @@
     "core-js": "^2.4.1",
     "express": "^4.15.4",
     "rxjs": "^5.1.0",
+    "twilio": "^3.6.6",
     "zone.js": "^0.8.4"
   },
   "devDependencies": {

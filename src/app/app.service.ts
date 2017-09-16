@@ -9,12 +9,14 @@ export class AppService {
 
     constructor(private http: Http) { }
 
-    login(formData: any): Promise<any> {
-        return this.http.post('api/create', JSON.stringify(formData), {headers: this.headers})
+    createRequest(formData: any): Promise<any> {
+        return this.http.post('api/createRequest', JSON.stringify(formData), {headers: this.headers})
                     .toPromise()
-                    .then(response => response.json())
+                    .then(response => response)
                     .catch(this.handleError);
     }
+
+
     private handleError(error: any): Promise<any> {
         console.error('An error occurred', error);
         return Promise.reject(error.message || error);

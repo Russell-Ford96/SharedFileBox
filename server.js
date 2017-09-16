@@ -6,6 +6,7 @@ const bodyParser = require('body-parser');
 
 const app = express();
 
+const api = require('./server/api');
 
 // Parsers for POST data
 app.use(bodyParser.json());
@@ -14,6 +15,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 // Tell node what routes to use
 app.use(express.static(path.join(__dirname, 'dist')));
 app.use('/node_modules', express.static(path.join(__dirname, '/node_modules')));
+app.use('/api', api);
 
 // Catch all other routes and return the index file
 app.get('*', (req, res) => {
