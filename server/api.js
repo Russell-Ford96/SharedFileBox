@@ -1,13 +1,29 @@
 const express = require('express');
-const twilioCredentials = require('./credentials.js');
+const credentials = require('./credentials.js');
 const router = express.Router();
+var mongodb = require('mongodb');
+var uri = credentials.MLABS_URI;
 
 // Twilio Credentials 
-const ACCOUNT_SID = twilioCredentials.ACCOUNT_SID;
-const AUTH_TOKEN = twilioCredentials.AUTH_TOKEN;
+const ACCOUNT_SID = credentials.ACCOUNT_SID;
+const AUTH_TOKEN = credentials.AUTH_TOKEN;
  
 //require the Twilio module and create a REST client 
 var client = require('twilio')(ACCOUNT_SID, AUTH_TOKEN); 
+
+
+mongodb.MongoClient.connect(uri, function(err, db) {
+    if(err){
+        throw err;
+    }
+    var reqDocs= db.collection('docRequest');
+
+    reqDocs.insert(seedData, function(err, result) {
+        if(err) throw err;
+    });
+
+
+});
  
 
 /* GET api listing. */
