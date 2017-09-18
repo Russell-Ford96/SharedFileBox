@@ -23,6 +23,7 @@
     "body-parser": "^1.18.1",
     "core-js": "^2.4.1",
     "express": "^4.15.4",
+    "mongodb": "^2.2.31",
     "rxjs": "^5.1.0",
     "twilio": "^3.6.6",
     "zone.js": "^0.8.4"

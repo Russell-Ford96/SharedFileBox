@@ -1,47 +1,59 @@
-<h1>Create new request</h1>
+<style>
+.form-input {
+    border: none;
+    border-bottom: 2px white;
+    width: 85%;
+    margin-left: auto;
+    margin-right: auto;
+}
+</style>
 
-<form [formGroup]="requestForm" (ngSubmit)="onSubmit()">
-    <div class="form-group">
-        <label for="email">Email</label>
-        <input type="text" class="form-control" id="email" formControlName="email" required>
-        <div *ngIf="formErrors.email" class="alert alert-danger">
-            {{ formErrors.email }}
+<div style="margin: auto; text-align: center">
+    <h1>Create new request</h1>
+
+    <form [formGroup]="requestForm" (ngSubmit)="onSubmit()">
+        <div class="form-input">
+            <label for="email">Email</label>
+            <input type="text" class="form-control" id="email" formControlName="email" required>
+            <div *ngIf="formErrors.email" class="alert alert-danger">
+                {{ formErrors.email }}
+            </div>
         </div>
-    </div>
 
-    <div class="form-group">
-        <label for="phonenum">Phone Number (format: xxxx-xxx-xxxx):</label><br/>
-        <input type="tel" class="form-control" id="phonenum" formControlName="phone" pattern="^\d{4}-\d{3}-\d{4}$" required>
+        <div class="form-input">
+            <label for="phonenum">Phone Number (format: xxxx-xxx-xxxx):</label><br/>
+            <input type="tel" class="form-control" id="phonenum" formControlName="phone" pattern="^\d{4}-\d{3}-\d{4}$" required>
 
-        <div *ngIf="formErrors.phone" class="alert alert-danger">
-            {{ formErrors.phone }}
+            <div *ngIf="formErrors.phone" class="alert alert-danger">
+                {{ formErrors.phone }}
+            </div>
         </div>
-    </div>
 
-    <div class="form-group">
-        <label for="message">Message</label>
-        <textarea type="message" class="form-control" id="message" formControlName="message" required></textarea>
-        <div *ngIf="formErrors.message" class="alert alert-danger">
-            {{ formErrors.message }}
+        <div class="form-input">
+            <label for="message">Message</label>
+            <textarea type="message" class="form-control" id="message" formControlName="message" required></textarea>
+            <div *ngIf="formErrors.message" class="alert alert-danger">
+                {{ formErrors.message }}
+            </div>
         </div>
-    </div>
 
-    <div class="form-group">
-        <label for="document">Documents</label>
-        <input type="text" class="form-control" id="document" formControlName="document" required>
-        <div *ngIf="formErrors.document" class="alert alert-danger">
-            {{ formErrors.document }}
+        <div class="form-input">
+            <label for="document">Documents</label>
+            <input type="text" class="form-control" id="document" formControlName="document" required>
+            <div *ngIf="formErrors.document" class="alert alert-danger">
+                {{ formErrors.document }}
+            </div>
         </div>
-    </div>
 
-    <div class="form-group">
-        <label for="thanks">Thank You Message</label>
-        <textarea type="text" class="form-control" id="thanks" formControlName="thanks" required></textarea>
-        <div *ngIf="formErrors.thanks" class="alert alert-danger">
-            {{ formErrors.thanks }}
+        <div class="form-input">
+            <label for="thanks">Thank You Message</label>
+            <textarea type="text" class="form-control" id="thanks" formControlName="thanks" required></textarea>
+            <div *ngIf="formErrors.thanks" class="alert alert-danger">
+                {{ formErrors.thanks }}
+            </div>
         </div>
-    </div>
 
-    <button type="submit" class="btn btn-success" [disabled]="!requestForm.valid">Submit</button>
+        <button type="submit" class="btn" style="width: 70%; height: 50px;" [disabled]="!requestForm.valid">Submit</button>
 
-</form>
+    </form>
+</div>

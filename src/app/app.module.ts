@@ -5,12 +5,14 @@ import { HttpModule } from '@angular/http';
 
 import { AppComponent } from './app.component';
 import { RequestFormComponent } from './request-form.component';
+import { NavbarComponent } from './navbar/navbar.component';
 import { AppService } from './app.service';
 
 @NgModule({
   declarations: [
     AppComponent,
-    RequestFormComponent
+      RequestFormComponent,
+      NavbarComponent
   ],
   imports: [
     BrowserModule,

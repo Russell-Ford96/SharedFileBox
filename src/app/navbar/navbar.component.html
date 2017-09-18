@@ -1,0 +1,65 @@
+<style>
+.btn-selected {
+    border-bottom: 3px solid black !important
+}
+.search-bar {
+    background: gray;
+    border-radius: 0px
+}
+/* mobile */
+@media only screen and (max-width: 600px) {
+    .buttons-row {
+        background: #e5e5e5;
+        text-align: center;
+    }
+    .custom-btn {
+        height: 100%;
+        width: 40%;
+        border-radius: 0px;
+        border: 1px solid #CCCCCC;
+        margin: 0;
+    }
+    .received-btn {
+        border-top-left-radius: 8px;
+        border-bottom-left-radius: 8px;
+        border-top-right-radius: 0px;
+        border-bottom-right-radius: 0px;
+    }
+    .sent-btn {
+        border-top-right-radius: 8px;
+        border-bottom-right-radius: 8px;
+        border-top-left-radius: 0px;
+        border-bottom-left-radius: 0px;
+    }
+}
+/* desktop */
+@media only screen and (min-width: 600px) {
+    .buttons-row {
+        background: #e5e5e5;
+        border-bottom: 1px solid #CCCCCC;
+    }
+    .custom-btn {
+        height: 100%;
+        width: 10%;
+        background: #e5e5e5;
+        border: none;
+        border-radius: 0px;
+    }
+    .received-btn {
+        margin-left: 2%
+    }
+}
+</style>
+
+<div class="row" style="background: #696969; height: 45px">
+    <div class="col-xs-1">
+        <p style="padding-top: 8px; padding-left: 5px">Logo<p>
+    </div>
+    <div class="col-xs-6 col-xs-offset-2">
+        <input type="text" class="form-control search-bar" style="height: 35px; margin-top: 5px; border: none;" />
+    </div>
+</div>
+<div class="row" class="buttons-row">
+    <button class="btn custom-btn received-btn btn-selected">Received</button>
+    <button class="btn custom-btn sent-btn">Sent</button>
+</div>
