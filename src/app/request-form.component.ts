@@ -1,4 +1,4 @@
-import { Component, OnInit, Input}                    from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter}                    from '@angular/core';
 import { FormArray, FormGroup, FormBuilder, Validators }   from '@angular/forms';
 
 import { AppService } from './app.service';
@@ -10,21 +10,20 @@ import { AppService } from './app.service';
 })
 export class RequestFormComponent implements OnInit {
     @Input() inputArray: any[];
-    hideForm: boolean;
+    @Output() closeEvent = new EventEmitter<string>();
+
     requestForm: FormGroup;
     myForm: FormGroup;
     submitted = false;
-    requestFormValues: any;
 
     constructor(
         private fb: FormBuilder,
         private appService: AppService
     ) { }
 
-
-  closeForm(): void {
-    this.hideForm = true;
-  }
+    callParent() {
+        this.closeEvent.next();
+    }
 
     ngOnInit(): void {
         this.buildForm();
@@ -32,11 +31,11 @@ export class RequestFormComponent implements OnInit {
 
     onSubmit() {
         this.submitted = true;
-        this.requestFormValues = this.requestForm.value;
         this.save();
     }
     save(): void {
-        this.appService.createRequest(this.requestFormValues)
+        console.log(this.requestForm.value);
+        this.appService.createRequest(this.requestForm.value)
                         .then(res => console.log(res));
     }
     buildForm(): void {

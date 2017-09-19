@@ -30,10 +30,7 @@ import {AppRoutingModule} from "./app-routing.module";
     ReactiveFormsModule,
     HttpModule,
     AppRoutingModule,
-
-
   ],
-
 
     providers: [
         AppService

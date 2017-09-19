@@ -46,7 +46,7 @@
     <div class="row">
         <navbar></navbar>
         <aside *ngIf="showRequestForm" class="request-form-wrap" style="position: absolute">
-            <request-form></request-form>
+            <request-form (closeEvent)="toggleShowRequest()"></request-form>
         </aside>
     </div>
 

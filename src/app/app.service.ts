@@ -10,7 +10,16 @@ export class AppService {
     constructor(private http: Http) { }
 
     createRequest(formData: any): Promise<any> {
-        return this.http.post('api/createRequest', JSON.stringify(formData), {headers: this.headers})
+        return this.http.post('api/create', JSON.stringify(formData), {headers: this.headers})
+                    .toPromise()
+                    .then(response => response)
+                    .catch(this.handleError);
+    }
+
+    upload(formData: any): Promise<any> {
+        formData._id = "59c173e712e15f23dea3e541";
+        formData.attachment = "attachment here";
+        return this.http.post('api/upload', JSON.stringify(formData), {headers: this.headers})
                     .toPromise()
                     .then(response => response)
                     .catch(this.handleError);
