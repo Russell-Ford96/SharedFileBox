@@ -1,23 +1,36 @@
 <style>
+.search-row {
+    background: #FAFAFA; 
+    height: 45px; 
+    border-bottom: 2px solid #e5e5e5
+}
 .btn-selected {
-    border-bottom: 3px solid black !important
+    border-bottom: 8px solid #00ACE7 !important;
+    font: 16px carnas;
+    font-weight: bold;
 }
 .search-bar {
-    background: gray;
-    border-radius: 0px
+    background: #e5e5e5;
+    border-radius: 5px
+}
+.custom-btn {
+    height: 45px;
+}
+.buttons-row {
+    background: #FAFAFA;
 }
 /* mobile */
 @media only screen and (max-width: 600px) {
     .buttons-row {
-        background: #e5e5e5;
+        margin-top: 5px;
         text-align: center;
     }
     .custom-btn {
-        height: 100%;
         width: 40%;
         border-radius: 0px;
-        border: 1px solid #CCCCCC;
+        border: 1px solid #B3B3B3;
         margin: 0;
+        background: #FAFAFA;
     }
     .received-btn {
         border-top-left-radius: 8px;
@@ -31,35 +44,37 @@
         border-top-left-radius: 0px;
         border-bottom-left-radius: 0px;
     }
+    .logo {
+        align: center;
+    }
 }
 /* desktop */
 @media only screen and (min-width: 600px) {
     .buttons-row {
-        background: #e5e5e5;
         border-bottom: 1px solid #CCCCCC;
     }
     .custom-btn {
-        height: 100%;
         width: 10%;
-        background: #e5e5e5;
+        background: #FAFAFA;
         border: none;
         border-radius: 0px;
     }
-    .received-btn {
-        margin-left: 2%
+    .logo {
+        padding-top: 10px;
+        padding-left: 10px;
     }
 }
 </style>
 
-<div class="row" style="background: #696969; height: 45px">
+<div class="row search-row">
     <div class="col-xs-1">
-        <p style="padding-top: 8px; padding-left: 5px">Logo<p>
+        <h4 class="logo">Logo</h4>
     </div>
     <div class="col-xs-6 col-xs-offset-2">
         <input type="text" class="form-control search-bar" style="height: 35px; margin-top: 5px; border: none;" />
     </div>
 </div>
-<div class="row" class="buttons-row">
-    <button class="btn custom-btn received-btn btn-selected">Received</button>
-    <button class="btn custom-btn sent-btn">Sent</button>
+<div class="row buttons-row">
+    <button class="btn custom-btn received-btn btn-selected" [ngClass]="{'btn-selected': viewingReceived}" (click)="toggleView(true)">Received</button>
+    <button class="btn custom-btn sent-btn" [ngClass]="{'btn-selected': !viewingReceived}" (click)="toggleView(false)">Sent</button>
 </div>

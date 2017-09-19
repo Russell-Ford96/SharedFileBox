@@ -1,28 +1,31 @@
 <style>
 .form-input {
     border: none;
-    border-bottom: 2px white;
     width: 85%;
     margin-left: auto;
     margin-right: auto;
 }
+.form-control {
+    margin-top: 10px;
+    border: none;
+    border-bottom: 2px solid #FAFAFA;
+    text-align: center;
+    box-shadow: none;
+}
 </style>
 
-<div style="margin: auto; text-align: center">
-    <h1>Create new request</h1>
-
+<div style="margin: auto; text-align: center; color: black">
+    <div style="height: 60px; background-color: #00ACE7; font: 16px carnas; color: #FFFFFF; padding-top: 24px">New message</div>
     <form [formGroup]="requestForm" (ngSubmit)="onSubmit()">
         <div class="form-input">
-            <label for="email">Email</label>
-            <input type="text" class="form-control" id="email" formControlName="email" required>
+            <input type="text" placeholder="Email" class="form-control" id="email" formControlName="email" required>
             <div *ngIf="formErrors.email" class="alert alert-danger">
                 {{ formErrors.email }}
             </div>
         </div>
 
         <div class="form-input">
-            <label for="phonenum">Phone Number (format: xxxx-xxx-xxxx):</label><br/>
-            <input type="tel" class="form-control" id="phonenum" formControlName="phone" pattern="^\d{4}-\d{3}-\d{4}$" required>
+            <input type="tel" placeholder="Phone +12572481347" class="form-control" id="phonenum" formControlName="phone" pattern="^\d{4}-\d{3}-\d{4}$" required>
 
             <div *ngIf="formErrors.phone" class="alert alert-danger">
                 {{ formErrors.phone }}
@@ -30,30 +33,35 @@
         </div>
 
         <div class="form-input">
-            <label for="message">Message</label>
-            <textarea type="message" class="form-control" id="message" formControlName="message" required></textarea>
+            <textarea type="text" placeholder="Your message" class="form-control" id="message" formControlName="message" required></textarea>
             <div *ngIf="formErrors.message" class="alert alert-danger">
                 {{ formErrors.message }}
             </div>
         </div>
 
-        <div class="form-input">
-            <label for="document">Documents</label>
-            <input type="text" class="form-control" id="document" formControlName="document" required>
-            <div *ngIf="formErrors.document" class="alert alert-danger">
-                {{ formErrors.document }}
-            </div>
+        <div formArrayName="docArray">
+            <div *ngFor="let address of requestForm.controls.docArray.controls; let i=index" class="form-input">
+                <span class="glyphicon glyphicon-remove pull-right" *ngIf="requestForm.controls.docArray.controls.length > 1" (click)="delInput(i)"></span>
+                <div [formGroupName]="i">
+                    <input type="text" placeholder="Document name" class="form-control" formControlName="name">
+                    <small [hidden]="requestForm.controls.docArray.controls[i].controls.name.valid" class="text-danger">
+                        Document name is required
+                    </small>
+                </div>
+          </div>
         </div>
+<div>
+    <a (click)="addInput()">Add Document</a>
+</div>
 
         <div class="form-input">
-            <label for="thanks">Thank You Message</label>
-            <textarea type="text" class="form-control" id="thanks" formControlName="thanks" required></textarea>
+            <textarea type="text" placeholder="Thank you message" class="form-control" id="thanks" formControlName="thanks" required></textarea>
             <div *ngIf="formErrors.thanks" class="alert alert-danger">
                 {{ formErrors.thanks }}
             </div>
         </div>
 
-        <button type="submit" class="btn" style="width: 70%; height: 50px;" [disabled]="!requestForm.valid">Submit</button>
+        <button type="submit" class="btn" style="width: 70%; height: 50px; margin-top: 10px; background-color: #00ACE7; color: white" [disabled]="!requestForm.valid">Send</button>
 
     </form>
 </div>

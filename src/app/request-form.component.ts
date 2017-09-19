@@ -1,5 +1,5 @@
-import { Component, OnInit }                    from '@angular/core';
-import { FormGroup, FormBuilder, Validators }   from '@angular/forms';
+import { Component, OnInit, Input}                    from '@angular/core';
+import { FormArray, FormGroup, FormBuilder, Validators }   from '@angular/forms';
 
 import { AppService } from './app.service';
 
@@ -9,8 +9,10 @@ import { AppService } from './app.service';
     templateUrl: './request-form.component.html'
 })
 export class RequestFormComponent implements OnInit {
-    submitted = false;
+    @Input() inputArray: any[];
     requestForm: FormGroup;
+    myForm: FormGroup;
+    submitted = false;
     requestFormValues: any;
 
     constructor(
@@ -45,10 +47,7 @@ export class RequestFormComponent implements OnInit {
                 Validators.required
                 ]
             ],
-            'document': ['', [
-                Validators.required
-                ]
-            ],
+            docArray: this.fb.array([this.initDocField()]),
             'thanks': ['', [
                 Validators.required
                 ]
@@ -58,6 +57,23 @@ export class RequestFormComponent implements OnInit {
             .subscribe(data => this.onValueChanged(data));
         this.onValueChanged(); // (re)set validation messages now
     }
+
+    initDocField() {
+        return this.fb.group({
+            name: ['', Validators.required]
+        });
+    }
+
+    addInput(): void {
+        const arrayControl = <FormArray>this.requestForm.controls['docArray'];
+        arrayControl.push(this.initDocField());
+    }
+
+    delInput(index: number): void {
+        const arrayControl = <FormArray>this.requestForm.controls['docArray'];
+        arrayControl.removeAt(index);
+    }
+
     onValueChanged(data?: any) {
         if (!this.requestForm) { return; }
         const form = this.requestForm;

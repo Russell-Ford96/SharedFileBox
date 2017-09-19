@@ -4,4 +4,10 @@ import { Component }                            from '@angular/core';
     selector: 'navbar',
     templateUrl: './navbar.component.html'
 })
-export class NavbarComponent { }
+export class NavbarComponent { 
+    viewingReceived = true;
+
+    toggleView(status: boolean): void {
+        this.viewingReceived = status;
+    }
+}
