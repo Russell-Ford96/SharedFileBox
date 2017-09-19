@@ -10,6 +10,7 @@ import { AppService } from './app.service';
 })
 export class RequestFormComponent implements OnInit {
     @Input() inputArray: any[];
+    hideForm: boolean;
     requestForm: FormGroup;
     myForm: FormGroup;
     submitted = false;
@@ -19,6 +20,11 @@ export class RequestFormComponent implements OnInit {
         private fb: FormBuilder,
         private appService: AppService
     ) { }
+
+
+  closeForm(): void {
+    this.hideForm = true;
+  }
 
     ngOnInit(): void {
         this.buildForm();
