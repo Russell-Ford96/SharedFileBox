@@ -89,4 +89,14 @@ import {FileUploader} from 'ng2-file-upload';
 export class FileUploadComponent{
 
   public uploader:FileUploader = new FileUploader({url:'localhost:5000/api/upload'});
+
+
+   docid=1234;
+   docArray=[{name:"Document 1", fileName:"photoId.png"},
+     {name:"Document 2", fileName:"addressProof.pdf"},
+     {name:"Document 3", fileName:"salarySlip.pdf"},
+     {name:"Document 4", fileName:"salarySlip.pdf"},
+     {name:"Document 5", fileName:"salarySlip.pdf"}
+       ];
+
 }
