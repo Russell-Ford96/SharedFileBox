@@ -8,7 +8,7 @@ import { RequestComponent } from "./request.component";
 import { RequestFormComponent } from './request-form.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { AppService } from './app.service';
-import {FileUploadComponent} from "./file-upload.component";
+import { FileUploadComponent } from "./file-upload.component";
 
 import {FileSelectDirective, FileDropDirective} from 'ng2-file-upload';
 import {AppRoutingModule} from "./app-routing.module";
@@ -21,17 +21,15 @@ import {AppRoutingModule} from "./app-routing.module";
     RequestFormComponent,
     NavbarComponent,
     FileUploadComponent,
-    FileSelectDirective,
-
+    FileSelectDirective
   ],
   imports: [
     BrowserModule,
     FormsModule,
     ReactiveFormsModule,
     HttpModule,
-    AppRoutingModule,
+    AppRoutingModule
   ],
-
     providers: [
         AppService
     ],

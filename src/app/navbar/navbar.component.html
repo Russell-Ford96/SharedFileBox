@@ -74,7 +74,3 @@
         <input type="text" class="form-control search-bar" style="height: 35px; margin-top: 5px; border: none;" />
     </div>
 </div>
-<div class="row buttons-row">
-    <button class="btn custom-btn received-btn btn-selected" [ngClass]="{'btn-selected': viewingReceived}" (click)="toggleView(true)">Received</button>
-    <button class="btn custom-btn sent-btn" [ngClass]="{'btn-selected': !viewingReceived}" (click)="toggleView(false)">Sent</button>
-</div>

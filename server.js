@@ -12,15 +12,29 @@ const api = require('./server/api');
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
+
+//create a cors middleware
+app.use(function(req, res, next) {
+//set headers to allow cross origin request.
+    res.header("Access-Control-Allow-Origin", "localhost:5000/api/upload");
+    res.header('Access-Control-Allow-Methods', 'PUT, GET, POST, DELETE, OPTIONS');
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    next();
+});
+
 // Tell node what routes to use
 app.use(express.static(path.join(__dirname, 'dist')));
 app.use('/node_modules', express.static(path.join(__dirname, '/node_modules')));
 app.use('/api', api);
 
 
+app.get('/view/:id', (req, res) => {
+    res.sendFile(path.join(__dirname, 'uploads/' + req.params.id));
+});
+
 // Catch all other routes and return the index file
 app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, 'src/index.html'));
+  res.sendFile(path.join(__dirname, 'dist/index.html'));
 });
 
 // Get port from env or default to 5000

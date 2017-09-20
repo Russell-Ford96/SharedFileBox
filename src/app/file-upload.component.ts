@@ -1,5 +1,7 @@
 import {Component} from "@angular/core";
-import {FileUploader} from 'ng2-file-upload';
+import { FileSelectDirective, FileDropDirective, FileUploader } from 'ng2-file-upload/ng2-file-upload';
+
+import { AppService } from './app.service';
 
 
 
@@ -86,7 +88,22 @@ import {FileUploader} from 'ng2-file-upload';
         }
     `]
 })
-export class FileUploadComponent{
+export class FileUploadComponent {
+    public uploader:FileUploader = new FileUploader({url:'http://localhost:5000/api/upload', itemAlias: "single" });
 
-  public uploader:FileUploader = new FileUploader({url:'localhost:5000/api/upload'});
+    constructor(
+        private appService: AppService
+    ) {}
+
+    ngOnInit() {
+           //override the onAfterAddingfile property of the uploader so it doesn't authenticate with //credentials.
+           this.uploader.onAfterAddingFile = (file)=> { file.withCredentials = false; console.log(file); };
+
+           //overide the onCompleteItem property of the uploader so we are 
+           //able to deal with the server response.
+           this.uploader.onCompleteItem = (item:any, response:any, status:any, headers:any) => {
+               //this.appService.afterUpload(response);
+               console.log("post to /api/afterupload with id " + response);
+            };
+        }
 }
