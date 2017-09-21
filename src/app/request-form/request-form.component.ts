@@ -36,7 +36,16 @@ export class RequestFormComponent implements OnInit {
     save(): void {
         console.log(this.requestForm.value);
         this.appService.createRequest(this.requestForm.value)
-                        .then(res => console.log(res));
+            .then(res => {
+                if(res._body != "false") {
+                    console.log(res);
+                    this.callParent();
+                }
+                else {
+                    console.log(res);
+                    alert("an error has occured");
+                }
+        });
     }
     buildForm(): void {
         this.requestForm = this.fb.group({

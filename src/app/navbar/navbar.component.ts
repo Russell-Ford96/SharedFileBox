@@ -1,4 +1,5 @@
 import { Component }                            from '@angular/core';
+import { AuthService } from '../login/auth.service';
 
 @Component({
     selector: 'navbar',
@@ -7,7 +8,15 @@ import { Component }                            from '@angular/core';
 export class NavbarComponent { 
     viewingReceived = true;
 
+    constructor(
+        private authService: AuthService
+    ) {}
+
     toggleView(status: boolean): void {
         this.viewingReceived = status;
+    }
+
+    logout() {
+        this.authService.logout();
     }
 }
