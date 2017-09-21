@@ -2,6 +2,7 @@ const express = require('express');
 const credentials = require('./credentials.js');
 const router = express.Router();
 const path = require('path');
+const crypto = require('crypto');
 
 //mongo
 var mongodb = require('mongodb');
@@ -15,10 +16,9 @@ var storage = multer.diskStorage({
     cb(null, 'uploads/')
   },
   filename: function (req, file, cb) {
-    cb(null, Date.now() + path.extname(file.originalname)) //Appending extension
+    cb(null, crypto.randomBytes(20).toString('hex') + path.extname(file.originalname)) //Appending extension
   }
 })
-
 var upload = multer({ storage: storage }).single('single');
 
 
@@ -31,9 +31,27 @@ var client = require('twilio')(ACCOUNT_SID, AUTH_TOKEN);
 
 
  
-router.get('*', (req, res) => {
-    console.log("api hit");
-    res.send("api hit");
+
+router.get('/getdoc/:id', (req, res) => {
+        mongodb.MongoClient.connect(uri, function(err, db) {
+            if(err){
+                throw err;
+            }
+
+            //create a new mongo ID using the supplied ID
+            var o_id = new mongodb.ObjectID(req.params.id);
+
+            var docRequestCollection = db.collection('docRequest');
+            docRequestCollection.findOne({ _id: o_id }, function(err, result) {
+                if (err) throw err;
+                db.close();
+                console.log("hit");
+                if(result != undefined)
+                    return res.send(result);
+                else
+                    return res.status(404).send("request not found");
+            });
+        });
 });
 
 router.post('/upload', function (req, res, next) {
@@ -47,53 +65,26 @@ router.post('/upload', function (req, res, next) {
 
        // No error occured.
     path = req.file.filename;
-
-
-    return res.send(path);
-  });     
-})
-
-router.post('/uploadAfter', function (req, res, next) {
-
-        mongodb.MongoClient.connect(uri, function(err, db) {
-            if(err){
-                throw err;
-            }
-
-            //create a new mongo ID using the supplied ID
-            var o_id = new mongodb.ObjectID(req.body._id);
-            var index = req.body.index;
-            var fileName = req.body.fileName;
-
-            var existingRecord = db.collection('docRequest').findOne({ _id: o_id }, function(err, result) {
-                if (err) throw err;
-                result.docArray[index].attachment = fileName;
-                db.collection("docRequest").updateOne({ _id: o_id }, result, function(err, res) {
-                    if (err) throw err;
-                    console.log("1 document updated");
-                    db.close();
-                });
-                db.close();
-            });
-        });
-})
-
-
-
-/*
-router.post('/upload', (req, res) => {
     console.log(req.body);
-    if(req.params._id == "" || req.body.attachment == "")
-        console.log("fail here");
 
     mongodb.MongoClient.connect(uri, function(err, db) {
         if(err){
             throw err;
         }
+
+        //create a new mongo ID using the supplied ID
         var o_id = new mongodb.ObjectID(req.body._id);
+        var index = req.body.index;
+        var fileName = path;
+
         var existingRecord = db.collection('docRequest').findOne({ _id: o_id }, function(err, result) {
             if (err) throw err;
-            result.docArray[0].attachment = "attachment here";
+
+            if(result == null) {
+                res.status(422).send("an error occured");
+            }
+
+            result.docArray[index].attachment = fileName;
             db.collection("docRequest").updateOne({ _id: o_id }, result, function(err, res) {
                 if (err) throw err;
                 console.log("1 document updated");
@@ -103,10 +94,10 @@ router.post('/upload', (req, res) => {
         });
     });
 
-    //existingRecord.docArray[INDEX_HERE] = FILE HERE; <-- implement
+    return res.send(path);
+  });     
+})
 
-});
-*/
 router.post('/create', (req, res) => {
     var toNumber = req.body.phone;
     var ourNumber = "+12134087854";
@@ -129,15 +120,12 @@ router.post('/create', (req, res) => {
         if(err){
             throw err;
         }
+        var reqDocs = db.collection('docRequest');
         reqDocs.insert(req.body, function(err, result) {
             if(err) throw err;
         });
 
     });
-
-
-
-
 });
 
 module.exports = router;

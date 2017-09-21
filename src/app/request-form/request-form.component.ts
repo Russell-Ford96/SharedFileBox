@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter}                    from '@angular/core';
 import { FormArray, FormGroup, FormBuilder, Validators }   from '@angular/forms';
 
-import { AppService } from './app.service';
+import { AppService } from '../app.service';
 
 
 @Component({

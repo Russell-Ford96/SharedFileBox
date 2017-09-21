@@ -43,3 +43,7 @@ Thumbs.db
 
 # API KEYS
 /server/credentials.js
+
+#store files
+/uploads
+/server/uploads

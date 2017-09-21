@@ -1,24 +1,35 @@
-<div class="row search-row">
+<div class="row search-row" style="background:#00ACE7 ; color:white ; height:50px">
   <div class="col-xs-1">
     <h4 class="logo">SyneMail</h4>
   </div>
 
 
 </div>
-<div class="page-header">
-  <h3>Documents Upload</h3>
+<div style="text-align: center">
+  <h4 style="font-weight: bold">Documents Upload</h4>
 </div>
-<div class="container">
+<div class="container" >
   <div class="row">
     <div class="col-md-8">
-      <form>
-        <div class="form-group">
+
+      <div id="sidebar" style="font-family: carnas; font-size: 15px" >
+        <p id="date" style="text-align: right"></p>
+        <p>Hello, <br>Please upload the requested documents to complete your application.</p>
+        <br>
+      </div>
+
+        <form>
+     <!--   <div class="form-group">
           <label for="multiple">Multiple</label>
           <input type="file" class="form-control" name="multiple" ng2FileSelect [uploader]="uploader" multiple  />
-        </div>
-        <div class="form-group">
-          <label for="single">single</label>
-          <input type="file" class="form-control" name="single" ng2FileSelect [uploader]="uploader" />
+        </div> -->
+
+        <div *ngIf="docRequest">
+            <div *ngFor="let doc of docRequest.docArray; let i = index"  class="form-group" >
+              <label for="single" style="font-family: carnas;">{{doc.name}}</label>
+              <input type="file" class="form-control" name="single" (click)="updateFileIndex(i)" ng2FileSelect [uploader]="uploader" [disabled]="doc.attachment != ''"/>
+              <a href="/view/{{doc.attachment}}">View uploaded file</a>
+            </div>
         </div>
       </form>
 
@@ -74,10 +85,6 @@
           </div>
         </div>
         <button type="button" class="btn btn-primary btn-s"
-                (click)="uploader.uploadAll()" [disabled]="!uploader.getNotUploadedItems().length">
-          <span class="glyphicon glyphicon-upload"></span> Upload all
-        </button>
-        <button type="button" class="btn btn-primary btn-s"
                 (click)="uploader.cancelAll()" [disabled]="!uploader.isUploading">
           <span class="glyphicon glyphicon-ban-circle"></span> Cancel all
         </button>
@@ -88,18 +95,7 @@
       </div>
     </div>
     <div class="col-md-4">
-      <div id="sidebar" >
-        <p id="date" style="text-align: right"></p>
-        <br>
-        <p>Hello, <br>Please upload the requested documents to complete your application.</p> <br>
-        <p>Thank you</p>
 
-        <br><br>
-
-
-        <button type="button" class="btn btn-primary" style="position: absolute, bottom: 0">Send</button>
-
-      </div>
     </div>
   </div>
 </div>

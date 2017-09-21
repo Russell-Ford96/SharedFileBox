@@ -1,7 +1,11 @@
 import {Component} from "@angular/core";
+import { ActivatedRoute } from '@angular/router';
+import { Observable }           from 'rxjs/Observable';
+import 'rxjs/add/operator/map';
+
 import { FileSelectDirective, FileDropDirective, FileUploader } from 'ng2-file-upload/ng2-file-upload';
 
-import { AppService } from './app.service';
+import { AppService } from '../app.service';
 
 
 
@@ -90,20 +94,53 @@ import { AppService } from './app.service';
 })
 export class FileUploadComponent {
     public uploader:FileUploader = new FileUploader({url:'http://localhost:5000/api/upload', itemAlias: "single" });
+    id: any;
+    docRequest: any;
+    fileIndex: number;
 
     constructor(
-        private appService: AppService
-    ) {}
+        private appService: AppService,
+        private route: ActivatedRoute
+    ) {
+        this.id  = route.params.map(p => p.id);
+    }
 
     ngOnInit() {
+        this.route.data
+              .subscribe((data: { docRequest: any }) => {
+                this.docRequest = data.docRequest;
+                  for(var doc in this.docRequest.docArray) {
+                      this.docRequest.docArray[doc].docIndex = doc;
+                  }
+              });
+                console.log(this.docRequest);
+
+        this.uploader.onBeforeUploadItem = (item: any) => {
+          item.withCredentials = false;
+          this.uploader.options.additionalParameter = {
+            index: item.formData[0].index,
+            _id: item.formData[1]._id
+          };
+            console.log(item);
+        };
+
            //override the onAfterAddingfile property of the uploader so it doesn't authenticate with //credentials.
-           this.uploader.onAfterAddingFile = (file)=> { file.withCredentials = false; console.log(file); };
+        this.uploader.onAfterAddingFile = (file)=> { 
+            file.withCredentials = false; 
+            //here we push the index of the file into formdata because it's the only place i could find that would hold the value.
+            file.formData.push({"index": this.fileIndex});  
+            file.formData.push({"_id": this.docRequest._id});
+            console.log(file); 
+        };
 
            //overide the onCompleteItem property of the uploader so we are 
            //able to deal with the server response.
            this.uploader.onCompleteItem = (item:any, response:any, status:any, headers:any) => {
-               //this.appService.afterUpload(response);
-               console.log("post to /api/afterupload with id " + response);
+               console.log("item uploaded: " + response);
             };
         }
+    updateFileIndex(index: number) {
+        this.fileIndex = index;
+    }
+
 }

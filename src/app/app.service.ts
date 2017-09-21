@@ -25,6 +25,13 @@ export class AppService {
                     .catch(this.handleError);
     }
 
+    getDocRequest(id: any): Promise<any> {
+        return this.http.get('api/getdoc/' + id, {headers: this.headers})
+                    .toPromise()
+                    .then(response => response)
+                    .catch(this.handleError);
+    }
+
 
     private handleError(error: any): Promise<any> {
         console.error('An error occurred', error);
