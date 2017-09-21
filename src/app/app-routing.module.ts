@@ -10,7 +10,7 @@ import { FileUploadResolve } from "./file-upload/file-upload.resolve";
 import { AuthGuard } from './auth.guard';
 
 const APP_ROUTES: Routes=[
-    {path: '', redirectTo: '/404', pathMatch: 'full'},
+    {path: '', redirectTo: '/login', pathMatch: 'full'},
     {path: 'admin', component: RequestComponent, canActivate: [AuthGuard] },
     {path: 'upload/:id', component: FileUploadComponent, resolve: { docRequest: FileUploadResolve } },
     {path: '404', component: FileUploadComponent },

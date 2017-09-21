@@ -215,7 +215,7 @@ router.post('/create', (req, res) => {
                 client.messages.create({ 
                     to: toNumber,
                     from: ourNumber,
-                    body: "localhost:5000:/upload" + id
+                    body: "localhost:5000:/upload/" + id
                 }, function(err, message) { 
                     console.log("an error has occured in api/create");
                     //console.log(err);
