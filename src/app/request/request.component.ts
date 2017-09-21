@@ -5,6 +5,7 @@ import { Component }                            from '@angular/core';
   templateUrl: 'request.component.html'
 })
 export class RequestComponent {
+
   showRequestForm = false;
     dummyRequest = {
         _id: "1234567890fakeID",
