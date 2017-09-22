@@ -38,7 +38,8 @@ var client = require('twilio')(ACCOUNT_SID, AUTH_TOKEN);
 router.get('/getdoc/:id', (req, res) => {
         mongodb.MongoClient.connect(uri, function(err, db) {
             if(err){
-                throw err;
+                console.log(err);
+                return res.status(500).send("Error connecting to db");
             }
 
             //create a new mongo ID using the supplied ID
@@ -46,9 +47,10 @@ router.get('/getdoc/:id', (req, res) => {
 
             var docRequestCollection = db.collection('docRequest');
             docRequestCollection.findOne({ _id: o_id }, function(err, result) {
-                if (err) throw err;
+                if (err) {
+                 console.log(err);
+                }
                 db.close();
-                console.log("hit");
                 if(result != undefined)
                     return res.send(result);
                 else
@@ -60,13 +62,15 @@ router.get('/getdoc/:id', (req, res) => {
 router.post('/register', function (req, res, next) {
     mongodb.MongoClient.connect(uri, function(err, db) {
         if(err){
-            throw err;
+            console.log(err);
         }
 
 
         var userCollection = db.collection('users');
         var existingRecord = userCollection.findOne({ email: req.body.email }, function(err, result) {
-            if (err) throw err;
+            if (err) {
+                console.log(err);
+            }
             var password = req.body.password;
 
             if(result == null) {
@@ -74,7 +78,9 @@ router.post('/register', function (req, res, next) {
                     bcrypt.hash(password, salt, function(err, hash) {
 
                         db.collection('users').insert({email: req.body.email, password: hash}, function(err, result) {
-                            if(err) throw err;
+                            if(err) {
+                                console.log(err);
+                            }
                             else {
                                 res.send("success");
                                 db.close();
@@ -94,13 +100,13 @@ router.post('/register', function (req, res, next) {
 router.post('/login', function (req, res, next) {
     mongodb.MongoClient.connect(uri, function(err, db) {
         if(err){
-            throw err;
+            console.log(err);
         }
 
 
         var userCollection = db.collection('users');
         var existingRecord = userCollection.findOne({ email: req.body.email }, function(err, result) {
-            if (err) throw err;
+            if (err) console.log(err);
             var password = req.body.password;
 
             if(result == null) {
@@ -156,7 +162,7 @@ router.post('/upload', function (req, res, next) {
 
     mongodb.MongoClient.connect(uri, function(err, db) {
         if(err){
-            throw err;
+            console.log(err);
         }
 
         //create a new mongo ID using the supplied ID
@@ -165,7 +171,7 @@ router.post('/upload', function (req, res, next) {
         var fileName = path;
 
         var existingRecord = db.collection('docRequest').findOne({ _id: o_id }, function(err, result) {
-            if (err) throw err;
+            if (err) console.log(err);
 
             if(result == null) {
                 res.status(422).send("an error occured");
@@ -173,7 +179,7 @@ router.post('/upload', function (req, res, next) {
 
             result.docArray[index].attachment = fileName;
             db.collection("docRequest").updateOne({ _id: o_id }, result, function(err, res) {
-                if (err) throw err;
+                if (err) console.log(err);
                 console.log("1 document updated");
                 db.close();
             });
@@ -205,7 +211,7 @@ router.post('/create', (req, res) => {
 
     mongodb.MongoClient.connect(uri, function(err, db) {
         if(err){
-            throw err;
+            console.log(err);
         }
         var reqDocs = db.collection('docRequest');
         reqDocs.insert(req.body, function(err, result) {

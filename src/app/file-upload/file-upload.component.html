@@ -27,7 +27,7 @@
         <div *ngIf="docRequest">
             <div *ngFor="let doc of docRequest.docArray; let i = index"  class="form-group" >
               <label for="single" style="font-family: carnas;">{{doc.name}}</label>
-              <input type="file" class="form-control" name="single" (click)="updateFileIndex(i)" ng2FileSelect [uploader]="uploader" [disabled]="doc.attachment != ''"/>
+              <input type="file" class="form-control" name="single" (click)="updateFileIndex(i)" ng2FileSelect [uploader]="uploader" [disabled]="doc.attachment != null"/>
               <a href="/view/{{doc.attachment}}">View uploaded file</a>
             </div>
         </div>

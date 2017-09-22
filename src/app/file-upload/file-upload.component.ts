@@ -121,7 +121,7 @@ export class FileUploadComponent {
             index: item.formData[0].index,
             _id: item.formData[1]._id
           };
-            console.log(item);
+            this.docRequest.docArray[item.formData[0].index].attachment = "uploaded";
         };
 
            //override the onAfterAddingfile property of the uploader so it doesn't authenticate with //credentials.
