@@ -13,6 +13,7 @@ import { RegisterFormComponent } from "./register/register.component";
 
 import { FileUploadComponent } from "./file-upload/file-upload.component";
 import { FileUploadResolve } from "./file-upload/file-upload.resolve";
+import{ RequestResolve} from "./request/request.resolve";
 
 import {FileSelectDirective, FileDropDirective} from 'ng2-file-upload';
 import {AppRoutingModule} from "./app-routing.module";
@@ -42,7 +43,8 @@ import { AuthGuard } from './auth.guard';
         AppService,
         AuthGuard,
         AuthService,
-        FileUploadResolve
+        FileUploadResolve,
+        RequestResolve
     ],
   bootstrap: [AppComponent]
 })

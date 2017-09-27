@@ -31,12 +31,13 @@ var storage = multer.diskStorage({
 var upload = multer({ storage: storage }).single('single');
 
 
-// Twilio Credentials 
+// Twilio Credentials
 const ACCOUNT_SID = credentials.ACCOUNT_SID;
 const AUTH_TOKEN = credentials.AUTH_TOKEN;
- 
-//require the Twilio module and create a REST client 
-var client = require('twilio')(ACCOUNT_SID, AUTH_TOKEN); 
+
+//require the Twilio module and create a REST client
+var client = require('twilio')(ACCOUNT_SID, AUTH_TOKEN);
+
 
 router.get('/download/:file', function(req, res) {
     var fileName = req.params.file;
@@ -56,6 +57,7 @@ router.get('/download/:file', function(req, res) {
         });
 });
  
+
 
 router.get('/getdoc/:id', (req, res) => {
         mongodb.MongoClient.connect(uri, function(err, db) {
@@ -79,7 +81,7 @@ router.get('/getdoc/:id', (req, res) => {
                     return res.status(404).send("request not found");
             });
         });
-});
+})
 
 router.post('/register', function (req, res, next) {
     mongodb.MongoClient.connect(uri, function(err, db) {
@@ -133,7 +135,7 @@ router.post('/login', function (req, res, next) {
 
             if(result == null) {
                 return res.status(422).send("Invalid username or pass.");
-            } 
+            }
             else {
 
                 bcrypt.compare(password, result.password, function(b_err, b_result) {
@@ -148,7 +150,7 @@ router.post('/login', function (req, res, next) {
             }
 
             db.close();
-            
+
         });
     });
 })
@@ -175,7 +177,7 @@ router.post('/upload', function (req, res, next) {
          // An error occurred when uploading
          console.log(err);
          return res.status(422).send("an Error occured")
-       }  
+       }
 
     let path = req.file.path;
     let fileName = req.file.filename;
@@ -224,26 +226,58 @@ router.post('/upload', function (req, res, next) {
     });
 
     return res.send(path);
-  });     
+  });
 })
+
+router.get('/getreq/:pageID',function (req,res) {
+
+  mongodb.MongoClient.connect(uri, function (err, db) {
+    if (err) {
+      throw err;
+    }
+    var docRequestCollection = db.collection('docRequest');
+
+    docRequestCollection.find({},{ "limit": 8, "skip": 8 * req.params.pageID  }).toArray( function (err, results) {
+      if (err) {
+        console.log(err);
+        return res.status(500).send("There was a problem finding the docrequests.");
+      }
+      //console.log(results);
+      return res.status(200).send(results);
+    });
+  });
+});
+
+
+router.get('/maxpage',function(req,res) {
+  mongodb.MongoClient.connect(uri, function (err, db) {
+    if (err) {
+      throw err;
+    }
+    var docRequestCollection = db.collection('docRequest');
+    docRequestCollection.count(function (req,result) {
+      if(err){
+        console.log(err);
+      }
+      var maxPage=Math.floor(result/8).toString();
+
+      console.log(maxPage);
+      return res.status(200).send(maxPage);
+
+    });
+
+
+
+  });
+});
+
 
 router.post('/create', (req, res) => {
     var toNumber = req.body.phone;
     var ourNumber = "+12016883122";
     var message = req.body.message;
     var success = true;
-    console.log(req.body);
 
-    //twilio api
-    client.messages.create({ 
-        to: toNumber,
-        from: ourNumber,
-        body: message
-    }, function(err, message) { 
-        console.log("an error has occured in api/create");
-        //console.log(err);
-        //console.log(message);
-    });
 
     mongodb.MongoClient.connect(uri, function(err, db) {
         if(err){
@@ -254,11 +288,11 @@ router.post('/create', (req, res) => {
             if(err) res.send("false");
             else {
                 var id = result.insertedIds[0];
-                client.messages.create({ 
+                client.messages.create({
                     to: toNumber,
                     from: ourNumber,
                     body: "localhost:5000/upload/" + id
-                }, function(err, message) { 
+                }, function(err, message) {
                     console.log("an error has occured in api/create");
                     //console.log(err);
                     //console.log(message);

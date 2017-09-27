@@ -32,6 +32,19 @@ export class AppService {
                     .catch(this.handleError);
     }
 
+  getDocRequests(pageID:any): Promise<any> {
+    return this.http.get('api/getreq/' + pageID , {headers: this.headers})
+      .toPromise()
+      .then(response => response  )
+      .catch(this.handleError);
+  }
+
+  getMaxPage(): Promise<any>{
+      return this.http.get('api/maxpage',{headers: this.headers})
+        .toPromise()
+        .then(response => response  )
+        .catch(this.handleError);
+  }
 
     private handleError(error: any): Promise<any> {
         console.error('An error occurred', error);
