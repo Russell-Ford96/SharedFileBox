@@ -2,10 +2,16 @@ const express = require('express');
 const credentials = require('./credentials.js');
 const router = express.Router();
 const path = require('path');
+var fs = require('fs');
 const crypto = require('crypto');
 var jwt = require('jsonwebtoken');
 var bcrypt = require('bcrypt');
 const saltRounds = 10;
+
+
+var azure = require('azure-storage');
+var blobSvc = azure.createBlobService();
+const containerName = "mycontainer";
 
 //mongo
 var mongodb = require('mongodb');
@@ -32,7 +38,23 @@ const AUTH_TOKEN = credentials.AUTH_TOKEN;
 //require the Twilio module and create a REST client 
 var client = require('twilio')(ACCOUNT_SID, AUTH_TOKEN); 
 
-
+router.get('/download/:file', function(req, res) {
+    var fileName = req.params.file;
+    blobSvc.getBlobProperties(
+        containerName,
+        fileName,
+        function(err, properties, status) {
+            if (err) {
+                console.log(err.message);
+                res.send(502, "Error fetching file: %s", err.message);
+            } else if (!status.isSuccessful) {
+                res.send(404, "The file %s does not exist", fileName);
+            } else {
+                res.header('Content-Type', properties.contentType);
+                blobSvc.createReadStream(containerName, fileName).pipe(res);
+            }
+        });
+});
  
 
 router.get('/getdoc/:id', (req, res) => {
@@ -148,7 +170,6 @@ router.post('/verify', function (req, res, next) {
 
 
 router.post('/upload', function (req, res, next) {
-    var path = '';
     upload(req, res, function (err) {
        if (err) {
          // An error occurred when uploading
@@ -156,9 +177,24 @@ router.post('/upload', function (req, res, next) {
          return res.status(422).send("an Error occured")
        }  
 
-       // No error occured.
-    path = req.file.filename;
-    console.log(req.body);
+    let path = req.file.path;
+    let fileName = req.file.filename;
+
+    blobSvc.createContainerIfNotExists('mycontainer', function(error, result, response){
+        if(!error){
+          // Container exists and is private
+        } else {
+            return res.status(500).send("An error has occured.");
+        }
+    });
+
+    blobSvc.createBlockBlobFromLocalFile('mycontainer', fileName, path, function(error, result, response){
+      if(!error){
+        // file uploaded
+      } else {
+          return res.status(500).send("An error occured");
+      }
+    });
 
     mongodb.MongoClient.connect(uri, function(err, db) {
         if(err){
@@ -193,7 +229,7 @@ router.post('/upload', function (req, res, next) {
 
 router.post('/create', (req, res) => {
     var toNumber = req.body.phone;
-    var ourNumber = "+12134087854";
+    var ourNumber = "+12016883122";
     var message = req.body.message;
     var success = true;
     console.log(req.body);
@@ -221,7 +257,7 @@ router.post('/create', (req, res) => {
                 client.messages.create({ 
                     to: toNumber,
                     from: ourNumber,
-                    body: "localhost:5000:/upload/" + id
+                    body: "localhost:5000/upload/" + id
                 }, function(err, message) { 
                     console.log("an error has occured in api/create");
                     //console.log(err);

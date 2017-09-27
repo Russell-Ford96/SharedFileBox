@@ -45,5 +45,5 @@ Thumbs.db
 /server/credentials.js
 
 #store files
-/uploads
+/uploads/*
 /server/uploads
