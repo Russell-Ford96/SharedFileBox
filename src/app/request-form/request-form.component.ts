@@ -49,6 +49,12 @@ export class RequestFormComponent implements OnInit {
     }
     buildForm(): void {
         this.requestForm = this.fb.group({
+
+            'refnumb':['',[
+              Validators.required
+              ]
+            ],
+
             'email': ['', [
                 Validators.required
                 ]
@@ -57,9 +63,13 @@ export class RequestFormComponent implements OnInit {
                 Validators.required
                 ]
             ],
-            'message': ['', [
+            'shortmessage': ['', [
                 Validators.required
                 ]
+            ],
+            'detailedmessage': ['', [
+                 Validators.required
+               ]
             ],
             docArray: this.fb.array([this.initDocField()]),
             'thanks': ['', [
@@ -104,21 +114,29 @@ export class RequestFormComponent implements OnInit {
         }
     }
     formErrors = {
+        'refnumb':'',
         'email': '',
         'phone': '',
-        'message': '',
+        'shortmessage': '',
+        'detailedmessage': '',
         'document': '',
         'thanks': ''
     };
     validationMessages = {
+      'refnumb': {
+        'required': 'Reference Number is required.'
+      },
         'email': {
             'required': 'Email is required.'
         },
         'phone': {
             'required': 'Phone is required.'
         },
-        'message': {
-            'required': 'Message is required.'
+        'shortmessage': {
+            'required': 'Short description is required.'
+        },
+         'detailedmessage': {
+            'required': 'Detailed description is required.'
         },
         'document': {
             'required': 'Document is required.'

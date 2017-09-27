@@ -6,18 +6,19 @@ import { LoginFormComponent } from "./login/login.component";
 import { RegisterFormComponent } from "./register/register.component";
 
 import { FileUploadResolve } from "./file-upload/file-upload.resolve";
+import {RequestResolve} from "./request/request.resolve";
 
 import { AuthGuard } from './auth.guard';
 
 const APP_ROUTES: Routes=[
     {path: '', redirectTo: '/login', pathMatch: 'full'},
-    {path: 'admin', component: RequestComponent, canActivate: [AuthGuard] },
+    {path: 'admin', component: RequestComponent, canActivate: [AuthGuard], resolve:   { docRequests: RequestResolve} },
     {path: 'upload/:id', component: FileUploadComponent, resolve: { docRequest: FileUploadResolve } },
     {path: '404', component: FileUploadComponent },
     { path: 'login', component: LoginFormComponent, canActivate: [AuthGuard] },
     { path: 'register', component: RegisterFormComponent, canActivate: [AuthGuard] },
     {path: '*', redirectTo: '/404', pathMatch: 'full'}
-    
+
 ];
 
 @NgModule({

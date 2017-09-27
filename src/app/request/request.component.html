@@ -53,8 +53,8 @@
         <div class="row" style="text-align: center">
           <div class="col-md-8">
 
-          <table class="table">
-            <thead>
+          <table class="table ">
+            <thead class="thead-inverse">
               <tr>
                 <th>ID</th>
                 <th>Email</th>
@@ -64,7 +64,7 @@
               </tr>
             </thead>
             <tbody>
-                <tr *ngFor="let item of dummyTableData">
+                <tr *ngFor="let item of TableData">
                   <td>{{item._id}}</td>
                   <td>{{item.email}}</td>
                   <td>{{item.phone}}</td>
@@ -77,7 +77,14 @@
                 </tr>
             </tbody>
           </table>
+
+            <button class="btn btn-secondary" [disabled]="pageID ==0" (click)="updateTable(0)"> << </button>
+            <button class="btn btn-secondary" [disabled]="pageID <= 0" (click)="updateTable(pageID-1)"> < </button>
+            <button class="btn btn-secondary" [disabled]="pageID == maxPage" (click)="updateTable(pageID+1)"> > </button>
+            <button class="btn btn-secondary" [disabled]="pageID == maxPage" (click)="updateTable(maxPage)"> >> </button>
+
           </div>
+
 
         </div>
     </div>

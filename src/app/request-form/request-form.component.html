@@ -12,11 +12,26 @@
     text-align: center;
     box-shadow: none;
 }
+ .formStyle{
+   height: 50px;
+   background-color: #00ACE7;
+   font: 16px carnas; color: #FFFFFF;
+   padding-top: 24px
+ }
 </style>
 
 <div style="margin: auto; text-align: center; color: black">
-    <div style="height: 50px; background-color: #00ACE7; font: 16px carnas; color: #FFFFFF; padding-top: 24px"><span (click)="callParent()" style="float: left; margin-left: 1%">X</span>New message</div>
+    <div class="formStyle"><span (click)="callParent()" style="float: left; margin-left: 1%">X</span>New message</div>
     <form [formGroup]="requestForm" (ngSubmit)="onSubmit()">
+
+      <div class="form-input">
+        <input type="text" placeholder="Reference Number" class="form-control" id="refnumb" formControlName="refnumb" required>
+        <div *ngIf="formErrors.refnumb" class="alert alert-danger">
+          {{ formErrors.refnumb }}
+        </div>
+      </div>
+
+
         <div class="form-input">
             <input type="text" placeholder="Email" class="form-control" id="email" formControlName="email" required>
             <div *ngIf="formErrors.email" class="alert alert-danger">
@@ -32,12 +47,21 @@
             </div>
         </div>
 
-        <div class="form-input">
-            <textarea type="text" placeholder="Your message" class="form-control" id="message" formControlName="message" required></textarea>
-            <div *ngIf="formErrors.message" class="alert alert-danger">
-                {{ formErrors.message }}
-            </div>
+      <div class="form-input">
+        <input type="text" placeholder="Short Message" class="form-control" id="shortmessage" formControlName="shortmessage" required>
+        <div *ngIf="formErrors.shortmessage" class="alert alert-danger">
+          {{ formErrors.shortmessage }}
         </div>
+      </div>
+
+
+
+      <div class="form-input">
+        <textarea type="text" placeholder="Detailed Message" class="form-control" id="detailedmessage" formControlName="detailedmessage" required></textarea>
+        <div *ngIf="formErrors.detailedmessage" class="alert alert-danger">
+          {{ formErrors.detailedmessage }}
+        </div>
+      </div>
 
         <div formArrayName="docArray">
             <div *ngFor="let address of requestForm.controls.docArray.controls; let i=index" class="form-input">
