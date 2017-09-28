@@ -2,10 +2,12 @@
 Simple app for requesting documents from users
 
 ## Build
+```
 git clone https://github.com/Russell-Ford96/SharedFileBox.git;
 cd SharedFileBox;
 npm install;
 node server;
+```
 
 ## Usage
 Admin should navigate to localhost:5000/admin (this will change to localhost:5000/login)
