@@ -20,6 +20,8 @@ import {AppRoutingModule} from "./app-routing.module";
 
 import { AuthService } from "./login/auth.service";
 import { AuthGuard } from './auth.guard';
+import { CallbackComponent } from './callback/callback.component';
+import { ProfileComponent } from './profile/profile.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +32,9 @@ import { AuthGuard } from './auth.guard';
     FileUploadComponent,
       FileSelectDirective,
       LoginFormComponent,
-      RegisterFormComponent
+      RegisterFormComponent,
+      CallbackComponent,
+      ProfileComponent,
   ],
   imports: [
     BrowserModule,

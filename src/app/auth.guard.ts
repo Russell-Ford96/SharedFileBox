@@ -7,7 +7,8 @@ export class AuthGuard implements CanActivate {
     constructor(private router: Router) { }
  
     canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
-        console.log(localStorage.getItem('jwt'));
+        return true;
+        /*
         if (localStorage.getItem('jwt') != null) {
             if((route.url[0].path == 'login') || (route.url[0].path == 'register')) {
                 //logged in so redirect to profile
@@ -25,5 +26,6 @@ export class AuthGuard implements CanActivate {
             this.router.navigate(['/login'], { queryParams: { returnUrl: state.url }});
             return false;
         }
+         */
     }
 }

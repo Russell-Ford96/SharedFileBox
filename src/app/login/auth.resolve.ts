@@ -13,15 +13,6 @@ export class AuthResolve implements Resolve<any> {
     ){ }
     
     resolve(route: ActivatedRouteSnapshot): Promise<any> | boolean {
-        let token = localStorage.getItem('jwt');
-        return this.authService.verifyToken(token).then(res => {
-            if (res) {
-                return true;
-            } else { // id not found
-                if(route.url[0].path == 'login')
-                    this.router.navigate(['/login']);
-                return false;
-            }
-        });
+        return true;
     }
 }
