@@ -4,7 +4,7 @@ import {ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'request',
-  templateUrl: 'request.component.html',
+  templateUrl: 'admin.component.html',
   providers:[AppService]
 })
 export class RequestComponent implements  OnInit{

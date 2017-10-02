@@ -1,12 +1,20 @@
-import { Component }                            from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import { AuthService } from '../login/auth.service';
 
 @Component({
     selector: 'navbar',
     templateUrl: './navbar.component.html'
 })
-export class NavbarComponent { 
-    viewingReceived = true;
+export class NavbarComponent {
+
+ viewingReceived = true;
+  showSideBar= false;
+
+
+
+  toggleSideBar(): void {
+    this.showSideBar = !this.showSideBar;
+  }
 
     constructor(
         private authService: AuthService
