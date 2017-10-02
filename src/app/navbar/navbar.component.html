@@ -121,7 +121,7 @@
       </div>
 
       <!-- Collect the nav links, forms, and other content for toggling -->
-      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <div *ngIf="auth.isLoggedIn()" class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
         <ul class="nav navbar-nav navbar-right">
           <li class="nav-item"><a href="#"><i class="material-icons">mail</i></a></li>
           <li class="nav-item"><a href="#"><i class="material-icons">notifications_none</i></a></li>
@@ -133,9 +133,7 @@
     </div><!-- /.container-fluid -->
   </nav>
 
-  <div class="col-lg-8">
     <router-outlet></router-outlet>
-  </div>
 </div>
 
 

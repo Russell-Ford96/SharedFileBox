@@ -40,10 +40,9 @@
     }
 }
 </style>
-<div class="container-fluid" style="overflow: hidden; background: #FFFFFF">
+<div class="container-fluid" style="overflow: hidden;">
 
     <div class="row">
-
         <aside *ngIf="showRequestForm" class="request-form-wrap" style="position: absolute; border-left: 1px solid #DDDDDD ">
             <request-form (closeEvent)="toggleShowRequest()"></request-form>
         </aside>
@@ -82,7 +81,7 @@
             </tbody>
           </table>
 
-            <button class="btn btn-secondary" [disabled]="pageID ==0" (click)="updateTable(0)"> << </button>
+            <button class="btn btn-secondary" [disabled]="pageID == 0" (click)="updateTable(0)"> << </button>
             <button class="btn btn-secondary" [disabled]="pageID <= 0" (click)="updateTable(pageID-1)"> < </button>
             <button class="btn btn-secondary" [disabled]="pageID == maxPage" (click)="updateTable(pageID+1)"> > </button>
             <button class="btn btn-secondary" [disabled]="pageID == maxPage" (click)="updateTable(maxPage)"> >> </button>

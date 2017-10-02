@@ -12,7 +12,7 @@ import { TabsModule } from 'ng2-tabs';
 
 
 import { AppComponent } from './app.component';
-import { RequestComponent } from "./request/admin.component";
+import { AdminComponent } from "./admin/admin.component";
 import { RequestFormComponent } from './request-form/request-form.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { AppService } from './app.service';
@@ -22,7 +22,7 @@ import { FileUploadComponent } from "./file-upload/file-upload.component";
 import {LeftsidenavComponent} from "./leftsidenav/leftsidenav.component";
 
 import { FileUploadResolve } from "./file-upload/file-upload.resolve";
-import{ RequestResolve} from "./request/admin.resolve";
+import{ AdminResolve} from "./admin/admin.resolve";
 
 import {FileSelectDirective, FileDropDirective} from 'ng2-file-upload';
 
@@ -35,7 +35,7 @@ import { AuthGuard } from './auth.guard';
 @NgModule({
   declarations: [
     AppComponent,
-    RequestComponent,
+    AdminComponent,
     RequestFormComponent,
     NavbarComponent,
     FileUploadComponent,
@@ -71,7 +71,7 @@ import { AuthGuard } from './auth.guard';
         AuthGuard,
         AuthService,
         FileUploadResolve,
-        RequestResolve,
+        AdminResolve,
 
     ],
   bootstrap: [AppComponent]
