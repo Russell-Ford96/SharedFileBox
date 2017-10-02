@@ -1,0 +1,113 @@
+<style>
+  #sidebar .list-group-item {
+    background-color: rgb(0, 188, 212);
+    color: #FFFFFF;
+    white-space: nowrap;
+    border: none;
+  }
+
+  /* highlight active menu */
+  #sidebar .list-group-item:not(.collapsed) {
+    background-color: #FFFFFF;
+  }
+
+  /* closed state */
+  #sidebar .list-group .list-group-item[aria-expanded="false"]::after {
+    content: " \f0d7";
+    font-family: FontAwesome;
+    display: inline;
+    text-align: right;
+    padding-left: 5px;
+  }
+
+  /* open state */
+  #sidebar .list-group .list-group-item[aria-expanded="true"] {
+    background-color: #222;
+  }
+  #sidebar .list-group .list-group-item[aria-expanded="true"]::after {
+    content: " \f0da";
+    font-family: FontAwesome;
+    display: inline;
+    text-align: right;
+    padding-left: 0px;
+  }
+.list-group panel{
+  padding-left: 0px;
+
+}
+
+.panel{
+  border:none;
+}
+  /* level 1*/
+  #sidebar .list-group .collapse .list-group-item  {
+    padding-left: 0px;
+  }
+
+  /* level 2*/
+  #sidebar .list-group .collapse > .collapse .list-group-item {
+    padding-left: 30px;
+  }
+
+  /* level 3*/
+  #sidebar .list-group .collapse > .collapse > .collapse .list-group-item {
+    padding-left: 40px;
+  }
+
+  @media (max-width:48em) {
+    /* overlay sub levels on small screens */
+    #sidebar .list-group .collapse.in, #sidebar .list-group .collapsing {
+      position: absolute;
+      z-index: 1;
+      width: 190px;
+    }
+    #sidebar .list-group > .list-group-item {
+      text-align: center;
+      padding: .75rem .5rem;
+    }
+    /* hide caret icons of top level when collapsed */
+    #sidebar .list-group > .list-group-item[aria-expanded="true"]::after,
+    #sidebar .list-group > .list-group-item[aria-expanded="false"]::after {
+      display:none;
+    }
+  }
+
+  /* change transition animation to width when entire sidebar is toggled */
+  #sidebar.collapse {
+    -webkit-transition-timing-function: ease;
+    -o-transition-timing-function: ease;
+    transition-timing-function: ease;
+    -webkit-transition-duration: .2s;
+    -o-transition-duration: .2s;
+    transition-duration: .2s;
+  }
+
+  #sidebar.collapsing {
+    opacity: 0.8;
+    width: 0;
+    -webkit-transition-timing-function: ease-in;
+    -o-transition-timing-function: ease-in;
+    transition-timing-function: ease-in;
+    -webkit-transition-property: width;
+    -o-transition-property: width;
+    transition-property: width;
+
+  }
+
+</style>
+
+
+
+<div class="collapse in" id="sidebar" style="padding: 0px; background:rgb(0, 188, 212); height:100vh;">
+  <div class="list-group panel" >
+    <a href="#" class="list-group-item collapsed" data-parent="#sidebar"><i class="fa fa-home fa-2x"></i> <span class="hidden-sm-down">Dashboard</span></a>
+    <a href="#emailmenu" class="list-group-item collapsed" data-toggle="collapse" data-parent="#sidebar" aria-expanded="false"><i class="fa fa-envelope"></i><span class="hidden-sm-down"> Email</span></a>
+    <div class="collapse" id="emailmenu">
+      <a href="#" class="list-group-item" data-parent="#emailmenu">Inbox</a>
+      <a href="#" class="list-group-item" data-parent="#emailmenu">Trash</a>
+      <a href="#" class="list-group-item" data-parent="#emailmenu">Sent</a>
+    </div>
+
+  </div>
+</div>
+
