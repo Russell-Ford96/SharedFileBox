@@ -69,7 +69,6 @@ export class FileUploadComponent {
       //here we push the index of the file into formdata because it's the only place i could find that would hold the value.
       file.formData.push({ "index": this.fileIndex });
       file.formData.push({ "_id": this.docRequest._id });
-      console.log("FILE ON AFTER ADDING"+file);
     };
 
     //overide the onCompleteItem property of the uploader so we are
@@ -91,16 +90,16 @@ export class FileUploadComponent {
   messageSimulation(){
     setTimeout(() => {
       this.messageList[0].show = true;
-    },1000);
+    },500);
     setTimeout(() => {
       this.messageList[1].show = true;
-    },3000);
+    },1500);
 
     setTimeout(() => {
       for (var doc in this.docRequest.docArray) {
           this.docRequest.docArray[doc].show = true;
       }
-    },4000);
+    },2000);
 
 
 

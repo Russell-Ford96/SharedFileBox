@@ -48,14 +48,23 @@
               </li>
             </form>
 
+
+            <li class="left clearfix" *ngFor="let item of uploader.queue">
+              <span class="chat-img pull-left">
+                <img src="{{avatarService}}" alt="User Avatar">
+              </span>
+              <div class="chat-body clearfix">
+                <div class="header">
+                  <strong class="primary-font">{{ item.file.name }}</strong>
+                  <small class="pull-right text-muted"><i class="fa fa-clock-o"></i> 12 mins ago</small>
+                </div>
+                <p>Thanks the file {{ item.file.name }} is being uploaded </p>
+                <div class="progress" style="margin-bottom: 0;">
+                  <div class="progress-bar" role="progressbar" [ngStyle]="{ 'width': item.progress + '%' }"></div>
+                </div>
+
+              </div>
+            </li>
         </ul>
-    </div>
-    <div class="chat-box bg-white">
-      <div class="input-group">
-        <input class="form-control border no-shadow no-rounded" placeholder="Type your message here">
-        <span class="input-group-btn">
-          <button class="btn btn-success no-rounded" type="button">Send</button>
-        </span>
-      </div><!-- /input-group -->
     </div>
 </div>
