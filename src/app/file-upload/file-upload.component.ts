@@ -15,8 +15,7 @@ import { AppService } from '../app.service';
 })
 
 export class FileUploadComponent {
-  // public uploader: FileUploader = new FileUploader({ url: 'http://localhost:5000/api/upload', itemAlias: "single", autoUpload: true
-  public uploader: FileUploader = new FileUploader({ url: 'http://10.34.24.238:5000/api/upload', itemAlias: "single", autoUpload: true
+  public uploader: FileUploader = new FileUploader({ url: 'http://localhost:5000/api/upload', itemAlias: "single", autoUpload: true
   });
 
   id: any;
