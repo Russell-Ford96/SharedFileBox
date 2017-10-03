@@ -23,13 +23,16 @@ export class FileUploadComponent {
   docRequest: any;
   fileIndex: number;
   avatarService = '../../assets/avatar-chica.png';
+  dateUpdate: Date;
   messageList = [
     { avatar:'../../assets/avatar-chica.png',
       name:'Eva',
       msj:'Hello, thank you very much for using our services',
+      date: new Date(),
       show: false},
     { avatar:'../../assets/avatar-chica.png',
       name:'Eva',
+      date: new Date(),
       msj:'Please upload the requested documents to complete your application.',
       show: false
     }
@@ -61,20 +64,28 @@ export class FileUploadComponent {
         _id: item.formData[1]._id
       };
       this.docRequest.docArray[item.formData[0].index].attachment = "uploaded";
+
     };
 
     //override the onAfterAddingfile property of the uploader so it doesn't authenticate with //credentials.
     this.uploader.onAfterAddingFile = (file) => {
+      var audio = new Audio();
+          audio.src = "../../assets/send.wav";
+          audio.load();
       file.withCredentials = false;
       //here we push the index of the file into formdata because it's the only place i could find that would hold the value.
       file.formData.push({ "index": this.fileIndex });
       file.formData.push({ "_id": this.docRequest._id });
+      audio.play();
+      this.dateUpdate = new Date();
     };
 
     //overide the onCompleteItem property of the uploader so we are
     //able to deal with the server response.
     this.uploader.onCompleteItem = (item: any, response: any, status: any, headers: any) => {
+
       console.log("item uploaded: " + response);
+
       if(this.uploader.isUploading){
         console.log("All item uploaded");
       }
@@ -88,17 +99,27 @@ export class FileUploadComponent {
   }
 
   messageSimulation(){
+    var audio = new Audio();
+        audio.src = "../../assets/send.wav";
+        audio.load();
+
     setTimeout(() => {
+      audio.play();
+      this.messageList[0].date = new Date();
       this.messageList[0].show = true;
     },500);
     setTimeout(() => {
+      audio.play();
+      this.messageList[1].date = new Date();
       this.messageList[1].show = true;
     },1500);
 
     setTimeout(() => {
       for (var doc in this.docRequest.docArray) {
+          this.docRequest.docArray[doc].date = new Date();
           this.docRequest.docArray[doc].show = true;
       }
+      audio.play();
     },2000);
 
 

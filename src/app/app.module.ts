@@ -20,6 +20,7 @@ import {AppRoutingModule} from "./app-routing.module";
 
 import { AuthService } from "./login/auth.service";
 import { AuthGuard } from './auth.guard';
+import { MomentModule } from 'angular2-moment';
 
 @NgModule({
   declarations: [
@@ -37,7 +38,8 @@ import { AuthGuard } from './auth.guard';
     FormsModule,
     ReactiveFormsModule,
     HttpModule,
-    AppRoutingModule
+    AppRoutingModule,
+    MomentModule
   ],
     providers: [
         AppService,
