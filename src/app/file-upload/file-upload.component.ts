@@ -16,9 +16,9 @@ import { AppService } from '../app.service';
 
 export class FileUploadComponent {
   // public uploader: FileUploader = new FileUploader({ url: 'http://localhost:5000/api/upload', itemAlias: "single", autoUpload: true
-  public uploader: FileUploader = new FileUploader({ url: 'http://10.34.24.238:5000/api/upload', itemAlias: "single", autoUpload: true 
- }
-);
+  public uploader: FileUploader = new FileUploader({ url: 'http://10.34.24.238:5000/api/upload', itemAlias: "single", autoUpload: true
+  });
+
   id: any;
   docRequest: any;
   fileIndex: number;
@@ -69,13 +69,17 @@ export class FileUploadComponent {
       //here we push the index of the file into formdata because it's the only place i could find that would hold the value.
       file.formData.push({ "index": this.fileIndex });
       file.formData.push({ "_id": this.docRequest._id });
-      console.log(file);
+      console.log("FILE ON AFTER ADDING"+file);
     };
 
     //overide the onCompleteItem property of the uploader so we are
     //able to deal with the server response.
     this.uploader.onCompleteItem = (item: any, response: any, status: any, headers: any) => {
       console.log("item uploaded: " + response);
+      if(this.uploader.isUploading){
+        console.log("All item uploaded");
+      }
+
     };
     this.messageSimulation();
   }

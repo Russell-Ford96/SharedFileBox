@@ -35,9 +35,11 @@
                 <div class="chat-body clearfix">
                   <div class="header">
                     <strong class="primary-font">Eva</strong>
-                    
                     <small class="pull-right text-muted"><i class="fa fa-clock-o"></i> 13 mins ago</small>
                   </div>
+                  <p>
+                    Upload document {{doc.name}}
+                  </p>
                   <p>
                     <input type="file" class="form-control" name="single" (click)="updateFileIndex(i)" ng2FileSelect [uploader]="uploader" [disabled]="doc.attachment != null"/>
                     <a href="/view/{{doc.attachment}}">View uploaded file</a>
