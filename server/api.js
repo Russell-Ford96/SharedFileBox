@@ -56,8 +56,6 @@ router.get('/download/:file', function(req, res) {
             }
         });
 });
- 
-
 
 router.get('/getdoc/:id', (req, res) => {
         mongodb.MongoClient.connect(uri, function(err, db) {
@@ -155,8 +153,6 @@ router.post('/login', function (req, res, next) {
     });
 })
 
-
-
 router.post('/verify', function (req, res, next) {
     var decoded = jwt.verify(req.body.token, 'secret');
 
@@ -164,11 +160,6 @@ router.post('/verify', function (req, res, next) {
 
     return res.send(token);
 })
-
-
-
-
-
 
 
 router.post('/upload', function (req, res, next) {

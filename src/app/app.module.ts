@@ -1,14 +1,15 @@
 import { LocationStrategy, HashLocationStrategy } from '@angular/common';
-
-import { DropdownModule } from 'ng2-dropdown';
-import { ChartsModule } from 'ng2-charts/ng2-charts';
-
-import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { DropdownModule } from 'ng2-dropdown';
+import { ChartsModule } from 'ng2-charts/ng2-charts';
 import { TabsModule } from 'ng2-tabs';
+import {FileSelectDirective, FileDropDirective} from 'ng2-file-upload';
 
 
 import { AppComponent } from './app.component';
@@ -20,16 +21,15 @@ import { LoginFormComponent } from "./login/login.component";
 import { RegisterFormComponent } from "./register/register.component";
 import { FileUploadComponent } from "./file-upload/file-upload.component";
 import {LeftsidenavComponent} from "./leftsidenav/leftsidenav.component";
-
 import { FileUploadResolve } from "./file-upload/file-upload.resolve";
 import{ AdminResolve} from "./admin/admin.resolve";
-
-import {FileSelectDirective, FileDropDirective} from 'ng2-file-upload';
 
 import {AppRoutingModule} from "./app-routing.module";
 
 import { AuthService } from "./login/auth.service";
 import { AuthGuard } from './auth.guard';
+import { CallbackComponent } from './callback/callback.component';
+import { ProfileComponent } from './profile/profile.component';
 
 
 @NgModule({
@@ -43,9 +43,8 @@ import { AuthGuard } from './auth.guard';
       LoginFormComponent,
       RegisterFormComponent,
       LeftsidenavComponent,
-
-
-
+      CallbackComponent,
+      ProfileComponent
   ],
   imports: [
     BrowserModule,
@@ -59,20 +58,15 @@ import { AuthGuard } from './auth.guard';
     AppRoutingModule,
     DropdownModule,
     TabsModule,
-    ChartsModule
-
-
-
+      ChartsModule,
+      NgbModule.forRoot()
   ],
-
-
     providers: [
         AppService,
         AuthGuard,
         AuthService,
         FileUploadResolve,
         AdminResolve,
-
     ],
   bootstrap: [AppComponent]
 })

@@ -4,6 +4,9 @@ import { FileUploadComponent } from "./file-upload/file-upload.component";
 import { AdminComponent } from "./admin/admin.component";
 import { LoginFormComponent } from "./login/login.component";
 import { RegisterFormComponent } from "./register/register.component";
+import { CallbackComponent } from "./callback/callback.component";
+import { AppComponent } from "./app.component";
+import { ProfileComponent } from "./profile/profile.component";
 
 import { FileUploadResolve } from "./file-upload/file-upload.resolve";
 import {AdminResolve} from "./admin/admin.resolve";
@@ -20,7 +23,11 @@ const APP_ROUTES: Routes=[
     {path: '404', component: FileUploadComponent },
     {path: 'login', component: LoginFormComponent, canActivate: [AuthGuard] },
     {path: 'register', component: RegisterFormComponent, canActivate: [AuthGuard] },
-    {path: 'navbar', component: NavbarComponent, canActivate: [AuthGuard] },
+    {path: 'profile', component: ProfileComponent },
+    {path: 'admin', component: AdminComponent, canActivate: [AuthGuard], resolve:   { docRequests: AdminResolve} },
+    {path: 'upload/:id', component: FileUploadComponent, resolve: { docRequest: FileUploadResolve } },
+    {path: '404', component: FileUploadComponent },
+    { path: 'callback', component: CallbackComponent },
     {path: '*', redirectTo: '/404', pathMatch: 'full'}
 
 ];

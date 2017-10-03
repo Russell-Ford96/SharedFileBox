@@ -6,19 +6,17 @@ import { AuthService } from '../login/auth.service';
     templateUrl: './navbar.component.html'
 })
 export class NavbarComponent {
-
- viewingReceived = true;
-  showSideBar= false;
-
-
-
-  toggleSideBar(): void {
-    this.showSideBar = !this.showSideBar;
-  }
+    viewingReceived = true;
+    showSideBar= false;
 
     constructor(
         private authService: AuthService
     ) {}
+
+
+    toggleSideBar(): void {
+        this.showSideBar = !this.showSideBar;
+    }
 
     toggleView(status: boolean): void {
         this.viewingReceived = status;
