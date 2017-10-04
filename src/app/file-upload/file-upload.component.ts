@@ -99,12 +99,12 @@ export class FileUploadComponent {
       this.audio.play();
       this.messageList[0].date = new Date();
       this.messageList[0].show = true;
-    }, 500);
+    }, 100);
     setTimeout(() => {
       this.audio.play();
       this.messageList[1].date = new Date();
       this.messageList[1].show = true;
-    }, 1500);
+    }, 900);
 
     setTimeout(() => {
       this.audio.play();
@@ -112,9 +112,7 @@ export class FileUploadComponent {
         this.docRequest.docArray[doc].date = new Date();
         this.docRequest.docArray[doc].show = true;
       }
-    }, 2500);
-
-
+    }, 1700);
 
   }
 
