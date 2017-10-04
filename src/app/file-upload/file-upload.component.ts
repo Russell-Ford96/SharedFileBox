@@ -15,24 +15,28 @@ import { AppService } from '../app.service';
 })
 
 export class FileUploadComponent {
-  public uploader: FileUploader = new FileUploader({ url: 'http://localhost:5000/api/upload', itemAlias: "single", autoUpload: true
+  public uploader: FileUploader = new FileUploader({
+    url: 'http://localhost:5000/api/upload', itemAlias: "single", autoUpload: true
   });
-
+  audio = new Audio();
   id: any;
   docRequest: any;
   fileIndex: number;
   avatarService = '../../assets/avatar-chica.png';
   dateUpdate: Date;
   messageList = [
-    { avatar:'../../assets/avatar-chica.png',
-      name:'Eva',
-      msj:'Hello, thank you very much for using our services',
+    {
+      avatar: this.avatarService,
+      name: 'Eva',
+      msj: 'Hello, thank you very much for using our services',
       date: new Date(),
-      show: false},
-    { avatar:'../../assets/avatar-chica.png',
-      name:'Eva',
+      show: false
+    },
+    {
+      avatar: this.avatarService,
+      name: 'Eva',
       date: new Date(),
-      msj:'Please upload the requested documents to complete your application.',
+      msj: 'Please upload the requested documents to complete your application.',
       show: false
     }
   ];
@@ -42,6 +46,9 @@ export class FileUploadComponent {
     private route: ActivatedRoute
   ) {
     this.id = route.params.map(p => p.id);
+
+    this.audio.src = "../../assets/send.wav";
+    this.audio.load();
   }
 
   ngOnInit() {
@@ -53,8 +60,6 @@ export class FileUploadComponent {
           this.docRequest.docArray[doc].show = false;
         }
       });
-    console.log(this.docRequest);
-    console.log(this.messageList);
 
     this.uploader.onBeforeUploadItem = (item: any) => {
       item.withCredentials = false;
@@ -68,26 +73,17 @@ export class FileUploadComponent {
 
     //override the onAfterAddingfile property of the uploader so it doesn't authenticate with //credentials.
     this.uploader.onAfterAddingFile = (file) => {
-      var audio = new Audio();
-          audio.src = "../../assets/send.wav";
-          audio.load();
       file.withCredentials = false;
       //here we push the index of the file into formdata because it's the only place i could find that would hold the value.
+      this.audio.play();
       file.formData.push({ "index": this.fileIndex });
       file.formData.push({ "_id": this.docRequest._id });
-      audio.play();
       this.dateUpdate = new Date();
     };
 
     //overide the onCompleteItem property of the uploader so we are
     //able to deal with the server response.
     this.uploader.onCompleteItem = (item: any, response: any, status: any, headers: any) => {
-
-      console.log("item uploaded: " + response);
-
-      if(this.uploader.isUploading){
-        console.log("All item uploaded");
-      }
 
     };
     this.messageSimulation();
@@ -97,29 +93,26 @@ export class FileUploadComponent {
     this.fileIndex = index;
   }
 
-  messageSimulation(){
-    var audio = new Audio();
-        audio.src = "../../assets/send.wav";
-        audio.load();
+  messageSimulation() {
 
     setTimeout(() => {
-      audio.play();
+      this.audio.play();
       this.messageList[0].date = new Date();
       this.messageList[0].show = true;
-    },500);
+    }, 500);
     setTimeout(() => {
-      audio.play();
+      this.audio.play();
       this.messageList[1].date = new Date();
       this.messageList[1].show = true;
-    },1500);
+    }, 1500);
 
     setTimeout(() => {
+      this.audio.play();
       for (var doc in this.docRequest.docArray) {
-          this.docRequest.docArray[doc].date = new Date();
-          this.docRequest.docArray[doc].show = true;
+        this.docRequest.docArray[doc].date = new Date();
+        this.docRequest.docArray[doc].show = true;
       }
-      audio.play();
-    },2000);
+    }, 2500);
 
 
 

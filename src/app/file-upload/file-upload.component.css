@@ -1,10 +1,12 @@
 .chat-message {
-  padding: 60px 20px 115px;
+  padding: 20px 20px 115px 0px;
+  border-radius: 2em;
 }
 
 .chat {
     list-style: none;
     margin: 0;
+     padding-left: 20px;
 }
 
 .chat-message{
@@ -28,7 +30,7 @@ img {
 }
 
 .chat li.left .chat-body {
-  margin-left: 70px;
+  margin-left: 65px;
   background-color: #fff;
 }
 
@@ -37,6 +39,7 @@ img {
   font-size: 11px;
   padding: 10px;
   border: 1px solid #f1f5fc;
+  border-radius: 0.8em;
   box-shadow: 0 1px 1px rgba(0,0,0,.05);
   -moz-box-shadow: 0 1px 1px rgba(0,0,0,.05);
   -webkit-box-shadow: 0 1px 1px rgba(0,0,0,.05);
