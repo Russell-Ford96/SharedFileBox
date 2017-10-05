@@ -4,10 +4,10 @@ import {ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'request',
-  templateUrl: 'request.component.html',
+  templateUrl: 'admin.component.html',
   providers:[AppService]
 })
-export class RequestComponent implements  OnInit{
+export class AdminComponent implements  OnInit{
 
   TableData: any;
   pageID = 0;

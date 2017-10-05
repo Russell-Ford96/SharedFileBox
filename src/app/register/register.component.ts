@@ -75,7 +75,7 @@ export class RegisterFormComponent implements OnInit {
         }
     }
     save(): void {
-        this.authService.register(this.credentials).then(res => this.displayServerMessage(res));
+        alert("modified this");
     }
     reset(): void {
         this.registerForm.setValue({

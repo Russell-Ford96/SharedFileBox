@@ -3,7 +3,7 @@ import { Router, Resolve, ActivatedRouteSnapshot } from '@angular/router';
 import { AppService } from '../app.service';
 
 @Injectable()
-export class RequestResolve implements Resolve<any> {
+export class AdminResolve implements Resolve<any> {
   constructor(
     private appService: AppService,
     private router: Router,
