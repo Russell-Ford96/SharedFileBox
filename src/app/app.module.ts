@@ -28,9 +28,11 @@ import {AppRoutingModule} from "./app-routing.module";
 
 import { AuthService } from "./login/auth.service";
 import { AuthGuard } from './auth.guard';
+
 import { CallbackComponent } from './callback/callback.component';
 import { ProfileComponent } from './profile/profile.component';
 
+import { MomentModule } from 'angular2-moment';
 
 @NgModule({
   declarations: [
@@ -59,7 +61,8 @@ import { ProfileComponent } from './profile/profile.component';
     DropdownModule,
     TabsModule,
       ChartsModule,
-      NgbModule.forRoot()
+      NgbModule.forRoot(),
+    MomentModule
   ],
     providers: [
         AppService,
