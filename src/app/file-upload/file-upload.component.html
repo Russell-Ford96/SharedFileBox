@@ -8,94 +8,63 @@
 <div style="text-align: center">
   <h4 style="font-weight: bold">Documents Upload</h4>
 </div>
-<div class="container" >
-  <div class="row">
-    <div class="col-md-8">
 
-      <div id="sidebar" style="font-family: carnas; font-size: 15px" >
-        <p id="date" style="text-align: right"></p>
-        <p>Hello, <br>Please upload the requested documents to complete your application.</p>
-        <br>
-      </div>
-
-        <form>
-     <!--   <div class="form-group">
-          <label for="multiple">Multiple</label>
-          <input type="file" class="form-control" name="multiple" ng2FileSelect [uploader]="uploader" multiple  />
-        </div> -->
-
-        <div *ngIf="docRequest">
-            <div *ngFor="let doc of docRequest.docArray; let i = index"  class="form-group" >
-              <label for="single" style="font-family: carnas;">{{doc.name}}</label>
-              <input type="file" class="form-control" name="single" (click)="updateFileIndex(i)" ng2FileSelect [uploader]="uploader" [disabled]="doc.attachment != null"/>
-              <a href="/view/{{doc.attachment}}">View uploaded file</a>
-            </div>
+<div class="col-md-8 bg-white ">
+  <div class="chat-message">
+    <ul class="chat">
+      <li class="left clearfix" *ngFor="let msj of messageList; let i = index" [hidden]="!msj.show">
+        <span class="chat-img pull-left">
+                <img src="{{msj.avatar}}" alt="User Avatar">
+              </span>
+        <div class="chat-body clearfix">
+          <div class="header">
+            <strong class="primary-font">{{msj.name}}</strong>
+            <small class="pull-right text-muted"><i class="fa fa-clock-o"></i> {{ msj.date | amTimeAgo:true}}</small>
+          </div>
+          <p>
+            {{msj.msj}}
+          </p>
         </div>
+      </li>
+
+      <form>
+        <li class="left clearfix" *ngFor="let doc of docRequest.docArray; let i = index" [hidden]="!doc.show">
+          <span class="chat-img pull-left">
+                  <img src="{{avatarService}}" alt="User Avatar">
+                </span>
+          <div class="chat-body clearfix">
+            <div class="header">
+              <strong class="primary-font">Eva</strong>
+              <small class="pull-right text-muted"><i class="fa fa-clock-o"></i> {{ doc.date | amTimeAgo:true}}</small>
+            </div>
+            <p>
+              Upload document {{doc.name}}
+            </p>
+            <p>
+              <input type="file" class="form-control" name="single" (click)="updateFileIndex(i)" ng2FileSelect [uploader]="uploader" [disabled]="doc.attachment != null" />
+              <!-- <a href="/view/{{doc.attachment}}">View uploaded file</a> -->
+            </p>
+          </div>
+        </li>
       </form>
 
-      Queue length: {{ uploader?.queue?.length }}
 
-      <table class="table">
-        <thead>
-        <tr>
-          <th width="50%">Name</th>
-          <th>Size</th>
-          <th>Progress</th>
-          <th>Status</th>
-          <th>Actions</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr *ngFor="let item of uploader.queue">
-          <td><strong>{{ item.file.name }}</strong></td>
-          <td nowrap>{{ item.file.size/1024/1024 | number:'.2' }} MB</td>
-          <td>
-            <div class="progress" style="margin-bottom: 0;">
-              <div class="progress-bar" role="progressbar" [ngStyle]="{ 'width': item.progress + '%' }"></div>
-            </div>
-          </td>
-          <td class="text-center">
-            <span *ngIf="item.isSuccess"><i class="glyphicon glyphicon-ok"></i></span>
-            <span *ngIf="item.isCancel"><i class="glyphicon glyphicon-ban-circle"></i></span>
-            <span *ngIf="item.isError"><i class="glyphicon glyphicon-remove"></i></span>
-          </td>
-          <td nowrap>
-            <button type="button" class="btn btn-primary btn-xs"
-                    (click)="item.upload()" [disabled]="item.isReady || item.isUploading || item.isSuccess">
-              <span class="glyphicon glyphicon-upload"></span> Upload
-            </button>
-            <button type="button" class="btn btn-primary btn-xs"
-                    (click)="item.cancel()" [disabled]="!item.isUploading">
-              <span class="glyphicon glyphicon-ban-circle"></span> Cancel
-            </button>
-            <button type="button" class="btn btn-primary btn-xs"
-                    (click)="item.remove()">
-              <span class="glyphicon glyphicon-trash"></span> Remove
-            </button>
-          </td>
-        </tr>
-        </tbody>
-      </table>
-
-      <div>
-        <div>
-          Queue progress:
-          <div class="progress" style="">
-            <div class="progress-bar" role="progressbar" [ngStyle]="{ 'width': uploader.progress + '%' }"></div>
+      <li class="left clearfix" *ngFor="let item of uploader.queue">
+        <span class="chat-img pull-left">
+                <img src="{{avatarService}}" alt="User Avatar">
+              </span>
+        <div class="chat-body clearfix">
+          <div class="header">
+            <strong class="primary-font">{{ item.file.name }}</strong>
+            <small class="pull-right text-muted"><i class="fa fa-clock-o"></i> {{dateUpdate | amTimeAgo:true}}</small>
           </div>
-        </div>
-        <button type="button" class="btn btn-primary btn-s"
-                (click)="uploader.cancelAll()" [disabled]="!uploader.isUploading">
-          <span class="glyphicon glyphicon-ban-circle"></span> Cancel all
-        </button>
-        <button type="button" class="btn btn-primary btn-s"
-                (click)="uploader.clearQueue()" [disabled]="!uploader.queue.length">
-          <span class="glyphicon glyphicon-trash"></span> Remove all
-        </button>
-      </div>
-    </div>
-    <div class="col-md-4">
+          <p>Thanks the file {{ item.file.name }} is being uploaded </p>
+          <div class="progress" style="margin-bottom: 0;">
+            <div class="progress-bar" role="progressbar" [ngStyle]="{ 'width': item.progress + '%' }"></div>
+          </div>
 
-    </div>
+        </div>
+      </li>
+    </ul>
   </div>
 </div>
