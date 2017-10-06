@@ -1,0 +1,53 @@
+<div class="row">
+  <div class="col-lg-12">
+    <div class="card">
+      <div class="card-header">
+        <i class="fa fa-align-justify"></i>Requests
+      </div>
+      <div class="card-body">
+        <table class="table table-bordered table-striped table-sm">
+          <thead>
+          <tr>
+            <th>ID</th>
+            <th>Email</th>
+            <th>Phone</th>
+            <th>Documents</th>
+            <th>Message</th>
+            <th>Received</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let item of TableData">
+            <td>{{item._id}}</td>
+            <td>{{item.email}}</td>
+            <td>{{item.phone}}</td>
+
+            <td>
+              <div *ngFor="let doc of item.docArray;">
+                  {{doc.name}}
+
+              </div>
+
+            </td>
+
+
+
+            <td>{{item.thanks}}</td>
+            <td>
+              {{item.numReceivedDocs}} Of {{item.docArray.length}}
+            </td>
+
+
+
+          </tr>
+          </tbody>
+        </table>
+        <button class="btn btn-secondary" [disabled]="pageID == 0" (click)="updateTable(0)"> << </button>
+        <button class="btn btn-secondary" [disabled]="pageID <= 0" (click)="updateTable(pageID-1)"> < </button>
+        <button class="btn btn-secondary" [disabled]="pageID == maxPage" (click)="updateTable(pageID+1)"> > </button>
+        <button class="btn btn-secondary" [disabled]="pageID == maxPage" (click)="updateTable(maxPage)"> >> </button>
+      </div>
+    </div>
+  </div>
+  <!--/.col-->
+</div>
