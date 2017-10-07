@@ -6,34 +6,14 @@ import { FullLayoutComponent } from './layouts/full-layout.component';
 import { SimpleLayoutComponent } from './layouts/simple-layout.component';
 import {DashboardComponent} from "./dashboard/dashboard.component";
 import {DashboardResolve} from "./dashboard/dashboard.resolve";
-import {AuthGuard} from "./auth.guard";
-import {LoginGuard} from "./login.guard";
+import {AuthGuard} from "./auth/auth.guard";
+import {LoginGuard} from "./auth/login.guard";
 import {LoginFormComponent} from "./login/login.component";
 import {FileUploadComponent} from "./file-upload/file-upload.component";
 import {FileUploadResolve} from "./file-upload/file-upload.resolve";
-import {CallbackComponent} from "./callback/callback.component";
-import {PageNotfoundComponent} from "./page-notfound/page-notfound.component";
+import {PageNotFoundComponent} from "./page-notfound/page-notfound.component";
 
 export const routes: Routes = [
-
-  {
-    path: 'login',
-    component: LoginFormComponent,
-    canActivate: [LoginGuard]
-  },
-  {
-    path: 'upload/:id',
-    component: FileUploadComponent
-  },
-  {
-    path: 'callback',
-    component: CallbackComponent
-  },
-  {
-    path: '404',
-    component: PageNotfoundComponent
-  },
-
   {
     path: '',
     component: FullLayoutComponent,
@@ -57,11 +37,26 @@ export const routes: Routes = [
         component: FileUploadComponent,
         resolve: { docRequest: FileUploadResolve }
       }*/
-
     ]
   },
-
-
+  {
+    path: 'login',
+    component: LoginFormComponent,
+    canActivate: [LoginGuard]
+  },
+  {
+    path: 'upload/:id',
+    component: FileUploadComponent
+  },
+  {
+    path: '404',
+    component: PageNotFoundComponent
+  },
+  {
+    path: '*',
+    redirectTo: '/404',
+    pathMatch: "full"
+  }
 ];
 
 @NgModule({
