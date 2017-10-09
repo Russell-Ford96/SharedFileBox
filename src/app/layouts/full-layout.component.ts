@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {AuthService} from "../auth/auth.service";
+import { Router } from "@angular/router";
 
 @Component({
   selector: 'app-dashboard',
@@ -11,7 +12,8 @@ export class FullLayoutComponent implements OnInit {
   public status: {isopen: boolean} = {isopen: false};
 
   constructor(
-    private authService: AuthService
+      private authService: AuthService,
+      private router: Router
   ) {}
 
 
@@ -25,9 +27,12 @@ export class FullLayoutComponent implements OnInit {
     this.status.isopen = !this.status.isopen;
   }
 
+  goToProfile() {
+      this.router.navigate(['/profile']);
+  }
+
   logout() {
     this.authService.logout();
-    console.log("logout called");
   }
   ngOnInit(): void {}
 }

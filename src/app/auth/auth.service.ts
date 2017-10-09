@@ -5,6 +5,7 @@ import * as auth0 from 'auth0-js';
 
 @Injectable()
 export class AuthService {
+    userProfile: any;
 
   auth0 = new auth0.WebAuth({
     clientID: 'AeIpMm_OsQ74YfamK_ul_-kme5SQKdFD',
@@ -12,7 +13,7 @@ export class AuthService {
     responseType: 'token id_token',
     audience: 'https://senddoc.auth0.com/userinfo',
     redirectUri: 'http://localhost:5000/dashboard',
-    scope: 'openid profile roles'
+    scope: 'openid profile email roles'
   });
 
   constructor(public router: Router) {}
@@ -58,7 +59,6 @@ export class AuthService {
     return new Date().getTime() < expiresAt;
   }
 
-    userProfile: any;
 
     //...
     public getProfile(cb): void {

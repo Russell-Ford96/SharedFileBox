@@ -30,8 +30,6 @@ app.use('/api', api);
 
 
 app.all('/*', function(req, res, next) {
-  // Just send the index.html for other files to support HTML5Mode
-  console.log(__dirname);
   res.sendFile('dist/index.html', { root: __dirname });
 });
 

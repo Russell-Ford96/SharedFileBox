@@ -1,6 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
 import { FormArray, FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { AppService } from '../app.service';
+import { AuthService } from '../auth/auth.service';
 
 @Component({
   selector: 'request-form',
@@ -14,10 +15,12 @@ export class MessageComponent implements OnInit{
   requestForm: FormGroup;
   myForm: FormGroup;
   submitted = false;
+  profile: any;
 
   constructor(
     private fb: FormBuilder,
-    private appService: AppService
+      private appService: AppService,
+      private auth: AuthService
   ) { }
 
   callParent() {
@@ -25,6 +28,13 @@ export class MessageComponent implements OnInit{
   }
 
   ngOnInit(): void {
+    if (this.auth.userProfile) {
+      this.profile = this.auth.userProfile;
+    } else {
+      this.auth.getProfile((err, profile) => {
+        this.profile = profile;
+      });
+    }
     this.buildForm();
   }
 
@@ -34,7 +44,8 @@ export class MessageComponent implements OnInit{
 
   }
   save(): void {
-    console.log(this.requestForm.value);
+    let formValues = this.requestForm.value;
+    formValues.createdBy = this.profile.sub.split("|")[1];
     this.appService.createRequest(this.requestForm.value)
       .then(res => {
         if(res._body != "false") {
@@ -49,7 +60,6 @@ export class MessageComponent implements OnInit{
   }
   buildForm(): void {
     this.requestForm = this.fb.group({
-
       'refnumb':['',[
         Validators.required
       ]

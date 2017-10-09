@@ -35,6 +35,7 @@ import {FileUploadComponent} from "./file-upload/file-upload.component";
 import {FileUploadResolve} from "./file-upload/file-upload.resolve";
 import {FileSelectDirective} from "ng2-file-upload";
 import {PageNotFoundComponent} from "./page-notfound/page-notfound.component";
+import { ProfileComponent } from "./profile/profile.component";
 
 
 const routes: Routes = [
@@ -63,8 +64,8 @@ const routes: Routes = [
     LoginFormComponent,
     FileUploadComponent,
     FileSelectDirective,
-    PageNotFoundComponent
-
+    PageNotFoundComponent,
+    ProfileComponent
   ],
   providers: [{
     provide: LocationStrategy,

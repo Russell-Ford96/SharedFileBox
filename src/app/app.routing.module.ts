@@ -12,6 +12,7 @@ import {LoginFormComponent} from "./login/login.component";
 import {FileUploadComponent} from "./file-upload/file-upload.component";
 import {FileUploadResolve} from "./file-upload/file-upload.resolve";
 import {PageNotFoundComponent} from "./page-notfound/page-notfound.component";
+import { ProfileComponent } from "./profile/profile.component";
 
 export const routes: Routes = [
   {
@@ -30,23 +31,23 @@ export const routes: Routes = [
       },
       {
         path: 'message',
-        loadChildren: './Message/Message.module#MessageModule'
+        loadChildren: './Message/message.module#MessageModule'
       },
-     /* {
+      {
         path:'upload/:id',
         component: FileUploadComponent,
         resolve: { docRequest: FileUploadResolve }
-      }*/
+      },
+      {
+        path: 'profile',
+        component: ProfileComponent
+      }
     ]
   },
   {
     path: 'login',
     component: LoginFormComponent,
     canActivate: [LoginGuard]
-  },
-  {
-    path: 'upload/:id',
-    component: FileUploadComponent
   },
   {
     path: '404',

@@ -58,7 +58,6 @@ router.get('/download/:file', function(req, res) {
 });
 
 router.get('/getdoc/:id', (req, res) => {
-    console.log('------>')
         mongodb.MongoClient.connect(uri, function(err, db) {
             if(err){
                 console.log(err);
@@ -69,7 +68,6 @@ router.get('/getdoc/:id', (req, res) => {
             var o_id = new mongodb.ObjectID(req.params.id);
 
             var docRequestCollection = db.collection('docRequest');
-            console.log(docRequestCollection);
             docRequestCollection.findOne({ _id: o_id }, function(err, result) {
                 if (err) {
                  console.log(err);
@@ -83,88 +81,10 @@ router.get('/getdoc/:id', (req, res) => {
         });
 });
 
-router.post('/register', function (req, res, next) {
-    mongodb.MongoClient.connect(uri, function(err, db) {
-        if(err){
-            console.log(err);
-        }
-
-
-        var userCollection = db.collection('users');
-        var existingRecord = userCollection.findOne({ email: req.body.email }, function(err, result) {
-            if (err) {
-                console.log(err);
-            }
-            var password = req.body.password;
-
-            if(result == null) {
-                bcrypt.genSalt(saltRounds, function(err, salt) {
-                    bcrypt.hash(password, salt, function(err, hash) {
-
-                        db.collection('users').insert({email: req.body.email, password: hash}, function(err, result) {
-                            if(err) {
-                                console.log(err);
-                            }
-                            else {
-                                res.send("success");
-                                db.close();
-                            }
-                        });
-                    });
-                });
-
-            } else {
-                db.close();
-                return res.status(422).send("User already exists.");
-            }
-        });
-    });
-})
-
-router.post('/login', function (req, res, next) {
-    mongodb.MongoClient.connect(uri, function(err, db) {
-        if(err){
-            console.log(err);
-        }
-
-
-        var userCollection = db.collection('users');
-        var existingRecord = userCollection.findOne({ email: req.body.email }, function(err, result) {
-            if (err) console.log(err);
-            var password = req.body.password;
-
-            if(result == null) {
-                return res.status(422).send("Invalid username or pass.");
-            }
-            else {
-
-                bcrypt.compare(password, result.password, function(b_err, b_result) {
-                    if(result) {
-                        var token = jwt.sign(result, 'secret');
-                        res.setHeader('Content-Type', 'application/json');
-                        res.send(JSON.stringify(token));
-                    } else {
-                        res.send(JSON.stringify(""));
-                    }
-                });
-            }
-
-            db.close();
-
-        });
-    });
-})
-
-router.post('/verify', function (req, res, next) {
-    var decoded = jwt.verify(req.body.token, 'secret');
-
-    //TODO: check data in token vs data in db
-
-    return res.send(token);
-})
 
 
 router.post('/upload', function (req, res, next) {
+
     upload(req, res, function (err) {
        if (err) {
          // An error occurred when uploading
@@ -173,22 +93,22 @@ router.post('/upload', function (req, res, next) {
        }
 
     let path = req.file.path;
-    let fileName = req.file.filename;
+    let fileName = req.body._refnumb + '/' + req.file.filename;
+    var containerName = req.body.createdBy;
 
-    blobSvc.createContainerIfNotExists('mycontainer', function(error, result, response){
+
+    blobSvc.createContainerIfNotExists(containerName, function(error, result, response){
         if(!error){
-          // Container exists and is private
+          blobSvc.createBlockBlobFromLocalFile(containerName, fileName, path, function(error, result, response){
+            if(!error){
+              // file uploaded
+            } else {
+                return res.status(500).send("An error occured");
+            }
+          });
         } else {
             return res.status(500).send("An error has occured.");
         }
-    });
-
-    blobSvc.createBlockBlobFromLocalFile('mycontainer', fileName, path, function(error, result, response){
-      if(!error){
-        // file uploaded
-      } else {
-          return res.status(500).send("An error occured");
-      }
     });
 
     mongodb.MongoClient.connect(uri, function(err, db) {
@@ -209,6 +129,8 @@ router.post('/upload', function (req, res, next) {
             }
 
             result.docArray[index].attachment = fileName;
+            result.docArray[index].fileName = req.file.filename;
+            result.docArray[index].docName = req.body._namedoc;
             db.collection("docRequest").updateOne({ _id: o_id }, result, function(err, res) {
                 if (err) console.log(err);
                 console.log("1 document updated");
@@ -256,13 +178,9 @@ router.get('/maxpage',function(req,res) {
       }
       var maxPage=Math.floor(result/8).toString();
 
-      console.log(maxPage);
       return res.status(200).send(maxPage);
 
     });
-
-
-
   });
 });
 
@@ -271,33 +189,57 @@ router.get('/maxpage',function(req,res) {
 router.post('/create', (req, res) => {
     var toNumber = req.body.phone;
     var ourNumber = "+12016883122";
-    var message = req.body.message;
+    var shortMessage = req.body.shortmessage;
+    var detailedMessage = req.body.detailedmessage;
     var success = true;
-
+    var reqReferenceNum = req.body.refnum;
 
     mongodb.MongoClient.connect(uri, function(err, db) {
         if(err){
             console.log(err);
         }
         var reqDocs = db.collection('docRequest');
-        reqDocs.insert(req.body, function(err, result) {
-            if(err) res.send("false");
-            else {
-                var id = result.insertedIds[0];
-                client.messages.create({
-                    to: toNumber,
-                    from: ourNumber,
-                    body: "localhost:5000/upload/" + id
-                }, function(err, message) {
-                    console.log("an error has occured in api/create");
-                    //console.log(err);
-                    //console.log(message);
-                });
-                res.send(id);
+        //
+        var existingRef = reqDocs.findOne({ refnum: reqReferenceNum }, function(err, result) {
+            if (err){
+                console.log(err);
+            }
+            if(result.refnum != null) {
+                return res.send("Invalid Reference Number.");
+            }
+            else{
+              reqDocs.insert(req.body, function(err, result) {
+                  if(err)
+                      res.send("An error has occured");
+                      else {
+                          var id = result.insertedIds[0];
+                          client.messages.create({
+                              to: toNumber,
+                              from: ourNumber,
+                              body: detailedMessage
+                          }, function(err, message) {
+                                if(err){
+                                    return res.send(err)
+                                }
+                          });
+                          client.messages.create({
+                              to: toNumber,
+                              from: ourNumber,
+                              body: "localhost:5000/upload/" + id
+                          }, function(err, message) {
+                              if(err) {
+                                  return res.send(err)
+                              }
+                              console.log(message);
+                          });
+                          res.send(id);
+                      }
+              })
+
+              db.close();
             }
         });
-
-    });
+    })
 })
 
 module.exports = router;
