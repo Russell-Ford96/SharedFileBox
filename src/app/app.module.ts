@@ -19,7 +19,6 @@ import { AsideToggleDirective } from './shared/aside.directive';
 import { BreadcrumbsComponent } from './shared/breadcrumb.component';
 import { FullLayoutComponent } from './layouts/full-layout.component';
 import { SimpleLayoutComponent } from './layouts/simple-layout.component';
-import {DashboardResolve} from "./dashboard/dashboard.resolve";
 import {DashboardModule} from "./dashboard/dashboard.module";
 
 
@@ -72,7 +71,6 @@ const routes: Routes = [
     useClass: PathLocationStrategy
   },
     AppService,
-    DashboardResolve,
     AuthService,
     AuthGuard,
     LoginGuard,

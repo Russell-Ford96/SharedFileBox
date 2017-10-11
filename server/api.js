@@ -165,26 +165,6 @@ router.get('/getreq/:pageID/:createdBy',function (req,res) {
 });
 
 
-router.get('/maxpage/:createdBy',function(req,res) {
-  mongodb.MongoClient.connect(uri, function (err, db) {
-    if (err) {
-      throw err;
-    }
-    var docRequestCollection = db.collection('docRequest');
-
-
-    docRequestCollection.find({ createdBy: req.params.createdBy },{}).toArray( function (err, results) {
-      if (err) {
-        console.log(err);
-        return res.status(500).send("There was a problem finding the docrequests.");
-      }
-        let maxPage = Math.floor(results.length/8).toString();
-        return res.status(200).send(maxPage);
-    });
-
-
-  });
-});
 
 
 
@@ -211,29 +191,28 @@ router.post('/create', (req, res) => {
             else{
               reqDocs.insert(req.body, function(err, result) {
                   if(err)
-                      res.send("An error has occured");
-                      else {
-                          var id = result.insertedIds[0];
-                          client.messages.create({
-                              to: toNumber,
-                              from: ourNumber,
-                              body: detailedMessage
-                          }, function(err, message) {
-                                if(err){
-                                    return res.send(err)
-                                }
-                          });
-                          client.messages.create({
-                              to: toNumber,
-                              from: ourNumber,
-                              body: "https://sharedfilebox.azurewebsites.net/upload/" + id
-                          }, function(err, message) {
+                      return res.send("An error has occured");
+                  else {
+                    var id = result.insertedIds[0];
+                    client.messages.create({
+                      to: toNumber,
+                      from: ourNumber,
+                      body: detailedMessage
+                    }, function(err, message) {
+                        if(err){
+                          console.log(err);
+                        }
+                    });
+                    client.messages.create({
+                      to: toNumber,
+                      from: ourNumber,
+                        body: "https://sharedfilebox.azurewebsites.net/upload/" + id
+                      }, function(err, message) {
                               if(err) {
-                                  return res.send(err)
+                                console.log(err);
                               }
-                              console.log(message);
                           });
-                          res.send(id);
+                          return res.send(id);
                       }
               })
 

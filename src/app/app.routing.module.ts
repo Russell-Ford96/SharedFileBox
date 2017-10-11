@@ -5,7 +5,6 @@ import { Routes, RouterModule } from '@angular/router';
 import { FullLayoutComponent } from './layouts/full-layout.component';
 import { SimpleLayoutComponent } from './layouts/simple-layout.component';
 import {DashboardComponent} from "./dashboard/dashboard.component";
-import {DashboardResolve} from "./dashboard/dashboard.resolve";
 import {AuthGuard} from "./auth/auth.guard";
 import {LoginGuard} from "./auth/login.guard";
 import {LoginFormComponent} from "./login/login.component";
@@ -15,6 +14,25 @@ import {PageNotFoundComponent} from "./page-notfound/page-notfound.component";
 import { ProfileComponent } from "./profile/profile.component";
 
 export const routes: Routes = [
+  {
+    path: 'login',
+    component: LoginFormComponent,
+    canActivate: [LoginGuard]
+  },
+  {
+    path: 'upload/:id',
+    component: FileUploadComponent,
+    resolve: { docRequest: FileUploadResolve }
+  },
+  {
+    path: '404',
+    component: PageNotFoundComponent
+  },
+  {
+    path: '*',
+    redirectTo: '/404',
+    pathMatch: "full"
+  },
   {
     path: '',
     component: FullLayoutComponent,
@@ -33,30 +51,12 @@ export const routes: Routes = [
         loadChildren: './Message/message.module#MessageModule'
       },
       {
-        path:'upload/:id',
-        component: FileUploadComponent,
-        resolve: { docRequest: FileUploadResolve }
-      },
-      {
         path: 'profile',
         component: ProfileComponent
       }
     ]
   },
-  {
-    path: 'login',
-    component: LoginFormComponent,
-    canActivate: [LoginGuard]
-  },
-  {
-    path: '404',
-    component: PageNotFoundComponent
-  },
-  {
-    path: '*',
-    redirectTo: '/404',
-    pathMatch: "full"
-  }
+
 ];
 
 @NgModule({

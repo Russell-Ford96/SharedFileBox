@@ -9,6 +9,8 @@ import { AuthService } from '../auth/auth.service';
 })
 export class MessageComponent implements OnInit{
 
+  public msgSent= false;
+  public msgErr= false;
   @Input() inputArray: any[];
   @Output() closeEvent = new EventEmitter<string>();
 
@@ -51,10 +53,21 @@ export class MessageComponent implements OnInit{
         if(res._body != "false") {
           console.log(res);
           this.callParent();
-        }
-        else {
+
+          this.msgSent = true;
+          setTimeout(function () {
+            this.msgSent = false;
+            console.log(this.msgSent);
+          }.bind(this),3000);
+
+
+        }  else {
           console.log(res);
-          alert("an error has occured");
+          this.msgErr = true;
+          setTimeout(function () {
+            this.msgErr = false;
+           }.bind(this),3000);
+
         }
       });
   }
