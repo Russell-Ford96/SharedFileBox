@@ -26,8 +26,7 @@ export const routes: Routes = [
       {
         path: 'dashboard',
         component: DashboardComponent,
-        loadChildren: './dashboard/dashboard.module#DashboardModule',
-        resolve: {docRequests: DashboardResolve}
+        loadChildren: './dashboard/dashboard.module#DashboardModule'
       },
       {
         path: 'message',

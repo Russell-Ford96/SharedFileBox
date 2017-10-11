@@ -35,15 +35,15 @@ export class AppService {
                     .catch(this.handleError);
     }
 
-  getDocRequests(pageID:any): Promise<any> {
-    return this.http.get('api/getreq/' + pageID , {headers: this.headers})
+  getDocRequests(pageID:any, createdBy: string): Promise<any> {
+      return this.http.get('api/getreq/' + pageID + '/' + createdBy , {headers: this.headers})
       .toPromise()
       .then(response => response  )
       .catch(this.handleError);
   }
 
-  getMaxPage(): Promise<any>{
-      return this.http.get('api/maxpage',{headers: this.headers})
+  getMaxPage(createdBy: string): Promise<any>{
+      return this.http.get('api/maxpage/' + createdBy, {headers: this.headers})
         .toPromise()
         .then(response => response  )
         .catch(this.handleError);

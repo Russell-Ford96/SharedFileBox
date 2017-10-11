@@ -16,7 +16,7 @@
             <th>Received</th>
           </tr>
           </thead>
-          <tbody>
+          <tbody *ngIf="TableData">
           <tr *ngFor="let item of TableData">
             <td>{{item._id}}</td>
             <td>{{item.email}}</td>

@@ -146,15 +146,14 @@ router.post('/upload', function (req, res, next) {
 
 
 
-router.get('/getreq/:pageID',function (req,res) {
-
+router.get('/getreq/:pageID/:createdBy',function (req,res) {
   mongodb.MongoClient.connect(uri, function (err, db) {
     if (err) {
       throw err;
     }
     var docRequestCollection = db.collection('docRequest');
 
-    docRequestCollection.find({},{ "limit": 8, "skip": 8 * req.params.pageID  }).toArray( function (err, results) {
+    docRequestCollection.find({ createdBy: req.params.createdBy },{ "limit": 8, "skip": 8 * req.params.pageID  }).toArray( function (err, results) {
       if (err) {
         console.log(err);
         return res.status(500).send("There was a problem finding the docrequests.");
@@ -166,21 +165,24 @@ router.get('/getreq/:pageID',function (req,res) {
 });
 
 
-router.get('/maxpage',function(req,res) {
+router.get('/maxpage/:createdBy',function(req,res) {
   mongodb.MongoClient.connect(uri, function (err, db) {
     if (err) {
       throw err;
     }
     var docRequestCollection = db.collection('docRequest');
-    docRequestCollection.count(function (req,result) {
-      if(err){
+
+
+    docRequestCollection.find({ createdBy: req.params.createdBy },{}).toArray( function (err, results) {
+      if (err) {
         console.log(err);
+        return res.status(500).send("There was a problem finding the docrequests.");
       }
-      var maxPage=Math.floor(result/8).toString();
-
-      return res.status(200).send(maxPage);
-
+        let maxPage = Math.floor(results.length/8).toString();
+        return res.status(200).send(maxPage);
     });
+
+
   });
 });
 
@@ -199,7 +201,6 @@ router.post('/create', (req, res) => {
             console.log(err);
         }
         var reqDocs = db.collection('docRequest');
-        //
         var existingRef = reqDocs.findOne({ refnum: reqReferenceNum }, function(err, result) {
             if (err){
                 console.log(err);
@@ -225,7 +226,7 @@ router.post('/create', (req, res) => {
                           client.messages.create({
                               to: toNumber,
                               from: ourNumber,
-                              body: "localhost:5000/upload/" + id
+                              body: "https://sharedfilebox.azurewebsites.net/upload/" + id
                           }, function(err, message) {
                               if(err) {
                                   return res.send(err)
