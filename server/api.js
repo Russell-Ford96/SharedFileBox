@@ -210,29 +210,28 @@ router.post('/create', (req, res) => {
             else{
               reqDocs.insert(req.body, function(err, result) {
                   if(err)
-                      res.send("An error has occured");
-                      else {
-                          var id = result.insertedIds[0];
-                          client.messages.create({
-                              to: toNumber,
-                              from: ourNumber,
-                              body: detailedMessage
-                          }, function(err, message) {
-                                if(err){
-                                    return res.send(err)
-                                }
-                          });
-                          client.messages.create({
-                              to: toNumber,
-                              from: ourNumber,
-                              body: "localhost:5000/upload/" + id
-                          }, function(err, message) {
+                      return res.send("An error has occured");
+                  else {
+                    var id = result.insertedIds[0];
+                    client.messages.create({
+                      to: toNumber,
+                      from: ourNumber,
+                      body: detailedMessage
+                    }, function(err, message) {
+                        if(err){
+                          console.log(err);
+                        }
+                    });
+                    client.messages.create({
+                      to: toNumber,
+                      from: ourNumber,
+                      body: "localhost:5000/upload/" + id
+                      }, function(err, message) {
                               if(err) {
-                                  return res.send(err)
+                                console.log(err);
                               }
-                              console.log(message);
                           });
-                          res.send(id);
+                          return res.send(id);
                       }
               })
 

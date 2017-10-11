@@ -16,6 +16,25 @@ import { ProfileComponent } from "./profile/profile.component";
 
 export const routes: Routes = [
   {
+    path: 'login',
+    component: LoginFormComponent,
+    canActivate: [LoginGuard]
+  },
+  {
+    path: 'upload/:id',
+    component: FileUploadComponent,
+    resolve: { docRequest: FileUploadResolve }
+  },
+  {
+    path: '404',
+    component: PageNotFoundComponent
+  },
+  {
+    path: '*',
+    redirectTo: '/404',
+    pathMatch: "full"
+  },
+  {
     path: '',
     component: FullLayoutComponent,
     canActivate: [AuthGuard],
@@ -34,30 +53,12 @@ export const routes: Routes = [
         loadChildren: './Message/message.module#MessageModule'
       },
       {
-        path:'upload/:id',
-        component: FileUploadComponent,
-        resolve: { docRequest: FileUploadResolve }
-      },
-      {
         path: 'profile',
         component: ProfileComponent
       }
     ]
   },
-  {
-    path: 'login',
-    component: LoginFormComponent,
-    canActivate: [LoginGuard]
-  },
-  {
-    path: '404',
-    component: PageNotFoundComponent
-  },
-  {
-    path: '*',
-    redirectTo: '/404',
-    pathMatch: "full"
-  }
+
 ];
 
 @NgModule({
