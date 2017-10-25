@@ -1,0 +1,42 @@
+<div class="user-button-container" #userButton (vrClickOutside)="onClickOutside()">
+  <button class="user-button" md-button (click)="toggleDropdown()" [class.open]="isOpen">
+    <span fxLayout="row" fxLayoutAlign="start center">
+      <span class="avatar-container" fxLayout="row" fxLayoutAlign="start center">
+        <img class="avatar" src="assets/img/demo/avatars/noavatar.png">
+        <i class="status primary"></i>
+      </span>
+      <span class="name" fxHide fxShow.gt-sm></span>
+      <md-icon class="icon" fxHide fxShow.gt-sm>keyboard_arrow_down</md-icon>
+    </span>
+  </button>
+
+  <div class="dropdown mat-elevation-z1" [class.open]="isOpen">
+    <div class="content">
+      <div class="list">
+        <div class="item" fxLayout="row" fxLayoutAlign="start center" md-ripple [routerLink]="['/pages/profile']">
+          <md-icon class="icon">account_circle</md-icon>
+          <span class="title">Profile</span>
+        </div>
+        <div class="item" fxLayout="row" fxLayoutAlign="start center" md-ripple [routerLink]="['/pages/profile']">
+          <md-icon class="icon">settings</md-icon>
+          <span class="title">Settings</span>
+        </div>
+        <div class="item" fxLayout="row" fxLayoutAlign="start center" md-ripple>
+          <md-icon class="icon">person</md-icon>
+          <span class="title">Online</span>
+
+          <div class="second-level-dropdown"></div>
+        </div>
+        <div class="item" fxLayout="row" fxLayoutAlign="start center" md-ripple>
+          <md-icon class="icon">help</md-icon>
+          <span class="title">Help</span>
+        </div>
+        <div class="divider"></div>
+        <div class="item" fxLayout="row" fxLayoutAlign="start center" md-ripple [routerLink]="['/auth/login']">
+          <md-icon class="icon">exit_to_app</md-icon>
+          <span class="title" (click)="logout()">Logout</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,52 @@
+<div class="table-pagination">
+
+  <vr-page-header [height]="'146px'" background="url(/assets/img/demo/headers/pattern-3.png)" [reverse]="true"></vr-page-header>
+
+  <div class="container">
+
+    <vr-breadcrumbs [currentPage]="'Table Pagination'" [names]="['Tables']" [header]="'primary'"></vr-breadcrumbs>
+
+    <div class="mat-elevation-z8">
+
+      <md-table #table [dataSource]="dataSource">
+
+        <!--- Note that these columns can be defined in any order.
+              The actual rendered columns are set as a property on the row definition" -->
+
+        <md-header-row *cdkHeaderRowDef="displayedColumns"></md-header-row>
+        <md-row *cdkRowDef="let row; columns: displayedColumns;"></md-row>
+
+        <!-- ID Column -->
+        <ng-container cdkColumnDef="userId">
+          <md-header-cell *cdkHeaderCellDef> ID </md-header-cell>
+          <md-cell *cdkCellDef="let row"> {{row.id}} </md-cell>
+        </ng-container>
+
+        <!-- Progress Column -->
+        <ng-container cdkColumnDef="progress">
+          <md-header-cell *cdkHeaderCellDef> Progress </md-header-cell>
+          <md-cell *cdkCellDef="let row"> {{row.progress}}% </md-cell>
+        </ng-container>
+
+        <!-- Name Column -->
+        <ng-container cdkColumnDef="userName">
+          <md-header-cell *cdkHeaderCellDef> Name </md-header-cell>
+          <md-cell *cdkCellDef="let row"> {{row.name}} </md-cell>
+        </ng-container>
+
+        <!-- Color Column -->
+        <ng-container cdkColumnDef="color">
+          <md-header-cell *cdkHeaderCellDef> Color </md-header-cell>
+          <md-cell *cdkCellDef="let row" [style.color]="row.color"> {{row.color}} </md-cell>
+        </ng-container>
+      </md-table>
+
+      <md-paginator #paginator
+                    [length]="exampleDatabase.data.length"
+                    [pageIndex]="0"
+                    [pageSize]="10"
+                    [pageSizeOptions]="[5, 10, 25, 100]">
+      </md-paginator>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,29 @@
+<div class="autocomplete group card alternative no-border mat-elevation-z2" fxLayout="column" fxLayoutGap="24px">
+  <div class="group-title">Material Tooltip</div>
+  <div class="divider reverse"></div>
+  <div class="section" fxLayout="column" fxLayout.gt-md="row" fxLayoutAlign="start stretch" fxLayoutAlign.gt-md="start start">
+    <div fxFlex.gt-md>
+      <div fxLayout="column">
+        <div class="section-title">Tooltip</div>
+        <div class="section-tag">&lt;md-tooltip&gt;</div>
+        <p>Tooltips offer space for additional information on e.g. an icon.</p>
+        <div class="section-info">Example:</div>
+        <code vrHighlight class="html">&lt;button md-button mdTooltip="I'm a Tooltip!"&gt;<br/>  Button<br/>&lt;/button&gt;</code>
+      </div>
+    </div>
+    <md-tab-group class="preview-tabs mat-elevation-z2" fxFlex="auto" fxFlex.gt-md="70%" fxFlexOffset.gt-md="24px">
+      <md-tab label="PREVIEW">
+        <div class="preview" fxLayout="row" fxLayoutAlign="center center">
+          <md-card fxFlex="90%" fxFlex.gt-sm="80%">
+            <md-card-content fxLayout="column" fxLayout.gt-sm="row" fxLayoutAlign="space-around center" fxLayoutWrap="wrap">
+              <button md-icon-button mdTooltip="Favorite this"><md-icon>favorite</md-icon></button>
+            </md-card-content>
+          </md-card>
+        </div>
+      </md-tab>
+      <md-tab label="HTML">
+        <code [innerHTML]="tooltipHTML" vrHighlight class="html"></code>
+      </md-tab>
+    </md-tab-group>
+  </div>
+</div>

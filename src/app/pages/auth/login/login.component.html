@@ -1,0 +1,21 @@
+<style>
+  .bg{
+    background-image: url("/src/assets/img/demo/backgrounds/pattern-1.jpg");
+  }
+</style>
+
+<div fxLayout="row" class="bg" fxLayoutAlign="center center" style="height: 100%;">
+    <div class="login mat-elevation-z12">
+      <div class="login-header" fxLayout="column" fxLayoutAlign="center center">
+        <h3>SendDoc.to</h3>
+      </div>
+    <form #form="ngForm" >
+      <div class="login-content" fxLayout="column" fxLayoutAlign="start stretch">
+
+
+        <button color="primary" md-raised-button (click)="auth.login()">Login </button>
+
+      </div>
+    </form>
+  </div>
+</div>

@@ -1,0 +1,152 @@
+<div class="card group card alternative no-border mat-elevation-z2" fxLayout="column" fxLayoutGap="24px">
+  <div class="group-title">Material List</div>
+  <div class="divider reverse"></div>
+  <div class="section" fxLayout="column" fxLayout.gt-md="row" fxLayoutAlign="start stretch" fxLayoutAlign.gt-md="start start" fxLayoutGap="16px" fxLayoutGap.gt-md="24px">
+    <div fxFlex.gt-md>
+      <div fxLayout="column">
+        <div class="section-title">Two-Line List with Avatars</div>
+        <div class="section-tag">&lt;md-list&gt;</div>
+        <p>Lists are made up of a continuous column of rows. Each row contains a tile. Primary actions fill the tile, and supplemental actions are represented by icons and text.</p>
+        <div class="section-info">Example:</div>
+        <code vrHighlight class="html">&lt;md-list&gt;<br/>  &lt;md-list-item&gt;<br/>    &lt;img md-list-avatar src="avatar.png"&gt;<br/>    &lt;h3 md-line&gt;John&lt;/h3&gt;<br/>    &lt;p md-line&gt;Brunch?&lt;/p&gt;<br/>  &lt;md-list-item&gt;<br/>&lt;/md-list&gt;</code>
+      </div>
+    </div>
+    <md-tab-group class="preview-tabs mat-elevation-z2" fxFlex="auto" fxFlex.gt-md="70%">
+      <md-tab label="PREVIEW">
+        <div class="preview" fxLayout="row" fxLayoutAlign="center center">
+          <md-list class="demo-list mat-elevation-z2">
+            <md-list-item>
+              <img md-list-avatar src="assets/img/demo/avatars/1.png">
+              <h3 md-line>John</h3>
+              <p md-line>
+                <span>Brunch?</span>
+                <span class="subline">-- Did you want to go on Sunday? I was thinking</span>
+              </p>
+            </md-list-item>
+            <md-list-item>
+              <img md-list-avatar src="assets/img/demo/avatars/2.png">
+              <h3 md-line>Peter</h3>
+              <p md-line>
+                <span>Summer BBQ</span>
+                <span class="subline">-- Wish I could come, but I have some special</span>
+              </p>
+            </md-list-item>
+            <md-list-item>
+              <img md-list-avatar src="assets/img/demo/avatars/3.png">
+              <h3 md-line>Nancy</h3>
+              <p md-line>
+                <span>Oui oui</span>
+                <span class="subline">-- Have you booked the Paris trip?</span>
+              </p>
+            </md-list-item>
+          </md-list>
+        </div>
+      </md-tab>
+      <md-tab label="HTML">
+        <code [innerHTML]="twoLineListHTML" vrHighlight class="html"></code>
+      </md-tab>
+    </md-tab-group>
+  </div>
+
+  <div class="divider reverse"></div>
+
+  <div class="section" fxLayout="column" fxLayout.gt-md="row" fxLayoutAlign="start stretch" fxLayoutAlign.gt-md="start start" fxLayoutGap="16px" fxLayoutGap.gt-md="24px">
+    <div fxFlex.gt-md>
+      <div fxLayout="column">
+        <div class="section-title">Three-Line List with Avatars</div>
+        <p>Lists with three lines add extra content to distinguish your list-item.</p>
+        <div class="section-info">Example:</div>
+        <code vrHighlight class="html">&lt;md-list&gt;<br/>  &lt;md-list-item&gt;<br/>    &lt;img md-list-avatar src="avatar.png"&gt;<br/>    &lt;h3 md-line&gt;John&lt;/h3&gt;<br/>    &lt;p md-line&gt;Brunch?&lt;/p&gt;<br/>    &lt;p md-line class="subline"&gt;<br/>      Did you want to go on Sunday?<br/>    &lt;/p&gt;<br/>  &lt;md-list-item&gt;<br/>&lt;/md-list&gt;</code>
+      </div>
+    </div>
+    <md-tab-group class="preview-tabs mat-elevation-z2" fxFlex="auto" fxFlex.gt-md="70%">
+      <md-tab label="PREVIEW">
+        <div class="preview" fxLayout="row" fxLayoutAlign="center center">
+          <md-list class="demo-list mat-elevation-z2">
+            <md-list-item>
+              <img md-list-avatar src="assets/img/demo/avatars/1.png">
+              <h3 md-line>John</h3>
+              <p md-line>Brunch?</p>
+              <p md-line class="subline">Did you want to go on Sunday? I was thinking</p>
+            </md-list-item>
+            <md-list-item>
+              <img md-list-avatar src="assets/img/demo/avatars/2.png">
+              <h3 md-line>Peter</h3>
+              <p md-line>Summer BBQ</p>
+              <p md-line class="subline">Wish I could come, but I have some special</p>
+            </md-list-item>
+            <md-list-item>
+              <img md-list-avatar src="assets/img/demo/avatars/3.png">
+              <h3 md-line>Nancy</h3>
+              <p md-line>Oui oui</p>
+              <p md-line class="subline">Have you booked the Paris trip?</p>
+            </md-list-item>
+          </md-list>
+        </div>
+      </md-tab>
+      <md-tab label="HTML">
+        <code [innerHTML]="threeLineListHTML" vrHighlight class="html"></code>
+      </md-tab>
+    </md-tab-group>
+  </div>
+
+  <div class="divider reverse"></div>
+
+  <div class="section" fxLayout="column" fxLayout.gt-md="row" fxLayoutAlign="start stretch" fxLayoutAlign.gt-md="start start" fxLayoutGap="16px" fxLayoutGap.gt-md="24px">
+    <div fxFlex.gt-md fxLayout="column">
+      <div class="section-title">Three-Line List</div>
+      <md-tab-group class="preview-tabs mat-elevation-z2" fxFlex="auto" fxFlex.gt-md="70%">
+        <md-tab label="PREVIEW">
+          <div class="preview" fxLayout="row" fxLayoutAlign="center center">
+            <md-list class="demo-list mat-elevation-z2">
+              <md-list-item>
+                <h3 md-line>John</h3>
+                <p md-line>Brunch?</p>
+                <p md-line class="subline">Did you want to go on Sunday? I was thinking</p>
+              </md-list-item>
+              <md-list-item>
+                <h3 md-line>Peter</h3>
+                <p md-line>Summer BBQ</p>
+                <p md-line class="subline">Wish I could come, but I have some special</p>
+              </md-list-item>
+              <md-list-item>
+                <h3 md-line>Nancy</h3>
+                <p md-line>Oui oui</p>
+                <p md-line class="subline">Have you booked the Paris trip?</p>
+              </md-list-item>
+            </md-list>
+          </div>
+        </md-tab>
+        <md-tab label="HTML">
+          <code [innerHTML]="threeLineListWithoutAvatarsHTML" vrHighlight class="html"></code>
+        </md-tab>
+      </md-tab-group>
+    </div>
+
+    <div fxFlex.gt-md fxLayout="column">
+      <div class="section-title">One-Line List</div>
+      <div class="preview-tabs mat-elevation-z2" fxFlex="auto" fxFlex.gt-md="70%">
+        <md-tab-group>
+          <md-tab label="PREVIEW">
+            <div class="preview" fxLayout="row" fxLayoutAlign="center center">
+              <md-list class="demo-list mat-elevation-z2">
+                <md-list-item>
+                  <h3 md-line>John</h3>
+                </md-list-item>
+                <md-list-item>
+                  <h3 md-line>Peter</h3>
+                </md-list-item>
+                <md-list-item>
+                  <h3 md-line>Nancy</h3>
+                </md-list-item>
+              </md-list>
+            </div>
+          </md-tab>
+          <md-tab label="HTML">
+            <code [innerHTML]="oneLineList" vrHighlight class="html"></code>
+          </md-tab>
+        </md-tab-group>
+      </div>
+    </div>
+  </div>
+</div>

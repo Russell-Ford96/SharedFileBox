@@ -1,0 +1,110 @@
+<div class="card group alternative no-border mat-elevation-z2" fxLayout="column" fxLayoutGap="24px">
+  <div class="group-title">Material Card</div>
+  <div class="divider reverse"></div>
+  <div class="section" fxLayout="column" fxLayout.gt-md="row" fxLayoutAlign="start stretch" fxLayoutAlign.gt-md="start start" fxLayoutGap="16px" fxLayoutGap.gt-md="24px">
+    <div fxFlex.gt-md>
+      <div fxLayout="column">
+        <div class="section-title">Image + Action Card</div>
+        <div class="section-tag">&lt;md-card&gt;</div>
+        <p>Cards are containers for text, photos and actions. They are intented to provide information on a single subject.</p>
+        <div class="section-info">Example:</div>
+        <code vrHighlight class="html">&lt;md-card&gt;<br/> &lt;md-card-title&gt;<br/>  Card Title<br/> &lt;/md-card-title&gt;<br/> &lt;md-card-content&gt;<br/>  Card Content<br/> &lt;/md-card-content&gt;<br/> &lt;md-card-actions&gt;<br/>  &lt;button&gt;Click Me!&lt;/button&gt;<br/> &lt;/md-card-actions&gt;<br/>&lt;/md-card&gt;</code>
+      </div>
+    </div>
+    <md-tab-group class="preview-tabs mat-elevation-z2" fxFlex="auto" fxFlex.gt-md="70%">
+      <md-tab label="PREVIEW">
+        <div class="preview" fxLayout="row" fxLayoutAlign="center center">
+          <md-card fxFlex="80%">
+            <md-card-header>
+              <img md-card-avatar src="assets/img/demo/avatars/3.png">
+              <md-card-subtitle>
+                Yesterday
+              </md-card-subtitle>
+              <md-card-title>Gerald Morris</md-card-title>
+            </md-card-header>
+            <img md-card-image src="assets/img/demo/backgrounds/1.jpg">
+            <md-card-content>
+              <p>Piqued favour stairs it enable exeter as seeing. Remainder met improving but engrossed sincerity age. Better but length gay denied abroad are. Attachment astonished to on appearance imprudence so collecting in excellence. Tiled way blind lived whose new. The for fully had she there leave merit enjoy forth. </p>
+            </md-card-content>
+            <md-divider></md-divider>
+            <md-card-actions>
+              <div fxLayout="row">
+                <button md-icon-button>
+                  <md-icon>share</md-icon>
+                </button>
+                <button md-icon-button>
+                  <md-icon>favorite</md-icon>
+                </button>
+                <span fxFlex></span>
+                <button md-button>
+                  More Info
+                </button>
+                <button md-button>
+                  Save as
+                </button>
+              </div>
+            </md-card-actions>
+          </md-card>
+        </div>
+      </md-tab>
+      <md-tab label="HTML">
+        <code [innerHTML]="card1HTML" vrHighlight class="html"></code>
+      </md-tab>
+    </md-tab-group>
+  </div>
+
+  <div class="divider reverse"></div>
+
+  <div class="section" fxLayout="column" fxLayout.gt-md="row" fxLayoutAlign="start stretch" fxLayoutAlign.gt-md="start start" fxLayoutGap="16px" fxLayoutGap.gt-md="24px">
+    <div fxFlex.gt-md fxLayout="column">
+      <div class="section-title">Standard Card with Action</div>
+      <md-tab-group class="preview-tabs mat-elevation-z2" fxFlex="auto" fxFlex.gt-md="70%">
+        <md-tab label="PREVIEW">
+          <div class="preview" fxLayout="row" fxLayoutAlign="center center">
+            <md-card fxFlex="80%">
+              <md-card-title>Standard Card with Actions</md-card-title>
+              <md-card-subtitle>Subtitle</md-card-subtitle>
+              <md-card-content>
+                <p>Old there any widow law rooms. Agreed but expect repair she nay sir silent person. Direction
+                  can dependent one bed situation attempted. His she are man their spite avoid. Her pretended
+                  fulfilled extremely education yet. Satisfied did one admitting incommode tolerably how are. </p>
+              </md-card-content>
+              <md-card-actions align="end">
+                <button md-button>Cancel</button>
+                <button color="primary" md-raised-button>Action</button>
+              </md-card-actions>
+            </md-card>
+          </div>
+        </md-tab>
+        <md-tab label="HTML">
+          <code [innerHTML]="card2HTML" vrHighlight class="html"></code>
+        </md-tab>
+      </md-tab-group>
+    </div>
+
+    <div fxFlex.gt-md fxLayout="column">
+      <div class="section-title">Standard Card</div>
+      <div class="preview-tabs mat-elevation-z2" fxFlex="auto" fxFlex.gt-md="70%">
+        <md-tab-group>
+          <md-tab label="PREVIEW">
+            <div class="preview" fxLayout="row" fxLayoutAlign="center center">
+              <md-card fxFlex="80%">
+                <md-card-title>Standard Card</md-card-title>
+                <md-card-subtitle>Subtitle</md-card-subtitle>
+                <md-card-content>
+                  <p>Do play they miss give so up. Words to up style of since world. We leaf to snug on no need. Way
+                    own uncommonly travelling now acceptance bed compliment solicitude. Dissimilar admiration so
+                    terminated no in contrasted it. Advantages entreaties mr he apartments do. Limits far yet turned
+                    highly repair parish talked six. Draw fond rank form nor the day eat. </p>
+                </md-card-content>
+              </md-card>
+            </div>
+          </md-tab>
+          <md-tab label="HTML">
+            <code [innerHTML]="card3HTML" vrHighlight class="html"></code>
+          </md-tab>
+        </md-tab-group>
+      </div>
+    </div>
+  </div>
+</div>

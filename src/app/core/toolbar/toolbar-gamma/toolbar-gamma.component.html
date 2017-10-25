@@ -1,0 +1,33 @@
+<div class="toolbar" id="header">
+
+  <div class="container" fxLayout="row" fxLayoutAlign="space-between">
+
+    <div class="sidenav-header" fxLayout="row" fxLayoutAlign="start center">
+      <button fxShow fxHide.gt-sm class="menu-toggle-mobile" type="button" md-icon-button (click)="toggleSidenav()">
+        <md-icon>menu</md-icon>
+      </button>
+
+      <a fxHide fxShow.gt-xs [routerLink]="['/']">
+        <img class="logo" alt="logo" src="assets/img/logo2x.png">
+      </a>
+    </div>
+
+    <div class="search-bar" fxHide fxShow.gt-sm
+         fxLayout="row" fxLayoutAlign="start center" fxFlex="450px" fxFlexOffset.gt-sm="36px">
+      <vr-search-bar></vr-search-bar>
+    </div>
+
+    <div fxLayout="row" fxFlexOffset.gt-sm="24px">
+      <vr-search fxShow fxHide.gt-sm></vr-search>
+
+      <vr-toolbar-notifications></vr-toolbar-notifications>
+
+      <vr-toolbar-user-button></vr-toolbar-user-button>
+
+      <button md-button class="quickpanel-button icon-button" [class.open]="quickpanelOpen" (click)="toggleQuickpanel()">
+        <md-icon class="icon">format_align_right</md-icon>
+      </button>
+    </div>
+  </div>
+</div>
+

@@ -1,0 +1,23 @@
+<div class="horizontal-navigation" fxHide fxShow.gt-sm>
+  <div class="container">
+    <div class="menu" fxLayout="row">
+      <div *ngFor="let item of sidenavItems$ | async; let index = index;">
+        <vr-toolbar-navigation-item *ngIf="index < showMoreButtonAfterIndex"
+          [item]="item" [currentlyOpen]="currentlyOpen$ | async"></vr-toolbar-navigation-item>
+
+        <div class="more-button-container" fxLayout="row" fxLayoutAlign="start center" *ngIf="index == showMoreButtonAfterIndex">
+          <button md-icon-button class="more-button" [mdMenuTriggerFor]="moreMenu">
+            <md-icon>more_vert</md-icon>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<md-menu #moreMenu="mdMenu" [overlapTrigger]="false">
+  <div class="layout gamma" (click)="$event.stopPropagation()" *ngFor="let item of sidenavItems$ | async; let index = index;">
+    <vr-toolbar-navigation-dropdown-item *ngIf="index >= showMoreButtonAfterIndex" class="dropdown-item-container"
+                                         [item]="item" [currentlyOpen]="currentlyOpen$ | async"></vr-toolbar-navigation-dropdown-item>
+  </div>
+</md-menu>

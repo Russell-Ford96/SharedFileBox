@@ -1,0 +1,83 @@
+<div class="form-elements">
+  <vr-page-header [height]="'180px'" background="url(/assets/img/demo/headers/mac-1.png)" [reverse]="true"></vr-page-header>
+  <div class="container">
+    <vr-breadcrumbs [currentPage]="'Request Detail'" [names]="['Request Detail']" [header]="'primary'"></vr-breadcrumbs>
+
+    <div fxLayout="column" fxLayoutGap="24px">
+      <div fxLayout="column" fxLayout.gt-sm="row" fxLayoutAlign.gt-sm="start start" fxLayoutGap="24px">
+        <div class="basic-forms card alternative" fxFlex="100%" fxFlex.gt-sm>
+          <div class="header" fxLayout="row" fxLayoutAlign="space-between center">
+            <div>
+              <div class="title">Request Detail</div>
+            </div>
+          </div>
+
+      <div class="content" *ngIf="requestData">
+
+        <table class="table">
+          <tbody>
+          <tr>
+            <td>Reference Number</td>
+            <td>{{requestData.refnumb}}</td>
+          </tr>
+          <tr>
+            <td>Email</td>
+            <td>{{requestData.email}}</td>
+          </tr>
+          <tr>
+            <td>Phone</td>
+            <td>{{requestData.phone}}</td>
+          </tr>
+          <tr>
+            <td>Short Message</td>
+            <td>{{requestData.shortmessage}}</td>
+          </tr>
+          <tr>
+            <td>Detailed Message</td>
+            <td>{{requestData.detailedmessage}}</td>
+          </tr>
+          <tr>
+            <td>Documents</td>
+            <td>
+              <table class="table" *ngFor="let doc of requestData.docArray">
+                <tbody>
+                <tr>
+                  <td>Name</td>
+                  <td>{{doc.name}}</td>
+                </tr>
+                  <tr>
+                    <td>URL</td>
+                    <td><a href="{{doc.url}}" target="_blank">{{doc.fileName}}</a></td>
+
+                  </tr>
+                <tr>
+                    <td>Date and Time of Upload</td>
+                    <td>{{doc.dateTime}}</td>
+                  </tr>
+                </tbody>
+
+              </table>
+            </td>
+          </tr>
+          <tr>
+            <td>Thank you Message</td>
+            <td>{{requestData.thanks}}</td>
+          </tr>
+
+          </tbody>
+
+        </table>
+
+
+
+          </div>
+
+
+
+        </div>
+
+
+  </div>
+</div>
+  </div>
+</div>

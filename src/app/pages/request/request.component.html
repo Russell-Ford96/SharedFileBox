@@ -1,0 +1,63 @@
+<div class="table-pagination">
+
+  <vr-page-header [height]="'146px'" background="url(/assets/img/demo/headers/pattern-3.png)" [reverse]="true"></vr-page-header>
+
+  <div class="container">
+
+    <vr-breadcrumbs [currentPage]="'Requests'" [names]="['All Requests']" [header]="'primary'"></vr-breadcrumbs>
+
+    <div class="mat-elevation-z8">
+
+      <md-table #table [dataSource]="dataSource">
+
+        <!--- Note that these columns can be defined in any order.
+              The actual rendered columns are set as a property on the row definition" -->
+
+        <md-header-row *cdkHeaderRowDef="displayedColumns"></md-header-row>
+        <md-row *cdkRowDef="let row; columns: displayedColumns;"></md-row>
+
+        <!-- ID Column -->
+        <ng-container cdkColumnDef="refnumb">
+          <md-header-cell *cdkHeaderCellDef> Reference Number </md-header-cell>
+          <md-cell *cdkCellDef="let row" (click)="moreDetails(row.refnumb)"> {{row.refnumb}} </md-cell>
+        </ng-container>
+
+        <!-- Progress Column -->
+        <ng-container cdkColumnDef="email">
+          <md-header-cell *cdkHeaderCellDef> Email </md-header-cell>
+          <md-cell *cdkCellDef="let row"> {{row.email}}% </md-cell>
+        </ng-container>
+
+        <!-- Name Column -->
+        <ng-container cdkColumnDef="phone">
+          <md-header-cell *cdkHeaderCellDef> Phone </md-header-cell>
+          <md-cell *cdkCellDef="let row"> {{row.phone}} </md-cell>
+        </ng-container>
+
+        <!-- Name Column -->
+        <ng-container cdkColumnDef="shortmessage">
+        <md-header-cell *cdkHeaderCellDef> Message </md-header-cell>
+        <md-cell *cdkCellDef="let row"> {{row.shortmessage}} </md-cell>
+      </ng-container>
+
+        <ng-container cdkColumnDef="checkdocs">
+          <md-header-cell *cdkHeaderCellDef>  </md-header-cell>
+          <md-cell *cdkCellDef="let row" >
+            <div *ngIf="row.checkdocs==true; else minus">
+              <i class="fa fa-check" style="color:green" aria-hidden="true"></i>
+            </div>
+            <ng-template #minus><i class="fa fa-minus-circle" style="color:red;" aria-hidden="true"></i> </ng-template>
+          </md-cell>
+
+        </ng-container>
+      </md-table>
+
+      <md-paginator #paginator
+                    [length]="requestDatabase.data.length"
+                    [pageIndex]="0"
+                    [pageSize]="10"
+                    [pageSizeOptions]="[5, 10, 25, 100]">
+      </md-paginator>
+    </div>
+  </div>
+</div>

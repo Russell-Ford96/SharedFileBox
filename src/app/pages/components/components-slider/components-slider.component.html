@@ -1,0 +1,73 @@
+<div class="card alternative group no-border mat-elevation-z2" fxLayout="column" fxLayoutGap="24px">
+  <div class="group-title">Material Slider</div>
+  <div class="divider reverse"></div>
+  <div class="section" fxLayout="column" fxLayout.gt-md="row" fxLayoutAlign="start stretch" fxLayoutAlign.gt-md="start start" fxLayoutGap="16px" fxLayoutGap.gt-md="24px">
+    <div fxFlex.gt-md>
+      <div fxLayout="column">
+        <div class="section-title">Slider with Thumb Label and Ticks</div>
+        <div class="section-tag">&lt;md-slider&gt;</div>
+        <p>Sliders allow for selection of a value from a range via mouse, touch, or keyboard.</p>
+        <div class="section-info">Example:</div>
+        <p><code vrHighlight class="html">&lt;md-slider<br/>  min="1"<br/>  max="5"<br/>  step="0.5"<br/> value="1.5"<br/>&gt;&lt;/md-slider&gt;</code></p>
+      </div>
+    </div>
+    <md-tab-group class="preview-tabs mat-elevation-z2" fxFlex="auto" fxFlex.gt-md="70%">
+      <md-tab label="PREVIEW">
+        <div class="preview" fxLayout="row" fxLayoutAlign="center center">
+          <md-card fxFlex="80%">
+            <md-card-content>
+              <md-slider style="width: 100%;" min="1" max="10" thumbLabel tickInterval="1" value="7"></md-slider>
+              <md-slider color="primary" style="width: 100%;" min="1" max="10" value="2"></md-slider>
+              <md-slider color="warn" style="width: 100%;" min="1" max="10" value="8"></md-slider>
+            </md-card-content>
+          </md-card>
+        </div>
+      </md-tab>
+      <md-tab label="HTML">
+        <code [innerHTML]="slider1HTML" vrHighlight class="html"></code>
+      </md-tab>
+    </md-tab-group>
+  </div>
+
+  <div class="divider reverse"></div>
+
+  <div class="section" fxLayout="column" fxLayout.gt-md="row" fxLayoutAlign="start stretch" fxLayoutAlign.gt-md="start start" fxLayoutGap="16px" fxLayoutGap.gt-md="24px">
+    <div fxFlex.gt-md fxLayout="column">
+      <div class="section-title">Vertical Slider with Thumb-Label</div>
+      <md-tab-group class="preview-tabs mat-elevation-z2">
+        <md-tab label="PREVIEW">
+          <div class="preview" fxLayout="row" fxLayoutAlign="center center">
+            <md-card fxFlex="80%">
+              <md-card-content fxLayout="row" fxLayoutAlign="center center">
+                <md-slider vertical min="1" max="10" thumbLabel tickInterval="1" value="4"></md-slider>
+              </md-card-content>
+            </md-card>
+          </div>
+        </md-tab>
+        <md-tab label="HTML">
+          <code [innerHTML]="slider2HTML" vrHighlight class="html"></code>
+        </md-tab>
+      </md-tab-group>
+    </div>
+
+    <div fxFlex.gt-md fxLayout="column">
+      <div class="section-title">Simple Slider without Thumb-Label and Ticks</div>
+      <div class="preview-tabs mat-elevation-z2">
+        <md-tab-group>
+          <md-tab label="PREVIEW">
+            <div class="preview" fxLayout="row" fxLayoutAlign="center center">
+              <md-card fxFlex="80%">
+                <md-card-content fxLayout="row" fxLayoutAlign="center center">
+                  <md-slider min="1" max="10" value="7"></md-slider>
+                </md-card-content>
+              </md-card>
+            </div>
+          </md-tab>
+          <md-tab label="HTML">
+            <code [innerHTML]="slider3HTML" vrHighlight class="html"></code>
+          </md-tab>
+        </md-tab-group>
+      </div>
+    </div>
+  </div>
+</div>

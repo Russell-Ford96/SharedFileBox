@@ -1,0 +1,501 @@
+<div class="form-elements">
+
+  <vr-page-header [height]="'180px'" background="url(/assets/img/demo/headers/mac-1.png)" [reverse]="true"></vr-page-header>
+
+  <div class="container">
+
+    <vr-breadcrumbs [currentPage]="'Form Elements'" [names]="['Forms']" [header]="'primary'"></vr-breadcrumbs>
+
+    <div fxLayout="column" fxLayoutGap="24px">
+      <div fxLayout="column" fxLayout.gt-sm="row" fxLayoutAlign.gt-sm="start start" fxLayoutGap="24px">
+        <div class="basic-forms card alternative" fxFlex="100%" fxFlex.gt-sm>
+          <div class="header" fxLayout="row" fxLayoutAlign="space-between center">
+            <div>
+              <div class="title">Basic Forms</div>
+              <div class="sub-title">Simple Material Form Input Elements</div>
+            </div>
+            <div class="actions" fxLayout="row">
+              <button type="button" md-icon-button
+                      mdTooltip="Show Code" (click)="showBasicFormSource = !showBasicFormSource">
+                <md-icon>code</md-icon>
+              </button>
+            </div>
+          </div>
+
+          <div class="content" fxLayout="column">
+            <div class="source" *ngIf="showBasicFormSource">
+              <code class="html" vrHighlight [innerHTML]="basicFormSource"></code>
+            </div>
+
+            <div class="result" fxLayout="column">
+              <md-input-container>
+                <input mdInput placeholder="Company" type="text" required>
+              </md-input-container>
+
+              <div fxLayout.gt-sm="row" fxLayoutGap.gt-sm="16px">
+                <md-input-container fxFlex>
+                  <input mdInput placeholder="First Name" type="text">
+                </md-input-container>
+
+                <md-input-container fxFlex>
+                  <input mdInput placeholder="Last Name" type="text" required>
+                </md-input-container>
+              </div>
+
+              <md-input-container>
+                <input mdInput placeholder="Password" type="password" required>
+              </md-input-container>
+
+              <md-input-container>
+                <input mdInput #lengthHint maxlength="10" placeholder="Hint Label and Max Length" type="text" required>
+                <md-hint align="start">Try to type in more than 10 letters</md-hint>
+                <md-hint align="end">{{ lengthHint.value.length }}/10</md-hint>
+              </md-input-container>
+
+              <md-input-container>
+                <input mdInput placeholder="Disabled" disabled>
+              </md-input-container>
+            </div>
+          </div>
+        </div>
+
+        <div class="advanced-forms card alternative" fxFlex="100%" fxFlex.gt-sm>
+          <div class="header" fxLayout="row" fxLayoutAlign="space-between center">
+            <div>
+              <div class="title">Advanced Forms</div>
+              <div class="sub-title">Form Input Variations</div>
+            </div>
+            <div class="actions" fxLayout="row">
+              <button type="button" md-icon-button
+                      mdTooltip="Show Code" (click)="showAdvancedFormSource = !showAdvancedFormSource">
+                <md-icon>code</md-icon>
+              </button>
+            </div>
+          </div>
+
+          <div class="content" fxLayout="column">
+            <div class="source" *ngIf="showAdvancedFormSource">
+              <code class="html" vrHighlight [innerHTML]="advancedFormSource"></code>
+            </div>
+
+            <div class="result" fxLayout="column">
+              <div fxLayout="column" fxLayout.gt-sm="row" fxLayoutGap.gt-sm="16px">
+                <md-input-container color="primary" fxFlex.gt-sm>
+                  <input mdInput placeholder="Primary Color" type="text">
+                </md-input-container>
+
+                <md-input-container color="accent" fxFlex.gt-sm>
+                  <input mdInput placeholder="Accent Color" type="text">
+                </md-input-container>
+
+                <md-input-container color="warn" fxFlex.gt-sm>
+                  <input mdInput placeholder="Warn Color" type="text">
+                </md-input-container>
+              </div>
+
+              <md-input-container>
+                <input mdInput placeholder="Username" type="text" value="DavidSmith">
+                <md-icon mdSuffix>person</md-icon>
+              </md-input-container>
+
+              <md-input-container fxFlex.gt-sm>
+                <span mdPrefix>+1 &nbsp;</span>
+                <input mdInput placeholder="Mobile Phone" type="text" required>
+                <md-icon mdSuffix>smartphone</md-icon>
+              </md-input-container>
+
+              <md-input-container floatPlaceholder="never">
+                <input mdInput placeholder="No Floating Placeholder" type="text" required>
+              </md-input-container>
+
+              <md-input-container>
+                <input mdInput [mdDatepicker]="datepickerRef" placeholder="Date">
+                <md-datepicker-toggle mdSuffix [for]="datepickerRef"></md-datepicker-toggle>
+                <md-hint>Click on the icon to the right for a Datepicker</md-hint>
+              </md-input-container>
+              <md-datepicker #datepickerRef></md-datepicker>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <div fxLayout="column" fxLayout.gt-sm="row" fxLayoutAlign.gt-sm="start start" fxLayoutGap="24px">
+        <div class="form-theming card alternative" fxFlex="100%" fxFlex.gt-sm>
+          <div class="header" fxLayout="row" fxLayoutAlign="space-between center">
+            <div>
+              <div class="title">Form Theming</div>
+              <div class="sub-title">Style Components using the Theme API</div>
+            </div>
+            <div class="actions" fxLayout="row">
+              <button type="button" md-icon-button
+                      mdTooltip="Show Code" (click)="showFormThemingSource = !showFormThemingSource">
+                <md-icon>code</md-icon>
+              </button>
+            </div>
+          </div>
+
+          <div class="content" fxLayout="column">
+            <div class="source" *ngIf="showFormThemingSource">
+              <code class="html" vrHighlight [innerHTML]="formThemingSource"></code>
+            </div>
+
+            <div class="result" fxLayout="column">
+              <p class="description">By using the Theme API all Form Elements can be styled simply with either the primary, accent or warn color. Focus the inputs below to see the colors.</p>
+
+              <md-input-container color="primary">
+                <input mdInput placeholder="Primary Color">
+              </md-input-container>
+
+              <md-input-container color="accent">
+                <input mdInput placeholder="Accent Color">
+              </md-input-container>
+
+              <md-input-container color="warn">
+                <input mdInput placeholder="Warn Color">
+              </md-input-container>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-prefix-suffix card alternative" fxFlex="100%" fxFlex.gt-sm>
+          <div class="header" fxLayout="row" fxLayoutAlign="space-between center">
+            <div>
+              <div class="title">Form Prefix/Suffix</div>
+              <div class="sub-title">Prefix and Suffix text or icons</div>
+            </div>
+            <div class="actions" fxLayout="row">
+              <button type="button" md-icon-button
+                      mdTooltip="Show Code" (click)="showFormPrefixSuffixSource = !showFormPrefixSuffixSource">
+                <md-icon>code</md-icon>
+              </button>
+            </div>
+          </div>
+
+          <div class="content" fxLayout="column">
+            <div class="source" *ngIf="showFormPrefixSuffixSource">
+              <code class="html" vrHighlight [innerHTML]="formPrefixSuffixSource"></code>
+            </div>
+
+            <div class="result" fxLayout="column">
+              <p class="description">Add a Prefix and Suffix to an input field, from text to icons or symbols, anything and any element can be set as prefix or suffix.</p>
+
+              <md-input-container>
+                <span mdPrefix>+1 &nbsp;</span>
+                <input mdInput placeholder="Input with prefix text">
+              </md-input-container>
+
+              <md-input-container>
+                <input mdInput placeholder="Input with suffix icon">
+                <md-icon mdSuffix>menu</md-icon>
+              </md-input-container>
+
+              <md-input-container>
+                <span mdPrefix>http:// &nbsp;</span>
+                <input mdInput placeholder="Input with prefix text and suffix icon">
+                <md-icon mdSuffix>camera</md-icon>
+              </md-input-container>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-hint-label card alternative" fxFlex="100%" fxFlex.gt-sm>
+          <div class="header" fxLayout="row" fxLayoutAlign="space-between center">
+            <div>
+              <div class="title">Form Hint Label</div>
+              <div class="sub-title">Hints for explanations or extra info</div>
+            </div>
+            <div class="actions" fxLayout="row">
+              <button type="button" md-icon-button
+                      mdTooltip="Show Code" (click)="showFormHintLabelSource = !showFormHintLabelSource">
+                <md-icon>code</md-icon>
+              </button>
+            </div>
+          </div>
+
+          <div class="content" fxLayout="column">
+            <div class="source" *ngIf="showFormHintLabelSource">
+              <code class="html" vrHighlight [innerHTML]="formHintLabelSource"></code>
+            </div>
+
+            <div class="result" fxLayout="column">
+              <p class="description">When you need to display additional information to the user you can use Hint Labels to display information appropriately.</p>
+
+              <md-input-container>
+                <input mdInput placeholder="Email Address">
+                <md-hint>e.g. david@example.com</md-hint>
+              </md-input-container>
+
+              <md-input-container floatPlaceholder="never">
+                <input mdInput #hintLabelInputRef placeholder="Domain Name">
+                <md-hint align="end">http://{{ hintLabelInputRef.value || "company" }}.example.com</md-hint>
+              </md-input-container>
+
+              <md-input-container floatPlaceholder="never">
+                <input mdInput #hintLabelInputLengthRef maxlength="10" placeholder="Dynamic Hint Label">
+                <md-hint align="start">Try to type in more than 10 letters</md-hint>
+                <md-hint align="end">{{ hintLabelInputLengthRef.value.length }}/10</md-hint>
+              </md-input-container>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div fxLayout="column" fxLayout.gt-sm="row" fxLayoutAlign.gt-sm="start start" fxLayoutGap="24px">
+        <div class="form-checkbox card alternative" fxFlex="100%" fxFlex.gt-sm>
+          <div class="header" fxLayout="row" fxLayoutAlign="space-between center">
+            <div>
+              <div class="title">Form Checkbox</div>
+              <div class="sub-title">Select and deselect simply</div>
+            </div>
+            <div class="actions" fxLayout="row">
+              <button type="button" md-icon-button
+                      mdTooltip="Show Code" (click)="showFormCheckboxSource = !showFormCheckboxSource">
+                <md-icon>code</md-icon>
+              </button>
+            </div>
+          </div>
+
+          <div class="content" fxLayout="column">
+            <div class="source" *ngIf="showFormCheckboxSource">
+              <code class="html" vrHighlight [innerHTML]="formCheckboxSource"></code>
+            </div>
+
+            <div class="result" fxLayout="column">
+              <p class="description">Allow for simple selecting and deselecting of options.</p>
+
+              <div fxLayout="column" fxLayoutGap="8px">
+                <md-checkbox [checked]="true">Stay signed in</md-checkbox>
+                <md-checkbox [indeterminate]="true">Indeterminate</md-checkbox>
+                <md-checkbox [checked]="false" align="end">Align end</md-checkbox>
+              </div>
+
+            </div>
+          </div>
+        </div>
+
+        <div class="form-checkbox-theming card alternative" fxFlex="100%" fxFlex.gt-sm>
+          <div class="header" fxLayout="row" fxLayoutAlign="space-between center">
+            <div>
+              <div class="title">Form Checkbox Theming</div>
+              <div class="sub-title">Style Components using the Theme API</div>
+            </div>
+            <div class="actions" fxLayout="row">
+              <button type="button" md-icon-button
+                      mdTooltip="Show Code" (click)="showFormCheckboxThemingSource = !showFormCheckboxThemingSource">
+                <md-icon>code</md-icon>
+              </button>
+            </div>
+          </div>
+
+          <div class="content" fxLayout="column">
+            <div class="source" *ngIf="showFormCheckboxThemingSource">
+              <code class="html" vrHighlight [innerHTML]="formCheckboxThemingSource"></code>
+            </div>
+
+            <div class="result" fxLayout="column">
+              <p class="description">Style checkbox elements with the Theme API.</p>
+
+              <div fxLayout="column" fxLayoutGap="8px">
+                <md-checkbox [checked]="true" color="primary">Primary Color</md-checkbox>
+                <md-checkbox [checked]="true" color="accent">Accent Color</md-checkbox>
+                <md-checkbox [checked]="true" color="warn">Warn Color</md-checkbox>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div fxLayout="column" fxLayout.gt-sm="row" fxLayoutAlign.gt-sm="start stretch" fxLayoutGap="24px">
+        <div class="form-select card alternative" fxFlex="100%" fxFlex.gt-sm>
+          <div class="header" fxLayout="row" fxLayoutAlign="space-between center">
+            <div>
+              <div class="title">Form Select</div>
+              <div class="sub-title">Select between multiple options</div>
+            </div>
+            <div class="actions" fxLayout="row">
+              <button type="button" md-icon-button
+                      mdTooltip="Show Code" (click)="showFormSelectSource = !showFormSelectSource">
+                <md-icon>code</md-icon>
+              </button>
+            </div>
+          </div>
+
+          <div class="content" fxLayout="column">
+            <div class="source" *ngIf="showFormSelectSource">
+              <code class="html" vrHighlight [innerHTML]="formSelectSource"></code>
+            </div>
+
+            <div class="result" fxLayout="column">
+              <p class="description">A intuitive select component that displays the current position you are at and has smooth animations.</p>
+
+              <div style="margin-top: 16px;">
+                <md-select placeholder="Favorite fruit">
+                  <md-option value="Apples">Apples</md-option>
+                  <md-option value="Peaches">Peaches</md-option>
+                  <md-option value="Bananas">Bananas</md-option>
+                  <md-option value="Mango">Mango</md-option>
+                  <md-option value="Apples">Cucumber</md-option>
+                </md-select>
+                <br/>
+                <br/>
+                <md-select placeholder="Colors" [(ngModel)]="selectModel" [color]="selectModel">
+                  <md-option value="primary">Primary Color</md-option>
+                  <md-option value="accent">Accent Color</md-option>
+                  <md-option value="warn">Warn Color</md-option>
+                </md-select>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-datepicker card alternative" fxFlex="100%" fxFlex.gt-sm>
+          <div class="header" fxLayout="row" fxLayoutAlign="space-between center">
+            <div>
+              <div class="title">Form Datepicker</div>
+              <div class="sub-title">Easily select a date for inputs</div>
+            </div>
+            <div class="actions" fxLayout="row">
+              <button type="button" md-icon-button
+                      mdTooltip="Show Code" (click)="showFormDatepickerSource = !showFormDatepickerSource">
+                <md-icon>code</md-icon>
+              </button>
+            </div>
+          </div>
+
+          <div class="content" fxLayout="column">
+            <div class="source" *ngIf="showFormDatepickerSource">
+              <code class="html" vrHighlight [innerHTML]="formDatepickerSource"></code>
+            </div>
+
+            <div class="result" fxLayout="column">
+              <p class="description">A Material styled Datepicker that allows for easy selection of any date with any format.</p>
+
+              <div style="margin-top: 16px;">
+                <md-input-container>
+                  <input mdInput [mdDatepicker]="formDatepickerRef" placeholder="Select your date">
+                  <md-datepicker-toggle mdSuffix [for]="formDatepickerRef"></md-datepicker-toggle>
+                  <md-hint>Click on the icon to the right for the Datepicker</md-hint>
+                </md-input-container>
+                <md-datepicker #formDatepickerRef></md-datepicker>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-slider card alternative" fxFlex="100%" fxFlex.gt-sm>
+          <div class="header" fxLayout="row" fxLayoutAlign="space-between center">
+            <div>
+              <div class="title">Form Slider</div>
+              <div class="sub-title">Choose a value from a range</div>
+            </div>
+            <div class="actions" fxLayout="row">
+              <button type="button" md-icon-button
+                      mdTooltip="Show Code" (click)="showFormSliderSource = !showFormSliderSource">
+                <md-icon>code</md-icon>
+              </button>
+            </div>
+          </div>
+
+          <div class="content" fxLayout="column">
+            <div class="source" *ngIf="showFormSliderSource">
+              <code class="html" vrHighlight [innerHTML]="formSliderSource"></code>
+            </div>
+
+            <div class="result" fxLayout="column">
+              <p class="description">An alternative component to the range input with better usability and drag & drop + keyboard support.</p>
+
+              <div fxLayout="column">
+                <md-slider [min]="0" [max]="100" [step]="1" [thumb-label]="true" [tick-interval]="10" value="36"></md-slider>
+
+                <div fxLayout="row">
+                  <md-slider fxFlex [min]="0" [max]="10" [step]="1" value="6" color="primary"></md-slider>
+                  <md-slider fxFlex fxHide fxShow.gt-lg [min]="0" [max]="10" [step]="1" value="8" color="accent"></md-slider>
+                  <md-slider fxFlex [min]="0" [max]="10" [step]="1" value="7" color="warn"></md-slider>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div fxLayout="column" fxLayout.gt-sm="row" fxLayoutAlign.gt-sm="start start" fxLayoutGap="24px">
+        <div class="form-radio card alternative" fxFlex="100%" fxFlex.gt-sm>
+          <div class="header" fxLayout="row" fxLayoutAlign="space-between center">
+            <div>
+              <div class="title">Form Radio Button</div>
+              <div class="sub-title">Let users decide between options</div>
+            </div>
+            <div class="actions" fxLayout="row">
+              <button type="button" md-icon-button
+                      mdTooltip="Show Code" (click)="showFormRadioSource = !showFormRadioSource">
+                <md-icon>code</md-icon>
+              </button>
+            </div>
+          </div>
+
+          <div class="content" fxLayout="column">
+            <div class="source" *ngIf="showFormRadioSource">
+              <code class="html" vrHighlight [innerHTML]="formRadioSource"></code>
+            </div>
+
+            <div class="result" fxLayout="column">
+              <p class="description">When you need a user to decide between multiple options and have him only choose one, you can use a radio button.</p>
+
+              <div style="margin-top: 12px;" fxLayout="column" fxLayoutGap="16px">
+                <md-radio-group fxLayout="row" fxLayoutGap="16px">
+                  <md-radio-button value="Apples" [checked]="true">Apples</md-radio-button>
+                  <md-radio-button value="Peaches">Peaches</md-radio-button>
+                </md-radio-group>
+                <md-radio-group fxLayout="row" fxLayoutGap="16px" color="accent">
+                  <md-radio-button value="primary" [checked]="true" color="primary">Primary Color</md-radio-button>
+                  <md-radio-button value="accent" color="accent">Accent Color</md-radio-button>
+                  <md-radio-button value="warn" color="warn">Warn Color</md-radio-button>
+                </md-radio-group>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-slide-toggle card alternative" fxFlex="100%" fxFlex.gt-sm>
+          <div class="header" fxLayout="row" fxLayoutAlign="space-between center">
+            <div>
+              <div class="title">Form Slide Toggle</div>
+              <div class="sub-title">Slide between two values</div>
+            </div>
+            <div class="actions" fxLayout="row">
+              <button type="button" md-icon-button
+                      mdTooltip="Show Code" (click)="showFormSlideToggleSource = !showFormSlideToggleSource">
+                <md-icon>code</md-icon>
+              </button>
+            </div>
+          </div>
+
+          <div class="content" fxLayout="column">
+            <div class="source" *ngIf="showFormSlideToggleSource">
+              <code class="html" vrHighlight [innerHTML]="formSlideToggleSource"></code>
+            </div>
+
+            <div class="result" fxLayout="column">
+              <p class="description">Allow the user to slide toggle an option or a value. You can either click or you can drag & drop the slide to change its state.</p>
+
+              <div fxLayout="row" fxLayoutAlign="space-between">
+                <div fxLayout="column" fxLayoutGap="8px">
+                  <md-slide-toggle [checked]="false">Slide Me</md-slide-toggle>
+                  <md-slide-toggle [checked]="false">Drag & Drop</md-slide-toggle>
+                  <md-slide-toggle [checked]="true">I Agree</md-slide-toggle>
+                </div>
+                <div fxLayout="column" fxLayoutAlign="start end" fxLayoutGap="8px">
+                  <md-slide-toggle [checked]="true" color="primary" labelPosition="before">Primary Color</md-slide-toggle>
+                  <md-slide-toggle [checked]="true" color="accent" labelPosition="before">Accent Color</md-slide-toggle>
+                  <md-slide-toggle [checked]="true" color="warn" labelPosition="before">Warn Color</md-slide-toggle>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
