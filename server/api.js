@@ -122,7 +122,6 @@ router.get('/getdoc/:id', (req, res) => {
 
 
 router.post('/upload', function (req, res, next) {
-
     upload(req, res, function (err) {
        if (err) {
          // An error occurred when uploading
@@ -244,6 +243,7 @@ router.get('/request/detail/:refNumb',function (req,res) {
 
 //nodemailer email
 router.post('/email',(req,res)=> {
+
   var toEmail= req.body.toemail;
   var fromEmail= "chatbot.analytics@gmail.com";
   var reqReferenceNum = req.body.refnumb;
@@ -323,19 +323,34 @@ router.post('/create', (req, res) => {
     var shortMessage = req.body.shortmessage;
     var detailedMessage = req.body.detailedmessage;
     var success = true;
-    var reqReferenceNum = req.body.refnum;
-    console.log(reqReferenceNum);
+    var reqReferenceNum = req.body.refnumb;
+
+    //validations
+    var isnum = /^\d+$/.test(reqReferenceNum);
+    var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    var valphone = /\d?(\s?|-?|\+?|\.?)((\(\d{1,4}\))|(\d{1,3})|\s?)(\s?|-?|\.?)((\(\d{1,3}\))|(\d{1,3})|\s?)(\s?|-?|\.?)((\(\d{1,3}\))|(\d{1,3})|\s?)(\s?|-?|\.?)\d{3}(-|\.|\s)\d{4}/;
+
+    if(!(re.test(req.body.email))){
+         return res.send("Invalid email")
+    }
+    if(!(valphone.test(toNumber))){
+        return res.send("Invalid phone number")
+    }
+
 
     mongodb.MongoClient.connect(uri, function(err, db) {
         if(err){
             console.log(err);
         }
         var reqDocs = db.collection('docRequest');
-        var existingRef = reqDocs.findOne({ refnum: reqReferenceNum }, function(err, result) {
+
+        var existingRef = reqDocs.findOne({ refnumb: reqReferenceNum }, function(err, result) {
             if (err){
                 console.log(err);
             }
-            if(result.refnum != null) {
+
+            //validate ref numb
+            if(result.refnumb == null || !isnum) {
                 return res.send("Invalid Reference Number.");
             }
             else{
@@ -365,7 +380,6 @@ router.post('/create', (req, res) => {
                           return res.send(id);
                       }
               })
-
               db.close();
             }
         });
