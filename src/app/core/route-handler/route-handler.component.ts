@@ -96,6 +96,55 @@ export class RouteHandlerComponent implements OnInit {
     // Push the just created Sub Items into the Top Level Item
     dashboard.subItems.push(...dashboardSubItems);
 
+
+    // Top Level Item (The item to click on so the dropdown opens)
+    const botManager = new SidenavItem({
+      name: 'Bot Manager',
+      icon: 'chat',
+      subItems: [ ],
+      position: 1
+    });
+
+    // Sub Items for the Top Level Item (The items shown when you clicked on the dropdown item)
+    // Note: The Top Level Item is added as "parent" in those items, here "botManager" (variable from above)
+    const botManagerSubItems = [
+      new SidenavItem({
+        name: 'Bot Manager',
+        route: '/',
+        parent: botManager,
+        subItems: [ ],
+        position: 1,
+        routerLinkActiveOptions: {
+          exact: true
+        }
+      }),
+      new SidenavItem({
+        name: 'All-In-One Board',
+        route: '/bot-manager/all-in-one',
+        parent: botManager,
+        subItems: [ ],
+        position: 1
+      }),
+      new SidenavItem({
+        name: 'CRM Dashboard',
+        route: '/bot-manager/crm',
+        parent: botManager,
+        subItems: [ ],
+        position: 1
+      }),
+      new SidenavItem({
+        name: 'Add bot',
+        route: '/bot-manager/add-bot',
+        parent: botManager,
+        subItems: [ ],
+        position: 1
+      })
+    ];
+
+    // Push the just created Sub Items into the Top Level Item
+    botManager.subItems.push(...botManagerSubItems);
+
+
   const request = new SidenavItem({
       name: 'Request',
       icon: 'format_line_spacing',
@@ -366,6 +415,7 @@ export class RouteHandlerComponent implements OnInit {
 
     // Send the created Menu structure to Redux/ngrx (you only need to send the Top Level Item, all dropdown items will be added automatically)
     this.store.dispatch(new sidenavAction.AddSidenavItemAction(dashboard));
+    this.store.dispatch(new sidenavAction.AddSidenavItemAction(botManager));
     this.store.dispatch(new sidenavAction.AddSidenavItemAction(request));
     this.store.dispatch(new sidenavAction.AddSidenavItemAction(forms));
    // this.store.dispatch(new sidenavAction.AddSidenavItemAction(pages));

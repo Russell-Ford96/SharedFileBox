@@ -17,6 +17,7 @@ import { ComponentsSliderModule } from './components-slider/components-slider.mo
 import { ComponentsSnackbarModule } from './components-snackbar/components-snackbar.module';
 import { ComponentsTooltipModule } from './components-tooltip/components-tooltip.module';
 import { ComponentsProgressModule } from './components-progress/components-progress.module';
+import { ComponentAddBotComponent } from './component-add-bot/component-add-bot.component';
 
 @NgModule({
   imports: [
@@ -39,6 +40,6 @@ import { ComponentsProgressModule } from './components-progress/components-progr
     ComponentsSnackbarModule,
     ComponentsTooltipModule
   ],
-  declarations: [ComponentsComponent]
+  declarations: [ComponentsComponent, ComponentAddBotComponent]
 })
 export class ComponentsModule { }

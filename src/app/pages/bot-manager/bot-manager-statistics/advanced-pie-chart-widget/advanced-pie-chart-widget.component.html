@@ -1,0 +1,35 @@
+<div class="card border space">
+  <div class="header" fxLayout="row" fxLayoutAlign="space-between center">
+    <div class="title" fxLayout="column">
+      <div class="name">Sales by country</div>
+      <div class="extra">Top 3 countries sold 34% more items this month</div>
+    </div>
+
+    <div class="actions" fxLayout="row">
+      <button type="button" md-icon-button>
+        <md-icon class="icon">refresh</md-icon>
+      </button>
+      <button type="button" md-icon-button [mdMenuTriggerFor]="cardMenuRef">
+        <md-icon class="icon">more_vert</md-icon>
+      </button>
+    </div>
+  </div>
+  <div class="content">
+    <vr-advanced-pie-chart></vr-advanced-pie-chart>
+  </div>
+</div>
+
+<md-menu #cardMenuRef="mdMenu">
+  <button md-menu-item>
+    <md-icon>refresh</md-icon>
+    <span>Refresh</span>
+  </button>
+  <button md-menu-item>
+    <md-icon>notifications_off</md-icon>
+    <span>Disable alerts</span>
+  </button>
+  <button md-menu-item>
+    <md-icon>exit_to_app</md-icon>
+    <span>Remove Widget</span>
+  </button>
+</md-menu>

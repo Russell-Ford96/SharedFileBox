@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormModule } from './forms/forms.module';
 import { DashboardModule } from './dashboard/dashboard.module';
+import { BotManagerModule } from './bot-manager/bot-manager.module';
 import { ProfileModule } from './profile/profile.module';
 import { ComponentsModule } from './components/components.module';
 import { InboxModule } from './inbox/inbox.module';
@@ -13,7 +14,7 @@ import { IconModule } from './icon/icon.module';
 import { GoogleMapsModule } from './google-maps/google-maps.module';
 import { ProjectsModule } from './projects/projects.module';
 import { ProjectDetailsModule } from './project-details/project-details.module';
-import {RequestModule} from './request/request.module';
+import { RequestModule } from './request/request.module';
 
 
 @NgModule({
@@ -33,7 +34,7 @@ import {RequestModule} from './request/request.module';
     ProjectsModule,
     ProjectDetailsModule,
     RequestModule,
-
+    BotManagerModule
   ],
   declarations: []
 })
