@@ -247,9 +247,9 @@ router.post('/email',(req,res)=> {
   var toEmail= req.body.toemail;
   var fromEmail= "chatbot.analytics@gmail.com";
   var reqReferenceNum = req.body.refnumb;
-  console.log(reqReferenceNum);
   var subject= req.body.subject;
   var body= req.body.body;
+
 
   mongodb.MongoClient.connect(uri, function(err, db) {
     if(err){
@@ -296,18 +296,12 @@ router.post('/email',(req,res)=> {
 
           }
         });
-
-
         //return res.send(result);
-
-
       }
       else{
         return res.status(404).send("request not found");
       }
     });
-
-
     db.close();
     });
 
@@ -325,19 +319,19 @@ router.post('/create', (req, res) => {
     var success = true;
     var reqReferenceNum = req.body.refnumb;
 
-    //validations
 
     //validate refnumb
-    var isnum = /^\d+$/;
+    var isnum = /[0-9]/;
     var isletter = /[a-zA-Z]/;
     var validref = isnum.test(reqReferenceNum) && isletter.test(reqReferenceNum)
-
+    if(!validref){
+        return res.send("Invalid reference number")
+    }
     //validate email
     var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     if(!(re.test(req.body.email))){
          return res.send("Invalid email")
     }
-
     //validate phone number
     var valphone = /\d?(\s?|-?|\+?|\.?)((\(\d{1,4}\))|(\d{1,3})|\s?)(\s?|-?|\.?)((\(\d{1,3}\))|(\d{1,3})|\s?)(\s?|-?|\.?)((\(\d{1,3}\))|(\d{1,3})|\s?)(\s?|-?|\.?)\d{3}(-|\.|\s)\d{4}/;
     if(!(valphone.test(toNumber))){
@@ -353,10 +347,6 @@ router.post('/create', (req, res) => {
         var existingRef = reqDocs.findOne({ refnumb: reqReferenceNum }, function(err, result) {
             if (err){
                 console.log(err);
-            }
-            //validate refnumb from callback
-            if(result.refnumb == null || !validref) {
-                return res.send("Invalid Reference Number.");
             }
             else{
               reqDocs.insert(req.body, function(err, result) {

@@ -157,8 +157,8 @@ export class MessageComponent implements OnInit {
   };
   validationMessages = {
     'refnumb': {
-      'required': 'Reference Number is required.',
-      'minLength': 'Reference Number Minimun Length is 7.',
+      'required': 'Reference number is required.',
+      'minLength': 'Reference number minimun length is 50.',
       'validateAN': ' Must be alpha numeric.'
     },
     'email': {
@@ -167,7 +167,7 @@ export class MessageComponent implements OnInit {
     },
     'phone': {
       'required': 'Phone is required.',
-      'validatePhone': 'Incorrect Phone format'
+      'validatePhone': 'Incorrect phone number format'
     },
     'shortmessage': {
       'required': 'Short description is required.'
@@ -189,7 +189,6 @@ validateAN(control: AbstractControl): ValidationErrors | null {
     var number = /[0-9]/;
     var valid = number.test(control.value) && letter.test(control.value)
     if (!valid) {
-        // console.log('********', control.value)
         return { validateAN: control.value }
     }
       return null
