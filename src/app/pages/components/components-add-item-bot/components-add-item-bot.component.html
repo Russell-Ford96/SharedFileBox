@@ -10,8 +10,13 @@
   </div>
 
   <div class="content" fxLayout="column">
-    <div class="task-container" fxLayout="column" *ngFor="let item of items" [@listFade]="true" [dragula]="'editor-bag'" >
-      <div class="task"
+    <div class="task-container" fxLayout="column"
+
+          [@listFade]="true"
+          [dragula]="'one-bag'"
+          [dragulaModel]='items'
+    >
+      <div class="task" *ngFor="let item of items;let i=index"
            fxLayout="row" fxLayoutAlign="space-between center"
            [class.done]="item.done" >
         <div fxLayout="row" fxLayoutAlign="start center">
@@ -24,7 +29,10 @@
             <md-icon>archive</md-icon>
           </button>
           <div class="date">{{ item.date }}</div>
+
         </div>
+        <div class="">{{ item.position }}</div>
+
       </div>
     </div>
 
