@@ -2,7 +2,8 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { FormsModule } from '@angular/forms';
-import { MdButtonModule, MdCheckboxModule, MdIconModule, MdMenuModule, MdSnackBarModule, MdTooltipModule } from '@angular/material';
+import { MdButtonModule, MdCheckboxModule, MdIconModule,
+         MdMenuModule, MdSnackBarModule, MdTooltipModule } from '@angular/material';
 import { TasksWidgetComponent } from './tasks-widget.component';
 
 @NgModule({

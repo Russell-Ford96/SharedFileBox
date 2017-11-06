@@ -5,7 +5,7 @@
 
   <div class="container">
 
-    <!-- <vr-breadcrumbs *ngIf="!hideHeader" currentPage="Bot Manager - CRM" header="primary"></vr-breadcrumbs> -->
+    <vr-breadcrumbs *ngIf="!hideHeader" currentPage="Bot Manager - Add item" header="primary"></vr-breadcrumbs>
 
 
     <div fxLayout="column" fxLayout.gt-sm="row"
@@ -16,6 +16,7 @@
            [fxFlex]="flexWidth['lt-sm']" [fxFlex.gt-sm]="flexWidth['gt-sm']" [fxFlex.gt-md]="flexWidth['gt-md']">
         <div class="widget">
           <!-- <vr-tasks-widget></vr-tasks-widget> -->
+          <vr-components-add-item-bot></vr-components-add-item-bot>
         </div>
         <div class="widget">
           <!-- <vr-usertable-widget></vr-usertable-widget> -->
@@ -29,6 +30,7 @@
            [fxLayoutGap]="layoutGap['lt-md']" [fxLayoutGap.gt-md]="layoutGap['gt-md']"
            [fxFlex]="flexWidth['lt-sm']" [fxFlex.gt-sm]="flexWidth['gt-sm']" [fxFlex.gt-md]="flexWidth['gt-md']">
         <div class="widget">
+
           <!-- <vr-meeting-widget></vr-meeting-widget> -->
         </div>
         <div class="widget">
