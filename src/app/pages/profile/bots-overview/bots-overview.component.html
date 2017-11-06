@@ -1,0 +1,29 @@
+<div class="simple-table">
+
+    <div class="container">
+
+     <div fxLayout="column" fxLayout.gt-md="row" fxLayoutGap="16px" fxLayoutAlign="start start">
+
+      <div fxFlex class="mat-elevation-z2">
+        <table class="table" [class.table-hover]="tableHover" [class.table-striped]="tableStriped" [class.table-condensed]="tableCondensed" [class.table-bordered]="tableBordered">
+          <thead>
+          <tr>
+            <th>Name</th>
+            <th>URL</th>
+            <th>Active</th>
+
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let row of rows">
+            <td>{{ row.name}}</td>
+            <td>{{ row.url }}</td>
+            <td>{{ row.active }}</td>
+
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

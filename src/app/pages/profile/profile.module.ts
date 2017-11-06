@@ -3,9 +3,10 @@ import { CommonModule } from '@angular/common';
 import { ProfileComponent } from './profile.component';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { MdButtonModule, MdChipsModule, MdIconModule, MdTabsModule } from '@angular/material';
-import { ProfileOverviewComponent } from './profile-overview/profile-overview.component';
+import {BotsOverviewComponent} from './bots-overview/bots-overview.component';
 import { BreadcrumbsModule } from '../../core/breadcrumbs/breadcrumbs.module';
 import { PageHeaderModule } from '../../core/page-header/page-header.module';
+import {BotsCreationComponent} from "./bots-creation/bots-creation.component";
 
 @NgModule({
   imports: [
@@ -18,6 +19,9 @@ import { PageHeaderModule } from '../../core/page-header/page-header.module';
     MdChipsModule,
     BreadcrumbsModule
   ],
-  declarations: [ProfileComponent, ProfileOverviewComponent]
+  declarations: [
+    ProfileComponent,
+    BotsOverviewComponent,
+    BotsCreationComponent]
 })
 export class ProfileModule { }
