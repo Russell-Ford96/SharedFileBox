@@ -1,7 +1,7 @@
 import * as _ from 'lodash';
 import { ROUTE_TRANSITION } from '../../../app.animation';
 import { Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
-import { FormArray, FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormArray, FormGroup, FormBuilder, Validators, AbstractControl, ValidationErrors } from '@angular/forms';
 import {AuthService} from '../../../auth/auth.service';
 import {AppService} from '../../../app.service';
 
@@ -80,16 +80,20 @@ export class MessageComponent implements OnInit {
   buildForm(): void {
     this.requestForm = this.fb.group({
       'refnumb': ['', [
-        Validators.required
+        Validators.required,
+        Validators.minLength(50),
+        this.validateAN,
       ]
       ],
 
       'email': ['', [
-        Validators.required
+        Validators.required,
+        this.validateEmail,
       ]
       ],
       'phone': ['', [
-        Validators.required
+        Validators.required,
+        this.validatePhone,
       ]
       ],
       'shortmessage': ['', [
@@ -153,13 +157,17 @@ export class MessageComponent implements OnInit {
   };
   validationMessages = {
     'refnumb': {
-      'required': 'Reference Number is required.'
+      'required': 'Reference Number is required.',
+      'minLength': 'Reference Number Minimun Length is 7.',
+      'validateAN': ' Must be alpha numeric.'
     },
     'email': {
-      'required': 'Email is required.'
+      'required': 'Email is required.',
+      'validateEmail': 'Incorrect email format'
     },
     'phone': {
-      'required': 'Phone is required.'
+      'required': 'Phone is required.',
+      'validatePhone': 'Incorrect Phone format'
     },
     'shortmessage': {
       'required': 'Short description is required.'
@@ -174,4 +182,34 @@ export class MessageComponent implements OnInit {
       'required': 'Thank you message is required.'
     }
   };
+
+
+validateAN(control: AbstractControl): ValidationErrors | null {
+    var letter = /[a-zA-Z]/;
+    var number = /[0-9]/;
+    var valid = number.test(control.value) && letter.test(control.value)
+    if (!valid) {
+        // console.log('********', control.value)
+        return { validateAN: control.value }
+    }
+      return null
+  }
+
+validateEmail(control: AbstractControl): ValidationErrors | null {
+    var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    if(!(re.test(control.value))){
+        return { validateEmail: control.value }
+    }
+    return null
+  }
+
+validatePhone(control: AbstractControl): ValidationErrors | null {
+    var re = /\d?(\s?|-?|\+?|\.?)((\(\d{1,4}\))|(\d{1,3})|\s?)(\s?|-?|\.?)((\(\d{1,3}\))|(\d{1,3})|\s?)(\s?|-?|\.?)((\(\d{1,3}\))|(\d{1,3})|\s?)(\s?|-?|\.?)\d{3}(-|\.|\s)\d{4}/;
+    if(!(re.test(control.value))){
+        return { validatePhone: control.value }
+    }
+    return null
+}
+
+
 }

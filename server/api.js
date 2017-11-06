@@ -326,17 +326,23 @@ router.post('/create', (req, res) => {
     var reqReferenceNum = req.body.refnumb;
 
     //validations
-    var isnum = /^\d+$/.test(reqReferenceNum);
-    var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-    var valphone = /\d?(\s?|-?|\+?|\.?)((\(\d{1,4}\))|(\d{1,3})|\s?)(\s?|-?|\.?)((\(\d{1,3}\))|(\d{1,3})|\s?)(\s?|-?|\.?)((\(\d{1,3}\))|(\d{1,3})|\s?)(\s?|-?|\.?)\d{3}(-|\.|\s)\d{4}/;
 
+    //validate refnumb
+    var isnum = /^\d+$/;
+    var isletter = /[a-zA-Z]/;
+    var validref = isnum.test(reqReferenceNum) && isletter.test(reqReferenceNum)
+
+    //validate email
+    var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     if(!(re.test(req.body.email))){
          return res.send("Invalid email")
     }
+
+    //validate phone number
+    var valphone = /\d?(\s?|-?|\+?|\.?)((\(\d{1,4}\))|(\d{1,3})|\s?)(\s?|-?|\.?)((\(\d{1,3}\))|(\d{1,3})|\s?)(\s?|-?|\.?)((\(\d{1,3}\))|(\d{1,3})|\s?)(\s?|-?|\.?)\d{3}(-|\.|\s)\d{4}/;
     if(!(valphone.test(toNumber))){
         return res.send("Invalid phone number")
     }
-
 
     mongodb.MongoClient.connect(uri, function(err, db) {
         if(err){
@@ -348,9 +354,8 @@ router.post('/create', (req, res) => {
             if (err){
                 console.log(err);
             }
-
-            //validate ref numb
-            if(result.refnumb == null || !isnum) {
+            //validate refnumb from callback
+            if(result.refnumb == null || !validref) {
                 return res.send("Invalid Reference Number.");
             }
             else{
