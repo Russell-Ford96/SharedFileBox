@@ -1,5 +1,6 @@
 import { AfterViewInit, Component, OnInit } from '@angular/core';
-import {AuthService} from '../../../auth/auth.service';
+
+import { AuthService } from "../../../auth/auth.service";
 
 @Component({
   selector: 'vr-toolbar-user-button',

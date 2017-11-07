@@ -91,6 +91,11 @@ export class BotsCreationComponent implements OnInit  {
         Validators.required
       ]
     ],
+    itemArray: this.fb.array([this.initItemField()]),
+    'thanks': ['', [
+      Validators.required
+    ]
+  ],
       'active': [ true, [] ]
 
     });
@@ -98,6 +103,23 @@ export class BotsCreationComponent implements OnInit  {
       .subscribe(data => this.onValueChanged(data));
     this.onValueChanged(); // (re)set validation messages now
   }
+
+  initItemField() {
+    return this.fb.group({
+      name: ['', Validators.required]
+    });
+  }
+
+  addInput(): void {
+    const arrayControl = <FormArray>this.requestForm.controls['itemArray'];
+    arrayControl.push(this.initItemField());
+  }
+
+  delInput(index: number): void {
+    const arrayControl = <FormArray>this.requestForm.controls['itemArray'];
+    arrayControl.removeAt(index);
+  }
+
   onValueChanged(data?: any) {
     if (!this.requestForm) { return; }
     const form = this.requestForm;

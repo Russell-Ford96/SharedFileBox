@@ -2,7 +2,7 @@
   <button class="user-button" md-button (click)="toggleDropdown()" [class.open]="isOpen">
     <span fxLayout="row" fxLayoutAlign="start center">
       <span class="avatar-container" fxLayout="row" fxLayoutAlign="start center">
-        <img class="avatar" src="assets/img/demo/avatars/noavatar.png">
+        <img class="avatar" src="{{authService.userProfile?.picture}}">
         <i class="status primary"></i>
       </span>
       <span class="name" fxHide fxShow.gt-sm></span>

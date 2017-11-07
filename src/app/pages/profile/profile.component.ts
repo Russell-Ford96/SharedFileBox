@@ -12,24 +12,20 @@ import { AuthService } from "../../auth/auth.service";
 export class ProfileComponent implements OnInit {
   email: any;
   name:string;
+  picture:string;
 
 
   constructor(
     private auth: AuthService
   ) { }
 
-
-
-
-
   ngOnInit() {
     if(this.auth.userProfile){
       console.log(this.auth.userProfile);
+      this.picture = this.auth.userProfile.picture;
       this.email= this.auth.userProfile.email;
       this.name= this.auth.userProfile.nickname;
     }
-
-
   }
 
 }

@@ -25,6 +25,20 @@
                     <input id="url" name="url" formControlName="url" mdInput placeholder="Url" type="text"  required>
                   </md-input-container>
 
+                  <div formArrayName="itemArray">
+                    {{requestForm.controls.itemArray.controls.length}}
+                     <div *ngFor="let address of requestForm.controls.itemArray.controls; let i=index" >
+                      <div [formGroupName]="i">
+                          <md-input-container class="fieldWidth" >
+                              <input id="itemlist1" name="itemlist1" mdInput placeholder="Documents" type="text" formControlName="name" required>
+                               <!-- <md-icon mdSuffix (click)="addInput()">add</md-icon>
+                              <md-icon mdSuffix *ngIf="requestForm.controls.itemArray.controls.length > 1" (click)="delInput(i)">clear</md-icon> -->
+                          </md-input-container>
+
+                      </div>
+                    </div>
+                  </div>
+
 
                   <md-slide-toggle class="fieldWidth"  formControlName="active">Active</md-slide-toggle>
                   <br>

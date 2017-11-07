@@ -10,15 +10,15 @@
 
       <div class="left" fxLayout="row">
 
-        <img fxFlex="150px" class="picture" src="assets/img/demo/avatars/noavatar.png">
+        <img fxFlex="150px" class="picture" src="{{auth.userProfile?.picture}}">
 
         <div fxLayout="column" fxLayoutAlign="space-between">
           <div>
-            <div class="name">{{name}}</div>
+            <div class="name">{{auth.userProfile?.name}}</div>
           <!--  <div class="description">Angular 2, NodeJS & CSS3 Expert - Web Developer</div>-->
             <div class="contact" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="6px">
               <md-icon class="icon">mail</md-icon>
-              <span>{{email}}</span>
+              <span>{{auth.userProfile?.email}}</span>
             </div>
           </div>
 
