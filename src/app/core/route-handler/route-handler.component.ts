@@ -105,44 +105,6 @@ export class RouteHandlerComponent implements OnInit {
       position: 1
     });
 
-    // Sub Items for the Top Level Item (The items shown when you clicked on the dropdown item)
-    // Note: The Top Level Item is added as "parent" in those items, here "botManager" (variable from above)
-    const botManagerSubItems = [
-      new SidenavItem({
-        name: 'Bot Manager',
-        route: '/',
-        parent: botManager,
-        subItems: [ ],
-        position: 1,
-        routerLinkActiveOptions: {
-          exact: true
-        }
-      }),
-      new SidenavItem({
-        name: 'All-In-One Board',
-        route: '/bot-manager/all-in-one',
-        parent: botManager,
-        subItems: [ ],
-        position: 1
-      }),
-      new SidenavItem({
-        name: 'CRM Dashboard',
-        route: '/bot-manager/crm',
-        parent: botManager,
-        subItems: [ ],
-        position: 1
-      }),
-      new SidenavItem({
-        name: 'Add bot',
-        route: '/bot-manager/add-bot',
-        parent: botManager,
-        subItems: [ ],
-        position: 1
-      })
-    ];
-
-    // Push the just created Sub Items into the Top Level Item
-    botManager.subItems.push(...botManagerSubItems);
 
 
   const request = new SidenavItem({

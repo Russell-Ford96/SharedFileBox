@@ -6,7 +6,6 @@ import { FileUploadComponent } from './file-upload/file-upload.component';
 import { FileUploadResolve } from './file-upload/file-upload.resolve';
 import { AuthGuard } from './auth/auth.guard';
 import { dashboardRoutes } from './pages/dashboard/dashboard.routing';
-import { botManagerRoutes } from './pages/bot-manager/bot-manager.routing';
 import { componentsRoutes } from './pages/components/components.routing';
 import { formRoutes } from './pages/forms/forms.routing';
 import { inboxRoutes } from './pages/inbox/inbox.routing';
@@ -43,7 +42,6 @@ const routes: Routes = [
     children: [
       ...requestRoutes,
       ...dashboardRoutes,
-      ...botManagerRoutes,
       ...componentsRoutes,
       ...formRoutes,
       ...inboxRoutes,

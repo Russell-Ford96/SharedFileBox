@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormModule } from './forms/forms.module';
 import { DashboardModule } from './dashboard/dashboard.module';
-import { BotManagerModule } from './bot-manager/bot-manager.module';
 import { ProfileModule } from './profile/profile.module';
 import { ComponentsModule } from './components/components.module';
 import { InboxModule } from './inbox/inbox.module';
@@ -33,8 +32,7 @@ import { RequestModule } from './request/request.module';
     GoogleMapsModule,
     ProjectsModule,
     ProjectDetailsModule,
-    RequestModule,
-    BotManagerModule
+    RequestModule
   ],
   declarations: []
 })

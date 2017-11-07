@@ -1,6 +1,7 @@
 import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import Scrollbar from 'smooth-scrollbar';
 import { ROUTE_TRANSITION } from '../../../app.animation';
+import { AppService } from '../../../app.service';
 
 @Component({
   selector: 'vr-profile-bots',
@@ -19,8 +20,21 @@ export class BotsOverviewComponent implements OnInit, AfterViewInit {
   tableStriped = true;
   tableCondensed = true;
   tableBordered = true;
+  bots: any[];
 
-  constructor() { }
+  constructor(private appService: AppService) { }
+
+
+  getAllBots(){
+
+    this.appService.getAllBotData().subscribe((bots: any[]) => {
+      this.bots = bots;
+      console.log("*************************************");
+      console.log(this.bots);
+    });
+
+
+  }
 
   ngAfterViewInit() {
     const scrollbar = Scrollbar.get(document.getElementById('main-scrollbar'));
@@ -34,26 +48,6 @@ export class BotsOverviewComponent implements OnInit, AfterViewInit {
   };
 
   ngOnInit() {
-    this.rows = [
-      {
-        'name': 'Auto Insurance Bot',
-        'url': '/azure/autoBot',
-        'active': true,
-
-      },
-      {
-        'name': 'Jewellery Insurance Bot',
-        'url': '/azure/jewelBot',
-        'active': false,
-
-      },
-      {
-        'name': 'Property Insurance Bot',
-        'url': '/azure/propBot',
-        'active': true,
-
-      }
-
-    ];
+    this.getAllBots();
   }
 }

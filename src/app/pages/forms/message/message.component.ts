@@ -2,8 +2,8 @@ import * as _ from 'lodash';
 import { ROUTE_TRANSITION } from '../../../app.animation';
 import { Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
 import { FormArray, FormGroup, FormBuilder, Validators } from '@angular/forms';
-import {AuthService} from '../../../auth/auth.service';
-import {AppService} from '../../../app.service';
+import { AuthService } from '../../../auth/auth.service';
+import { AppService } from '../../../app.service';
 
 
 @Component({
@@ -51,6 +51,7 @@ export class MessageComponent implements OnInit {
     this.save();
 
   }
+
   save(): void {
     let formValues = this.requestForm.value;
     formValues.createdBy = this.profile.sub.split("|")[1];
@@ -77,6 +78,7 @@ export class MessageComponent implements OnInit {
         }
       });
   }
+
   buildForm(): void {
     this.requestForm = this.fb.group({
       'refnumb': ['', [

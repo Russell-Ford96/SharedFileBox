@@ -2,8 +2,12 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ProfileComponent } from './profile.component';
 import { FlexLayoutModule } from '@angular/flex-layout';
-import { MdButtonModule, MdChipsModule, MdIconModule, MdTabsModule } from '@angular/material';
-import { BotsOverviewComponent} from './bots-overview/bots-overview.component';
+import {
+  MdButtonModule, MdCheckboxModule, MdDatepickerModule, MdIconModule, MdInputModule, MdNativeDateModule, MdRadioModule, MdSelectModule, MdSliderModule, MdSlideToggleModule, MdTabsModule,
+  MdTooltipModule, MdChipsModule
+} from '@angular/material';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { BotsOverviewComponent } from './bots-overview/bots-overview.component';
 import { BreadcrumbsModule } from '../../core/breadcrumbs/breadcrumbs.module';
 import { PageHeaderModule } from '../../core/page-header/page-header.module';
 import { BotsCreationComponent } from "./bots-creation/bots-creation.component";
@@ -14,10 +18,10 @@ import { ComponentsAddItemBotModule } from '../components/components-add-item-bo
     CommonModule,
     FlexLayoutModule,
     PageHeaderModule,
-    MdButtonModule,
-    MdIconModule,
-    MdTabsModule,
-    MdChipsModule,
+    MdButtonModule, MdCheckboxModule, MdDatepickerModule, MdIconModule, MdInputModule, MdNativeDateModule, MdRadioModule, MdSelectModule, MdSliderModule, MdSlideToggleModule, MdTabsModule,
+    MdTooltipModule, MdChipsModule,
+    FormsModule,
+    ReactiveFormsModule,
     BreadcrumbsModule,
     ComponentsAddItemBotModule
   ],

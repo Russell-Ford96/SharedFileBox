@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ROUTE_TRANSITION } from '../../app.animation';
-import {AuthService} from "../../auth/auth.service";
+import { AuthService } from "../../auth/auth.service";
 
 @Component({
   selector: 'vr-profile',
@@ -18,12 +18,17 @@ export class ProfileComponent implements OnInit {
     private auth: AuthService
   ) { }
 
+
+
+
+
   ngOnInit() {
     if(this.auth.userProfile){
       console.log(this.auth.userProfile);
       this.email= this.auth.userProfile.email;
       this.name= this.auth.userProfile.nickname;
     }
+
 
   }
 

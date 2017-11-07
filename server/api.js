@@ -238,8 +238,60 @@ router.get('/request/detail/:refNumb',function (req,res) {
 });
 
 
+router.get('/bots', function (req,res) {
+  console.log("++++++++++++++++++ bots +++++++++++++++++++++++");
+  mongodb.MongoClient.connect(uri, function (err, db) {
+    if (err) {
+      throw err;
+    }
+    var botCollection = db.collection('bot');
+    botCollection.find().toArray(function (err, results) {
+      if (err) {
+        console.log(err);
+        return res.status(500).send("There was a problem finding all bot.");
+      }
+      //console.log(results);
+      return res.status(200).send(results);
+    });
+  });
+});
 
 
+router.post('/createbot', (req, res) => {
+    console.log("********************* Bot **********************");
+    console.log(req.body);
+    reqName = req.body.name;
+  mongodb.MongoClient.connect(uri, function(err, db) {
+      if(err){
+          console.log(err);
+      }
+      var reqBots = db.collection('bot');
+
+      var existingName = reqBots.findOne({ name: reqName },
+          function(err, result) {
+          if (err){
+              console.log(err);
+          }
+          if(result != null){
+          //validate name
+            if(result.name == null || !isnum) {
+              return res.send("Invalid Name.");
+            }
+          }
+          else{
+            reqBots.insert(req.body, function(err, result) {
+                if(err)
+                    return res.send("An error has occured");
+                else {
+                  var id = result.insertedIds[0];
+                     return res.send(id);
+                    }
+            })
+            db.close();
+          }
+      });
+  })
+})
 
 //nodemailer email
 router.post('/email',(req,res)=> {

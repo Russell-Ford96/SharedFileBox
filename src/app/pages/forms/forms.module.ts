@@ -13,7 +13,7 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { UtilsModule } from '../../core/utils/utils.module';
 import { FormWizardComponent } from './form-wizard/form-wizard.component';
 import { PageHeaderModule } from '../../core/page-header/page-header.module';
-import {MessageComponent} from './message/message.component';
+import { MessageComponent } from './message/message.component';
 
 @NgModule({
   imports: [

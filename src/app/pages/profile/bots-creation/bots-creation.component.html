@@ -1,1 +1,48 @@
-<vr-components-add-item-bot></vr-components-add-item-bot>
+<style>
+  .fieldWidth {
+    width: 100%;
+  }
+</style>
+<div class="form-elements">
+    <div fxLayout="column" fxLayoutGap="24px">
+      <div fxLayout="column" fxLayout.gt-sm="row" fxLayoutAlign.gt-sm="start start" fxLayoutGap="24px">
+        <div class="basic-forms card alternative" fxFlex="100%" fxFlex.gt-sm>
+          <div class="header" fxLayout="row" fxLayoutAlign="space-between center">
+            <div>
+              <div class="title">Bot </div>
+            </div>
+          </div>
+            <div class="content" fxLayout="column">
+
+              <form #myForm="ngForm" [formGroup]="requestForm" (ngSubmit)="onSubmit()">
+                <div class="result" fxLayout="column">
+
+                  <md-input-container class="fieldWidth">
+                    <input id="name" name="name" formControlName="name" mdInput placeholder="Name" type="text"  required>
+                  </md-input-container>
+
+                  <md-input-container class="fieldWidth">
+                    <input id="url" name="url" formControlName="url" mdInput placeholder="Url" type="text"  required>
+                  </md-input-container>
+
+
+                  <md-slide-toggle class="fieldWidth"  formControlName="active">Active</md-slide-toggle>
+                  <br>
+
+
+                  <md-card>
+                    <md-card-content fxLayout="column" fxLayout.gt-sm="row">
+                      <button type="submit" md-raised-button color="accent">Send</button>
+                    </md-card-content>
+                  </md-card>
+
+                </div>
+              </form>
+
+            </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<!-- <vr-components-add-item-bot></vr-components-add-item-bot> -->
