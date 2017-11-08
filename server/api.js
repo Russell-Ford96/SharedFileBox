@@ -56,10 +56,7 @@ router.get('/getimage/:createdBy/:refnumb/:file', function(req, res) {
                 res.send(404, "The file %s does not exist", fileName);
             } else {
                 res.header('Content-Type', properties.contentType);
-               blobSvc.createReadStream(containerName, fileName).pipe(res);
-
-
-
+                blobSvc.createReadStream(containerName, fileName).pipe(res);
             }
         });
 });
@@ -319,12 +316,11 @@ router.post('/create', (req, res) => {
     var success = true;
     var reqReferenceNum = req.body.refnumb;
 
-
     //validate refnumb
     var isnum = /[0-9]/;
     var isletter = /[a-zA-Z]/;
     var validref = isnum.test(reqReferenceNum) && isletter.test(reqReferenceNum)
-    if(!validref){
+    if(!validref || reqReferenceNum.length < 7){
         return res.send("Invalid reference number")
     }
     //validate email
@@ -332,11 +328,7 @@ router.post('/create', (req, res) => {
     if(!(re.test(req.body.email))){
          return res.send("Invalid email")
     }
-    //validate phone number
-    var valphone = /\d?(\s?|-?|\+?|\.?)((\(\d{1,4}\))|(\d{1,3})|\s?)(\s?|-?|\.?)((\(\d{1,3}\))|(\d{1,3})|\s?)(\s?|-?|\.?)((\(\d{1,3}\))|(\d{1,3})|\s?)(\s?|-?|\.?)\d{3}(-|\.|\s)\d{4}/;
-    if(!(valphone.test(toNumber))){
-        return res.send("Invalid phone number")
-    }
+
 
     mongodb.MongoClient.connect(uri, function(err, db) {
         if(err){
@@ -360,24 +352,30 @@ router.post('/create', (req, res) => {
                       body: detailedMessage
                     }, function(err, message) {
                         if(err){
-                          console.log(err);
+                          console.log(err)
                         }
                     });
                     client.messages.create({
                       to: toNumber,
                       from: ourNumber,
-                        body: "https://sharedfilebox.azurewebsites.net/upload/" + id
+                      body: "https://sharedfilebox.azurewebsites.net/upload/" + id
                       }, function(err, message) {
                               if(err) {
                                 console.log(err);
+                                if(err.code == 21211){
+                                   res.send(err.message)
+                                }
+                              }
+                              else if(err == null){
+                                res.send(id)
                               }
                           });
-                          return res.send(id);
                       }
               })
               db.close();
             }
         });
+
     })
 })
 

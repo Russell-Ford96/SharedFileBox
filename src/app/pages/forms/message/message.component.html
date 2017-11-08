@@ -27,25 +27,24 @@
             <div class="result" fxLayout="column">
 
               <md-input-container class="fieldWidth" >
-                <input id="refnumb" name="refnumb" mdInput placeholder="Reference Number" type="text" formControlName="refnumb" required>
-                <div *ngIf="formErrors.refnumb">
-                    {{ validationMessages.refnumb.minLength }}
-                    {{ validationMessages.refnumb.validateAN }}
-                </div>
+                <input id="refnumb" name="refnumb" mdInput placeholder="Reference Number " type="text" formControlName="refnumb" required>
+                <md-error *ngIf="formErrors.refnumb" >
+                    Reference number must be 50 characters, letters and numbers
+                </md-error>
               </md-input-container>
 
                 <md-input-container class="fieldWidth">
                   <input id="email" name="email" mdInput placeholder="Email" type="text" formControlName="email" required>
-                  <div *ngIf="formErrors.email">
-                      {{ validationMessages.email.validateEmail }}
-                  </div>
+                  <md-error *ngIf="formErrors.email">
+                    Please enter a valid email address
+                  </md-error>
                 </md-input-container>
 
                 <md-input-container class="fieldWidth">
                    <input id="phone" name="phone" mdInput placeholder="Phone Number" type="text" formControlName="phone" required>
-                   <div *ngIf="formErrors.phone">
-                      {{ validationMessages.phone.validatePhone }}
-                   </div>
+                   <md-error *ngIf="isphoneError">
+                      {{ phonemsg }}
+                   </md-error>
                 </md-input-container>
 
               <md-input-container class="fieldWidth" >

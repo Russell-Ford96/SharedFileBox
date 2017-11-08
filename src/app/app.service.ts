@@ -15,7 +15,7 @@ export class AppService {
     createRequest(formData: any): Promise<any> {
         return this.http.post('api/create', JSON.stringify(formData), {headers: this.headers})
                     .toPromise()
-                    .then(response => response)
+                    .then(response => response) 
                     .catch(this.handleError);
     }
 

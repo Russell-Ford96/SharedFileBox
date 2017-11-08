@@ -17,6 +17,7 @@ import {AppService} from '../../../app.service';
 export class MessageComponent implements OnInit {
   public msgSent= false;
   public msgErr= false;
+  public isphoneError = false;
   @Input() inputArray: any[];
   @Output() closeEvent = new EventEmitter<string>();
 
@@ -24,6 +25,8 @@ export class MessageComponent implements OnInit {
   myForm: FormGroup;
   submitted = false;
   profile: any;
+  phonemsg: any;
+
 
   constructor(
     private fb: FormBuilder,
@@ -56,8 +59,16 @@ export class MessageComponent implements OnInit {
     formValues.createdBy = this.profile.sub.split("|")[1];
     this.appService.createRequest(this.requestForm.value)
       .then(res => {
+        let error_str = res._body.slice(26);
+        if(error_str == 'is not a valid phone number.'){
+            this.isphoneError = true;
+            this.phonemsg = res._body;
+            this.val(true)
+        }
+        else if(error_str != 'is not a valid phone number.'){
+          this.isphoneError = false;
+        }
         if(res._body != "false") {
-          console.log(res);
           this.callParent();
 
           this.msgSent = true;
@@ -65,7 +76,6 @@ export class MessageComponent implements OnInit {
             this.msgSent = false;
             console.log(this.msgSent);
           }.bind(this),3000);
-
 
         }  else {
           console.log(res);
@@ -81,19 +91,20 @@ export class MessageComponent implements OnInit {
     this.requestForm = this.fb.group({
       'refnumb': ['', [
         Validators.required,
-        Validators.minLength(50),
+        Validators.minLength(7),
         this.validateAN,
       ]
       ],
 
       'email': ['', [
         Validators.required,
-        this.validateEmail,
+        Validators.pattern(this.EMAIL_REGEX),
       ]
       ],
       'phone': ['', [
         Validators.required,
-        this.validatePhone,
+        Validators.pattern(/[0-9]/),
+        this.val,
       ]
       ],
       'shortmessage': ['', [
@@ -167,7 +178,6 @@ export class MessageComponent implements OnInit {
     },
     'phone': {
       'required': 'Phone is required.',
-      'validatePhone': 'Incorrect phone number format'
     },
     'shortmessage': {
       'required': 'Short description is required.'
@@ -194,21 +204,21 @@ validateAN(control: AbstractControl): ValidationErrors | null {
       return null
   }
 
-validateEmail(control: AbstractControl): ValidationErrors | null {
-    var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-    if(!(re.test(control.value))){
-        return { validateEmail: control.value }
-    }
-    return null
-  }
 
-validatePhone(control: AbstractControl): ValidationErrors | null {
-    var re = /\d?(\s?|-?|\+?|\.?)((\(\d{1,4}\))|(\d{1,3})|\s?)(\s?|-?|\.?)((\(\d{1,3}\))|(\d{1,3})|\s?)(\s?|-?|\.?)((\(\d{1,3}\))|(\d{1,3})|\s?)(\s?|-?|\.?)\d{3}(-|\.|\s)\d{4}/;
-    if(!(re.test(control.value))){
-        return { validatePhone: control.value }
-    }
-    return null
+val(msg?:Boolean, control?: AbstractControl, ): ValidationErrors | null{
+      if(msg){
+        return { val: 'phone format error' }
+      }
+      return null
 }
+
+EMAIL_REGEX = /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+// PHONE_REGEX = /\d?(\s?|-?|\+?|\.?)((\(\d{1,4}\))|(\d{1,3})|\s?)(\s?|-?|\.?)((\(\d{1,3}\))|(\d{1,3})|\s?)(\s?|-?|\.?)((\(\d{1,3}\))|(\d{1,3})|\s?)(\s?|-?|\.?)\d{3}(-|\.|\s)\d{4}/;
+
+
+
+
+
 
 
 }
