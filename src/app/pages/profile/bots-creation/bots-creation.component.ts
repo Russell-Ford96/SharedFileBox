@@ -30,7 +30,7 @@ export class BotsCreationComponent implements OnInit {
   profile: any;
   bot: any;
   items: any[];
-  item: any; // if file = false the is a question
+  item: {name: String , file: boolean, position: number }; // if file = false the is a question
 
 
   layoutGap = {
@@ -115,7 +115,7 @@ export class BotsCreationComponent implements OnInit {
         this.profile = profile;
       });
     }
-    this.item = { name: '', file: false };
+    this.item = { name: '', file: false, position: 0 };
     this.buildForm();
 
   }
@@ -158,7 +158,7 @@ export class BotsCreationComponent implements OnInit {
         Validators.required
       ]
       ],
-      itemArray: this.fb.array([this.initItemField()]),
+      itemArray: this.fb.array([this.initItemField(0)]),
       'thanks': ['', [
         Validators.required
       ]
@@ -171,17 +171,35 @@ export class BotsCreationComponent implements OnInit {
     this.onValueChanged(); // (re)set validation messages now
   }
 
-  initItemField() {
+  initItemField(position: number) {
     console.log(this.item.name);
+    //this.item.position = position;
     return this.fb.group({
       name: [this.item.name, Validators.required],
-      file: [this.item.file, Validators.required]
+      file: [this.item.file, Validators.required],
+      position: [position, Validators.required]
     });
   }
 
+
+
   addInput(): void {
     const arrayControl = <FormArray>this.requestForm.controls['itemArray'];
-    arrayControl.push(this.initItemField());
+
+    console.log("***************** itemArray ********************")
+    console.log(this.requestForm.get('itemArray').value);
+
+
+    arrayControl.push(this.initItemField( ( this.requestForm.get('itemArray').value).length + 1 ));
+    let arraySorted = this.requestForm.get('itemArray').value;
+    arraySorted.sort((a,b): number => {
+      if(a.position < b.position ) return -1;
+      if(a.position > b.position ) return 1;
+      return 0
+    })
+    console.log(arraySorted);
+
+    console.log(this.requestForm.get('itemArray').value);
   }
 
   delInput(index: number): void {
