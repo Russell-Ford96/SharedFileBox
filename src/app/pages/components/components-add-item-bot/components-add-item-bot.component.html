@@ -1,9 +1,9 @@
-<!-- <div class="content">
+<div class="content">
   <table class="table table-hover table-condensed table-bordered">
     <thead>
     <tr>
-      <th>File</th>
-      <th>Name</th>
+      <th align="left" width="20%">File</th>
+      <th align="left" width="80%">Name</th>
 
     </tr>
     </thead>
@@ -13,76 +13,14 @@
             [dragulaModel]='items'
             >
     <tr  *ngFor="let item of items;let i=index">
-      <td>
+      <td  align="left" width="20%">
         <md-checkbox class="checkbox" [(ngModel)]="item.file" color="primary"></md-checkbox>
       </td>
-      <td>{{ item.name }}</td>
+      <td align="left" width="80%">{{ item.name }}</td>
     </tr>
     </tbody>
   </table>
   <div class="chart">
     <canvas width="150" height="30" #canvas></canvas>
   </div>
-</div> -->
-
-
-<!-- <div class="content" fxLayout="column"
-
->
-  <div class="task-container" fxLayout="column"
-  [@listFade]="true"
-  [dragula]="'one-bag'"
-  [dragulaModel]='items'
-  *ngFor="let item of items;let i=index" [@listFade]="true">
-    <div class="task"
-         fxLayout="row" fxLayoutAlign="space-between center"
-          >
-      <div fxLayout="row" fxLayoutAlign="start center">
-        <md-checkbox class="checkbox" [(ngModel)]="item.file" color="primary"></md-checkbox>
-        <div class="name">{{ item.name }}</div>
-      </div>
-
-      <div fxLayout="row" fxLayoutAlign="end center">
-        <button class="archive" type="button" md-icon-button>
-          <md-icon>archive</md-icon>
-        </button>
-        <div class="date"></div>
-      </div>
-    </div>
-  </div>
-
-</div> -->
-
-<!-- <div class="card"> -->
-  <div class="header" fxLayout="row" fxLayoutAlign="space-between center">
-    <div class="name">Items Bot</div>
-
-  </div>
-
-  <div class="content" fxLayout="column">
-    <div class="task-container" fxLayout="column"
-
-          [@listFade]="true"
-          [dragula]="'one-bag'"
-          [dragulaModel]='items'
-    >
-      <div class="task" *ngFor="let item of items;let i=index"
-           fxLayout="row" fxLayoutAlign="space-between center"
-           >
-
-        <div fxLayout="row" fxLayoutAlign="start center">
-
-          <div class="name">{{ item.name }}</div>
-
-        </div>
-
-        <div fxLayout="row" fxLayoutAlign="end center">
-          <md-checkbox class="checkbox" [(ngModel)]="item.file" color="primary"></md-checkbox>
-          <div class="name">{{ item.position }}</div>
-        </div>
-
-      </div>
-    </div>
-
-  </div>
-<!-- </div> -->
+</div>

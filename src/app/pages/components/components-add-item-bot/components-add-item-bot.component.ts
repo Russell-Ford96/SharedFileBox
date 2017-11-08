@@ -12,73 +12,68 @@ import { DragulaService } from 'ng2-dragula';
 })
 export class ComponentsAddItemBotComponent implements OnInit {
   @Input() items: { name: String, file: boolean, position: number }[] = [{ name: '', file: false, position: 0 }];
-  itemSelected: any;
-  msg: String;
 
-    private getIndexInParent(el) {
-      return Array.from(el.parentNode.children).indexOf(el)
-    }
+  private getIndexInParent(el) {
+    return Array.from(el.parentNode.children).indexOf(el)
+  }
 
-    private onOver(args) {
+  private onOver(args) {
     let [e, el, container] = args;
     // do something
-    }
+  }
 
-    private onOut(args) {
-      let [e, el, container] = args;
-      // do something
-    }
+  private onOut(args) {
+    let [e, el, container] = args;
+    // do something
+  }
 
-    private onDrag(args) {
-      let [e, el] = args;
-      let index = this.getIndexInParent(el);
-      console.log("onDrag  position " + index);
+  private onDrag(args) {
+    let [e, el] = args;
+    let index = this.getIndexInParent(el);
+  }
+
+
+  private onDrop(args) {
+    let [e, el] = args;
+    let index = this.getIndexInParent(el);
+
+    setTimeout(() => {
+      for (let i = 0; i < this.items.length; i++) {
+        this.items[i].position = i;
+      }
       console.log(this.items);
-    }
-
-
-    private onDrop(args) {
-      let [e, el] = args;
-      let index = this.getIndexInParent(el);
-      console.log("New position " + index);
-
-      setTimeout(() => {
-        for (let i = 0; i < this.items.length; i++) {
-           this.items[i].position = i;
-         }
-         console.log(this.items);
-      }, 300);
-
-
-    }
+    }, 100);
+  }
 
   constructor(
     private snackbar: MdSnackBar,
     private cd: ChangeDetectorRef,
     private dragulaService: DragulaService
   ) {
+    const bag: any = this.dragulaService.find('one-bag');
+
+    if (bag !== undefined) {
+      this.dragulaService.destroy('one-bag');
+    };
+
     dragulaService.setOptions('one-bag', {
       revertOnSpill: true
     });
     dragulaService.drag.subscribe((value) => {
-      console.log(`drag: ${value[0]}`);
       this.onDrag(value.slice(1));
     });
     dragulaService.drop.subscribe((value) => {
-      console.log(`drop: ${value[0]}`);
       this.onDrop(value.slice(1));
     });
     dragulaService.over.subscribe((value) => {
-      console.log(`over: ${value[0]}`);
       this.onOver(value.slice(1));
     });
     dragulaService.out.subscribe((value) => {
-      console.log(`out: ${value[0]}`);
       this.onOut(value.slice(1));
     });
   }
 
-  ngOnInit() {}
+  ngOnInit() { }
 
   archive(item) {
     const index = this.items.indexOf(item);
