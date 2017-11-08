@@ -97,15 +97,6 @@ export class RouteHandlerComponent implements OnInit {
     dashboard.subItems.push(...dashboardSubItems);
 
 
-    // Top Level Item (The item to click on so the dropdown opens)
-    const botManager = new SidenavItem({
-      name: 'Bot Manager',
-      icon: 'chat',
-      subItems: [ ],
-      position: 1
-    });
-
-
 
   const request = new SidenavItem({
       name: 'Request',
@@ -377,7 +368,6 @@ export class RouteHandlerComponent implements OnInit {
 
     // Send the created Menu structure to Redux/ngrx (you only need to send the Top Level Item, all dropdown items will be added automatically)
     this.store.dispatch(new sidenavAction.AddSidenavItemAction(dashboard));
-    this.store.dispatch(new sidenavAction.AddSidenavItemAction(botManager));
     this.store.dispatch(new sidenavAction.AddSidenavItemAction(request));
     this.store.dispatch(new sidenavAction.AddSidenavItemAction(forms));
    // this.store.dispatch(new sidenavAction.AddSidenavItemAction(pages));

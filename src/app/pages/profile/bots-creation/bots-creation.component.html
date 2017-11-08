@@ -4,59 +4,114 @@
   }
 </style>
 <div class="form-elements">
-    <div fxLayout="column" fxLayoutGap="24px">
-      <div fxLayout="column" fxLayout.gt-sm="row" fxLayoutAlign.gt-sm="start start" fxLayoutGap="24px">
-        <div class="basic-forms card alternative" fxFlex="100%" fxFlex.gt-sm>
-          <div class="header" fxLayout="row" fxLayoutAlign="space-between center">
-            <div>
-              <div class="title">Bot </div>
-            </div>
+  <div fxLayout="column" fxLayoutGap="24px">
+    <div fxLayout="column" fxLayout.gt-sm="row" fxLayoutAlign.gt-sm="start start" fxLayoutGap="24px">
+      <div class="basic-forms card alternative" fxFlex="100%" fxFlex.gt-sm>
+        <div class="header" fxLayout="row" fxLayoutAlign="space-between center">
+          <div>
+            <div class="title">Bot </div>
           </div>
-            <div class="content" fxLayout="column">
+        </div>
+        <div class="content" fxLayout="column">
 
-              <form #myForm="ngForm" [formGroup]="requestForm" (ngSubmit)="onSubmit()">
-                <div class="result" fxLayout="column">
 
-                  <md-input-container class="fieldWidth">
-                    <input id="name" name="name" formControlName="name" mdInput placeholder="Name" type="text"  required>
-                  </md-input-container>
+          <div fxLayout="column"
+               [fxLayoutGap]="layoutGap['lt-md']" [fxLayoutGap.gt-md]="layoutGap['gt-md']">
+            <!-- Start -->
 
-                  <md-input-container class="fieldWidth">
-                    <input id="url" name="url" formControlName="url" mdInput placeholder="Url" type="text"  required>
-                  </md-input-container>
+            <div fxLayout="column" fxLayout.gt-sm="row"
+                 fxLayoutAlign.gt-sm="start start"
+                 [fxLayoutGap]="layoutGap['lt-md']" [fxLayoutGap.gt-md]="layoutGap['gt-md']">
 
-                  <div formArrayName="itemArray">
-                    {{requestForm.controls.itemArray.controls.length}}
-                     <div *ngFor="let address of requestForm.controls.itemArray.controls; let i=index" >
-                      <div [formGroupName]="i">
-                          <md-input-container class="fieldWidth" >
-                              <input id="itemlist1" name="itemlist1" mdInput placeholder="Documents" type="text" formControlName="name" required>
-                               <!-- <md-icon mdSuffix (click)="addInput()">add</md-icon>
-                              <md-icon mdSuffix *ngIf="requestForm.controls.itemArray.controls.length > 1" (click)="delInput(i)">clear</md-icon> -->
-                          </md-input-container>
+              <div fxLayout="column"
+                   [fxLayoutGap]="layoutGap['lt-md']" [fxLayoutGap.gt-md]="layoutGap['gt-md']"
+                   [fxFlex]="flexWidth['lt-sm']" [fxFlex.gt-sm]="flexWidth['gt-sm']" [fxFlex.gt-md]="flexWidth['gt-md']">
 
-                      </div>
+                <div fxLayout="column" [fxLayout.gt-lg]="layoutColumnOnBoxed"
+                     [fxLayoutGap]="layoutGap['lt-md']" [fxLayoutGap.gt-md]="layoutGap['gt-md']"
+                     [fxFlex]="flexWidth['lt-sm']" [fxFlex.gt-sm]="flexWidth['gt-sm']" [fxFlex.gt-md]="flexWidth['gt-md']">
+                  <div class="widget" [fxFlex.gt-md]="flexWidth['gt-md']">
+                          <!-- Start form -->
+                          <div class="result" fxLayout="column">
+                            <form #myForm="ngForm" [formGroup]="requestForm" (ngSubmit)="onSubmit()">
+                            <md-input-container class="fieldWidth">
+                              <input id="name" name="name" formControlName="name" mdInput placeholder="Name" type="text" required>
+                            </md-input-container>
+
+                            <md-input-container class="fieldWidth">
+                              <input id="url" name="url" formControlName="url" mdInput placeholder="Url" type="text" required>
+                            </md-input-container>
+
+                            <md-slide-toggle class="fieldWidth" formControlName="active">Active</md-slide-toggle>
+                            <br>
+                            <md-card>
+                              <md-card-content fxLayout="column" fxLayout.gt-sm="row">
+                                <button type="submit" md-raised-button color="accent">Send</button>
+                              </md-card-content>
+                            </md-card>
+                            </form>
+                          </div>
+                          <!-- End form -->
+                  </div>
+                  <div class="widget" [fxFlex.gt-md]="flexWidth['gt-md']">
+
+                  </div>
+                </div>
+                <div class="widget">
+                  <!-- <vr-recentsales-widget></vr-recentsales-widget> -->
+                </div>
+                <div class="widget">
+                  <!-- <vr-market-widget></vr-market-widget> -->
+                </div>
+              </div>
+
+                <!-- Star 2 column -->
+                <div fxLayout="column"
+                     [fxLayoutGap]="layoutGap['lt-md']" [fxLayoutGap.gt-md]="layoutGap['gt-md']"
+                     [fxFlex]="flexWidth['lt-sm']" [fxFlex.gt-sm]="flexWidth['gt-sm']" [fxFlex.gt-md]="flexWidth['gt-md']">
+
+                  <div fxLayout="column" [fxLayout.gt-lg]="layoutColumnOnBoxed"
+                       [fxLayoutGap]="layoutGap['lt-md']" [fxLayoutGap.gt-md]="layoutGap['gt-md']"
+                       [fxFlex]="flexWidth['lt-sm']" [fxFlex.gt-sm]="flexWidth['gt-sm']" [fxFlex.gt-md]="flexWidth['gt-md']">
+                    <div class="widget" [fxFlex.gt-md]="flexWidth['gt-md']">
+                      <!-- Start Item Bot -->
+                      <md-input-container class="fieldWidth">
+                        <input [(ngModel)]="item.name" name="itemlist1" mdInput placeholder="Documents" type="text" required>
+                      </md-input-container>
+
+                        <md-slide-toggle class="fieldWidth"
+                        [(ngModel)]="item.file"
+                        [color]="primary"
+                        >
+                          {{getType()}}
+                        </md-slide-toggle>
+                      <md-icon mdSuffix (click)="addInput()">add</md-icon>
+
+
+
+                      <!-- End Item Bot -->
+                      <vr-components-add-item-bot [items]="getItems()"></vr-components-add-item-bot>
+                    </div>
+                    <div class="widget" [fxFlex.gt-md]="flexWidth['gt-md']">
+                      <!-- <vr-project-widget [smallView]="true"></vr-project-widget> -->
                     </div>
                   </div>
 
-
-                  <md-slide-toggle class="fieldWidth"  formControlName="active">Active</md-slide-toggle>
-                  <br>
-
-
-                  <md-card>
-                    <md-card-content fxLayout="column" fxLayout.gt-sm="row">
-                      <button type="submit" md-raised-button color="accent">Send</button>
-                    </md-card-content>
-                  </md-card>
-
+                  <div class="widget">
+                    <!-- <vr-advanced-pie-chart-widget></vr-advanced-pie-chart-widget> -->
+                  </div>
+                  <div class="widget">
+                    <!-- <vr-maps-widget></vr-maps-widget> -->
+                  </div>
                 </div>
-              </form>
+                <!-- End 2 column -->
+
 
             </div>
+            <!-- end -->
+          </div>
         </div>
       </div>
     </div>
   </div>
-
-<!-- <vr-components-add-item-bot></vr-components-add-item-bot> -->
+</div>

@@ -1,10 +1,15 @@
-import { AfterViewInit, Component, ElementRef, OnInit,
-         Input, Output, EventEmitter, ViewChild } from '@angular/core';
+import {
+  AfterViewInit, ChangeDetectorRef, Component, ElementRef, OnInit,
+  Input, Output, EventEmitter, ViewChild
+} from '@angular/core';
 import Scrollbar from 'smooth-scrollbar';
 import { ROUTE_TRANSITION } from '../../../app.animation';
 import { FormArray, FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { AuthService } from '../../../auth/auth.service';
 import { AppService } from '../../../app.service';
+import * as fromRoot from '../../../reducers/index';
+import { Store } from '@ngrx/store';
+
 
 @Component({
   selector: 'vr-create-bot',
@@ -13,9 +18,9 @@ import { AppService } from '../../../app.service';
   animations: [...ROUTE_TRANSITION],
   host: { '[@routeTransition]': '' }
 })
-export class BotsCreationComponent implements OnInit  {
-  public msgSent= false;
-  public msgErr= false;
+export class BotsCreationComponent implements OnInit {
+  public msgSent = false;
+  public msgErr = false;
   // @Input() inputArray: any[];
   // @Output() closeEvent = new EventEmitter<string>();
 
@@ -24,16 +29,64 @@ export class BotsCreationComponent implements OnInit  {
   submitted = false;
   profile: any;
   bot: any;
+  items: any[];
+  item: any; // if file = false the is a question
+
+
+  layoutGap = {
+    'lt-md': '16px',
+    'gt-md': '24px'
+  };
+
+  flexWidth = {
+    'lt-sm': 'auto',
+    'gt-sm': `calc(50% - ${this.layoutGap['lt-md']}`,
+    'gt-md': `calc(50% - ${this.layoutGap['gt-md']}`
+  };
+
+  layout: string;
+
+  layoutColumnOnBoxed = 'row';
+
+
+  getType() {
+    if (this.item.file) {
+      return 'File'
+    } else {
+      return 'Question'
+    }
+  }
+
+  getNumItems() {
+
+    if (this.requestForm.controls['itemArray']) {
+      const arrayControl = <FormArray>this.requestForm.controls['itemArray'];
+      return arrayControl.length;
+    } else {
+      return 0;
+    }
+
+  }
+
+  getItems() {
+    return this.requestForm.get('itemArray').value;
+  }
 
   constructor(
     private fb: FormBuilder,
     private appService: AppService,
-    private auth: AuthService
-  ) { }
+    private auth: AuthService,
+    private store: Store<fromRoot.State>,
+    private cd: ChangeDetectorRef
+  ) {
+  }
+
+
 
   callParent() {
     // this.closeEvent.next();
   }
+
 
   onSubmit() {
     console.log("*************************************************************")
@@ -43,6 +96,18 @@ export class BotsCreationComponent implements OnInit  {
   }
 
   ngOnInit(): void {
+    this.store.select(fromRoot.getLayout).subscribe((layout) => {
+      this.layout = layout;
+
+      if (layout === 'gamma') {
+        this.layoutColumnOnBoxed = 'column';
+      } else {
+        this.layoutColumnOnBoxed = 'row';
+      }
+
+      this.cd.markForCheck();
+    });
+
     if (this.auth.userProfile) {
       this.profile = this.auth.userProfile;
     } else {
@@ -50,7 +115,9 @@ export class BotsCreationComponent implements OnInit  {
         this.profile = profile;
       });
     }
+    this.item = { name: '', file: false };
     this.buildForm();
+
   }
 
   save(): void {
@@ -59,23 +126,23 @@ export class BotsCreationComponent implements OnInit  {
     console.log(formValues);
     this.appService.createBot(this.requestForm.value)
       .then(res => {
-        if(res._body != "false") {
+        if (res._body != "false") {
           console.log(res);
           this.callParent();
 
           this.msgSent = true;
-          setTimeout(function () {
+          setTimeout(function() {
             this.msgSent = false;
             console.log(this.msgSent);
-          }.bind(this),3000);
+          }.bind(this), 3000);
 
 
-        }  else {
+        } else {
           console.log(res);
           this.msgErr = true;
-          setTimeout(function () {
+          setTimeout(function() {
             this.msgErr = false;
-          }.bind(this),3000);
+          }.bind(this), 3000);
 
         }
       });
@@ -86,17 +153,17 @@ export class BotsCreationComponent implements OnInit  {
       'name': ['', [
         Validators.required
       ]
-    ],
+      ],
       'url': ['', [
         Validators.required
       ]
-    ],
-    itemArray: this.fb.array([this.initItemField()]),
-    'thanks': ['', [
-      Validators.required
-    ]
-  ],
-      'active': [ true, [] ]
+      ],
+      itemArray: this.fb.array([this.initItemField()]),
+      'thanks': ['', [
+        Validators.required
+      ]
+      ],
+      'active': [true, []]
 
     });
     this.requestForm.valueChanges
@@ -105,8 +172,10 @@ export class BotsCreationComponent implements OnInit  {
   }
 
   initItemField() {
+    console.log(this.item.name);
     return this.fb.group({
-      name: ['', Validators.required]
+      name: [this.item.name, Validators.required],
+      file: [this.item.file, Validators.required]
     });
   }
 

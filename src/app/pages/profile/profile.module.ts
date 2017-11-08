@@ -4,7 +4,7 @@ import { ProfileComponent } from './profile.component';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import {
   MdButtonModule, MdCheckboxModule, MdDatepickerModule, MdIconModule, MdInputModule, MdNativeDateModule, MdRadioModule, MdSelectModule, MdSliderModule, MdSlideToggleModule, MdTabsModule,
-  MdTooltipModule, MdChipsModule
+  MdTooltipModule, MdChipsModule, MdGridListModule
 } from '@angular/material';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BotsOverviewComponent } from './bots-overview/bots-overview.component';
@@ -19,7 +19,7 @@ import { ComponentsAddItemBotModule } from '../components/components-add-item-bo
     FlexLayoutModule,
     PageHeaderModule,
     MdButtonModule, MdCheckboxModule, MdDatepickerModule, MdIconModule, MdInputModule, MdNativeDateModule, MdRadioModule, MdSelectModule, MdSliderModule, MdSlideToggleModule, MdTabsModule,
-    MdTooltipModule, MdChipsModule,
+    MdTooltipModule, MdChipsModule,MdGridListModule,
     FormsModule,
     ReactiveFormsModule,
     BreadcrumbsModule,

@@ -258,8 +258,8 @@ router.get('/bots', function (req,res) {
 
 
 router.post('/createbot', (req, res) => {
-    console.log("********************* Bot **********************");
-    console.log(req.body);
+    // console.log("********************* Bot **********************");
+    // console.log(req.body);
     reqName = req.body.name;
   mongodb.MongoClient.connect(uri, function(err, db) {
       if(err){
