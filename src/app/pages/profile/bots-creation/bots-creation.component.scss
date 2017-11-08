@@ -1,5 +1,19 @@
 @import "../../../../styles/var";
 
+.fieldWidth {
+  width: 100%;
+}
+
+.addItemNameStyle {
+  padding-left: 0px;
+  padding-right: 10px;
+  width: 100%;
+}
+.addItemTypeStyle {
+  padding-left: 15px;
+  padding-right: 0px;
+  width: 100%;
+}
 .form-elements {
 
   @include responsivePadding();

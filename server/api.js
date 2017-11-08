@@ -258,8 +258,8 @@ router.get('/bots', function (req,res) {
 
 
 router.post('/createbot', (req, res) => {
-    // console.log("********************* Bot **********************");
-    // console.log(req.body);
+    console.log("********************* Bot **********************");
+    console.log(req.body);
     reqName = req.body.name;
   mongodb.MongoClient.connect(uri, function(err, db) {
       if(err){
@@ -274,7 +274,9 @@ router.post('/createbot', (req, res) => {
           }
           if(result != null){
           //validate name
-            if(result.name == null || !isnum) {
+            console.log("*********** RESULT **********");
+            console.log(result);
+            if(result.name != null ) {
               return res.send("Invalid Name.");
             }
           }

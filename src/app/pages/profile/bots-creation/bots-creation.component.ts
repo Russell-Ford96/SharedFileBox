@@ -158,7 +158,7 @@ export class BotsCreationComponent implements OnInit {
         Validators.required
       ]
       ],
-      itemArray: this.fb.array([this.initItemField(0)]),
+      itemArray: this.fb.array([]),
       'thanks': ['', [
         Validators.required
       ]
@@ -171,17 +171,21 @@ export class BotsCreationComponent implements OnInit {
     this.onValueChanged(); // (re)set validation messages now
   }
 
-  initItemField(position: number) {
-    console.log(this.item.name);
+  initItemField(item: {name: String , file: boolean, position: number }) {
+    console.log(item.name);
     //this.item.position = position;
     return this.fb.group({
-      name: [this.item.name, Validators.required],
-      file: [this.item.file, Validators.required],
-      position: [position, Validators.required]
+      name: [item.name, Validators.required],
+      file: [item.file, Validators.required],
+      position: [item.position, Validators.required]
     });
   }
 
-
+  clearItem(){
+    this.item.name = '';
+    this.item.file = false;
+    this.item.position = 0;
+  }
 
   addInput(): void {
     const arrayControl = <FormArray>this.requestForm.controls['itemArray'];
@@ -189,14 +193,20 @@ export class BotsCreationComponent implements OnInit {
     console.log("***************** itemArray ********************")
     console.log(this.requestForm.get('itemArray').value);
 
+    this.item.position = (( this.requestForm.get('itemArray').value).length + 1);
 
-    arrayControl.push(this.initItemField( ( this.requestForm.get('itemArray').value).length + 1 ));
+    arrayControl.push(this.initItemField(this.item));
+
     let arraySorted = this.requestForm.get('itemArray').value;
+
     arraySorted.sort((a,b): number => {
       if(a.position < b.position ) return -1;
       if(a.position > b.position ) return 1;
       return 0
     })
+
+    this.clearItem();
+
     console.log(arraySorted);
 
     console.log(this.requestForm.get('itemArray').value);
