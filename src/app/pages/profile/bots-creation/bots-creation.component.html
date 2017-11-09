@@ -1,126 +1,69 @@
-<div class="form-elements">
-  <div fxLayout="column" fxLayoutGap="24px">
-    <div fxLayout="column" fxLayout.gt-sm="row" fxLayoutAlign.gt-sm="start start" fxLayoutGap="24px">
-      <div class="basic-forms card alternative" fxFlex="100%" fxFlex.gt-sm>
-        <div class="header" fxLayout="row" fxLayoutAlign="space-between center">
-          <div>
-            <div class="title">Bot </div>
-          </div>
-        </div>
-        <div class="content" fxLayout="column">
+<mat-horizontal-stepper [linear]="false">
+  <mat-step [stepControl]="requestForm">
+    <form [formGroup]="requestForm">
+      <ng-template matStepLabel>Fill out name and url</ng-template>
+
+            <!-- Start form -->
+            <div class="result" fxLayout="column">
+              <form #myForm="ngForm" [formGroup]="requestForm" (ngSubmit)="onSubmit()">
+                <mat-input-container class="fieldWidth">
+                  <input id="name" name="name" formControlName="name" matInput placeholder="Name" type="text" required>
+                </mat-input-container>
+
+                <mat-input-container class="fieldWidth">
+                  <input id="url" name="url" formControlName="url" matInput placeholder="Url" type="text" required>
+                </mat-input-container>
+
+                <mat-slide-toggle class="fieldWidth" formControlName="active">Active</mat-slide-toggle>
 
 
-          <div fxLayout="column"
-               [fxLayoutGap]="layoutGap['lt-md']" [fxLayoutGap.gt-md]="layoutGap['gt-md']">
-            <!-- Start -->
-
-            <div fxLayout="column" fxLayout.gt-sm="row"
-                 fxLayoutAlign.gt-sm="start start"
-                 [fxLayoutGap]="layoutGap['lt-md']" [fxLayoutGap.gt-md]="layoutGap['gt-md']">
-
-              <div fxLayout="column"
-                   [fxLayoutGap]="layoutGap['lt-md']" [fxLayoutGap.gt-md]="layoutGap['gt-md']"
-                   [fxFlex]="flexWidth['lt-sm']" [fxFlex.gt-sm]="flexWidth['gt-sm']" [fxFlex.gt-md]="flexWidth['gt-md']">
-
-                <div fxLayout="column" [fxLayout.gt-lg]="layoutColumnOnBoxed"
-                     [fxLayoutGap]="layoutGap['lt-md']" [fxLayoutGap.gt-md]="layoutGap['gt-md']"
-                     [fxFlex]="flexWidth['lt-sm']" [fxFlex.gt-sm]="flexWidth['gt-sm']" [fxFlex.gt-md]="flexWidth['gt-md']">
-                  <div class="widget" [fxFlex.gt-md]="flexWidth['gt-md']">
-                          <!-- Start form -->
-                          <div class="result" fxLayout="column">
-                            <form #myForm="ngForm" [formGroup]="requestForm" (ngSubmit)="onSubmit()">
-                            <mat-input-container class="fieldWidth">
-                              <input id="name" name="name" formControlName="name" matInput placeholder="Name" type="text" required>
-                            </mat-input-container>
-
-                            <mat-input-container class="fieldWidth">
-                              <input id="url" name="url" formControlName="url" matInput placeholder="Url" type="text" required>
-                            </mat-input-container>
-
-                            <mat-slide-toggle class="fieldWidth" formControlName="active">Active</mat-slide-toggle>
-                            <br><br>
-                            <mat-card>
-                              <mat-card-content fxLayout="column" fxLayout.gt-sm="row">
-                                <button type="submit" mat-raised-button color="accent">Send</button>
-                              </mat-card-content>
-                            </mat-card>
-                            </form>
-                          </div>
-                          <!-- End form -->
-                  </div>
-                  <div class="widget" [fxFlex.gt-md]="flexWidth['gt-md']">
-
-                  </div>
-                </div>
-                <div class="widget">
-                  <!-- <vr-recentsales-widget></vr-recentsales-widget> -->
-                </div>
-                <div class="widget">
-                  <!-- <vr-market-widget></vr-market-widget> -->
-                </div>
-              </div>
-
-                <!-- Star 2 column -->
-                <div fxLayout="column"
-                     [fxLayoutGap]="layoutGap['lt-md']" [fxLayoutGap.gt-md]="layoutGap['gt-md']"
-                     [fxFlex]="flexWidth['lt-sm']" [fxFlex.gt-sm]="flexWidth['gt-sm']" [fxFlex.gt-md]="flexWidth['gt-md']">
-
-                  <div fxLayout="column" [fxLayout.gt-lg]="layoutColumnOnBoxed"
-                       [fxLayoutGap]="layoutGap['lt-md']" [fxLayoutGap.gt-md]="layoutGap['gt-md']"
-                       [fxFlex]="flexWidth['lt-sm']" [fxFlex.gt-sm]="flexWidth['gt-sm']" [fxFlex.gt-md]="flexWidth['gt-md']">
-                    <div class="widget" [fxFlex.gt-md]="flexWidth['gt-md']">
-                      <!-- Start Item Bot -->
-                      <mat-grid-list cols="12" rowHeight="58.8px">
-                        <mat-grid-tile [colspan]="7"
-                                       [rowspan]="1"
-                                       >
-                      <mat-input-container class="addItemNameStyle">
-                        <input [(ngModel)]="item.name" name="itemlist1" matInput placeholder="Documents" type="text" required>
-                      </mat-input-container>
-                      </mat-grid-tile>
-
-                      <mat-grid-tile [colspan]="3"
-                                     [rowspan]="1"
-                                     >
-
-                        <mat-slide-toggle class="addItemTypeStyle"
-                        [(ngModel)]="item.file"
-                        [color]="primary"
-                        >
-                          {{getType()}}
-                        </mat-slide-toggle>
-                    </mat-grid-tile>
-                    <mat-grid-tile [colspan]="2"
-                                   [rowspan]="1"
-                                   >
-                      <button mat-mini-fab  (click)="addInput()">add</button>
-                      <!-- <mat-icon mdSuffix (click)="addInput()">add</mat-icon> -->
-
-                      </mat-grid-tile>
-                    </mat-grid-list>
-                      <!-- End Item Bot -->
-                      <vr-components-add-item-bot [items]="getItems()"></vr-components-add-item-bot>
-                    </div>
-                    <div class="widget" [fxFlex.gt-md]="flexWidth['gt-md']">
-                      <!-- <vr-project-widget [smallView]="true"></vr-project-widget> -->
-                    </div>
-                  </div>
-
-                  <div class="widget">
-                    <!-- <vr-advanced-pie-chart-widget></vr-advanced-pie-chart-widget> -->
-                  </div>
-                  <div class="widget">
-                    <!-- <vr-maps-widget></vr-maps-widget> -->
-                  </div>
-                </div>
-                <!-- End 2 column -->
-
-
+              </form>
             </div>
-            <!-- end -->
-          </div>
-        </div>
+            <!-- End form -->
+
+      <div>
+        <button mat-button matStepperNext>Next</button>
       </div>
+    </form>
+  </mat-step>
+  <mat-step [stepControl]="secondFormGroup">
+    <!-- <form [formGroup]="secondFormGroup"> -->
+      <ng-template matStepLabel>Add bot items</ng-template>
+            <!-- Start Item Bot -->
+            <mat-grid-list cols="12" rowHeight="58.8px">
+              <mat-grid-tile [colspan]="7" [rowspan]="1">
+                <mat-input-container class="addItemNameStyle">
+                  <input [(ngModel)]="item.name" name="itemlist1" matInput placeholder="Documents" type="text"  >
+                </mat-input-container>
+              </mat-grid-tile>
+
+              <mat-grid-tile [colspan]="3" [rowspan]="1">
+
+                <mat-slide-toggle class="addItemTypeStyle" [(ngModel)]="item.file" [color]="primary">
+                  {{getType()}}
+                </mat-slide-toggle>
+              </mat-grid-tile>
+              <mat-grid-tile [colspan]="2" [rowspan]="1">
+                <button mat-mini-fab (click)="addInput()">add</button>
+
+              </mat-grid-tile>
+            </mat-grid-list>
+
+            <vr-components-add-item-bot [items]="getItems()"></vr-components-add-item-bot>
+            <!-- End Item Bot -->
+      <div>
+        <button mat-button matStepperPrevious>Back</button>
+        <button mat-button matStepperNext>Next</button>
+      </div>
+    <!-- </form> -->
+  </mat-step>
+  <mat-step>
+    <ng-template matStepLabel>Done</ng-template>
+    You are now done.
+
+    <div>
+      <button mat-button matStepperPrevious>Back</button>
+      <button mat-button matStepperNext (click)="save()">Send</button>
     </div>
-  </div>
-</div>
+  </mat-step>
+</mat-horizontal-stepper>

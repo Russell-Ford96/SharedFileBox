@@ -4,7 +4,8 @@ import { ProfileComponent } from './profile.component';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import {
   MatButtonModule, MatCheckboxModule, MatDatepickerModule, MatIconModule, MatInputModule, MatNativeDateModule, MatRadioModule, MatSelectModule, MatSliderModule, MatSlideToggleModule, MatTabsModule,
-  MatTooltipModule, MatChipsModule, MatGridListModule
+  MatTooltipModule, MatChipsModule, MatGridListModule,
+  MatStepperModule
 } from '@angular/material';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BotsOverviewComponent } from './bots-overview/bots-overview.component';
@@ -20,6 +21,7 @@ import { ComponentsAddItemBotModule } from '../components/components-add-item-bo
     PageHeaderModule,
     MatButtonModule, MatCheckboxModule, MatDatepickerModule, MatIconModule, MatInputModule, MatNativeDateModule, MatRadioModule, MatSelectModule, MatSliderModule, MatSlideToggleModule, MatTabsModule,
     MatTooltipModule, MatChipsModule,MatGridListModule,
+    MatStepperModule,
     FormsModule,
     ReactiveFormsModule,
     BreadcrumbsModule,

@@ -25,7 +25,7 @@ export class BotsCreationComponent implements OnInit {
   // @Output() closeEvent = new EventEmitter<string>();
 
   requestForm: FormGroup;
-  myForm: FormGroup;
+  secondFormGroup: FormGroup;
   submitted = false;
   profile: any;
   bot: any;
@@ -96,6 +96,10 @@ export class BotsCreationComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.secondFormGroup = this.fb.group({
+      secondCtrl: ['', Validators.required]
+    });
+
     this.store.select(fromRoot.getLayout).subscribe((layout) => {
       this.layout = layout;
 
