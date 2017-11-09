@@ -5,7 +5,7 @@ import { PageHeaderModule } from '../../core/page-header/page-header.module';
 import { BreadcrumbsModule } from '../../core/breadcrumbs/breadcrumbs.module';
 import { UtilsModule } from '../../core/utils/utils.module';
 import { FlexLayoutModule } from '@angular/flex-layout';
-import { MdListModule, MdRippleModule } from '@angular/material';
+import { MatListModule, MatRippleModule } from '@angular/material';
 import { ComponentsAutocompleteModule } from './components-autocomplete/components-autocomplete.module';
 import { ComponentsButtonModule } from './components-button/components-button.module';
 import { ComponentsCardModule } from './components-card/components-card.module';
@@ -27,8 +27,8 @@ import { ComponentsAddItemBotModule } from './components-add-item-bot/components
     BreadcrumbsModule,
     UtilsModule,
     FlexLayoutModule,
-    MdRippleModule,
-    MdListModule,
+    MatRippleModule,
+    MatListModule,
     ComponentsAutocompleteModule,
     ComponentsButtonModule,
     ComponentsCardModule,

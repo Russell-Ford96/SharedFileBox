@@ -4,7 +4,7 @@ import { SidenavComponent } from './sidenav.component';
 import { SidenavItemComponent } from './sidenav-item/sidenav-item.component';
 import { SidenavCollapseDirective } from './sidenav-collapse.directive';
 import { FlexLayoutModule } from '@angular/flex-layout';
-import { MdButtonModule, MdIconModule, MdRippleModule } from '@angular/material';
+import { MatButtonModule, MatIconModule, MatRippleModule } from '@angular/material';
 import { ScrollbarModule } from '../scrollbar/scrollbar.module';
 import { RouterModule } from '@angular/router';
 
@@ -13,10 +13,10 @@ import { RouterModule } from '@angular/router';
     CommonModule,
     RouterModule,
     FlexLayoutModule,
-    MdIconModule,
-    MdRippleModule,
+    MatIconModule,
+    MatRippleModule,
     ScrollbarModule,
-    MdButtonModule
+    MatButtonModule
   ],
   declarations: [
     SidenavComponent,

@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { DataSource } from '@angular/cdk/table';
-import { MdSort } from '@angular/material';
+import { MatSort } from '@angular/material';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/startWith';
@@ -21,7 +21,7 @@ export class TableSortingComponent implements OnInit {
   exampleDatabase = new ExampleDatabase();
   dataSource: ExampleDataSource | null;
 
-  @ViewChild(MdSort) sort: MdSort;
+  @ViewChild(MatSort) sort: MatSort;
 
   ngOnInit() {
     this.dataSource = new ExampleDataSource(this.exampleDatabase, this.sort);
@@ -88,7 +88,7 @@ export class ExampleDatabase {
  * should be rendered.
  */
 export class ExampleDataSource extends DataSource<any> {
-  constructor(private _exampleDatabase: ExampleDatabase, private _sort: MdSort) {
+  constructor(private _exampleDatabase: ExampleDatabase, private _sort: MatSort) {
     super();
   }
 
@@ -96,7 +96,7 @@ export class ExampleDataSource extends DataSource<any> {
   connect(): Observable<UserData[]> {
     const displayDataChanges = [
       this._exampleDatabase.dataChange,
-      this._sort.mdSortChange,
+      // this._sort.matSortChange,
     ];
 
     return Observable.merge(...displayDataChanges).map(() => {

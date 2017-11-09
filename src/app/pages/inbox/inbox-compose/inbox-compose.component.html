@@ -1,39 +1,39 @@
 <div class="inbox-compose">
-  <div md-dialog-content fxLayout="row" fxLayoutAlign="space-between center">
+  <div mat-dialog-content fxLayout="row" fxLayoutAlign="space-between center">
     <span>New Email</span>
-    <button md-dialog-close md-icon-button>
-      <md-icon>close</md-icon>
+    <button mat-dialog-close mat-icon-button>
+      <mat-icon>close</mat-icon>
     </button>
   </div>
-  <div class="content" md-dialog-content fxLayout="column">
+  <div class="content" mat-dialog-content fxLayout="column">
     <div fxLayout="row" fxLayoutGap="24px">
-      <md-input-container class="input-container" fxFlex>
+      <mat-input-container class="input-container" fxFlex>
         <input mdInput placeholder="To">
-      </md-input-container>
-      <md-input-container class="input-container" fxFlex>
+      </mat-input-container>
+      <mat-input-container class="input-container" fxFlex>
         <input mdInput placeholder="From" disabled value="david.smith@demomail.com">
-      </md-input-container>
+      </mat-input-container>
     </div>
 
-    <md-input-container class="input-container">
+    <mat-input-container class="input-container">
       <input mdInput placeholder="Title">
-    </md-input-container>
+    </mat-input-container>
 
     <p class="editor">
       <quill-editor [modules]="respondOptions"></quill-editor>
     </p>
 
   </div>
-  <div md-dialog-actions fxLayout="row">
-    <button md-dialog-close md-icon-button>
-      <md-icon>delete</md-icon>
+  <div mat-dialog-actions fxLayout="row">
+    <button mat-dialog-close mat-icon-button>
+      <mat-icon>delete</mat-icon>
     </button>
     <span fxFlex><!-- fill space --></span>
-    <button md-icon-button>
-      <md-icon>attachment</md-icon>
+    <button mat-icon-button>
+      <mat-icon>attachment</mat-icon>
     </button>
-    <button (click)="send()" class="send" fxFlexOffset="8px" md-raised-button color="primary">
-      Send <md-icon>send</md-icon>
+    <button (click)="send()" class="send" fxFlexOffset="8px" mat-raised-button color="primary">
+      Send <mat-icon>send</mat-icon>
     </button>
   </div>
 

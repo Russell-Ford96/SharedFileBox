@@ -12,7 +12,7 @@ import { ToolbarNavigationItemComponent } from './toolbar-navigation/toolbar-nav
 import {
   ToolbarNavigationDropdownItemComponent
 } from './toolbar-navigation/toolbar-navigation-item/toolbar-navigation-dropdown-item/toolbar-navigation-dropdown-item.component';
-import { MdButtonModule, MdIconModule, MdInputModule, MdMenuModule, MdRippleModule } from '@angular/material';
+import { MatButtonModule, MatIconModule, MatInputModule, MatMenuModule, MatRippleModule } from '@angular/material';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { ScrollbarModule } from '../scrollbar/scrollbar.module';
 import { FormsModule } from '@angular/forms';
@@ -25,13 +25,13 @@ import { UtilsModule } from '../utils/utils.module';
     FormsModule,
     RouterModule,
     FlexLayoutModule,
-    MdButtonModule,
-    MdIconModule,
+    MatButtonModule,
+    MatIconModule,
     ScrollbarModule,
-    MdInputModule,
-    MdMenuModule,
+    MatInputModule,
+    MatMenuModule,
     UtilsModule,
-    MdRippleModule
+    MatRippleModule
   ],
   declarations: [
     ToolbarUserButtonComponent,

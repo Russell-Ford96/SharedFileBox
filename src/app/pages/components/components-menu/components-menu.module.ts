@@ -3,18 +3,18 @@ import { CommonModule } from '@angular/common';
 import { ComponentsMenuComponent } from './components-menu.component';
 import { UtilsModule } from '../../../core/utils/utils.module';
 import { FlexLayoutModule } from '@angular/flex-layout';
-import { MdButtonModule, MdCardModule, MdIconModule, MdMenuModule, MdTabsModule } from '@angular/material';
+import { MatButtonModule, MatCardModule, MatIconModule, MatMenuModule, MatTabsModule } from '@angular/material';
 
 @NgModule({
   imports: [
     CommonModule,
     UtilsModule,
     FlexLayoutModule,
-    MdCardModule,
-    MdTabsModule,
-    MdMenuModule,
-    MdIconModule,
-    MdButtonModule
+    MatCardModule,
+    MatTabsModule,
+    MatMenuModule,
+    MatIconModule,
+    MatButtonModule
   ],
   declarations: [ComponentsMenuComponent],
   exports: [ComponentsMenuComponent]

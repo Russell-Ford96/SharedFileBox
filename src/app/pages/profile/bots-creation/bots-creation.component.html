@@ -29,21 +29,21 @@
                           <!-- Start form -->
                           <div class="result" fxLayout="column">
                             <form #myForm="ngForm" [formGroup]="requestForm" (ngSubmit)="onSubmit()">
-                            <md-input-container class="fieldWidth">
-                              <input id="name" name="name" formControlName="name" mdInput placeholder="Name" type="text" required>
-                            </md-input-container>
+                            <mat-input-container class="fieldWidth">
+                              <input id="name" name="name" formControlName="name" matInput placeholder="Name" type="text" required>
+                            </mat-input-container>
 
-                            <md-input-container class="fieldWidth">
-                              <input id="url" name="url" formControlName="url" mdInput placeholder="Url" type="text" required>
-                            </md-input-container>
+                            <mat-input-container class="fieldWidth">
+                              <input id="url" name="url" formControlName="url" matInput placeholder="Url" type="text" required>
+                            </mat-input-container>
 
-                            <md-slide-toggle class="fieldWidth" formControlName="active">Active</md-slide-toggle>
+                            <mat-slide-toggle class="fieldWidth" formControlName="active">Active</mat-slide-toggle>
                             <br><br>
-                            <md-card>
-                              <md-card-content fxLayout="column" fxLayout.gt-sm="row">
-                                <button type="submit" md-raised-button color="accent">Send</button>
-                              </md-card-content>
-                            </md-card>
+                            <mat-card>
+                              <mat-card-content fxLayout="column" fxLayout.gt-sm="row">
+                                <button type="submit" mat-raised-button color="accent">Send</button>
+                              </mat-card-content>
+                            </mat-card>
                             </form>
                           </div>
                           <!-- End form -->
@@ -70,34 +70,34 @@
                        [fxFlex]="flexWidth['lt-sm']" [fxFlex.gt-sm]="flexWidth['gt-sm']" [fxFlex.gt-md]="flexWidth['gt-md']">
                     <div class="widget" [fxFlex.gt-md]="flexWidth['gt-md']">
                       <!-- Start Item Bot -->
-                      <md-grid-list cols="12" rowHeight="58.8px">
-                        <md-grid-tile [colspan]="7"
+                      <mat-grid-list cols="12" rowHeight="58.8px">
+                        <mat-grid-tile [colspan]="7"
                                        [rowspan]="1"
                                        >
-                      <md-input-container class="addItemNameStyle">
-                        <input [(ngModel)]="item.name" name="itemlist1" mdInput placeholder="Documents" type="text" required>
-                      </md-input-container>
-                      </md-grid-tile>
+                      <mat-input-container class="addItemNameStyle">
+                        <input [(ngModel)]="item.name" name="itemlist1" matInput placeholder="Documents" type="text" required>
+                      </mat-input-container>
+                      </mat-grid-tile>
 
-                      <md-grid-tile [colspan]="3"
+                      <mat-grid-tile [colspan]="3"
                                      [rowspan]="1"
                                      >
 
-                        <md-slide-toggle class="addItemTypeStyle"
+                        <mat-slide-toggle class="addItemTypeStyle"
                         [(ngModel)]="item.file"
                         [color]="primary"
                         >
                           {{getType()}}
-                        </md-slide-toggle>
-                    </md-grid-tile>
-                    <md-grid-tile [colspan]="2"
+                        </mat-slide-toggle>
+                    </mat-grid-tile>
+                    <mat-grid-tile [colspan]="2"
                                    [rowspan]="1"
                                    >
-                      <button md-mini-fab  (click)="addInput()">add</button>
-                      <!-- <md-icon mdSuffix (click)="addInput()">add</md-icon> -->
+                      <button mat-mini-fab  (click)="addInput()">add</button>
+                      <!-- <mat-icon mdSuffix (click)="addInput()">add</mat-icon> -->
 
-                      </md-grid-tile>
-                    </md-grid-list>
+                      </mat-grid-tile>
+                    </mat-grid-list>
                       <!-- End Item Bot -->
                       <vr-components-add-item-bot [items]="getItems()"></vr-components-add-item-bot>
                     </div>

@@ -8,73 +8,73 @@ import * as _ from 'lodash';
 export class ComponentsButtonComponent implements OnInit {
 
   flatButtonsHTML: string = _.escape(`
-  <md-card>
-    <md-card-content fxLayout="column" fxLayout.gt-sm="row" fxLayoutAlign="space-around center">
-      <button md-button>Button</button>
-      <button md-button color="primary">Primary</button>
-      <button md-button color="accent">Accent</button>
-      <button md-button color="warn">Warn</button>
-      <button md-button disabled="true">Disabled</button>
-    </md-card-content>
-  </md-card>
+  <mat-card>
+    <mat-card-content fxLayout="column" fxLayout.gt-sm="row" fxLayoutAlign="space-around center">
+      <button mat-button>Button</button>
+      <button mat-button color="primary">Primary</button>
+      <button mat-button color="accent">Accent</button>
+      <button mat-button color="warn">Warn</button>
+      <button mat-button disabled="true">Disabled</button>
+    </mat-card-content>
+  </mat-card>
   `);
 
   raisedButtonsHTML: string = _.escape(`
-  <md-card>
-    <md-card-content fxLayout="column" fxLayout.gt-sm="row" fxLayoutAlign="space-around center">
-      <button md-raised-button>Button</button>
-      <button md-raised-button color="primary">Primary</button>
-      <button md-raised-button color="accent">Accent</button>
-      <button md-raised-button color="warn">Warn</button>
-      <button md-raised-button disabled="true">Disabled</button>
-    </md-card-content>
-  </md-card>
+  <mat-card>
+    <mat-card-content fxLayout="column" fxLayout.gt-sm="row" fxLayoutAlign="space-around center">
+      <button mat-raised-button>Button</button>
+      <button mat-raised-button color="primary">Primary</button>
+      <button mat-raised-button color="accent">Accent</button>
+      <button mat-raised-button color="warn">Warn</button>
+      <button mat-raised-button disabled="true">Disabled</button>
+    </mat-card-content>
+  </mat-card>
   `);
 
   fabHTML: string = _.escape(`
-  <md-card>
-    <md-card-content fxLayout="column" fxLayout.gt-sm="row" fxLayoutAlign="space-around center">
-      <button md-fab color="primary"><md-icon>grade</md-icon></button>
-      <button md-fab color="accent"><md-icon>favorite</md-icon></button>
-      <button md-fab color="warn"><md-icon>build</md-icon></button>
-      <button md-fab disabled="true"><md-icon>lock</md-icon></button>
-      <button md-mini-fab color="primary"><md-icon>favorite</md-icon></button>
-      <button md-mini-fab color="accent"><md-icon>thumb_up</md-icon></button>
-      <button md-mini-fab color="warn"><md-icon>build</md-icon></button>
-      <button md-mini-fab disabled="true"><md-icon>lock</md-icon></button>
-    </md-card-content>
-  </md-card>
+  <mat-card>
+    <mat-card-content fxLayout="column" fxLayout.gt-sm="row" fxLayoutAlign="space-around center">
+      <button mat-fab color="primary"><mat-icon>grade</mat-icon></button>
+      <button mat-fab color="accent"><mat-icon>favorite</mat-icon></button>
+      <button mat-fab color="warn"><mat-icon>build</mat-icon></button>
+      <button mat-fab disabled="true"><mat-icon>lock</mat-icon></button>
+      <button mat-mini-fab color="primary"><mat-icon>favorite</mat-icon></button>
+      <button mat-mini-fab color="accent"><mat-icon>thumb_up</mat-icon></button>
+      <button mat-mini-fab color="warn"><mat-icon>build</mat-icon></button>
+      <button mat-mini-fab disabled="true"><mat-icon>lock</mat-icon></button>
+    </mat-card-content>
+  </mat-card>
   `);
 
   buttonToggleHTML: string = _.escape(`
-  <md-card>
-    <md-card-content fxLayout="column" fxLayout.gt-sm="row" fxLayoutAlign="space-around center">
-      <md-button-toggle-group [name]="'alignment'">
-        <md-button-toggle value="left"><md-icon>format_align_left</md-icon></md-button-toggle>
-        <md-button-toggle value="center"><md-icon>format_align_center</md-icon></md-button-toggle>
-        <md-button-toggle value="right"><md-icon>format_align_right</md-icon></md-button-toggle>
-        <md-button-toggle value="justify"><md-icon>format_align_justify</md-icon></md-button-toggle>
-      </md-button-toggle-group>
-      <md-button-toggle-group multiple>
-        <md-button-toggle>Flour</md-button-toggle>
-        <md-button-toggle>Eggs</md-button-toggle>
-        <md-button-toggle>Sugar</md-button-toggle>
-        <md-button-toggle>Milk</md-button-toggle>
-      </md-button-toggle-group>
-    </md-card-content>
-  </md-card>
+  <mat-card>
+    <mat-card-content fxLayout="column" fxLayout.gt-sm="row" fxLayoutAlign="space-around center">
+      <mat-button-toggle-group [name]="'alignment'">
+        <mat-button-toggle value="left"><mat-icon>format_align_left</mat-icon></mat-button-toggle>
+        <mat-button-toggle value="center"><mat-icon>format_align_center</mat-icon></mat-button-toggle>
+        <mat-button-toggle value="right"><mat-icon>format_align_right</mat-icon></mat-button-toggle>
+        <mat-button-toggle value="justify"><mat-icon>format_align_justify</mat-icon></mat-button-toggle>
+      </mat-button-toggle-group>
+      <mat-button-toggle-group multiple>
+        <mat-button-toggle>Flour</mat-button-toggle>
+        <mat-button-toggle>Eggs</mat-button-toggle>
+        <mat-button-toggle>Sugar</mat-button-toggle>
+        <mat-button-toggle>Milk</mat-button-toggle>
+      </mat-button-toggle-group>
+    </mat-card-content>
+  </mat-card>
   `);
 
   iconButtonHTML: string = _.escape(`
-  <md-card>
-    <md-card-content fxLayout="column" fxLayout.gt-sm="row" fxLayoutAlign="space-around center">
-      <button md-icon-button><md-icon>menu</md-icon></button>
-      <button md-icon-button color="primary"><md-icon>grade</md-icon></button>
-      <button md-icon-button color="accent"><md-icon>favorite</md-icon></button>
-      <button md-icon-button color="warn"><md-icon>build</md-icon></button>
-      <button md-icon-button disabled="true"><md-icon>lock</md-icon></button>
-    </md-card-content>
-  </md-card>
+  <mat-card>
+    <mat-card-content fxLayout="column" fxLayout.gt-sm="row" fxLayoutAlign="space-around center">
+      <button mat-icon-button><mat-icon>menu</mat-icon></button>
+      <button mat-icon-button color="primary"><mat-icon>grade</mat-icon></button>
+      <button mat-icon-button color="accent"><mat-icon>favorite</mat-icon></button>
+      <button mat-icon-button color="warn"><mat-icon>build</mat-icon></button>
+      <button mat-icon-button disabled="true"><mat-icon>lock</mat-icon></button>
+    </mat-card-content>
+  </mat-card>
   `);
 
   constructor() { }

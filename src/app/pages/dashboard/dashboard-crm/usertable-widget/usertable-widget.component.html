@@ -6,79 +6,79 @@
       <div class="name">My Clients</div>
 
       <div class="actions" fxLayout="row">
-        <button type="button" md-icon-button [mdMenuTriggerFor]="cardMenuRef">
-          <md-icon class="icon">more_vert</md-icon>
+        <button type="button" mat-icon-button [matMenuTriggerFor]="cardMenuRef">
+          <mat-icon class="icon">more_vert</mat-icon>
         </button>
       </div>
     </div>
 
     <div class="content" fxLayout="column">
 
-      <md-table #table [dataSource]="dataSource" mdSort>
+      <mat-table #table [dataSource]="dataSource" mdSort>
 
         <!--- Note that these columns can be defined in any order.
               The actual rendered columns are set as a property on the row definition" -->
 
-        <md-header-row *cdkHeaderRowDef="displayedColumns"></md-header-row>
-        <md-row *cdkRowDef="let row; columns: displayedColumns;"></md-row>
+        <mat-header-row *cdkHeaderRowDef="displayedColumns"></mat-header-row>
+        <mat-row *cdkRowDef="let row; columns: displayedColumns;"></mat-row>
 
         <!-- ID Column -->
         <ng-container cdkColumnDef="userId">
-          <md-header-cell *cdkHeaderCellDef md-sort-header> ID</md-header-cell>
-          <md-cell *cdkCellDef="let row">
-            <md-checkbox></md-checkbox>
-          </md-cell>
+          <mat-header-cell *cdkHeaderCellDef mat-sort-header> ID</mat-header-cell>
+          <mat-cell *cdkCellDef="let row">
+            <mat-checkbox></mat-checkbox>
+          </mat-cell>
         </ng-container>
 
         <!-- Progress Column -->
         <ng-container cdkColumnDef="progress">
-          <md-header-cell *cdkHeaderCellDef md-sort-header> Progress</md-header-cell>
-          <md-cell *cdkCellDef="let row">
-            <md-progress-spinner class="progress-spinner"
+          <mat-header-cell *cdkHeaderCellDef mat-sort-header> Progress</mat-header-cell>
+          <mat-cell *cdkCellDef="let row">
+            <mat-progress-spinner class="progress-spinner"
                                  mode="determinate"
                                  [value]="row.progress"
-                                 strokeWidth="12"></md-progress-spinner>
+                                 strokeWidth="12"></mat-progress-spinner>
             {{row.progress}}%
-          </md-cell>
+          </mat-cell>
         </ng-container>
 
         <!-- Name Column -->
         <ng-container cdkColumnDef="userName">
-          <md-header-cell *cdkHeaderCellDef md-sort-header> Name</md-header-cell>
-          <md-cell *cdkCellDef="let row"> {{row.name}}</md-cell>
+          <mat-header-cell *cdkHeaderCellDef mat-sort-header> Name</mat-header-cell>
+          <mat-cell *cdkCellDef="let row"> {{row.name}}</mat-cell>
         </ng-container>
 
         <!-- Color Column -->
         <ng-container cdkColumnDef="lastAction">
-          <md-header-cell *cdkHeaderCellDef md-sort-header> Last Action</md-header-cell>
-          <md-cell *cdkCellDef="let row">
-            <md-icon class="last-action-device">{{ row.lastActionDevice }}</md-icon>
+          <mat-header-cell *cdkHeaderCellDef mat-sort-header> Last Action</mat-header-cell>
+          <mat-cell *cdkCellDef="let row">
+            <mat-icon class="last-action-device">{{ row.lastActionDevice }}</mat-icon>
             {{row.lastAction.fromNow()}}
-          </md-cell>
+          </mat-cell>
         </ng-container>
-      </md-table>
+      </mat-table>
 
-      <md-paginator #paginator
+      <mat-paginator #paginator
                     [length]="exampleDatabase.data.length"
                     [pageIndex]="0"
                     [pageSize]="5"
                     [pageSizeOptions]="[5, 10, 25, 100]">
-      </md-paginator>
+      </mat-paginator>
     </div>
   </div>
 </div>
 
-<md-menu #cardMenuRef="mdMenu">
-  <button md-menu-item>
-    <md-icon>refresh</md-icon>
+<mat-menu #cardMenuRef="matMenu">
+  <button mat-menu-item>
+    <mat-icon>refresh</mat-icon>
     <span>Refresh</span>
   </button>
-  <button md-menu-item>
-    <md-icon>notifications_off</md-icon>
+  <button mat-menu-item>
+    <mat-icon>notifications_off</mat-icon>
     <span>Disable alerts</span>
   </button>
-  <button md-menu-item>
-    <md-icon>exit_to_app</md-icon>
+  <button mat-menu-item>
+    <mat-icon>exit_to_app</mat-icon>
     <span>Remove Widget</span>
   </button>
-</md-menu>
+</mat-menu>

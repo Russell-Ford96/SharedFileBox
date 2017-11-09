@@ -8,16 +8,16 @@
 
     <vr-breadcrumbs [currentPage]="'Datatable'" [names]="['Tables']" [header]="'primary'"></vr-breadcrumbs>
 
-    <div class="example-container mat-elevation-z8">
+    <div class="example-container md-elevation-z8">
       <div class="example-loading-shade"
            *ngIf="dataSource.isLoadingResults || dataSource.isRateLimitReached">
-        <md-spinner *ngIf="dataSource.isLoadingResults"></md-spinner>
+        <mat-spinner *ngIf="dataSource.isLoadingResults"></mat-spinner>
         <div class="example-rate-limit-reached" *ngIf="dataSource.isRateLimitReached">
           GitHub's API rate limit has been reached. It will be reset in one minute.
         </div>
       </div>
 
-      <md-table #table [dataSource]="dataSource" class="example-table"
+      <mat-table #table [dataSource]="dataSource" class="example-table"
                 mdSort mdSortActive="created" mdSortDisableClear mdSortDirection="asc">
 
         <!--- Note that these columns can be defined in any order.
@@ -25,34 +25,34 @@
 
         <!-- Number Column -->
         <ng-container cdkColumnDef="number">
-          <md-header-cell *cdkHeaderCellDef> Number </md-header-cell>
-          <md-cell *cdkCellDef="let row"> {{row.number}} </md-cell>
+          <mat-header-cell *cdkHeaderCellDef> Number </mat-header-cell>
+          <mat-cell *cdkCellDef="let row"> {{row.number}} </mat-cell>
         </ng-container>
 
         <!-- Title Column -->
         <ng-container cdkColumnDef="title">
-          <md-header-cell *cdkHeaderCellDef> Title </md-header-cell>
-          <md-cell *cdkCellDef="let row"> {{row.title}} </md-cell>
+          <mat-header-cell *cdkHeaderCellDef> Title </mat-header-cell>
+          <mat-cell *cdkCellDef="let row"> {{row.title}} </mat-cell>
         </ng-container>
 
         <!-- State Column -->
         <ng-container cdkColumnDef="state">
-          <md-header-cell *cdkHeaderCellDef> State </md-header-cell>
-          <md-cell *cdkCellDef="let row"> {{row.state}} </md-cell>
+          <mat-header-cell *cdkHeaderCellDef> State </mat-header-cell>
+          <mat-cell *cdkCellDef="let row"> {{row.state}} </mat-cell>
         </ng-container>
 
         <!-- Created Column -->
         <ng-container cdkColumnDef="created">
-          <md-header-cell *cdkHeaderCellDef md-sort-header disableClear="true"> Created </md-header-cell>
-          <md-cell *cdkCellDef="let row"> {{row.created.calendar()}} </md-cell>
+          <mat-header-cell *cdkHeaderCellDef mat-sort-header disableClear="true"> Created </mat-header-cell>
+          <mat-cell *cdkCellDef="let row"> {{row.created.calendar()}} </mat-cell>
         </ng-container>
 
-        <md-header-row *cdkHeaderRowDef="displayedColumns"></md-header-row>
-        <md-row *cdkRowDef="let row; columns: displayedColumns;"></md-row>
-      </md-table>
-      <md-paginator [length]="dataSource.resultsLength"
+        <mat-header-row *cdkHeaderRowDef="displayedColumns"></mat-header-row>
+        <mat-row *cdkRowDef="let row; columns: displayedColumns;"></mat-row>
+      </mat-table>
+      <mat-paginator [length]="dataSource.resultsLength"
                     [pageSize]="10">
-      </md-paginator>
+      </mat-paginator>
     </div>
   </div>
 </div>

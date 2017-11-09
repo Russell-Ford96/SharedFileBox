@@ -1,6 +1,6 @@
 import { ChangeDetectorRef, Component, OnInit, Input } from '@angular/core';
 import moment from 'moment/src/moment';
-import { MdSnackBar } from '@angular/material';
+import { MatSnackBar } from '@angular/material';
 import { LIST_FADE_ANIMATION } from '../../../core/utils/list.animation';
 import { DragulaService } from 'ng2-dragula';
 
@@ -46,7 +46,7 @@ export class ComponentsAddItemBotComponent implements OnInit {
   }
 
   constructor(
-    private snackbar: MdSnackBar,
+    private snackbar: MatSnackBar,
     private cd: ChangeDetectorRef,
     private dragulaService: DragulaService
   ) {

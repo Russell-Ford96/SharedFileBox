@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { DataSource } from '@angular/cdk/table';
-import { MdPaginator } from '@angular/material';
+import { MatPaginator } from '@angular/material';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/startWith';
@@ -27,7 +27,7 @@ export class RequestComponent implements OnInit {
   public requestDatabase : RequestDatabase | null;
   public dataSource : RequestDataSource | null;
 
-  @ViewChild(MdPaginator) paginator: MdPaginator;
+  @ViewChild(MatPaginator) paginator: MatPaginator;
 
   constructor(private appService: AppService,
             private auth: AuthService,
@@ -47,7 +47,7 @@ export class RequestComponent implements OnInit {
 
 export class RequestDataSource extends DataSource<RequestData>{
 
-  constructor(private _reqDatabase: RequestDatabase, private _paginator: MdPaginator) {
+  constructor(private _reqDatabase: RequestDatabase, private _paginator: MatPaginator) {
     super();
   }
 

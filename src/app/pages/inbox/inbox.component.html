@@ -9,7 +9,7 @@
       </div>
 
       <div class="compose-container">
-        <button (click)="openComposeDialog()" class="compose" md-raised-button color="primary">
+        <button (click)="openComposeDialog()" class="compose" mat-raised-button color="primary">
           <md-icon>mode_edit</md-icon>
           <span>Compose</span>
         </button>
@@ -103,10 +103,10 @@
                 <md-icon>label</md-icon>
               </button>
             </div>
-            <button fxHide fxShow.gt-sm class="delete" [mdMenuTriggerFor]="mailOptions" md-icon-button>
+            <button fxHide fxShow.gt-sm class="delete" [matMenuTriggerFor]="mailOptions" md-icon-button>
               <md-icon>more_vert</md-icon>
             </button>
-            <button fxShow fxHide.gt-sm class="delete" [mdMenuTriggerFor]="mailOptionsMobile" md-icon-button>
+            <button fxShow fxHide.gt-sm class="delete" [matMenuTriggerFor]="mailOptionsMobile" md-icon-button>
               <md-icon>more_vert</md-icon>
             </button>
           </div>
@@ -148,10 +148,10 @@
               <md-icon>label</md-icon>
             </button>
           </div>
-          <button fxHide fxShow.gt-sm class="delete" [mdMenuTriggerFor]="mailOptions" md-icon-button>
+          <button fxHide fxShow.gt-sm class="delete" [matMenuTriggerFor]="mailOptions" md-icon-button>
             <md-icon>more_vert</md-icon>
           </button>
-          <button fxShow fxHide.gt-sm class="delete" [mdMenuTriggerFor]="mailOptionsMobile" md-icon-button>
+          <button fxShow fxHide.gt-sm class="delete" [matMenuTriggerFor]="mailOptionsMobile" md-icon-button>
             <md-icon>more_vert</md-icon>
           </button>
           <span fxFlex></span>
@@ -188,7 +188,7 @@
               </p>
               <div fxHide="true" fxHide.gt-xs="false" fxFlex="100px" fxFlex.gt-sm="170px" class="end-wrapper" fxLayout="row" fxLayoutAlign="end center">
                 <span class="when">{{ mail.when.fromNow() }}</span>
-                <button fxHide="true" fxHide.gt-sm="false"  class="options" [mdMenuTriggerFor]="mailOptions" md-icon-button>
+                <button fxHide="true" fxHide.gt-sm="false"  class="options" [matMenuTriggerFor]="mailOptions" md-icon-button>
                   <md-icon>more_vert</md-icon>
                 </button>
               </div>
@@ -211,7 +211,7 @@
                 <span fxFlex></span>
                 <div class="mail-extra" fxLayout="row" fxLayoutAlign="start center">
                   <span class="when">{{ currentlyOpen.when.fromNow() }}</span>
-                  <button class="options" [mdMenuTriggerFor]="mailOptions" md-icon-button>
+                  <button class="options" [matMenuTriggerFor]="mailOptions" md-icon-button>
                     <md-icon>more_vert</md-icon>
                   </button>
                 </div>
@@ -252,7 +252,7 @@
               <quill-editor [modules]="respondOptions"></quill-editor>
               <div class="respond-buttons" fxLayout="row" fxLayoutAlign="end stretch">
                 <button md-button (click)="setRespondActive(false)">Cancel</button>
-                <button md-raised-button color="primary" (click)="setRespondActive(false)">Send <md-icon>send</md-icon></button>
+                <button mat-raised-button color="primary" (click)="setRespondActive(false)">Send <md-icon>send</md-icon></button>
               </div>
             </div>
 
@@ -264,14 +264,14 @@
   </div>
 </div>
 
-<md-menu #mailOptions="mdMenu">
+<md-menu #mailOptions="matMenu">
   <button md-menu-item> <md-icon>markunread_mailbox</md-icon> Mark as unread </button>
   <button md-menu-item> <md-icon>label</md-icon> Labels </button>
   <md-divider></md-divider>
   <button md-menu-item> <md-icon>delete</md-icon> Delete </button>
 </md-menu>
 
-<md-menu #mailOptionsMobile="mdMenu">
+<md-menu #mailOptionsMobile="matMenu">
   <button md-menu-item> <md-icon>archive</md-icon> Archive </button>
   <button md-menu-item> <md-icon>backspace</md-icon> Mark as Spam </button>
   <button md-menu-item> <md-icon>markunread_mailbox</md-icon> Mark as Unread </button>

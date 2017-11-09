@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { DashboardCRMComponent } from './dashboard-crm.component';
-import { MdButtonModule, MdCheckboxModule, MdIconModule, MdMenuModule, MdSnackBarModule, MdTooltipModule } from '@angular/material';
+import { MatButtonModule, MatCheckboxModule, MatIconModule, MatMenuModule, MatSnackBarModule, MatTooltipModule } from '@angular/material';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { FormsModule } from '@angular/forms';
 import { TasksWidgetModule } from './tasks-widget/tasks-widget.module';
@@ -17,13 +17,13 @@ import { BreadcrumbsModule } from '../../../core/breadcrumbs/breadcrumbs.module'
   imports: [
     CommonModule,
     FormsModule,
-    MdCheckboxModule,
+    MatCheckboxModule,
     FlexLayoutModule,
-    MdButtonModule,
-    MdTooltipModule,
-    MdSnackBarModule,
-    MdIconModule,
-    MdMenuModule,
+    MatButtonModule,
+    MatTooltipModule,
+    MatSnackBarModule,
+    MatIconModule,
+    MatMenuModule,
     PageHeaderModule,
     BreadcrumbsModule,
 

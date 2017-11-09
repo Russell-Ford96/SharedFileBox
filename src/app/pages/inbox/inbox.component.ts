@@ -4,8 +4,8 @@ import {
 } from '@angular/core';
 import { Mail } from 'app/pages/inbox/mail.model';
 import { Subscription } from 'rxjs/Subscription';
-import { MdDialog } from '@angular/material';
-import { MdSnackBar } from '@angular/material';
+import { MatDialog } from '@angular/material';
+import { MatSnackBar } from '@angular/material';
 import { InboxComposeComponent } from 'app/pages/inbox/inbox-compose/inbox-compose.component';
 import { Store } from '@ngrx/store';
 import * as fromRoot from '../../reducers/index';
@@ -75,8 +75,8 @@ export class InboxComponent implements OnInit, OnDestroy, AfterViewChecked {
     private cd: ChangeDetectorRef,
     private store: Store<fromRoot.State>,
     private renderer: Renderer2,
-    public composeDialog: MdDialog,
-    private snackBar: MdSnackBar,
+    public composeDialog: MatDialog,
+    private snackBar: MatSnackBar,
   ) { }
 
   ngOnInit() {

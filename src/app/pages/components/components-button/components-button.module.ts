@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { MdButtonModule, MdButtonToggleModule, MdCardModule, MdIconModule, MdTabsModule } from '@angular/material';
+import { MatButtonModule, MatButtonToggleModule, MatCardModule, MatIconModule, MatTabsModule } from '@angular/material';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { ComponentsButtonComponent } from './components-button.component';
 import { UtilsModule } from '../../../core/utils/utils.module';
@@ -10,11 +10,11 @@ import { UtilsModule } from '../../../core/utils/utils.module';
     CommonModule,
     UtilsModule,
     FlexLayoutModule,
-    MdCardModule,
-    MdTabsModule,
-    MdButtonModule,
-    MdButtonToggleModule,
-    MdIconModule,
+    MatCardModule,
+    MatTabsModule,
+    MatButtonModule,
+    MatButtonToggleModule,
+    MatIconModule,
   ],
   declarations: [ComponentsButtonComponent],
   exports: [ComponentsButtonComponent]

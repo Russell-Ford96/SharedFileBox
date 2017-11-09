@@ -4,10 +4,10 @@ import { FormElementsComponent } from './form-elements/form-elements.component';
 import { BreadcrumbsModule } from '../../core/breadcrumbs/breadcrumbs.module';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import {
-  MdButtonModule, MdCheckboxModule, MdDatepickerModule, MdIconModule, MdInputModule, MdNativeDateModule, MdRadioModule, MdSelectModule,
-  MdSliderModule,
-  MdSlideToggleModule, MdTabsModule,
-  MdTooltipModule
+  MatButtonModule, MatCheckboxModule, MatDatepickerModule, MatIconModule, MatInputModule, MatNativeDateModule, MatRadioModule, MatSelectModule,
+  MatSliderModule,
+  MatSlideToggleModule, MatTabsModule,
+  MatTooltipModule
 } from '@angular/material';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { UtilsModule } from '../../core/utils/utils.module';
@@ -22,18 +22,18 @@ import { MessageComponent } from './message/message.component';
     BreadcrumbsModule,
     UtilsModule,
     FlexLayoutModule,
-    MdIconModule,
-    MdButtonModule,
-    MdTooltipModule,
-    MdInputModule,
-    MdDatepickerModule,
-    MdNativeDateModule,
-    MdSelectModule,
-    MdCheckboxModule,
-    MdRadioModule,
-    MdSlideToggleModule,
-    MdSliderModule,
-    MdTabsModule,
+    MatIconModule,
+    MatButtonModule,
+    MatTooltipModule,
+    MatInputModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatSelectModule,
+    MatCheckboxModule,
+    MatRadioModule,
+    MatSlideToggleModule,
+    MatSliderModule,
+    MatTabsModule,
     PageHeaderModule,
     ReactiveFormsModule
   ],

@@ -4,8 +4,8 @@ import { MessageWidgetComponent } from './message-widget.component';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { FormsModule } from '@angular/forms';
 import {
-  MdButtonModule, MdCheckboxModule, MdIconModule, MdListModule, MdMenuModule, MdRippleModule,
-  MdTooltipModule
+  MatButtonModule, MatCheckboxModule, MatIconModule, MatListModule, MatMenuModule, MatRippleModule,
+  MatTooltipModule
 } from '@angular/material';
 
 @NgModule({
@@ -13,13 +13,13 @@ import {
     CommonModule,
     FormsModule,
     FlexLayoutModule,
-    MdMenuModule,
-    MdIconModule,
-    MdCheckboxModule,
-    MdTooltipModule,
-    MdButtonModule,
-    MdListModule,
-    MdRippleModule
+    MatMenuModule,
+    MatIconModule,
+    MatCheckboxModule,
+    MatTooltipModule,
+    MatButtonModule,
+    MatListModule,
+    MatRippleModule
   ],
   declarations: [MessageWidgetComponent],
   exports: [MessageWidgetComponent]

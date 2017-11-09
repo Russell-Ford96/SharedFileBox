@@ -37,14 +37,14 @@ export class BotsOverviewComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit() {
-    const scrollbar = Scrollbar.get(document.getElementById('main-scrollbar'));
-    const marginTop = 60 + 98;
-    const scrollHeight = scrollbar.targets.content.clientHeight - marginTop;
-
-    scrollbar.addListener(({ offset }) => {
-      const distance = offset.y;
-
-    });
+    // const scrollbar = Scrollbar.get(document.querySelector('main-scrollbar'));
+    // const marginTop = 60 + 98;
+    // const scrollHeight = scrollbar.targets.content.clientHeight - marginTop;
+    //
+    // scrollbar.addListener(({ offset }) => {
+    //   const distance = offset.y;
+    //
+    // });
   };
 
   ngOnInit() {

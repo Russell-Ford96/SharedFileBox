@@ -5,8 +5,8 @@ import { InboxComposeComponent } from './inbox-compose/inbox-compose.component';
 import { FormsModule } from '@angular/forms';
 import { QuillModule } from 'ngx-quill';
 import {
-  MdButtonModule, MdCheckboxModule, MdDialogModule, MdIconModule, MdInputModule, MdListModule, MdMenuModule,
-  MdRippleModule, MdTooltipModule
+  MatButtonModule, MatCheckboxModule, MatDialogModule, MatIconModule, MatInputModule, MatListModule, MatMenuModule,
+  MatRippleModule, MatTooltipModule
 } from '@angular/material';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { ScrollbarModule } from '../../core/scrollbar/scrollbar.module';
@@ -18,15 +18,15 @@ import { ScrollbarModule } from '../../core/scrollbar/scrollbar.module';
     ScrollbarModule,
     FormsModule,
     QuillModule,
-    MdButtonModule,
-    MdListModule,
-    MdIconModule,
-    MdCheckboxModule,
-    MdRippleModule,
-    MdDialogModule,
-    MdInputModule,
-    MdMenuModule,
-    MdTooltipModule
+    MatButtonModule,
+    MatListModule,
+    MatIconModule,
+    MatCheckboxModule,
+    MatRippleModule,
+    MatDialogModule,
+    MatInputModule,
+    MatMenuModule,
+    MatTooltipModule
   ],
   entryComponents: [InboxComposeComponent],
   declarations: [InboxComponent, InboxComposeComponent]

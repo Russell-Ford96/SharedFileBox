@@ -1,6 +1,6 @@
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import moment from 'moment/src/moment';
-import { MdSnackBar } from '@angular/material';
+import { MatSnackBar } from '@angular/material';
 import { LIST_FADE_ANIMATION } from '../../../../core/utils/list.animation';
 
 @Component({
@@ -14,7 +14,7 @@ export class TasksWidgetComponent implements OnInit {
   tasks: any[] = [ ];
 
   constructor(
-    private snackbar: MdSnackBar,
+    private snackbar: MatSnackBar,
     private cd: ChangeDetectorRef
   ) { }
 

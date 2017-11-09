@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ComponentsSnackbarComponent } from './components-snackbar.component';
-import { MdButtonModule, MdCardModule, MdSnackBarModule, MdTabsModule } from '@angular/material';
+import { MatButtonModule, MatCardModule, MatSnackBarModule, MatTabsModule } from '@angular/material';
 import { UtilsModule } from '../../../core/utils/utils.module';
 import { FlexLayoutModule } from '@angular/flex-layout';
 
@@ -10,10 +10,10 @@ import { FlexLayoutModule } from '@angular/flex-layout';
     CommonModule,
     UtilsModule,
     FlexLayoutModule,
-    MdCardModule,
-    MdTabsModule,
-    MdSnackBarModule,
-    MdButtonModule
+    MatCardModule,
+    MatTabsModule,
+    MatSnackBarModule,
+    MatButtonModule
   ],
   declarations: [ComponentsSnackbarComponent],
   exports: [ComponentsSnackbarComponent]

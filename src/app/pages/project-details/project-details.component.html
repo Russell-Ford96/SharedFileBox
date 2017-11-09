@@ -45,9 +45,9 @@
             <div class="detail">
               <div class="name">Labels</div>
               <div class="value">
-                <md-chip-list>
-                  <md-chip *ngFor="let label of project.labels">{{ label }}</md-chip>
-                </md-chip-list>
+                <mat-chip-list>
+                  <mat-chip *ngFor="let label of project.labels">{{ label }}</mat-chip>
+                </mat-chip-list>
               </div>
             </div>
 
@@ -83,7 +83,7 @@
         <div class="progress-card"
              fxLayout="row" fxFlex="auto" fxFlex.gt-sm>
           <div class="circle" fxFlex="auto" fxFlex.gt-sm>
-            <md-progress-spinner mode="determinate" value="78"></md-progress-spinner>
+            <mat-progress-spinner mode="determinate" value="78"></mat-progress-spinner>
           </div>
           <div class="progress-details" fxLayout="column">
             <div class="value" fxFlexAlign="end">6 Days</div>
@@ -98,7 +98,7 @@
 
         <div class="progress-card" fxLayout="row" fxFlex="auto" fxFlex.gt-sm>
           <div class="circle" fxFlex="auto" fxFlex.gt-sm>
-            <md-progress-spinner color="accent" mode="determinate" value="71"></md-progress-spinner>
+            <mat-progress-spinner color="accent" mode="determinate" value="71"></mat-progress-spinner>
           </div>
           <div class="progress-details" fxLayout="column">
             <div class="value" fxFlexAlign="end">97 Issues</div>
@@ -113,7 +113,7 @@
 
         <div class="progress-card" fxLayout="row" fxFlex="auto" fxFlex.gt-sm>
           <div class="circle" fxFlex="auto" fxFlex.gt-sm>
-            <md-progress-spinner color="warn" mode="determinate" value="89"></md-progress-spinner>
+            <mat-progress-spinner color="warn" mode="determinate" value="89"></mat-progress-spinner>
           </div>
           <div class="progress-details" fxLayout="column">
             <div class="value" fxFlexAlign="end">2 Tasks</div>

@@ -17,7 +17,7 @@
             <div class="name">{{auth.userProfile?.name}}</div>
 
             <div class="contact" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="6px">
-              <md-icon class="icon">mail</md-icon>
+              <mat-icon class="icon">mail</mat-icon>
               <span>{{auth.userProfile?.email}}</span>
             </div>
           </div>
@@ -45,15 +45,15 @@
 
     </div>
 
-    <md-tab-group class="profile-tabs clean-tabs mat-elevation-z4">
-      <md-tab label="Bots">
+    <mat-tab-group class="profile-tabs clean-tabs mat-elevation-z4">
+      <mat-tab label="Bots">
         <vr-profile-bots></vr-profile-bots>
-      </md-tab>
-      <md-tab label="Bot Creation" >
+      </mat-tab>
+      <mat-tab label="Bot Creation" >
         <vr-create-bot></vr-create-bot>
-      </md-tab>
+      </mat-tab>
 
-    </md-tab-group>
+    </mat-tab-group>
 
   </div>
 </div>

@@ -8,39 +8,39 @@
     <vr-breadcrumbs [currentPage]="'Table Sorting'" [names]="['Tables']" [header]="'primary'"></vr-breadcrumbs>
 
 
-    <div class="mat-elevation-z8">
-      <md-table #table [dataSource]="dataSource" mdSort>
+    <div class="md-elevation-z8">
+      <mat-table #table [dataSource]="dataSource" matSort>
 
         <!--- Note that these columns can be defined in any order.
               The actual rendered columns are set as a property on the row definition" -->
 
-        <md-header-row *cdkHeaderRowDef="displayedColumns"></md-header-row>
-        <md-row *cdkRowDef="let row; columns: displayedColumns;"></md-row>
+        <mat-header-row *cdkHeaderRowDef="displayedColumns"></mat-header-row>
+        <mat-row *cdkRowDef="let row; columns: displayedColumns;"></mat-row>
 
         <!-- ID Column -->
         <ng-container cdkColumnDef="userId">
-          <md-header-cell *cdkHeaderCellDef md-sort-header> ID</md-header-cell>
-          <md-cell *cdkCellDef="let row"> <md-checkbox></md-checkbox></md-cell>
+          <mat-header-cell *cdkHeaderCellDef mat-sort-header> ID</mat-header-cell>
+          <mat-cell *cdkCellDef="let row"> <mat-checkbox></mat-checkbox></mat-cell>
         </ng-container>
 
         <!-- Progress Column -->
         <ng-container cdkColumnDef="progress">
-          <md-header-cell *cdkHeaderCellDef md-sort-header> Progress</md-header-cell>
-          <md-cell *cdkCellDef="let row"> {{row.progress}}%</md-cell>
+          <mat-header-cell *cdkHeaderCellDef mat-sort-header> Progress</mat-header-cell>
+          <mat-cell *cdkCellDef="let row"> {{row.progress}}%</mat-cell>
         </ng-container>
 
         <!-- Name Column -->
         <ng-container cdkColumnDef="userName">
-          <md-header-cell *cdkHeaderCellDef md-sort-header> Name</md-header-cell>
-          <md-cell *cdkCellDef="let row"> {{row.name}}</md-cell>
+          <mat-header-cell *cdkHeaderCellDef mat-sort-header> Name</mat-header-cell>
+          <mat-cell *cdkCellDef="let row"> {{row.name}}</mat-cell>
         </ng-container>
 
         <!-- Color Column -->
         <ng-container cdkColumnDef="color">
-          <md-header-cell *cdkHeaderCellDef md-sort-header> Color</md-header-cell>
-          <md-cell *cdkCellDef="let row" [style.color]="row.color"> {{row.color}}</md-cell>
+          <mat-header-cell *cdkHeaderCellDef mat-sort-header> Color</mat-header-cell>
+          <mat-cell *cdkCellDef="let row" [style.color]="row.color"> {{row.color}}</mat-cell>
         </ng-container>
-      </md-table>
+      </mat-table>
     </div>
   </div>
 </div>
