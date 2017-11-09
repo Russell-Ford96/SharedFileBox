@@ -6,7 +6,7 @@
           [item]="item" [currentlyOpen]="currentlyOpen$ | async"></vr-toolbar-navigation-item>
 
         <div class="more-button-container" fxLayout="row" fxLayoutAlign="start center" *ngIf="index == showMoreButtonAfterIndex">
-          <button Mat-icon-button class="more-button" [matMenuTriggerFor]="moreMenu">
+          <button Mat-icon-button class="more-button" [matMenuTriggerFor]="menu">
             <mat-icon>more_vert</mat-icon>
           </button>
         </div>

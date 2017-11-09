@@ -6,6 +6,7 @@
   <mat-sidenav class="settings-sidenav"
               (open)="openSettings()" (close)="closeSettings()"
               [opened]="settingsOpen$ | async" mode="over" align="end" #options>
+
     <vr-settings></vr-settings>
   </mat-sidenav>
 
@@ -63,10 +64,10 @@
     </mat-sidenav-container>
 
   </div>
-
-  <div id="settings" class="options-toggle mat-elevation-z4" md-ripple (click)="toggleSettings()"
+  <div id="settings" class="options-toggle mat-elevation-z4"  (click)="toggleSettings()"
        fxLayout="row" fxLayoutAlign="center center">
     <mat-icon>settings</mat-icon>
   </div>
+
 
 </mat-sidenav-container>

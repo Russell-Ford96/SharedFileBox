@@ -14,7 +14,7 @@
             >
     <tr  *ngFor="let item of items;let i=index">
       <td  align="left" width="20%">
-        <md-checkbox class="checkbox" [(ngModel)]="item.file" color="primary"></md-checkbox>
+        <mat-checkbox class="checkbox" [(ngModel)]="item.file" color="primary"></mat-checkbox>
       </td>
       <td align="left" width="80%">{{ item.name }}</td>
     </tr>
