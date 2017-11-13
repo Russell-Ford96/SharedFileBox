@@ -10,6 +10,7 @@ var bcrypt = require('bcrypt');
 const saltRounds = 10;
 
 
+
 var azure = require('azure-storage');
 var blobSvc = azure.createBlobService();
 const containerName = "mycontainer";
@@ -42,6 +43,7 @@ const AUTH_TOKEN = credentials.AUTH_TOKEN;
 var client = require('twilio')(ACCOUNT_SID, AUTH_TOKEN);
 
 
+//get image uploaded by file number
 router.get('/getimage/:createdBy/:refnumb/:file', function(req, res) {
     var fileName =req.params.refnumb +'/'+ req.params.file;
     var containerName= req.params.createdBy;
@@ -64,37 +66,11 @@ router.get('/getimage/:createdBy/:refnumb/:file', function(req, res) {
         });
 });
 
-/*
-
-router.get('/getimage/:createdBy/:refnumb/:file', function(req, res) {
-
-
-  var blobName = req.params.refnumb +'/'+ req.params.file;
-  var containerName= req.params.createdBy;
-  blobSvc.getBlobToStream(
-    containerName,
-    blobName,
-    res,
-    function(err, blob) {
-      if (!err) {
-        res.writeHead(200,{'Content-Type': 'image/png'});
-        console.error("Couldn't download blob %s", blobName);
-        console.error(err);
-
-      } else {
-        console.log("Sucessfully downloaded blob %s", blobName);
-        res.end();
-
-      }
-    });
-
-});
-*/
 
 
 
 
-
+//get the request by ID
 router.get('/getdoc/:id', (req, res) => {
         mongodb.MongoClient.connect(uri, function(err, db) {
             if(err){
@@ -120,7 +96,7 @@ router.get('/getdoc/:id', (req, res) => {
 });
 
 
-
+//upload docs
 router.post('/upload', function (req, res, next) {
 
     upload(req, res, function (err) {
@@ -141,11 +117,11 @@ router.post('/upload', function (req, res, next) {
             if(!error){
               // file uploaded
             } else {
-                return res.status(500).send("An error occured");
+                //return res.status(500).send("An error occured");
             }
           });
         } else {
-            return res.status(500).send("An error has occured.");
+            //return res.status(500).send("An error has occured.");
         }
     });
 
@@ -185,25 +161,28 @@ router.post('/upload', function (req, res, next) {
 })
 
 
-
-router.get('/getreq/:pageID',function (req,res) {
+//instead using '/reqdata/:createdBy'
+router.get('/getreq/:createdBy',function (req,res) {
   mongodb.MongoClient.connect(uri, function (err, db) {
     if (err) {
       throw err;
     }
     var docRequestCollection = db.collection('docRequest');
 
-    docRequestCollection.find({ createdBy: req.params.createdBy },{ "limit": 8, "skip": 8 * req.params.pageID  }).toArray( function (err, results) {
+    docRequestCollection.find({ createdBy: req.params.createdBy }).toArray( function (err, results) {
       if (err) {
         console.log(err);
         return res.status(500).send("There was a problem finding the docrequests.");
       }
       //console.log(results);
       return res.status(200).send(results);
+
     });
   });
 });
 
+
+//get table results based on request creator
 router.get('/reqdata/:createdBy', function (req,res) {
   mongodb.MongoClient.connect(uri, function (err, db) {
     if (err) {
@@ -218,9 +197,40 @@ router.get('/reqdata/:createdBy', function (req,res) {
       //console.log(results);
       return res.status(200).send(results);
     });
+
   });
 });
 
+//get data for inbox
+router.get('/getinbox/:createdBy',function (req,res) {
+  mongodb.MongoClient.connect(uri, function (err, db) {
+    if (err) {
+      throw err;
+    }
+    var docRequestCollection = db.collection('docRequest');
+    docRequestCollection.find(
+      {createdBy: req.params.createdBy,
+        "docArray.attachment":{$exists:true}})
+            .sort({"docArray.dateTime":-1})
+            .toArray(function (err,results) {
+              if (err) {
+                console.log(err);
+                return res.status(500).send("There was a problem finding the docrequests.");
+              }
+              //console.log(results);
+              return res.status(200).send(results);
+            });
+
+    });
+
+});
+
+
+
+
+
+
+//detailed request detail by reference number
 router.get('/request/detail/:refNumb',function (req,res) {
   mongodb.MongoClient.connect(uri, function (err, db) {
     if (err) {
@@ -316,28 +326,29 @@ router.post('/email',(req,res)=> {
 
 
 
-
+//create request
 router.post('/create', (req, res) => {
     var toNumber = req.body.phone;
-    var ourNumber = "+12016883122";
-    var shortMessage = req.body.shortmessage;
+    //var ourNumber = "+12016883122";
+    var ourNumber = "+12134087854";
     var detailedMessage = req.body.detailedmessage;
-    var success = true;
-    var reqReferenceNum = req.body.refnum;
-    console.log(reqReferenceNum);
+    var reqReferenceNumb = req.body.refnumb;
+    var today= new Date();
+    var datetime= today.getFullYear()+'/'+(today.getMonth()+1)+'/'+today.getDate()
+      +' '+today.getHours()+":" +today.getMinutes() + ":" + today.getSeconds();
+    req.body.datetime= datetime;
+
 
     mongodb.MongoClient.connect(uri, function(err, db) {
         if(err){
             console.log(err);
         }
         var reqDocs = db.collection('docRequest');
-        var existingRef = reqDocs.findOne({ refnum: reqReferenceNum }, function(err, result) {
+        var existingRef = reqDocs.findOne({ refnumb: reqReferenceNumb }, function(err, result) {
             if (err){
                 console.log(err);
             }
-            if(result.refnum != null) {
-                return res.send("Invalid Reference Number.");
-            }
+
             else{
               reqDocs.insert(req.body, function(err, result) {
                   if(err)

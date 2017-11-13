@@ -27,6 +27,8 @@ import {FileUploadComponent} from './file-upload/file-upload.component';
 import {ProfileComponent} from './profile/profile.component';
 import {FileSelectDirective} from 'ng2-file-upload';
 import {RouterModule} from '@angular/router';
+import {Angular2FlexModule} from "angular2-flex";
+
 
 
 @NgModule({
@@ -45,9 +47,12 @@ import {RouterModule} from '@angular/router';
     CoreModule,
     PagesModule,
     RouteHandlerModule,
+    Angular2FlexModule
+
+
 
   ],
-  providers: [{
+  providers: [AppService,{
     provide: LocationStrategy,
     useClass: PathLocationStrategy
   },
@@ -61,7 +66,8 @@ import {RouterModule} from '@angular/router';
     AppComponent,
     FileUploadComponent,
     ProfileComponent,
-    FileSelectDirective
+    FileSelectDirective,
+
 
 
   ],

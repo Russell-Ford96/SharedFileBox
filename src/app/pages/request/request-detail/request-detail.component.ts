@@ -40,7 +40,7 @@ export class RequestDetailComponent implements OnInit{
     this.appService.getRefNumbRequest(this.refnumb)
       .then(results => {
         this.requestData = JSON.parse(results._body);
-        //console.log(this.requestData);
+        console.log(this.requestData);
         const foo = this.requestData;
 
         this.createdBy= foo.createdBy;
@@ -68,4 +68,13 @@ export class RequestDetailComponent implements OnInit{
 
   }
 
+  theData(){
+    return this.requestData;
+  }
+
+
+
+
 }
+
+

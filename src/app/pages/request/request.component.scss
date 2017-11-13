@@ -1,6 +1,17 @@
-@import "../../../styles/var";
+@import "./../../../styles/var";
 
-.table-pagination {
+.table-filtering {
 
   @include responsivePadding();
+
+  .header {
+    min-height: 64px;
+    display: flex;
+    align-items: baseline;
+    padding: 8px 24px 0;
+    font-size: 20px;
+    background: #EEE;
+
+  }
+
 }

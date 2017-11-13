@@ -10,7 +10,7 @@
 
   <div class="container">
 
-    <vr-breadcrumbs [currentPage]="'Message'" [names]="['Message']" [header]="'primary'"></vr-breadcrumbs>
+    <vr-breadcrumbs [currentPage]="'Message'" [names]="['Forms']" [header]="'primary'"></vr-breadcrumbs>
 
     <div fxLayout="column" fxLayoutGap="24px">
       <div fxLayout="column" fxLayout.gt-sm="row" fxLayoutAlign.gt-sm="start start" fxLayoutGap="24px">
@@ -25,9 +25,10 @@
 
             <form #myForm="ngForm" [formGroup]="requestForm" (ngSubmit)="onSubmit();">
             <div class="result" fxLayout="column">
-             <md-input-container class="fieldWidth" >
-                <input id="refnumb" name="refnumb" mdInput placeholder="Reference Number" type="text" formControlName="refnumb" required>
-              </md-input-container>
+
+             <md-input-container class="fieldWidth"  >
+                <input id="refnumb" name="refnumb" mdInput placeholder="Reference Number" type="text" formControlName="refnumb" >
+             </md-input-container>
 
 
                 <md-input-container class="fieldWidth">
@@ -59,12 +60,12 @@
               </div>
 
                 <md-input-container class="fieldWidth">
-                <input id="thankmsg" name="thankmsg" mdInput placeholder="Thank you" type="text" required>
+                <input id="thankmsg" name="thankmsg" mdInput placeholder="Thank you" type="text" formControlName="thanks" required>
               </md-input-container>
 
               <md-card>
                 <md-card-content fxLayout="column" fxLayout.gt-sm="row" >
-                <button type="submit" md-raised-button  color="accent">Send</button>
+                <button type="submit" md-raised-button  color="accent" >Send</button>
                 </md-card-content>
               </md-card>
 
@@ -75,13 +76,6 @@
 
 
       </div>
-
-
-
-
-
-
-
 
     </div>
   </div>

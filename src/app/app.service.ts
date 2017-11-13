@@ -1,16 +1,20 @@
-import { Injectable } from '@angular/core';
+import {Component, Injectable} from '@angular/core';
 import { Headers, Http } from '@angular/http';
 
 import 'rxjs/add/operator/toPromise';
+import 'rxjs/add/operator/map'
 import {toPromise} from "rxjs/operator/toPromise";
 import {Observable} from 'rxjs/Observable';
 import {RequestData} from './pages/request/requestdata';
+import {BehaviorSubject} from "rxjs/BehaviorSubject";
 
 @Injectable()
+
+
 export class AppService {
     private headers = new Headers({'Content-Type': 'application/json'});
 
-    constructor(private http: Http) { }
+      constructor(private http: Http) { }
 
     createRequest(formData: any): Promise<any> {
         return this.http.post('api/create', JSON.stringify(formData), {headers: this.headers})
@@ -44,12 +48,19 @@ export class AppService {
                     .catch(this.handleError);
     }
 
-  getDocRequests(pageID:any, createdBy: string): Promise<any> {
-      return this.http.get('api/getreq/' + pageID + '/' + createdBy , {headers: this.headers})
+  getDocRequests(createdBy: string): Promise<any> {
+      return this.http.get('api/getreq/' + createdBy , {headers: this.headers})
       .toPromise()
       .then(response => response )
       .catch(this.handleError);
 
+  }
+
+  getRequestInbox(createdBy: string): Promise<any>{
+    return this.http.get('api/getinbox/' + createdBy, {headers: this.headers})
+      .toPromise()
+      .then(response =>  response)
+      .catch(this.handleError);
   }
 
   getImage(createdBy: string, refnumb:string, file: string): Promise<any>{
@@ -66,7 +77,7 @@ export class AppService {
 
   getAllRequestData(createdBy: string): Observable<RequestData[]> {
     return this.http.get('api/reqdata/' + createdBy, {headers: this.headers})
-         .map(response => response.json() as RequestData[]);
+         .map(response =>  response.json() as RequestData[]);
   }
 
   getRefNumbRequest(refNumb:any):Promise<any>{

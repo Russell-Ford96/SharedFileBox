@@ -1,4 +1,4 @@
-<div class="table-pagination">
+<div class="table-filtering">
 
   <vr-page-header [height]="'146px'" background="url(/assets/img/demo/headers/pattern-3.png)" [reverse]="true"></vr-page-header>
 
@@ -7,6 +7,11 @@
     <vr-breadcrumbs [currentPage]="'Requests'" [names]="['All Requests']" [header]="'primary'"></vr-breadcrumbs>
 
     <div class="mat-elevation-z8">
+    <!--  <div  class="header" >
+        <md-input-container fxFlex floatPlaceholder="never" style="border-bottom: 1px solid grey !important; padding-top: 15px" >
+          <input mdInput #filter placeholder="Filter requests" style="border: 0;outline: 0;background: transparent;">
+        </md-input-container>
+      </div> -->
 
       <md-table #table [dataSource]="dataSource">
 

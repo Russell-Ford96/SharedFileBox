@@ -12,6 +12,7 @@ import {CdkTableModule} from '@angular/cdk/table';
 import {RequestDetailComponent} from './request-detail/request-detail.component';
 import {RouterModule} from '@angular/router';
 import {AppRoutingModule} from '../../app-routing.module';
+import {AppService} from "../../app.service";
 
 @NgModule({
   imports: [
@@ -32,6 +33,7 @@ import {AppRoutingModule} from '../../app-routing.module';
 
     ])
   ],
+  providers:[AppService],
   declarations: [ RequestComponent ,
                   RequestDetailComponent]
 })

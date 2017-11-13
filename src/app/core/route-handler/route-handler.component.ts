@@ -155,6 +155,35 @@ export class RouteHandlerComponent implements OnInit {
 
     forms.subItems.push(...formsSubItems);
 
+
+    const mail = new SidenavItem({
+      name: 'Mail',
+      icon: 'mail',
+      route: null,
+      subItems: [ ],
+      position: 1
+    });
+
+    const mailSubItems = [
+      new SidenavItem({
+        name: 'Inbox',
+        route: '/mail/inbox',
+        parent: mail,
+        subItems: [ ],
+        position: 1
+      }),
+
+      new SidenavItem({
+        name: 'Sent',
+        route: '/mail/sent',
+        parent: mail,
+        subItems: [ ],
+        position: 1
+      })
+    ];
+
+    mail.subItems.push(...mailSubItems);
+
     const pages = new SidenavItem({
       name: 'Pages',
       icon: 'library_books',
@@ -368,12 +397,13 @@ export class RouteHandlerComponent implements OnInit {
     this.store.dispatch(new sidenavAction.AddSidenavItemAction(dashboard));
     this.store.dispatch(new sidenavAction.AddSidenavItemAction(request));
     this.store.dispatch(new sidenavAction.AddSidenavItemAction(forms));
+    this.store.dispatch(new sidenavAction.AddSidenavItemAction(mail));
    // this.store.dispatch(new sidenavAction.AddSidenavItemAction(pages));
-    //this.store.dispatch(new sidenavAction.AddSidenavItemAction(inbox));
-    //this.store.dispatch(new sidenavAction.AddSidenavItemAction(chat));
+   // this.store.dispatch(new sidenavAction.AddSidenavItemAction(inbox));
+   // this.store.dispatch(new sidenavAction.AddSidenavItemAction(chat));
     //this.store.dispatch(new sidenavAction.AddSidenavItemAction(components));
     //this.store.dispatch(new sidenavAction.AddSidenavItemAction(tables));
-   // this.store.dispatch(new sidenavAction.AddSidenavItemAction(editor));
+    //this.store.dispatch(new sidenavAction.AddSidenavItemAction(editor));
     //this.store.dispatch(new sidenavAction.AddSidenavItemAction(auth));
    // this.store.dispatch(new sidenavAction.AddSidenavItemAction(dragAndDrop));
    // this.store.dispatch(new sidenavAction.AddSidenavItemAction(maps));

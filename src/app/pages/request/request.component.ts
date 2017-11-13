@@ -12,6 +12,7 @@ import {RequestData} from './requestdata';
 import {ActivatedRoute, Router} from '@angular/router';
 import { RouterLink } from '@angular/router'
 import {AuthService} from "../../auth/auth.service";
+import { IntervalObservable } from "rxjs/observable/IntervalObservable";
 
 @Component({
   selector: 'vr-table-pagination',
@@ -30,8 +31,8 @@ export class RequestComponent implements OnInit {
   @ViewChild(MdPaginator) paginator: MdPaginator;
 
   constructor(private appService: AppService,
-            private auth: AuthService,
-            private router: Router) {}
+              private auth: AuthService,
+              private router: Router) {}
 
   ngOnInit() {
     this.requestDatabase = new RequestDatabase(this.appService, this.auth);
@@ -40,16 +41,20 @@ export class RequestComponent implements OnInit {
 
   moreDetails(refnumb: string){
     this.router.navigate(['/request/detail/' ,   refnumb]);
-   // console.log(refnumb);
+    // console.log(refnumb);
   }
 
 }
 
 export class RequestDataSource extends DataSource<RequestData>{
 
-  constructor(private _reqDatabase: RequestDatabase, private _paginator: MdPaginator) {
+  constructor(private _reqDatabase: RequestDatabase,
+              private _paginator: MdPaginator,
+             ) {
     super();
   }
+
+
 
   connect(): Observable<RequestData[]> {
     const displayDataChanges = [
@@ -58,10 +63,11 @@ export class RequestDataSource extends DataSource<RequestData>{
     ];
 
     return Observable.merge(...displayDataChanges).map(() => {
-      const data = this._reqDatabase.data.slice();
+      let data = this._reqDatabase.data.slice();
 
       const startIndex = this._paginator.pageIndex * this._paginator.pageSize;
-      return data.splice(startIndex, this._paginator.pageSize);
+       return data.splice(startIndex, this._paginator.pageSize);
+
     })
   }
 
@@ -91,7 +97,7 @@ export class RequestDatabase{
         this.requestByUser(this.userid);
 
       });
-     }
+    }
 
   }
 
@@ -126,6 +132,7 @@ export class RequestDatabase{
       }
     });
 
+
+
   }
 }
-
