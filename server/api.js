@@ -9,11 +9,9 @@ var jwt = require('jsonwebtoken');
 var bcrypt = require('bcrypt');
 const saltRounds = 10;
 
-
 var azure = require('azure-storage');
 var blobSvc = azure.createBlobService();
 const containerName = "mycontainer";
-
 
 //mongo
 var mongodb = require('mongodb');
@@ -23,15 +21,11 @@ const uri = credentials.MLABS_URI;
 const DIR = './server/uploads/';
 var multer = require('multer');
 
-var storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    cb(null, 'uploads/')
-  },
-  filename: function (req, file, cb) {
-    cb(null, crypto.randomBytes(20).toString('hex') + path.extname(file.originalname)) //Appending extension
-  }
-})
-var upload = multer({ storage: storage }).single('single');
+//upload with streams//
+var storage =  multer.memoryStorage();
+var upload = multer({ storage: storage });
+var streamifier = require('streamifier');  //npm install streamifier
+
 
 
 // Twilio Credentials
@@ -40,6 +34,9 @@ const AUTH_TOKEN = credentials.AUTH_TOKEN;
 
 //require the Twilio module and create a REST client
 var client = require('twilio')(ACCOUNT_SID, AUTH_TOKEN);
+
+
+
 
 
 router.get('/getimage/:createdBy/:refnumb/:file', function(req, res) {
@@ -65,7 +62,6 @@ router.get('/getimage/:createdBy/:refnumb/:file', function(req, res) {
 
 router.get('/getimage/:createdBy/:refnumb/:file', function(req, res) {
 
-
   var blobName = req.params.refnumb +'/'+ req.params.file;
   var containerName= req.params.createdBy;
   blobSvc.getBlobToStream(
@@ -84,12 +80,8 @@ router.get('/getimage/:createdBy/:refnumb/:file', function(req, res) {
 
       }
     });
-
 });
 */
-
-
-
 
 
 router.get('/getdoc/:id', (req, res) => {
@@ -118,67 +110,65 @@ router.get('/getdoc/:id', (req, res) => {
 
 
 
-router.post('/upload', function (req, res, next) {
-    upload(req, res, function (err) {
-       if (err) {
-         // An error occurred when uploading
-         console.log("error"+err);
-         return res.status(422).send("an Error occured")
-       }
+//upload
+router.post('/upload', upload.single('single'),function(req, res, next){
+    console.log('-----file---', req.body)
 
-    const path = req.file.path;
-    const fileName = req.body._refnumb + '/' + req.file.filename;
-    var containerName = req.body.createdBy;
+  var stream = streamifier.createReadStream(req.file.buffer)
+  const fullAzurePath = req.body._refnumb + '/' + req.file.filename;
+  var containerName = req.body.createdBy;
 
+  console.log('stream----->', stream)
 
-    blobSvc.createContainerIfNotExists(containerName, function(error, result, response){
-        if(!error){
-          blobSvc.createBlockBlobFromLocalFile(containerName, fileName, path, function(error, result, response){
-            if(!error){
-              // file uploaded
-            } else {
-                return res.status(500).send("An error occured");
+      blobSvc.createBlockBlobFromStream(
+          containerName,
+          fullAzurePath,
+          stream,
+          req.file.size,
+          function(err, result, response){
+            if(err){
+              console.log('couldnt upload stream');
+              console.log('error**', err);
+              return res.status(500).send("broken");
             }
-          });
-        } else {
-            return res.status(500).send("An error has occured.");
-        }
-    });
+            else{
+              //mongo
+              mongodb.MongoClient.connect(uri, function(err, db) {
+                  if(err){
+                      console.log(err);
+                  }
+                  //create a new mongo ID using the supplied ID ??
+                  var o_id = new mongodb.ObjectID(req.body._id);
+                  var index = req.body.index;
+                  var today= new Date();
 
-    mongodb.MongoClient.connect(uri, function(err, db) {
-        if(err){
-            console.log(err);
-        }
+                  var existingRecord = db.collection('docRequest').findOne({ _id: o_id }, function(err, result) {
+                      if (err) console.log(err);
 
-        //create a new mongo ID using the supplied ID
-        var o_id = new mongodb.ObjectID(req.body._id);
-        var index = req.body.index;
-        var today= new Date();
+                      if(result == null) {
+                          return res.status(422).send("an error occured");
+                      }
+                      result.docArray[index].attachment = fullAzurePath;
+                      result.docArray[index].fileName = req.file.filename;
+                      result.docArray[index].docName = req.body._namedoc;
+                      result.docArray[index].dateTime= today.getFullYear()+'/'+(today.getMonth()+1)+'/'+today.getDate()
+                        +' '+today.getHours()+":" +today.getMinutes() + ":" + today.getSeconds();
+                      db.collection("docRequest").updateOne({ _id: o_id }, result, function(err, res) {
+                          if (err) console.log(err);
+                          console.log("1 document updated");
+                          db.close();
+                      });
+                      db.close();
+                  });
 
-        var existingRecord = db.collection('docRequest').findOne({ _id: o_id }, function(err, result) {
-            if (err) console.log(err);
-
-            if(result == null) {
-                res.status(422).send("an error occured");
+                      return res.send(fullAzurePath);
+              });
+              console.log('stream uploaded successfully');
+              req.model.data = response;
+              next();
             }
-
-            result.docArray[index].attachment = fileName;
-            result.docArray[index].fileName = req.file.filename;
-            result.docArray[index].docName = req.body._namedoc;
-            result.docArray[index].dateTime= today.getFullYear()+'/'+(today.getMonth()+1)+'/'+today.getDate()
-                                             +' '+today.getHours()+":" +today.getMinutes() + ":" + today.getSeconds();
-            db.collection("docRequest").updateOne({ _id: o_id }, result, function(err, res) {
-                if (err) console.log(err);
-                console.log("1 document updated");
-                db.close();
-            });
-            db.close();
         });
-    });
-
-    return res.send(path);
-  });
-})
+});
 
 
 
@@ -199,6 +189,7 @@ router.get('/getreq/:pageID',function (req,res) {
     });
   });
 });
+
 
 router.get('/reqdata/:createdBy', function (req,res) {
   mongodb.MongoClient.connect(uri, function (err, db) {
@@ -233,8 +224,6 @@ router.get('/request/detail/:refNumb',function (req,res) {
     });
   });
 });
-
-
 
 
 
@@ -316,6 +305,7 @@ router.post('/create', (req, res) => {
     var success = true;
     var reqReferenceNum = req.body.refnumb;
 
+
     //validate refnumb
     var isnum = /[0-9]/;
     var isletter = /[a-zA-Z]/;
@@ -328,7 +318,6 @@ router.post('/create', (req, res) => {
     if(!(re.test(req.body.email))){
          return res.send("Invalid email")
     }
-
 
     mongodb.MongoClient.connect(uri, function(err, db) {
         if(err){
@@ -369,6 +358,7 @@ router.post('/create', (req, res) => {
                               else if(err == null){
                                 res.send(id)
                               }
+                              console.log('*****message', message)
                           });
                       }
               })

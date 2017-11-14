@@ -30,7 +30,7 @@ const routes: Routes = [
 
   },
   {
-    path: 'upload/:id',
+    path: 'upload/:id', 
     component: FileUploadComponent,
     resolve: { docRequest: FileUploadResolve }
   },

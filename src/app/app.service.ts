@@ -15,7 +15,7 @@ export class AppService {
     createRequest(formData: any): Promise<any> {
         return this.http.post('api/create', JSON.stringify(formData), {headers: this.headers})
                     .toPromise()
-                    .then(response => response) 
+                    .then(response => response)
                     .catch(this.handleError);
     }
 
@@ -26,9 +26,10 @@ export class AppService {
       .catch(this.handleError);
   }
 
+
     upload(formData: any): Promise<any> {
-        formData._id = "59c173e712e15f23dea3e541";
         formData.attachment = "attachment here";
+        console.log('######', formData);
         return this.http.post('api/upload', JSON.stringify(formData), {headers: this.headers})
                     .toPromise()
                     .then(response => response)
@@ -36,11 +37,10 @@ export class AppService {
     }
 
 
-
     getDocRequest(id: any): Promise<any> {
         return this.http.get('api/getdoc/' + id, {headers: this.headers})
                     .toPromise()
-                    .then(response => {console.log('req'); return response})
+                    .then(response => response)
                     .catch(this.handleError);
     }
 
@@ -85,7 +85,6 @@ export class AppService {
   }
 
     private handleError(error: any): Promise<any> {
-
         console.error('An error occurred', error);
         return Promise.reject(error.message || error);
 
