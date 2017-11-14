@@ -1,7 +1,7 @@
 <mat-horizontal-stepper [linear]="false">
   <mat-step [stepControl]="requestForm">
     <form [formGroup]="requestForm">
-      <ng-template matStepLabel>Fill out name and url</ng-template>
+      <ng-template matStepLabel>Fill out name and url </ng-template>
 
             <!-- Start form -->
             <div class="result" fxLayout="column">
@@ -63,7 +63,7 @@
 
     <div>
       <button mat-button matStepperPrevious>Back</button>
-      <button mat-button matStepperNext (click)="save()">Send</button>
+      <button mat-button matStepperNext (click)="onSubmit()">Send</button>
     </div>
   </mat-step>
 </mat-horizontal-stepper>

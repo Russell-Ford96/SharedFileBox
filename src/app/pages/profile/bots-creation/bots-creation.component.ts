@@ -1,6 +1,6 @@
 import {
   AfterViewInit, ChangeDetectorRef, Component, ElementRef, OnInit,
-  Input, Output, EventEmitter, ViewChild
+  Input, EventEmitter, OnChanges
 } from '@angular/core';
 import Scrollbar from 'smooth-scrollbar';
 import { ROUTE_TRANSITION } from '../../../app.animation';
@@ -9,6 +9,7 @@ import { AuthService } from '../../../auth/auth.service';
 import { AppService } from '../../../app.service';
 import * as fromRoot from '../../../reducers/index';
 import { Store } from '@ngrx/store';
+import { Bot } from '../bot.model';
 
 
 @Component({
@@ -18,18 +19,18 @@ import { Store } from '@ngrx/store';
   animations: [...ROUTE_TRANSITION],
   host: { '[@routeTransition]': '' }
 })
-export class BotsCreationComponent implements OnInit {
+export class BotsCreationComponent implements OnInit, OnChanges {
   public msgSent = false;
   public msgErr = false;
-  // @Input() inputArray: any[];
+   @Input() bot: Bot;
   // @Output() closeEvent = new EventEmitter<string>();
 
   requestForm: FormGroup;
   secondFormGroup: FormGroup;
   submitted = false;
   profile: any;
-  bot: any;
-  items: any[];
+
+  items: {name: String , file: boolean, position: number }[];
   item: {name: String , file: boolean, position: number }; // if file = false the is a question
 
 
@@ -79,6 +80,8 @@ export class BotsCreationComponent implements OnInit {
     private store: Store<fromRoot.State>,
     private cd: ChangeDetectorRef
   ) {
+    console.log("############## bot-creation ############");
+    console.log(this.bot);
   }
 
 
@@ -86,12 +89,56 @@ export class BotsCreationComponent implements OnInit {
   callParent() {
     // this.closeEvent.next();
   }
+  saveBot(botName: HTMLInputElement){
 
+  }
 
   onSubmit() {
-    console.log("*************************************************************")
+    console.log("************** OnSubmit **************")
     this.submitted = true;
-    this.save();
+
+
+    if(this.bot._id != ''){
+      console.log("********** Upload **********");
+     this.update();
+    }else{
+      console.log("********** save **********")
+     this.save();
+    }
+
+
+  }
+
+  buildForm(bot:Bot): void {
+    console.log(bot);
+    this.requestForm = this.fb.group({
+      'name': [bot.name, [
+        Validators.required
+      ]
+      ],
+      'url': [bot.url, [
+        Validators.required
+      ]
+      ],
+      itemArray: this.fb.array(bot.itemArray),
+      'thanks': [bot.thanks, [
+        Validators.required
+      ]
+      ],
+      'active': [bot.active, []],
+      '_id':[bot._id,[]]
+
+    });
+    this.requestForm.valueChanges
+      .subscribe(data => this.onValueChanged(data));
+    this.onValueChanged(); // (re)set validation messages now
+  }
+
+  ngOnChanges(){
+    console.log("------------ ngOnChanges --------------");
+    console.log(this.bot);
+
+    this.buildForm(this.bot);
 
   }
 
@@ -119,9 +166,38 @@ export class BotsCreationComponent implements OnInit {
         this.profile = profile;
       });
     }
-    this.item = { name: '', file: false, position: 0 };
-    this.buildForm();
 
+    this.item = { name: '', file: false, position: 0 };
+    this.buildForm(this.bot);
+
+  }
+
+  update(): void {
+    let formValues = this.requestForm.value;
+    formValues.createdBy = this.profile.sub.split("|")[1];
+    console.log(formValues);
+    this.appService.updateBot(this.requestForm.value)
+      .then(res => {
+        if (res._body != "false") {
+          console.log(res);
+          this.callParent();
+
+          this.msgSent = true;
+          setTimeout(function() {
+            this.msgSent = false;
+            console.log(this.msgSent);
+          }.bind(this), 3000);
+
+
+        } else {
+          console.log(res);
+          this.msgErr = true;
+          setTimeout(function() {
+            this.msgErr = false;
+          }.bind(this), 3000);
+
+        }
+      });
   }
 
   save(): void {
@@ -152,28 +228,28 @@ export class BotsCreationComponent implements OnInit {
       });
   }
 
-  buildForm(): void {
-    this.requestForm = this.fb.group({
-      'name': ['', [
-        Validators.required
-      ]
-      ],
-      'url': ['', [
-        Validators.required
-      ]
-      ],
-      itemArray: this.fb.array([]),
-      'thanks': ['', [
-        Validators.required
-      ]
-      ],
-      'active': [true, []]
-
-    });
-    this.requestForm.valueChanges
-      .subscribe(data => this.onValueChanged(data));
-    this.onValueChanged(); // (re)set validation messages now
-  }
+  // buildForm(): void {
+  //   this.requestForm = this.fb.group({
+  //     'name': ['', [
+  //       Validators.required
+  //     ]
+  //     ],
+  //     'url': ['', [
+  //       Validators.required
+  //     ]
+  //     ],
+  //     itemArray: this.fb.array([]),
+  //     'thanks': ['', [
+  //       Validators.required
+  //     ]
+  //     ],
+  //     'active': [true, []]
+  //
+  //   });
+  //   this.requestForm.valueChanges
+  //     .subscribe(data => this.onValueChanged(data));
+  //   this.onValueChanged(); // (re)set validation messages now
+  // }
 
   initItemField(item: {name: String , file: boolean, position: number }) {
     console.log(item.name);

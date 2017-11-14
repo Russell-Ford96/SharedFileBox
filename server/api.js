@@ -295,6 +295,41 @@ router.post('/createbot', (req, res) => {
   })
 })
 
+router.post('/updatebot', (req, res) => {
+    console.log("********************* API Update Bot **********************");
+    console.log(req.body);
+    reqId = req.body._id;
+    reqName = req.body.name;
+    reqUrl = req.body.url;
+    reqItemArray = req.body.itemArray;
+    reqCreatedBy = req.body.createdBy;
+    reqThanks = req.body.thanks;
+    reqActive = req.body.active;
+
+  mongodb.MongoClient.connect(uri, function(err, db) {
+      if(err){
+          console.log(err);
+      }
+      var reqBots = db.collection('bot');
+
+      var existingName = reqBots.update(
+        {name: reqName},
+        {$set:{
+        name: reqName,
+        url: reqUrl,
+        itemArray: reqItemArray,
+        createdBy: reqCreatedBy,
+        thanks: reqThanks,
+        active: reqActive
+        }
+      },function(err, result) {
+            console.log(result);
+                //do something.
+        }
+      );
+  })
+})
+
 //nodemailer email
 router.post('/email',(req,res)=> {
 

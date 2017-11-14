@@ -45,15 +45,30 @@
 
     </div>
 
-    <mat-tab-group class="profile-tabs clean-tabs mat-elevation-z4">
-      <mat-tab label="Bots">
-        <vr-profile-bots></vr-profile-bots>
+    <div class="profile-tabs clean-tabs mat-elevation-z4">
+
+    <div  *ngIf="!showFormBot">
+     <vr-profile-bots  [bots]="botsElements"
+                      (botWasSelected)="onBotSelected($event)"
+     ></vr-profile-bots>
+     </div>
+
+     <div  *ngIf="showFormBot">
+     <vr-create-bot [bot]="botSelected"></vr-create-bot>
+     </div>
+    </div>
+    <!-- <mat-tab-group class="profile-tabs clean-tabs mat-elevation-z4"
+      [(selectedIndex)] = "tabSelected">
+      <mat-tab label="Bots" >
+        <vr-profile-bots [bots]="botsElements"
+                          (botWasSelected)="onBotSelected($event)"
+        ></vr-profile-bots>
       </mat-tab>
       <mat-tab label="Bot Creation" >
-        <vr-create-bot></vr-create-bot>
+        <vr-create-bot [bot]="botSelected"></vr-create-bot>
       </mat-tab>
 
-    </mat-tab-group>
+    </mat-tab-group> -->
 
   </div>
 </div>

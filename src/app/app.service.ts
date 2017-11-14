@@ -19,8 +19,20 @@ export class AppService {
       .catch(this.handleError);
   }
 
+
+
+
   createBot(formData: any): Promise<any> {
     return this.http.post('api/createbot', JSON.stringify(formData), { headers: this.headers })
+      .toPromise()
+      .then(response => response)
+      .catch(this.handleError);
+  }
+
+  updateBot(formData: any): Promise<any> {
+    console.log("app.service->updateBot");
+    console.log(formData);
+    return this.http.post('api/updatebot', JSON.stringify(formData), { headers: this.headers })
       .toPromise()
       .then(response => response)
       .catch(this.handleError);
