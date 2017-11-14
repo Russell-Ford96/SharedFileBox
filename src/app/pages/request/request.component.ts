@@ -3,6 +3,8 @@ import { DataSource } from '@angular/cdk/table';
 import { MdPaginator } from '@angular/material';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Observable } from 'rxjs/Observable';
+import * as _ from 'lodash';
+import * as moment from 'moment';
 import 'rxjs/add/operator/startWith';
 import 'rxjs/add/observable/merge';
 import 'rxjs/add/operator/map';
@@ -104,7 +106,17 @@ export class RequestDatabase{
   requestByUser(id: string ){
     this.userid = id;
 
+
     this.appService.getAllRequestData(id).subscribe(data =>{
+
+      data.sort(function compare(a, b) {
+        var dateA = +new Date(a.datetime);
+        var dateB = +new Date(b.datetime);
+        return dateA - dateB;
+      }).reverse();
+
+
+
       this.dataChange.next(data);
 
       for(let i=0;i<data.length; i++){

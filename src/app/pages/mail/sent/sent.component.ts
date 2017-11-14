@@ -21,6 +21,7 @@ export class SentComponent implements OnInit, OnDestroy {
   scrollbar: any;
   userid: string;
   sentData: any;
+  theData : any;
 
   chats: any[];
   activeMsg: any;
@@ -53,16 +54,22 @@ export class SentComponent implements OnInit, OnDestroy {
 
   requestByUser(id: string ){
     this.userid = id;
-    let theData : any;
+
 
     this.appService.getDocRequests(id).
     then(results=>{
-      theData= JSON.parse(results._body);
-      this.sentData= _.sortBy(theData,'datetime').reverse();
-      this.activeMsg = this.sentData[0];
-      console.log(this.sentData);
+      this.theData= JSON.parse(results._body);
 
+      this.theData.sort(function compare(a, b) {
+        var dateA = +new Date(a.datetime);
+        var dateB = +new Date(b.datetime);
 
+        return dateA - dateB;
+
+      }).reverse();
+
+      this.activeMsg = this.theData[0];
+      //console.log(this.theData);
     });
 
 

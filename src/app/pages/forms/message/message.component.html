@@ -47,14 +47,29 @@
                 <textarea id="detailedmsg" name="detailedmsg" mdInput placeholder="Detailed Message" type="text" formControlName="detailedmessage" required></textarea>
               </md-input-container>
 
-              <div formArrayName="docArray">
+
+              <div  fxLayout.gt-sm="row" fxLayoutGap.gt-sm="16px"  >
+
+              <div formArrayName="docArray" fxFlex>
                 <div *ngFor="let address of requestForm.controls.docArray.controls; let i=index" >
                   <div [formGroupName]="i">
-                      <md-input-container class="fieldWidth" >
+                      <md-input-container class="fieldWidth"  >
                           <input id="doclist1" name="doclist1" mdInput placeholder="Documents" type="text" formControlName="name" required>
                           <md-icon mdSuffix (click)="addInput()">add</md-icon>
                           <md-icon mdSuffix *ngIf="requestForm.controls.docArray.controls.length > 1" (click)="delInput(i)">clear</md-icon>
                       </md-input-container>
+                  </div>
+                </div>
+              </div>
+                <div formArrayName="infoArray" fxFlex>
+                  <div *ngFor="let address of requestForm.controls.infoArray.controls; let i=index" >
+                    <div [formGroupName]="i">
+                      <md-input-container class="fieldWidth" >
+                        <input id="infolist1" name="infolist1" mdInput placeholder="Information" type="text" formControlName="info" required>
+                        <md-icon mdSuffix (click)="addInfoInput()">add</md-icon>
+                        <md-icon mdSuffix *ngIf="requestForm.controls.infoArray.controls.length > 1" (click)="delInfoInput(i)">clear</md-icon>
+                      </md-input-container>
+                    </div>
                   </div>
                 </div>
               </div>

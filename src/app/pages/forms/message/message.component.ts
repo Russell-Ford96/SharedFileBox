@@ -1,9 +1,10 @@
 import * as _ from 'lodash';
 import { ROUTE_TRANSITION } from '../../../app.animation';
-import { Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
-import { FormArray, FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { FormArray, FormGroup, FormBuilder, Validators,FormControl } from '@angular/forms';
 import {AuthService} from '../../../auth/auth.service';
 import {AppService} from '../../../app.service';
+
 
 
 @Component({
@@ -11,17 +12,24 @@ import {AppService} from '../../../app.service';
   templateUrl: 'message.component.html',
   styleUrls: ['./message.component.scss'],
   animations: [...ROUTE_TRANSITION],
-  host: { '[@routeTransition]': '' }
+  host: { '[@routeTransition]': '' },
+
+
 
 })
+
+
+
 export class MessageComponent implements OnInit {
+
   public msgSent= false;
   public msgErr= false;
-  @Input() inputArray: any[];
+
+  @Input() inputArray: any;
   @Output() closeEvent = new EventEmitter<string>();
 
   requestForm: FormGroup;
-  myForm: FormGroup;
+
   submitted = false;
   profile: any;
 
@@ -41,14 +49,18 @@ export class MessageComponent implements OnInit {
     } else {
       this.auth.getProfile((err, profile) => {
         this.profile = profile;
+
       });
     }
     this.buildForm();
   }
 
+
+
   onSubmit() {
     this.submitted = true;
     this.save();
+
 
   }
   save(): void {
@@ -85,7 +97,7 @@ export class MessageComponent implements OnInit {
       ],
 
       'email': ['', [
-        Validators.required
+        Validators.required,
       ]
       ],
       'phone': ['', [
@@ -101,6 +113,7 @@ export class MessageComponent implements OnInit {
       ]
       ],
       docArray: this.fb.array([this.initDocField()]),
+      infoArray: this.fb.array([this.initInfoField()]),
       'thanks': ['', [
         Validators.required
       ]
@@ -117,14 +130,32 @@ export class MessageComponent implements OnInit {
     });
   }
 
+  initInfoField() {
+    return this.fb.group({
+      info: ['', Validators.required]
+    });
+  }
+
   addInput(): void {
     const arrayControl = <FormArray>this.requestForm.controls['docArray'];
     arrayControl.push(this.initDocField());
   }
 
+  addInfoInput(): void {
+    const infoArrayControl = <FormArray>this.requestForm.controls['infoArray'];
+    infoArrayControl.push(this.initInfoField());
+  }
+
+
   delInput(index: number): void {
     const arrayControl = <FormArray>this.requestForm.controls['docArray'];
     arrayControl.removeAt(index);
+  }
+
+  delInfoInput(index: number): void {
+    const infoArrayControl = <FormArray>this.requestForm.controls['infoArray'];
+    infoArrayControl.removeAt(index);
+
   }
 
   onValueChanged(data?: any) {
@@ -149,6 +180,7 @@ export class MessageComponent implements OnInit {
     'shortmessage': '',
     'detailedmessage': '',
     'document': '',
+    'info':'',
     'thanks': ''
   };
   validationMessages = {
@@ -169,6 +201,9 @@ export class MessageComponent implements OnInit {
     },
     'document': {
       'required': 'Document name is required.'
+    },
+    'info':{
+      'required': 'Info name is required.'
     },
     'thanks': {
       'required': 'Thank you message is required.'

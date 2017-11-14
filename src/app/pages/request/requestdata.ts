@@ -5,7 +5,8 @@ export class RequestData {
     public phone: string,
     public shortmessage: string,
     public docArray: any,
-    public checkdocs: any
+    public checkdocs: any,
+    public datetime: any
 
 
 

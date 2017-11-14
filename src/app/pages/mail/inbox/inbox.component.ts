@@ -55,9 +55,8 @@ export class InboxComponent implements OnInit{
     this.appService.getRequestInbox(id).
       then(results=> {
       this.theData = JSON.parse(results._body);
-      console.log(this.theData);
 
-      for(let i=0;i<this.theData.length; i++){
+        for(let i=0;i<this.theData.length; i++){
         let documentArray= this.theData[i].docArray;
 
         for (let doc of documentArray) {

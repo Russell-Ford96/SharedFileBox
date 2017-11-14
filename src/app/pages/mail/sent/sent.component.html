@@ -11,7 +11,7 @@
         <div fxLayout="row" style="height:100%" >
           <md-card-content fxFlex="100" fxFlex.gt-xs="50" fxFlex.gt-lg="40" style="overflow-y: auto" >
              <md-nav-list >
-                <md-list-item  *ngFor="let item of sentData" (click)="setActiveMsg(item)" >
+                <md-list-item  *ngFor="let item of theData" (click)="setActiveMsg(item)" >
                    <div class="mat-list-item" style="width: 100%">
                      <h4 style="font-weight: 700; margin: 0 " md-line>{{item.phone}}<span  style="font-size: x-small; float: right; ">{{item.datetime | timeAgo}}</span></h4>
                      <p md-line>{{item.shortmessage}}</p>
