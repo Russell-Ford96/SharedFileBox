@@ -1,0 +1,137 @@
+<!-- <div class="simple-table">
+
+    <div class="container">
+
+     <div fxLayout="column" fxLayout.gt-md="row" fxLayoutGap="16px" fxLayoutAlign="start start">
+
+      <div fxFlex class="mat-elevation-z2">
+        <table class="table"
+        [class.table-hover]="tableHover"
+        [class.table-striped]="tableStriped"
+        [class.table-condensed]="tableCondensed"
+        [class.table-bordered]="tableBordered"
+        >
+          <thead>
+          <tr>
+            <th>Name</th>
+            <th>URL</th>
+            <th>Active</th>
+
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let bot of bots" (click)="onBotSelect(bot)" >
+            <td>{{ bot.name}}</td>
+            <td>{{ bot.url }}</td>
+            <td><mat-checkbox
+                  [(ngModel)]="bot.active"></mat-checkbox></td>
+
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div> -->
+<div class="project-widget">
+  <div class="card border space">
+    <div class="header" fxLayout="row" fxLayoutAlign="space-between center">
+      <div class="name">Bots</div>
+
+      <div class="actions" fxLayout="row">
+          <!-- <button type="button" mat-icon-button > </button>-->
+          <!-- <button mat-mini-fab >add</button> -->
+          <button type="button" mat-button color="primary" (click)="onNewBot()">NEW BOT</button>
+
+      </div>
+    </div>
+
+    <div class="content" fxLayout="column">
+      <div class="projects">
+        <div class="category">
+
+          <div  mat-ripple class="project"
+                fxLayout="row"
+                fxLayoutAlign="space-between center"
+                *ngFor="let bot of bots" (click)="onBotSelect(bot)" >
+
+            <div fxLayout="column">
+              <div class="name">{{ bot.name}}</div>
+              <div class="users" fxLayout="row">
+                <div class="user" *ngFor="let item of bot.itemArray">
+                  <mat-icon *ngIf="!item.file" class="icon">question_answer</mat-icon>
+                  <mat-icon *ngIf="item.file" class="icon">attach_file</mat-icon>
+                </div>
+              </div>
+            </div>
+            <div fxLayout="row" fxLayoutAlign="end center">
+              <div class="time">2 min ago</div>
+              <div *ngIf="bot.active" class="status-circle accent"></div>
+              <div *ngIf="!bot.active" class="status-circle warn"></div>
+            </div>
+          </div>
+
+
+        </div>
+
+        <div class="divider" *ngIf="!smallView"></div>
+
+        <div class="category" *ngIf="!smallView">
+
+          <div class="heading">Initiatives</div>
+
+          <div  mat-ripple class="project" fxLayout="row" fxLayoutAlign="space-between center">
+            <div fxLayout="column">
+              <div class="name">CXX Implementation</div>
+              <div class="users" fxLayout="row">
+                <div class="user" *ngFor="let user of [1,2,3]">
+                  <img src="//placehold.it/30x30">
+                </div>
+              </div>
+            </div>
+            <div fxLayout="row" fxLayoutAlign="end center">
+              <div class="time">2 min ago</div>
+
+              <div class="status-circle accent"></div>
+
+            </div>
+          </div>
+
+          <div  mat-ripple class="project" fxLayout="row" fxLayoutAlign="space-between center">
+            <div fxLayout="column">
+              <div class="name">Quality AS3</div>
+              <div class="users" fxLayout="row">
+                <div class="user" *ngFor="let user of [1,2]">
+                  <img src="//placehold.it/30x30">
+                </div>
+              </div>
+            </div>
+            <div fxLayout="row" fxLayoutAlign="end center">
+              <div class="time">1 week ago</div>
+              <div class="status-circle donut orange"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer" fxLayout="row" fxLayoutAlign="end center">
+      <button type="button" mat-button color="primary">NEW BOT</button>
+    </div>
+  </div>
+</div>
+
+<!-- <mat-menu #cardMenuRef="matMenu">
+  <button mat-menu-item>
+    <mat-icon>refresh</mat-icon>
+    <span>Refresh</span>
+  </button>
+  <button mat-menu-item>
+    <mat-icon>notifications_off</mat-icon>
+    <span>Disable alerts</span>
+  </button>
+  <button mat-menu-item>
+    <mat-icon>exit_to_app</mat-icon>
+    <span>Remove Widget</span>
+  </button>
+</mat-menu> -->

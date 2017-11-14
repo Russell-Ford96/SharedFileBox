@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import {Http, Response} from '@angular/http';
 import {DataSource} from '@angular/cdk/table';
-import {MdPaginator, MdSort} from '@angular/material';
+import {MatPaginator, MatSort} from '@angular/material';
 import {Observable} from 'rxjs/Observable';
 import 'rxjs/add/operator/first';
 import 'rxjs/add/operator/startWith';
@@ -32,8 +32,8 @@ export class DatatableComponent implements OnInit, OnDestroy {
   exampleDatabase: ExampleHttpDao | null;
   dataSource: ExampleDataSource | null;
 
-  @ViewChild(MdPaginator) paginator: MdPaginator;
-  @ViewChild(MdSort) sort: MdSort;
+  @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild(MatSort) sort: MatSort;
 
   constructor(http: Http) {
     this.exampleDatabase = new ExampleHttpDao(http);
@@ -86,22 +86,22 @@ export class ExampleDataSource extends DataSource<GithubIssue> {
   isRateLimitReached: boolean;
 
   constructor(private _exampleDatabase: ExampleHttpDao,
-              private _sort: MdSort,
-              private _paginator: MdPaginator) {
+              private _sort: MatSort,
+              private _paginator: MatPaginator) {
     super();
   }
 
   /** Connect function called by the table to retrieve one stream containing the data to render. */
   connect(): Observable<GithubIssue[]> {
     const displayDataChanges = [
-      this._sort.mdSortChange,
+      // this._sort.matSortChange,
       this._paginator.page,
     ];
 
     // If the user changes the sort order, reset back to the first page.
-    this._sort.mdSortChange.subscribe(() => {
-      this._paginator.pageIndex = 0;
-    });
+    // this._sort.mdSortChange.subscribe(() => {
+    //   this._paginator.pageIndex = 0;
+    // });
 
     return Observable.merge(...displayDataChanges)
       .startWith(null)

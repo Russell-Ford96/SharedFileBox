@@ -226,6 +226,102 @@ router.get('/request/detail/:refNumb',function (req,res) {
 });
 
 
+router.get('/bots', function (req,res) {
+  console.log("++++++++++++++++++ bots +++++++++++++++++++++++");
+  mongodb.MongoClient.connect(uri, function (err, db) {
+    if (err) {
+      throw err;
+    }
+    var botCollection = db.collection('bot');
+    botCollection.find().toArray(function (err, results) {
+      if (err) {
+        console.log(err);
+        return res.status(500).send("There was a problem finding all bot.");
+      }
+      //console.log(results);
+      return res.status(200).send(results);
+    });
+  });
+});
+
+
+router.post('/createbot', (req, res) => {
+    console.log("********************* Bot **********************");
+    console.log(req.body);
+    reqName = req.body.name;
+  mongodb.MongoClient.connect(uri, function(err, db) {
+      if(err){
+          console.log(err);
+      }
+      var reqBots = db.collection('bot');
+
+      var existingName = reqBots.findOne({ name: reqName },
+          function(err, result) {
+          if (err){
+              console.log(err);
+          }
+          if(result != null){
+          //validate name
+            console.log("*********** RESULT **********");
+            console.log(result);
+            if(result.name != null ) {
+              return res.send("Invalid Name.");
+            }
+          }
+          else{
+            reqBots.insert(req.body, function(err, result) {
+                if(err)
+                    return res.send("An error has occured");
+                else {
+                  var id = result.insertedIds[0];
+                     return res.send(id);
+                    }
+            })
+            db.close();
+          }
+      });
+  })
+})
+
+router.post('/updatebot', (req, res) => {
+    console.log("********************* API Update Bot **********************");
+    console.log(req.body);
+    //var reqId = req.body._id;
+    var o_id = new mongodb.ObjectID(req.body._id);
+    var reqName = req.body.name;
+    var reqUrl = req.body.url;
+    var reqItemArray = req.body.itemArray;
+    var reqCreatedBy = req.body.createdBy;
+    var reqThanks = req.body.thanks;
+    var reqActive = req.body.active;
+
+  mongodb.MongoClient.connect(uri, function(err, db) {
+      if(err){
+          console.log(err);
+      }
+      var reqBots = db.collection('bot');
+
+      var existingName = reqBots.update(
+        { _id: o_id },
+        {$set:{
+        name: reqName,
+        url: reqUrl,
+        itemArray: reqItemArray,
+        createdBy: reqCreatedBy,
+        thanks: reqThanks,
+        active: reqActive
+        }
+      },function (err, results) {
+        if (err) {
+          console.log(err);
+          return res.status(500).send("There was a problem finding the docrequests.");
+        }
+        //console.log(results);
+        return res.status(200).send(results);
+      }
+      );
+  })
+})
 
 //nodemailer email
 router.post('/email',(req,res)=> {

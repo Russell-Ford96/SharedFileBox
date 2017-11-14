@@ -1,0 +1,43 @@
+@import "../../../../styles/var";
+
+.fieldWidth {
+  width: 100%;
+}
+
+.addItemNameStyle {
+  padding-left: 0px;
+  padding-right: 10px;
+  width: 100%;
+}
+.addItemTypeStyle {
+  padding-left: 15px;
+  padding-right: 0px;
+  width: 100%;
+}
+.form-elements {
+
+  @include responsivePadding();
+
+  .card.alternative {
+
+    .content {
+      padding-top: 16px;
+
+      .source {
+        @include responsivePadding(left, true);
+        @include responsivePadding(right, true);
+        margin-bottom: 12px;
+      }
+
+      .result {
+        width: 100%;
+        .description {
+          color: $color__text-dark;
+          margin: 0 0 8px 0;
+          font-size: 14px;
+
+        }
+      }
+    }
+  }
+}

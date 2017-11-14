@@ -5,7 +5,7 @@ import { PageHeaderModule } from '../../core/page-header/page-header.module';
 import { BreadcrumbsModule } from '../../core/breadcrumbs/breadcrumbs.module';
 import { UtilsModule } from '../../core/utils/utils.module';
 import { FlexLayoutModule } from '@angular/flex-layout';
-import { MdListModule, MdRippleModule } from '@angular/material';
+import { MatListModule, MatRippleModule } from '@angular/material';
 import { ComponentsAutocompleteModule } from './components-autocomplete/components-autocomplete.module';
 import { ComponentsButtonModule } from './components-button/components-button.module';
 import { ComponentsCardModule } from './components-card/components-card.module';
@@ -18,6 +18,8 @@ import { ComponentsSnackbarModule } from './components-snackbar/components-snack
 import { ComponentsTooltipModule } from './components-tooltip/components-tooltip.module';
 import { ComponentsProgressModule } from './components-progress/components-progress.module';
 
+import { ComponentsAddItemBotModule } from './components-add-item-bot/components-add-item-bot.module';
+
 @NgModule({
   imports: [
     CommonModule,
@@ -25,8 +27,8 @@ import { ComponentsProgressModule } from './components-progress/components-progr
     BreadcrumbsModule,
     UtilsModule,
     FlexLayoutModule,
-    MdRippleModule,
-    MdListModule,
+    MatRippleModule,
+    MatListModule,
     ComponentsAutocompleteModule,
     ComponentsButtonModule,
     ComponentsCardModule,
@@ -37,7 +39,8 @@ import { ComponentsProgressModule } from './components-progress/components-progr
     ComponentsProgressModule,
     ComponentsSliderModule,
     ComponentsSnackbarModule,
-    ComponentsTooltipModule
+    ComponentsTooltipModule,
+    ComponentsAddItemBotModule
   ],
   declarations: [ComponentsComponent]
 })

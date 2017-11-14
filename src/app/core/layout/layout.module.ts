@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { LayoutComponent } from './layout.component';
 import { FlexLayoutModule } from '@angular/flex-layout';
-import { MdButtonModule, MdIconModule, MdRippleModule, MdSidenavModule } from '@angular/material';
+import { MatButtonModule, MatIconModule, MatRippleModule, MatSidenavModule } from '@angular/material';
 import { ScrollbarModule } from '../scrollbar/scrollbar.module';
 import { TourModule } from '../tour/tour.module';
 import { SettingsModule } from 'app/core/settings/settings.module';
@@ -16,16 +16,16 @@ import { RouterModule } from '@angular/router';
     CommonModule,
     RouterModule,
     FlexLayoutModule,
-    MdSidenavModule,
+    MatSidenavModule,
     ScrollbarModule,
     TourModule,
     SidenavModule,
     SettingsModule,
     ToolbarModule,
     QuickpanelModule,
-    MdIconModule,
-    MdRippleModule,
-    MdButtonModule
+    MatIconModule,
+    MatRippleModule,
+    MatButtonModule
   ],
   declarations: [LayoutComponent],
   exports: [LayoutComponent]

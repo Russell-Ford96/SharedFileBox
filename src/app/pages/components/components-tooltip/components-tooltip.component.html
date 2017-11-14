@@ -11,19 +11,19 @@
         <code vrHighlight class="html">&lt;button md-button mdTooltip="I'm a Tooltip!"&gt;<br/>  Button<br/>&lt;/button&gt;</code>
       </div>
     </div>
-    <md-tab-group class="preview-tabs mat-elevation-z2" fxFlex="auto" fxFlex.gt-md="70%" fxFlexOffset.gt-md="24px">
-      <md-tab label="PREVIEW">
+    <mat-tab-group class="preview-tabs mat-elevation-z2" fxFlex="auto" fxFlex.gt-md="70%" fxFlexOffset.gt-md="24px">
+      <mat-tab label="PREVIEW">
         <div class="preview" fxLayout="row" fxLayoutAlign="center center">
-          <md-card fxFlex="90%" fxFlex.gt-sm="80%">
-            <md-card-content fxLayout="column" fxLayout.gt-sm="row" fxLayoutAlign="space-around center" fxLayoutWrap="wrap">
-              <button md-icon-button mdTooltip="Favorite this"><md-icon>favorite</md-icon></button>
-            </md-card-content>
-          </md-card>
+          <mat-card fxFlex="90%" fxFlex.gt-sm="80%">
+            <mat-card-content fxLayout="column" fxLayout.gt-sm="row" fxLayoutAlign="space-around center" fxLayoutWrap="wrap">
+              <button mat-icon-button matTooltip="Favorite this"><mat-icon>favorite</mat-icon></button>
+            </mat-card-content>
+          </mat-card>
         </div>
-      </md-tab>
-      <md-tab label="HTML">
+      </mat-tab>
+      <mat-tab label="HTML">
         <code [innerHTML]="tooltipHTML" vrHighlight class="html"></code>
-      </md-tab>
-    </md-tab-group>
+      </mat-tab>
+    </mat-tab-group>
   </div>
 </div>

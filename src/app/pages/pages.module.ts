@@ -13,7 +13,7 @@ import { IconModule } from './icon/icon.module';
 import { GoogleMapsModule } from './google-maps/google-maps.module';
 import { ProjectsModule } from './projects/projects.module';
 import { ProjectDetailsModule } from './project-details/project-details.module';
-import {RequestModule} from './request/request.module';
+import { RequestModule } from './request/request.module';
 
 
 @NgModule({
@@ -32,8 +32,7 @@ import {RequestModule} from './request/request.module';
     GoogleMapsModule,
     ProjectsModule,
     ProjectDetailsModule,
-    RequestModule,
-
+    RequestModule
   ],
   declarations: []
 })

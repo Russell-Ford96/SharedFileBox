@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import * as _ from 'lodash';
-import { MdSnackBar } from '@angular/material';
+import { MatSnackBar } from '@angular/material';
 
 @Component({
   selector: 'vr-components-snackbar',
@@ -8,7 +8,7 @@ import { MdSnackBar } from '@angular/material';
 })
 export class ComponentsSnackbarComponent implements OnInit {
 
-  snackbarHTML: string = _.escape(`<button md-button (click)="openSnackbar()">Trigger Snackbar</button>`);
+  snackbarHTML: string = _.escape(`<button mat-button (click)="openSnackbar()">Trigger Snackbar</button>`);
   snackbarTS: string = _.escape(
 `this.snackBar.open(
   'I\'m a notification!',
@@ -17,7 +17,7 @@ export class ComponentsSnackbarComponent implements OnInit {
 });`);
 
   constructor(
-    private snackBar: MdSnackBar
+    private snackBar: MatSnackBar
   ) { }
 
   ngOnInit() {

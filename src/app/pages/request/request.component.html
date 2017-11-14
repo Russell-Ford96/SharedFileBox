@@ -8,56 +8,56 @@
 
     <div class="mat-elevation-z8">
 
-      <md-table #table [dataSource]="dataSource">
+      <mat-table #table [dataSource]="dataSource">
 
         <!--- Note that these columns can be defined in any order.
               The actual rendered columns are set as a property on the row definition" -->
 
-        <md-header-row *cdkHeaderRowDef="displayedColumns"></md-header-row>
-        <md-row *cdkRowDef="let row; columns: displayedColumns;"></md-row>
+        <mat-header-row *cdkHeaderRowDef="displayedColumns"></mat-header-row>
+        <mat-row *cdkRowDef="let row; columns: displayedColumns;"></mat-row>
 
         <!-- ID Column -->
         <ng-container cdkColumnDef="refnumb">
-          <md-header-cell *cdkHeaderCellDef> Reference Number </md-header-cell>
-          <md-cell *cdkCellDef="let row" (click)="moreDetails(row.refnumb)"> {{row.refnumb}} </md-cell>
+          <mat-header-cell *cdkHeaderCellDef> Reference Number </mat-header-cell>
+          <mat-cell *cdkCellDef="let row" (click)="moreDetails(row.refnumb)"> {{row.refnumb}} </mat-cell>
         </ng-container>
 
         <!-- Progress Column -->
         <ng-container cdkColumnDef="email">
-          <md-header-cell *cdkHeaderCellDef> Email </md-header-cell>
-          <md-cell *cdkCellDef="let row"> {{row.email}}% </md-cell>
+          <mat-header-cell *cdkHeaderCellDef> Email </mat-header-cell>
+          <mat-cell *cdkCellDef="let row"> {{row.email}}% </mat-cell>
         </ng-container>
 
         <!-- Name Column -->
         <ng-container cdkColumnDef="phone">
-          <md-header-cell *cdkHeaderCellDef> Phone </md-header-cell>
-          <md-cell *cdkCellDef="let row"> {{row.phone}} </md-cell>
+          <mat-header-cell *cdkHeaderCellDef> Phone </mat-header-cell>
+          <mat-cell *cdkCellDef="let row"> {{row.phone}} </mat-cell>
         </ng-container>
 
         <!-- Name Column -->
         <ng-container cdkColumnDef="shortmessage">
-        <md-header-cell *cdkHeaderCellDef> Message </md-header-cell>
-        <md-cell *cdkCellDef="let row"> {{row.shortmessage}} </md-cell>
+        <mat-header-cell *cdkHeaderCellDef> Message </mat-header-cell>
+        <mat-cell *cdkCellDef="let row"> {{row.shortmessage}} </mat-cell>
       </ng-container>
 
         <ng-container cdkColumnDef="checkdocs">
-          <md-header-cell *cdkHeaderCellDef>  </md-header-cell>
-          <md-cell *cdkCellDef="let row" >
+          <mat-header-cell *cdkHeaderCellDef>  </mat-header-cell>
+          <mat-cell *cdkCellDef="let row" >
             <div *ngIf="row.checkdocs==true; else minus">
               <i class="fa fa-check" style="color:green" aria-hidden="true"></i>
             </div>
             <ng-template #minus><i class="fa fa-minus-circle" style="color:red;" aria-hidden="true"></i> </ng-template>
-          </md-cell>
+          </mat-cell>
 
         </ng-container>
-      </md-table>
+      </mat-table>
 
-      <md-paginator #paginator
+      <mat-paginator #paginator
                     [length]="requestDatabase.data.length"
                     [pageIndex]="0"
                     [pageSize]="10"
                     [pageSizeOptions]="[5, 10, 25, 100]">
-      </md-paginator>
+      </mat-paginator>
     </div>
   </div>
 </div>

@@ -3,16 +3,16 @@ import { CommonModule } from '@angular/common';
 import { ComponentsListComponent } from './components-list.component';
 import { UtilsModule } from '../../../core/utils/utils.module';
 import { FlexLayoutModule } from '@angular/flex-layout';
-import { MdCardModule, MdListModule, MdTabsModule } from '@angular/material';
+import { MatCardModule, MatListModule, MatTabsModule } from '@angular/material';
 
 @NgModule({
   imports: [
     CommonModule,
     UtilsModule,
     FlexLayoutModule,
-    MdCardModule,
-    MdTabsModule,
-    MdListModule
+    MatCardModule,
+    MatTabsModule,
+    MatListModule
   ],
   declarations: [ComponentsListComponent],
   exports: [ComponentsListComponent]

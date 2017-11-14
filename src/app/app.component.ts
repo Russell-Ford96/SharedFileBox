@@ -11,6 +11,10 @@ export class AppComponent {
 
   constructor(private authService: AuthService) {
     this.authService.handleAuthentication();
+    if(this.authService.userProfile){
+      console.log(this.authService.userProfile);
+      
+    }
   }
 
   //noinspection JSUnusedLocalSymbols

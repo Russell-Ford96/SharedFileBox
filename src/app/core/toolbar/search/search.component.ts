@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { MdFormField } from '@angular/material';
+import { MatFormField } from '@angular/material';
 
 @Component({
   selector: 'vr-search',
@@ -11,7 +11,7 @@ export class SearchComponent implements OnInit {
   isOpen: boolean;
 
   @ViewChild('input')
-  input: MdFormField;
+  input: MatFormField;
 
   constructor() { }
 
@@ -22,7 +22,7 @@ export class SearchComponent implements OnInit {
     this.isOpen = true;
 
     setTimeout(() => {
-      this.input._control.focus();
+      // this.input._control.focus();
     }, 100);
 
   }

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { MdDialogRef } from '@angular/material';
+import { MatDialogRef } from '@angular/material';
 
 @Component({
   selector: 'vr-inbox-compose',
@@ -28,7 +28,7 @@ export class InboxComposeComponent implements OnInit {
   };
 
   constructor(
-    private dialogRef: MdDialogRef<InboxComposeComponent>
+    private dialogRef: MatDialogRef<InboxComposeComponent>
   ) { }
 
   ngOnInit() {

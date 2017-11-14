@@ -17,16 +17,16 @@ import { reducers } from './reducers/index';
 import { EffectsModule } from '@ngrx/effects';
 import { AgmCoreModule } from '@agm/core';
 import { RouteHandlerModule } from './core/route-handler/route-handler.module';
-import {AppService} from './app.service';
-import {LocationStrategy, PathLocationStrategy} from '@angular/common';
-import {AuthService} from './auth/auth.service';
-import {AuthGuard} from './auth/auth.guard';
-import {LoginGuard} from './auth/login.guard';
-import {FileUploadResolve} from './file-upload/file-upload.resolve';
-import {FileUploadComponent} from './file-upload/file-upload.component';
-import {ProfileComponent} from './profile/profile.component';
-import {FileSelectDirective} from 'ng2-file-upload';
-import {RouterModule} from '@angular/router';
+import { AppService } from './app.service';
+import { LocationStrategy, PathLocationStrategy } from '@angular/common';
+import { AuthService } from './auth/auth.service';
+import { AuthGuard } from './auth/auth.guard';
+import { LoginGuard } from './auth/login.guard';
+import { FileUploadResolve } from './file-upload/file-upload.resolve';
+import { FileUploadComponent } from './file-upload/file-upload.component';
+import { ProfileComponent } from './profile/profile.component';
+import { FileSelectDirective } from 'ng2-file-upload';
+import { RouterModule } from '@angular/router';
 
 
 @NgModule({

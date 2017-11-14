@@ -9,15 +9,15 @@
       //margin: 12px;
     }
 
-    md-card {
+    mat-card {
       margin: 24px 0;
     }
 
-    md-card + md-card {
+    mat-card + mat-card {
       margin: 0 0 24px;
     }
 
-    md-card > md-card-content > * {
+    mat-card > mat-card-content > * {
       margin: 10px 5px;
     }
   }

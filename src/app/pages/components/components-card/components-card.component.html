@@ -5,52 +5,52 @@
     <div fxFlex.gt-md>
       <div fxLayout="column">
         <div class="section-title">Image + Action Card</div>
-        <div class="section-tag">&lt;md-card&gt;</div>
+        <div class="section-tag">&lt;mat-card&gt;</div>
         <p>Cards are containers for text, photos and actions. They are intented to provide information on a single subject.</p>
         <div class="section-info">Example:</div>
-        <code vrHighlight class="html">&lt;md-card&gt;<br/> &lt;md-card-title&gt;<br/>  Card Title<br/> &lt;/md-card-title&gt;<br/> &lt;md-card-content&gt;<br/>  Card Content<br/> &lt;/md-card-content&gt;<br/> &lt;md-card-actions&gt;<br/>  &lt;button&gt;Click Me!&lt;/button&gt;<br/> &lt;/md-card-actions&gt;<br/>&lt;/md-card&gt;</code>
+        <code vrHighlight class="html">&lt;mat-card&gt;<br/> &lt;mat-card-title&gt;<br/>  Card Title<br/> &lt;/mat-card-title&gt;<br/> &lt;mat-card-content&gt;<br/>  Card Content<br/> &lt;/mat-card-content&gt;<br/> &lt;mat-card-actions&gt;<br/>  &lt;button&gt;Click Me!&lt;/button&gt;<br/> &lt;/mat-card-actions&gt;<br/>&lt;/mat-card&gt;</code>
       </div>
     </div>
-    <md-tab-group class="preview-tabs mat-elevation-z2" fxFlex="auto" fxFlex.gt-md="70%">
-      <md-tab label="PREVIEW">
+    <mat-tab-group class="preview-tabs mat-elevation-z2" fxFlex="auto" fxFlex.gt-md="70%">
+      <mat-tab label="PREVIEW">
         <div class="preview" fxLayout="row" fxLayoutAlign="center center">
-          <md-card fxFlex="80%">
-            <md-card-header>
-              <img md-card-avatar src="assets/img/demo/avatars/3.png">
-              <md-card-subtitle>
+          <mat-card fxFlex="80%">
+            <mat-card-header>
+              <img mat-card-avatar src="assets/img/demo/avatars/3.png">
+              <mat-card-subtitle>
                 Yesterday
-              </md-card-subtitle>
-              <md-card-title>Gerald Morris</md-card-title>
-            </md-card-header>
-            <img md-card-image src="assets/img/demo/backgrounds/1.jpg">
-            <md-card-content>
+              </mat-card-subtitle>
+              <mat-card-title>Gerald Morris</mat-card-title>
+            </mat-card-header>
+            <img mat-card-image src="assets/img/demo/backgrounds/1.jpg">
+            <mat-card-content>
               <p>Piqued favour stairs it enable exeter as seeing. Remainder met improving but engrossed sincerity age. Better but length gay denied abroad are. Attachment astonished to on appearance imprudence so collecting in excellence. Tiled way blind lived whose new. The for fully had she there leave merit enjoy forth. </p>
-            </md-card-content>
-            <md-divider></md-divider>
-            <md-card-actions>
+            </mat-card-content>
+            <mat-divider></mat-divider>
+            <mat-card-actions>
               <div fxLayout="row">
-                <button md-icon-button>
-                  <md-icon>share</md-icon>
+                <button mat-icon-button>
+                  <mat-icon>share</mat-icon>
                 </button>
-                <button md-icon-button>
-                  <md-icon>favorite</md-icon>
+                <button mat-icon-button>
+                  <mat-icon>favorite</mat-icon>
                 </button>
                 <span fxFlex></span>
-                <button md-button>
+                <button mat-button>
                   More Info
                 </button>
-                <button md-button>
+                <button mat-button>
                   Save as
                 </button>
               </div>
-            </md-card-actions>
-          </md-card>
+            </mat-card-actions>
+          </mat-card>
         </div>
-      </md-tab>
-      <md-tab label="HTML">
+      </mat-tab>
+      <mat-tab label="HTML">
         <code [innerHTML]="card1HTML" vrHighlight class="html"></code>
-      </md-tab>
-    </md-tab-group>
+      </mat-tab>
+    </mat-tab-group>
   </div>
 
   <div class="divider reverse"></div>
@@ -58,52 +58,52 @@
   <div class="section" fxLayout="column" fxLayout.gt-md="row" fxLayoutAlign="start stretch" fxLayoutAlign.gt-md="start start" fxLayoutGap="16px" fxLayoutGap.gt-md="24px">
     <div fxFlex.gt-md fxLayout="column">
       <div class="section-title">Standard Card with Action</div>
-      <md-tab-group class="preview-tabs mat-elevation-z2" fxFlex="auto" fxFlex.gt-md="70%">
-        <md-tab label="PREVIEW">
+      <mat-tab-group class="preview-tabs mat-elevation-z2" fxFlex="auto" fxFlex.gt-md="70%">
+        <mat-tab label="PREVIEW">
           <div class="preview" fxLayout="row" fxLayoutAlign="center center">
-            <md-card fxFlex="80%">
-              <md-card-title>Standard Card with Actions</md-card-title>
-              <md-card-subtitle>Subtitle</md-card-subtitle>
-              <md-card-content>
+            <mat-card fxFlex="80%">
+              <mat-card-title>Standard Card with Actions</mat-card-title>
+              <mat-card-subtitle>Subtitle</mat-card-subtitle>
+              <mat-card-content>
                 <p>Old there any widow law rooms. Agreed but expect repair she nay sir silent person. Direction
                   can dependent one bed situation attempted. His she are man their spite avoid. Her pretended
                   fulfilled extremely education yet. Satisfied did one admitting incommode tolerably how are. </p>
-              </md-card-content>
-              <md-card-actions align="end">
-                <button md-button>Cancel</button>
-                <button color="primary" md-raised-button>Action</button>
-              </md-card-actions>
-            </md-card>
+              </mat-card-content>
+              <mat-card-actions align="end">
+                <button mat-button>Cancel</button>
+                <button color="primary" mat-raised-button>Action</button>
+              </mat-card-actions>
+            </mat-card>
           </div>
-        </md-tab>
-        <md-tab label="HTML">
+        </mat-tab>
+        <mat-tab label="HTML">
           <code [innerHTML]="card2HTML" vrHighlight class="html"></code>
-        </md-tab>
-      </md-tab-group>
+        </mat-tab>
+      </mat-tab-group>
     </div>
 
     <div fxFlex.gt-md fxLayout="column">
       <div class="section-title">Standard Card</div>
       <div class="preview-tabs mat-elevation-z2" fxFlex="auto" fxFlex.gt-md="70%">
-        <md-tab-group>
-          <md-tab label="PREVIEW">
+        <mat-tab-group>
+          <mat-tab label="PREVIEW">
             <div class="preview" fxLayout="row" fxLayoutAlign="center center">
-              <md-card fxFlex="80%">
-                <md-card-title>Standard Card</md-card-title>
-                <md-card-subtitle>Subtitle</md-card-subtitle>
-                <md-card-content>
+              <mat-card fxFlex="80%">
+                <mat-card-title>Standard Card</mat-card-title>
+                <mat-card-subtitle>Subtitle</mat-card-subtitle>
+                <mat-card-content>
                   <p>Do play they miss give so up. Words to up style of since world. We leaf to snug on no need. Way
                     own uncommonly travelling now acceptance bed compliment solicitude. Dissimilar admiration so
                     terminated no in contrasted it. Advantages entreaties mr he apartments do. Limits far yet turned
                     highly repair parish talked six. Draw fond rank form nor the day eat. </p>
-                </md-card-content>
-              </md-card>
+                </mat-card-content>
+              </mat-card>
             </div>
-          </md-tab>
-          <md-tab label="HTML">
+          </mat-tab>
+          <mat-tab label="HTML">
             <code [innerHTML]="card3HTML" vrHighlight class="html"></code>
-          </md-tab>
-        </md-tab-group>
+          </mat-tab>
+        </mat-tab-group>
       </div>
     </div>
   </div>

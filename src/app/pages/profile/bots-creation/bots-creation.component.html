@@ -1,0 +1,77 @@
+<mat-horizontal-stepper [linear]="false">
+  <mat-step [stepControl]="requestForm">
+    <form [formGroup]="requestForm">
+      <ng-template matStepLabel>Fill out name and url </ng-template>
+
+            <!-- Start form -->
+            <div class="result" fxLayout="column">
+              <form #myForm="ngForm" [formGroup]="requestForm" (ngSubmit)="onSubmit()">
+                <mat-input-container class="fieldWidth">
+                  <input id="name" name="name" formControlName="name" matInput placeholder="Name" type="text" required>
+                </mat-input-container>
+
+                <mat-input-container class="fieldWidth">
+                  <input id="url" name="url" formControlName="url" matInput placeholder="Url" type="text" required>
+                </mat-input-container>
+
+                <mat-slide-toggle class="fieldWidth" formControlName="active">Active</mat-slide-toggle>
+
+
+              </form>
+            </div>
+            <!-- End form -->
+
+      <div>
+        <button mat-button matStepperNext>Next</button>
+      </div>
+    </form>
+  </mat-step>
+  <mat-step [stepControl]="secondFormGroup">
+    <!-- <form [formGroup]="secondFormGroup"> -->
+      <ng-template matStepLabel>Add bot items</ng-template>
+            <!-- Start Item Bot -->
+            <mat-expansion-panel>
+              <mat-expansion-panel-header>
+                <mat-panel-title>
+                  Item bot
+                </mat-panel-title>
+                <mat-panel-description>
+                  Type a question or a file request
+                </mat-panel-description>
+              </mat-expansion-panel-header>
+
+
+            <mat-grid-list cols="12" rowHeight="58.8px">
+              <mat-grid-tile [colspan]="7" [rowspan]="1">
+                <mat-input-container class="addItemNameStyle">
+                  <input [(ngModel)]="item.name" name="itemlist1" matInput placeholder="Documents" type="text"  >
+                </mat-input-container>
+              </mat-grid-tile>
+
+              <mat-grid-tile [colspan]="3" [rowspan]="1">
+
+                <mat-slide-toggle class="addItemTypeStyle" [(ngModel)]="item.file" [color]="primary">
+                  {{getType()}}
+                </mat-slide-toggle>
+              </mat-grid-tile>
+              <mat-grid-tile [colspan]="2" [rowspan]="1">
+                <button mat-mini-fab (click)="addInput()">add</button>
+
+              </mat-grid-tile>
+            </mat-grid-list>
+            </mat-expansion-panel>
+
+            <vr-components-add-item-bot [items]="getItems()"></vr-components-add-item-bot>
+            <!-- End Item Bot -->
+      <div>
+        <button mat-button matStepperPrevious>Back</button>
+
+          <button mat-raised-button  color="accent" (click)="onSubmit()">Save</button>
+
+
+
+      </div>
+    <!-- </form> -->
+  </mat-step>
+
+</mat-horizontal-stepper>

@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { BreadcrumbsComponent } from './breadcrumbs.component';
-import { MdIconModule } from '@angular/material';
+import { MatIconModule } from '@angular/material';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { RouterModule } from '@angular/router';
 
@@ -10,7 +10,7 @@ import { RouterModule } from '@angular/router';
     CommonModule,
     RouterModule,
     FlexLayoutModule,
-    MdIconModule
+    MatIconModule
   ],
   declarations: [BreadcrumbsComponent],
   exports: [BreadcrumbsComponent]

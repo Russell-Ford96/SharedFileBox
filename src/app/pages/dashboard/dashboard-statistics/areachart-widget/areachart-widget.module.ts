@@ -2,15 +2,15 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AreachartWidgetComponent } from './areachart-widget.component';
 import { FlexLayoutModule } from '@angular/flex-layout';
-import { MdButtonModule, MdIconModule, MdMenuModule } from '@angular/material';
+import { MatButtonModule, MatIconModule, MatMenuModule } from '@angular/material';
 
 @NgModule({
   imports: [
     CommonModule,
     FlexLayoutModule,
-    MdIconModule,
-    MdMenuModule,
-    MdButtonModule
+    MatIconModule,
+    MatMenuModule,
+    MatButtonModule
   ],
   declarations: [AreachartWidgetComponent],
   exports: [AreachartWidgetComponent]

@@ -11,36 +11,36 @@
         <code vrHighlight class="html">&lt;md-menu&gt;<br/>  &lt;button md-menu-item&gt;<br/>    &lt;md-icon&gt;dialpad&lt;/md-icon&gt;<br/>  &lt;/button&gt;<br/>&lt;/md-menu&gt;</code>
       </div>
     </div>
-    <md-tab-group class="preview-tabs mat-elevation-z2" fxFlex="auto" fxFlex.gt-md="70%">
-      <md-tab label="PREVIEW">
+    <mat-tab-group class="preview-tabs mat-elevation-z2" fxFlex="auto" fxFlex.gt-md="70%">
+      <mat-tab label="PREVIEW">
         <div class="preview" fxLayout="row" fxLayoutAlign="center center">
-          <md-card fxFlex="90%" fxFlex.gt-sm="80%">
-            <md-card-content fxLayout="column" fxLayout.gt-sm="row" fxLayoutAlign="center center">
-              <button md-icon-button [mdMenuTriggerFor]="menu">
-                <md-icon>more_vert</md-icon>
+          <mat-card fxFlex="90%" fxFlex.gt-sm="80%">
+            <mat-card-content fxLayout="column" fxLayout.gt-sm="row" fxLayoutAlign="center center">
+              <button mat-icon-button [matMenuTriggerFor]="menu">
+                <mat-icon>more_vert</mat-icon>
               </button>
 
-              <md-menu #menu="mdMenu">
-                <button md-menu-item>
-                  <md-icon> dialpad </md-icon>
+              <mat-menu #menu="matMenu">
+                <button mat-menu-item>
+                  <mat-icon> dialpad </mat-icon>
                   <span> Redial </span>
                 </button>
-                <button md-menu-item disabled>
-                  <md-icon> voicemail </md-icon>
+                <button mat-menu-item disabled>
+                  <mat-icon> voicemail </mat-icon>
                   <span> Check voicemail </span>
                 </button>
-                <button md-menu-item>
-                  <md-icon> notifications_off </md-icon>
+                <button mat-menu-item>
+                  <mat-icon> notifications_off </mat-icon>
                   <span> Disable alerts </span>
                 </button>
-              </md-menu>
-            </md-card-content>
-          </md-card>
+              </mat-menu>
+            </mat-card-content>
+          </mat-card>
         </div>
-      </md-tab>
-      <md-tab label="HTML">
+      </mat-tab>
+      <mat-tab label="HTML">
         <code [innerHTML]="menuHTML" vrHighlight class="html"></code>
-      </md-tab>
-    </md-tab-group>
+      </mat-tab>
+    </mat-tab-group>
   </div>
 </div>

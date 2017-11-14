@@ -15,9 +15,9 @@
               <div class="sub-title">Simple Material Form Input Elements</div>
             </div>
             <div class="actions" fxLayout="row">
-              <button type="button" md-icon-button
-                      mdTooltip="Show Code" (click)="showBasicFormSource = !showBasicFormSource">
-                <md-icon>code</md-icon>
+              <button type="button" mat-icon-button
+                      matTooltip="Show Code" (click)="showBasicFormSource = !showBasicFormSource">
+                <mat-icon>code</mat-icon>
               </button>
             </div>
           </div>
@@ -28,33 +28,33 @@
             </div>
 
             <div class="result" fxLayout="column">
-              <md-input-container>
-                <input mdInput placeholder="Company" type="text" required>
-              </md-input-container>
+              <mat-input-container>
+                <input matInput placeholder="Company" type="text" required>
+              </mat-input-container>
 
               <div fxLayout.gt-sm="row" fxLayoutGap.gt-sm="16px">
-                <md-input-container fxFlex>
-                  <input mdInput placeholder="First Name" type="text">
-                </md-input-container>
+                <mat-input-container fxFlex>
+                  <input matInput placeholder="First Name" type="text">
+                </mat-input-container>
 
-                <md-input-container fxFlex>
-                  <input mdInput placeholder="Last Name" type="text" required>
-                </md-input-container>
+                <mat-input-container fxFlex>
+                  <input matInput placeholder="Last Name" type="text" required>
+                </mat-input-container>
               </div>
 
-              <md-input-container>
-                <input mdInput placeholder="Password" type="password" required>
-              </md-input-container>
+              <mat-input-container>
+                <input matInput placeholder="Password" type="password" required>
+              </mat-input-container>
 
-              <md-input-container>
-                <input mdInput #lengthHint maxlength="10" placeholder="Hint Label and Max Length" type="text" required>
-                <md-hint align="start">Try to type in more than 10 letters</md-hint>
-                <md-hint align="end">{{ lengthHint.value.length }}/10</md-hint>
-              </md-input-container>
+              <mat-input-container>
+                <input matInput #lengthHint maxlength="10" placeholder="Hint Label and Max Length" type="text" required>
+                <mat-hint align="start">Try to type in more than 10 letters</mat-hint>
+                <mat-hint align="end">{{ lengthHint.value.length }}/10</mat-hint>
+              </mat-input-container>
 
-              <md-input-container>
-                <input mdInput placeholder="Disabled" disabled>
-              </md-input-container>
+              <mat-input-container>
+                <input matInput placeholder="Disabled" disabled>
+              </mat-input-container>
             </div>
           </div>
         </div>
@@ -66,9 +66,9 @@
               <div class="sub-title">Form Input Variations</div>
             </div>
             <div class="actions" fxLayout="row">
-              <button type="button" md-icon-button
-                      mdTooltip="Show Code" (click)="showAdvancedFormSource = !showAdvancedFormSource">
-                <md-icon>code</md-icon>
+              <button type="button" mat-icon-button
+                      matTooltip="Show Code" (click)="showAdvancedFormSource = !showAdvancedFormSource">
+                <mat-icon>code</mat-icon>
               </button>
             </div>
           </div>
@@ -80,40 +80,40 @@
 
             <div class="result" fxLayout="column">
               <div fxLayout="column" fxLayout.gt-sm="row" fxLayoutGap.gt-sm="16px">
-                <md-input-container color="primary" fxFlex.gt-sm>
-                  <input mdInput placeholder="Primary Color" type="text">
-                </md-input-container>
+                <mat-input-container color="primary" fxFlex.gt-sm>
+                  <input matInput placeholder="Primary Color" type="text">
+                </mat-input-container>
 
-                <md-input-container color="accent" fxFlex.gt-sm>
-                  <input mdInput placeholder="Accent Color" type="text">
-                </md-input-container>
+                <mat-input-container color="accent" fxFlex.gt-sm>
+                  <input matInput placeholder="Accent Color" type="text">
+                </mat-input-container>
 
-                <md-input-container color="warn" fxFlex.gt-sm>
-                  <input mdInput placeholder="Warn Color" type="text">
-                </md-input-container>
+                <mat-input-container color="warn" fxFlex.gt-sm>
+                  <input matInput placeholder="Warn Color" type="text">
+                </mat-input-container>
               </div>
 
-              <md-input-container>
-                <input mdInput placeholder="Username" type="text" value="DavidSmith">
-                <md-icon mdSuffix>person</md-icon>
-              </md-input-container>
+              <mat-input-container>
+                <input matInput placeholder="Username" type="text" value="DavidSmith">
+                <mat-icon matSuffix>person</mat-icon>
+              </mat-input-container>
 
-              <md-input-container fxFlex.gt-sm>
-                <span mdPrefix>+1 &nbsp;</span>
-                <input mdInput placeholder="Mobile Phone" type="text" required>
-                <md-icon mdSuffix>smartphone</md-icon>
-              </md-input-container>
+              <mat-input-container fxFlex.gt-sm>
+                <span matPrefix>+1 &nbsp;</span>
+                <input matInput placeholder="Mobile Phone" type="text" required>
+                <mat-icon matSuffix>smartphone</mat-icon>
+              </mat-input-container>
 
-              <md-input-container floatPlaceholder="never">
-                <input mdInput placeholder="No Floating Placeholder" type="text" required>
-              </md-input-container>
+              <mat-input-container floatPlaceholder="never">
+                <input matInput placeholder="No Floating Placeholder" type="text" required>
+              </mat-input-container>
 
-              <md-input-container>
-                <input mdInput [mdDatepicker]="datepickerRef" placeholder="Date">
-                <md-datepicker-toggle mdSuffix [for]="datepickerRef"></md-datepicker-toggle>
-                <md-hint>Click on the icon to the right for a Datepicker</md-hint>
-              </md-input-container>
-              <md-datepicker #datepickerRef></md-datepicker>
+              <mat-input-container>
+                <input matInput [matDatepicker]="datepickerRef" placeholder="Date">
+                <mat-datepicker-toggle matSuffix [for]="datepickerRef"></mat-datepicker-toggle>
+                <mat-hint>Click on the icon to the right for a Datepicker</mat-hint>
+              </mat-input-container>
+              <mat-datepicker #datepickerRef></mat-datepicker>
             </div>
           </div>
         </div>
@@ -128,9 +128,9 @@
               <div class="sub-title">Style Components using the Theme API</div>
             </div>
             <div class="actions" fxLayout="row">
-              <button type="button" md-icon-button
-                      mdTooltip="Show Code" (click)="showFormThemingSource = !showFormThemingSource">
-                <md-icon>code</md-icon>
+              <button type="button" mat-icon-button
+                      matTooltip="Show Code" (click)="showFormThemingSource = !showFormThemingSource">
+                <mat-icon>code</mat-icon>
               </button>
             </div>
           </div>
@@ -143,17 +143,17 @@
             <div class="result" fxLayout="column">
               <p class="description">By using the Theme API all Form Elements can be styled simply with either the primary, accent or warn color. Focus the inputs below to see the colors.</p>
 
-              <md-input-container color="primary">
-                <input mdInput placeholder="Primary Color">
-              </md-input-container>
+              <mat-input-container color="primary">
+                <input matInput placeholder="Primary Color">
+              </mat-input-container>
 
-              <md-input-container color="accent">
-                <input mdInput placeholder="Accent Color">
-              </md-input-container>
+              <mat-input-container color="accent">
+                <input matInput placeholder="Accent Color">
+              </mat-input-container>
 
-              <md-input-container color="warn">
-                <input mdInput placeholder="Warn Color">
-              </md-input-container>
+              <mat-input-container color="warn">
+                <input matInput placeholder="Warn Color">
+              </mat-input-container>
             </div>
           </div>
         </div>
@@ -165,9 +165,9 @@
               <div class="sub-title">Prefix and Suffix text or icons</div>
             </div>
             <div class="actions" fxLayout="row">
-              <button type="button" md-icon-button
-                      mdTooltip="Show Code" (click)="showFormPrefixSuffixSource = !showFormPrefixSuffixSource">
-                <md-icon>code</md-icon>
+              <button type="button" mat-icon-button
+                      matTooltip="Show Code" (click)="showFormPrefixSuffixSource = !showFormPrefixSuffixSource">
+                <mat-icon>code</mat-icon>
               </button>
             </div>
           </div>
@@ -180,21 +180,21 @@
             <div class="result" fxLayout="column">
               <p class="description">Add a Prefix and Suffix to an input field, from text to icons or symbols, anything and any element can be set as prefix or suffix.</p>
 
-              <md-input-container>
-                <span mdPrefix>+1 &nbsp;</span>
-                <input mdInput placeholder="Input with prefix text">
-              </md-input-container>
+              <mat-input-container>
+                <span matPrefix>+1 &nbsp;</span>
+                <input matInput placeholder="Input with prefix text">
+              </mat-input-container>
 
-              <md-input-container>
-                <input mdInput placeholder="Input with suffix icon">
-                <md-icon mdSuffix>menu</md-icon>
-              </md-input-container>
+              <mat-input-container>
+                <input matInput placeholder="Input with suffix icon">
+                <mat-icon matSuffix>menu</mat-icon>
+              </mat-input-container>
 
-              <md-input-container>
-                <span mdPrefix>http:// &nbsp;</span>
-                <input mdInput placeholder="Input with prefix text and suffix icon">
-                <md-icon mdSuffix>camera</md-icon>
-              </md-input-container>
+              <mat-input-container>
+                <span matPrefix>http:// &nbsp;</span>
+                <input matInput placeholder="Input with prefix text and suffix icon">
+                <mat-icon matSuffix>camera</mat-icon>
+              </mat-input-container>
             </div>
           </div>
         </div>
@@ -206,9 +206,9 @@
               <div class="sub-title">Hints for explanations or extra info</div>
             </div>
             <div class="actions" fxLayout="row">
-              <button type="button" md-icon-button
-                      mdTooltip="Show Code" (click)="showFormHintLabelSource = !showFormHintLabelSource">
-                <md-icon>code</md-icon>
+              <button type="button" mat-icon-button
+                      matTooltip="Show Code" (click)="showFormHintLabelSource = !showFormHintLabelSource">
+                <mat-icon>code</mat-icon>
               </button>
             </div>
           </div>
@@ -221,21 +221,21 @@
             <div class="result" fxLayout="column">
               <p class="description">When you need to display additional information to the user you can use Hint Labels to display information appropriately.</p>
 
-              <md-input-container>
-                <input mdInput placeholder="Email Address">
-                <md-hint>e.g. david@example.com</md-hint>
-              </md-input-container>
+              <mat-input-container>
+                <input matInput placeholder="Email Address">
+                <mat-hint>e.g. david@example.com</mat-hint>
+              </mat-input-container>
 
-              <md-input-container floatPlaceholder="never">
-                <input mdInput #hintLabelInputRef placeholder="Domain Name">
-                <md-hint align="end">http://{{ hintLabelInputRef.value || "company" }}.example.com</md-hint>
-              </md-input-container>
+              <mat-input-container floatPlaceholder="never">
+                <input matInput #hintLabelInputRef placeholder="Domain Name">
+                <mat-hint align="end">http://{{ hintLabelInputRef.value || "company" }}.example.com</mat-hint>
+              </mat-input-container>
 
-              <md-input-container floatPlaceholder="never">
-                <input mdInput #hintLabelInputLengthRef maxlength="10" placeholder="Dynamic Hint Label">
-                <md-hint align="start">Try to type in more than 10 letters</md-hint>
-                <md-hint align="end">{{ hintLabelInputLengthRef.value.length }}/10</md-hint>
-              </md-input-container>
+              <mat-input-container floatPlaceholder="never">
+                <input matInput #hintLabelInputLengthRef maxlength="10" placeholder="Dynamic Hint Label">
+                <mat-hint align="start">Try to type in more than 10 letters</mat-hint>
+                <mat-hint align="end">{{ hintLabelInputLengthRef.value.length }}/10</mat-hint>
+              </mat-input-container>
             </div>
           </div>
         </div>
@@ -249,9 +249,9 @@
               <div class="sub-title">Select and deselect simply</div>
             </div>
             <div class="actions" fxLayout="row">
-              <button type="button" md-icon-button
-                      mdTooltip="Show Code" (click)="showFormCheckboxSource = !showFormCheckboxSource">
-                <md-icon>code</md-icon>
+              <button type="button" mat-icon-button
+                      matTooltip="Show Code" (click)="showFormCheckboxSource = !showFormCheckboxSource">
+                <mat-icon>code</mat-icon>
               </button>
             </div>
           </div>
@@ -265,9 +265,9 @@
               <p class="description">Allow for simple selecting and deselecting of options.</p>
 
               <div fxLayout="column" fxLayoutGap="8px">
-                <md-checkbox [checked]="true">Stay signed in</md-checkbox>
-                <md-checkbox [indeterminate]="true">Indeterminate</md-checkbox>
-                <md-checkbox [checked]="false" align="end">Align end</md-checkbox>
+                <mat-checkbox [checked]="true">Stay signed in</mat-checkbox>
+                <mat-checkbox [indeterminate]="true">Indeterminate</mat-checkbox>
+                <mat-checkbox [checked]="false" align="end">Align end</mat-checkbox>
               </div>
 
             </div>
@@ -281,9 +281,9 @@
               <div class="sub-title">Style Components using the Theme API</div>
             </div>
             <div class="actions" fxLayout="row">
-              <button type="button" md-icon-button
-                      mdTooltip="Show Code" (click)="showFormCheckboxThemingSource = !showFormCheckboxThemingSource">
-                <md-icon>code</md-icon>
+              <button type="button" mat-icon-button
+                      matTooltip="Show Code" (click)="showFormCheckboxThemingSource = !showFormCheckboxThemingSource">
+                <mat-icon>code</mat-icon>
               </button>
             </div>
           </div>
@@ -297,9 +297,9 @@
               <p class="description">Style checkbox elements with the Theme API.</p>
 
               <div fxLayout="column" fxLayoutGap="8px">
-                <md-checkbox [checked]="true" color="primary">Primary Color</md-checkbox>
-                <md-checkbox [checked]="true" color="accent">Accent Color</md-checkbox>
-                <md-checkbox [checked]="true" color="warn">Warn Color</md-checkbox>
+                <mat-checkbox [checked]="true" color="primary">Primary Color</mat-checkbox>
+                <mat-checkbox [checked]="true" color="accent">Accent Color</mat-checkbox>
+                <mat-checkbox [checked]="true" color="warn">Warn Color</mat-checkbox>
               </div>
 
             </div>
@@ -315,9 +315,9 @@
               <div class="sub-title">Select between multiple options</div>
             </div>
             <div class="actions" fxLayout="row">
-              <button type="button" md-icon-button
-                      mdTooltip="Show Code" (click)="showFormSelectSource = !showFormSelectSource">
-                <md-icon>code</md-icon>
+              <button type="button" mat-icon-button
+                      matTooltip="Show Code" (click)="showFormSelectSource = !showFormSelectSource">
+                <mat-icon>code</mat-icon>
               </button>
             </div>
           </div>
@@ -331,20 +331,20 @@
               <p class="description">A intuitive select component that displays the current position you are at and has smooth animations.</p>
 
               <div style="margin-top: 16px;">
-                <md-select placeholder="Favorite fruit">
-                  <md-option value="Apples">Apples</md-option>
-                  <md-option value="Peaches">Peaches</md-option>
-                  <md-option value="Bananas">Bananas</md-option>
-                  <md-option value="Mango">Mango</md-option>
-                  <md-option value="Apples">Cucumber</md-option>
-                </md-select>
+                <mat-select placeholder="Favorite fruit">
+                  <mat-option value="Apples">Apples</mat-option>
+                  <mat-option value="Peaches">Peaches</mat-option>
+                  <mat-option value="Bananas">Bananas</mat-option>
+                  <mat-option value="Mango">Mango</mat-option>
+                  <mat-option value="Apples">Cucumber</mat-option>
+                </mat-select>
                 <br/>
                 <br/>
-                <md-select placeholder="Colors" [(ngModel)]="selectModel" [color]="selectModel">
-                  <md-option value="primary">Primary Color</md-option>
-                  <md-option value="accent">Accent Color</md-option>
-                  <md-option value="warn">Warn Color</md-option>
-                </md-select>
+                <mat-select placeholder="Colors" [(ngModel)]="selectModel" >
+                  <mat-option value="primary">Primary Color</mat-option>
+                  <mat-option value="accent">Accent Color</mat-option>
+                  <mat-option value="warn">Warn Color</mat-option>
+                </mat-select>
               </div>
             </div>
           </div>
@@ -357,9 +357,9 @@
               <div class="sub-title">Easily select a date for inputs</div>
             </div>
             <div class="actions" fxLayout="row">
-              <button type="button" md-icon-button
-                      mdTooltip="Show Code" (click)="showFormDatepickerSource = !showFormDatepickerSource">
-                <md-icon>code</md-icon>
+              <button type="button" mat-icon-button
+                      matTooltip="Show Code" (click)="showFormDatepickerSource = !showFormDatepickerSource">
+                <mat-icon>code</mat-icon>
               </button>
             </div>
           </div>
@@ -373,12 +373,12 @@
               <p class="description">A Material styled Datepicker that allows for easy selection of any date with any format.</p>
 
               <div style="margin-top: 16px;">
-                <md-input-container>
-                  <input mdInput [mdDatepicker]="formDatepickerRef" placeholder="Select your date">
-                  <md-datepicker-toggle mdSuffix [for]="formDatepickerRef"></md-datepicker-toggle>
-                  <md-hint>Click on the icon to the right for the Datepicker</md-hint>
-                </md-input-container>
-                <md-datepicker #formDatepickerRef></md-datepicker>
+                <mat-input-container>
+                  <input matInput [matDatepicker]="formDatepickerRef" placeholder="Select your date">
+                  <mat-datepicker-toggle matSuffix [for]="formDatepickerRef"></mat-datepicker-toggle>
+                  <mat-hint>Click on the icon to the right for the Datepicker</mat-hint>
+                </mat-input-container>
+                <mat-datepicker #formDatepickerRef></mat-datepicker>
               </div>
             </div>
           </div>
@@ -391,9 +391,9 @@
               <div class="sub-title">Choose a value from a range</div>
             </div>
             <div class="actions" fxLayout="row">
-              <button type="button" md-icon-button
-                      mdTooltip="Show Code" (click)="showFormSliderSource = !showFormSliderSource">
-                <md-icon>code</md-icon>
+              <button type="button" mat-icon-button
+                      matTooltip="Show Code" (click)="showFormSliderSource = !showFormSliderSource">
+                <mat-icon>code</mat-icon>
               </button>
             </div>
           </div>
@@ -407,12 +407,12 @@
               <p class="description">An alternative component to the range input with better usability and drag & drop + keyboard support.</p>
 
               <div fxLayout="column">
-                <md-slider [min]="0" [max]="100" [step]="1" [thumb-label]="true" [tick-interval]="10" value="36"></md-slider>
+                <mat-slider [min]="0" [max]="100" [step]="1" [thumb-label]="true" [tick-interval]="10" value="36"></mat-slider>
 
                 <div fxLayout="row">
-                  <md-slider fxFlex [min]="0" [max]="10" [step]="1" value="6" color="primary"></md-slider>
-                  <md-slider fxFlex fxHide fxShow.gt-lg [min]="0" [max]="10" [step]="1" value="8" color="accent"></md-slider>
-                  <md-slider fxFlex [min]="0" [max]="10" [step]="1" value="7" color="warn"></md-slider>
+                  <mat-slider fxFlex [min]="0" [max]="10" [step]="1" value="6" color="primary"></mat-slider>
+                  <mat-slider fxFlex fxHide fxShow.gt-lg [min]="0" [max]="10" [step]="1" value="8" color="accent"></mat-slider>
+                  <mat-slider fxFlex [min]="0" [max]="10" [step]="1" value="7" color="warn"></mat-slider>
                 </div>
               </div>
             </div>
@@ -428,9 +428,9 @@
               <div class="sub-title">Let users decide between options</div>
             </div>
             <div class="actions" fxLayout="row">
-              <button type="button" md-icon-button
-                      mdTooltip="Show Code" (click)="showFormRadioSource = !showFormRadioSource">
-                <md-icon>code</md-icon>
+              <button type="button" mat-icon-button
+                      matTooltip="Show Code" (click)="showFormRadioSource = !showFormRadioSource">
+                <mat-icon>code</mat-icon>
               </button>
             </div>
           </div>
@@ -444,15 +444,15 @@
               <p class="description">When you need a user to decide between multiple options and have him only choose one, you can use a radio button.</p>
 
               <div style="margin-top: 12px;" fxLayout="column" fxLayoutGap="16px">
-                <md-radio-group fxLayout="row" fxLayoutGap="16px">
-                  <md-radio-button value="Apples" [checked]="true">Apples</md-radio-button>
-                  <md-radio-button value="Peaches">Peaches</md-radio-button>
-                </md-radio-group>
-                <md-radio-group fxLayout="row" fxLayoutGap="16px" color="accent">
-                  <md-radio-button value="primary" [checked]="true" color="primary">Primary Color</md-radio-button>
-                  <md-radio-button value="accent" color="accent">Accent Color</md-radio-button>
-                  <md-radio-button value="warn" color="warn">Warn Color</md-radio-button>
-                </md-radio-group>
+                <mat-radio-group fxLayout="row" fxLayoutGap="16px">
+                  <mat-radio-button value="Apples" [checked]="true">Apples</mat-radio-button>
+                  <mat-radio-button value="Peaches">Peaches</mat-radio-button>
+                </mat-radio-group>
+                <mat-radio-group fxLayout="row" fxLayoutGap="16px" color="accent">
+                  <mat-radio-button value="primary" [checked]="true" color="primary">Primary Color</mat-radio-button>
+                  <mat-radio-button value="accent" color="accent">Accent Color</mat-radio-button>
+                  <mat-radio-button value="warn" color="warn">Warn Color</mat-radio-button>
+                </mat-radio-group>
               </div>
             </div>
           </div>
@@ -465,9 +465,9 @@
               <div class="sub-title">Slide between two values</div>
             </div>
             <div class="actions" fxLayout="row">
-              <button type="button" md-icon-button
-                      mdTooltip="Show Code" (click)="showFormSlideToggleSource = !showFormSlideToggleSource">
-                <md-icon>code</md-icon>
+              <button type="button" mat-icon-button
+                      matTooltip="Show Code" (click)="showFormSlideToggleSource = !showFormSlideToggleSource">
+                <mat-icon>code</mat-icon>
               </button>
             </div>
           </div>
@@ -482,14 +482,14 @@
 
               <div fxLayout="row" fxLayoutAlign="space-between">
                 <div fxLayout="column" fxLayoutGap="8px">
-                  <md-slide-toggle [checked]="false">Slide Me</md-slide-toggle>
-                  <md-slide-toggle [checked]="false">Drag & Drop</md-slide-toggle>
-                  <md-slide-toggle [checked]="true">I Agree</md-slide-toggle>
+                  <mat-slide-toggle [checked]="false">Slide Me</mat-slide-toggle>
+                  <mat-slide-toggle [checked]="false">Drag & Drop</mat-slide-toggle>
+                  <mat-slide-toggle [checked]="true">I Agree</mat-slide-toggle>
                 </div>
                 <div fxLayout="column" fxLayoutAlign="start end" fxLayoutGap="8px">
-                  <md-slide-toggle [checked]="true" color="primary" labelPosition="before">Primary Color</md-slide-toggle>
-                  <md-slide-toggle [checked]="true" color="accent" labelPosition="before">Accent Color</md-slide-toggle>
-                  <md-slide-toggle [checked]="true" color="warn" labelPosition="before">Warn Color</md-slide-toggle>
+                  <mat-slide-toggle [checked]="true" color="primary" labelPosition="before">Primary Color</mat-slide-toggle>
+                  <mat-slide-toggle [checked]="true" color="accent" labelPosition="before">Accent Color</mat-slide-toggle>
+                  <mat-slide-toggle [checked]="true" color="warn" labelPosition="before">Warn Color</mat-slide-toggle>
                 </div>
               </div>
             </div>

@@ -2,17 +2,17 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { DragAndDropComponent } from './drag-and-drop.component';
 import { SortablejsModule } from 'angular-sortablejs';
-import { MdIconModule, MdListModule, MdToolbarModule } from '@angular/material';
+import { MatIconModule, MatListModule, MatToolbarModule } from '@angular/material';
 import { FlexLayoutModule } from '@angular/flex-layout';
 
 @NgModule({
   imports: [
     CommonModule,
     SortablejsModule,
-    MdIconModule,
+    MatIconModule,
     FlexLayoutModule,
-    MdToolbarModule,
-    MdListModule
+    MatToolbarModule,
+    MatListModule
   ],
   declarations: [DragAndDropComponent]
 })

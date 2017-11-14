@@ -1,8 +1,8 @@
 <div class="toolbar" fxLayout="row">
 
   <div fxLayout="row" fxLayoutAlign="start center" fxHide.gt-sm>
-    <button type="button" md-icon-button (click)="toggleSidenav()">
-      <md-icon>menu</md-icon>
+    <button type="button" mat-icon-button (click)="toggleSidenav()">
+      <mat-icon>menu</mat-icon>
     </button>
   </div>
 
@@ -24,10 +24,9 @@
 
       <vr-toolbar-user-button></vr-toolbar-user-button>
 
-      <button md-button class="quickpanel-button icon-button" [class.open]="quickpanelOpen" (click)="toggleQuickpanel()">
-        <md-icon class="icon">format_align_right</md-icon>
+      <button mat-button class="quickpanel-button icon-button" [class.open]="quickpanelOpen" (click)="toggleQuickpanel()">
+        <mat-icon class="icon">format_align_right</mat-icon>
       </button>
     </div>
   </div>
 </div>
-

@@ -54,6 +54,7 @@ export class MessageComponent implements OnInit {
     this.save();
 
   }
+
   save(): void {
     let formValues = this.requestForm.value;
     formValues.createdBy = this.profile.sub.split("|")[1];
@@ -87,6 +88,7 @@ export class MessageComponent implements OnInit {
         }
       });
   }
+
   buildForm(): void {
     this.requestForm = this.fb.group({
       'refnumb': ['', [

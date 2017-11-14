@@ -8,13 +8,13 @@
       <vr-breadcrumbs [currentPage]="'Projects'" [header]="'primary'"></vr-breadcrumbs>
       <div class="actions" fxLayout="row" fxLayoutAlign="end center"
            [fxLayoutGap]="mobileGap" [fxLayoutGap.gt-sm]="desktopGap">
-        <md-select class="filter" [(ngModel)]="filter" (change)="filterProjectsBy($event)">
-          <md-option value="ALL">All</md-option>
-          <md-option value="ONGOING">Ongoing</md-option>
-          <md-option value="FINISHED">Finished</md-option>
-          <md-option value="DRAFT">Draft</md-option>
-        </md-select>
-        <button type="button" md-raised-button color="primary">Create Project</button>
+        <mat-select class="filter" [(ngModel)]="filter" (change)="filterProjectsBy($event)">
+          <mat-option value="ALL">All</mat-option>
+          <mat-option value="ONGOING">Ongoing</mat-option>
+          <mat-option value="FINISHED">Finished</mat-option>
+          <mat-option value="DRAFT">Draft</mat-option>
+        </mat-select>
+        <button type="button" mat-raised-button color="primary">Create Project</button>
       </div>
     </div>
 
@@ -30,8 +30,8 @@
             <div fxLayout="column" fxFlex="auto">
               <div class="top-row" fxLayout="row" fxLayoutAlign="space-between center">
                 <div>{{ project.date.format('LL') }}</div>
-                <button md-icon-button type="button" [mdMenuTriggerFor]="menuRef">
-                  <md-icon>more_horiz</md-icon>
+                <button mat-icon-button type="button" [matMenuTriggerFor]="menuRef">
+                  <mat-icon>more_horiz</mat-icon>
                 </button>
               </div>
               <div class="codename" fxLayout="row" fxLayoutAlign="center center" fxFlex="auto">
@@ -61,18 +61,18 @@
           <div class="overlay-content" fxLayout="column" fxLayoutAlign="space-between">
             <div class="overlay-actions" fxLayout="row"
                  fxLayoutGap="16px">
-              <button [routerLink]="['/pages/projects']" type="button" mdTooltip="Edit" md-icon-button>
-                <md-icon>edit</md-icon>
+              <button [routerLink]="['/pages/projects']" type="button" mdTooltip="Edit" mat-icon-button>
+                <mat-icon>edit</mat-icon>
               </button>
-              <button [routerLink]="['/pages/projects']" type="button" mdTooltip="Upload" md-icon-button>
-                <md-icon>backup</md-icon>
+              <button [routerLink]="['/pages/projects']" type="button" mdTooltip="Upload" mat-icon-button>
+                <mat-icon>backup</mat-icon>
               </button>
-              <button [routerLink]="['/pages/projects']" type="button" mdTooltip="Delete" md-icon-button>
-                <md-icon>delete</md-icon>
+              <button [routerLink]="['/pages/projects']" type="button" mdTooltip="Delete" mat-icon-button>
+                <mat-icon>delete</mat-icon>
               </button>
             </div>
 
-            <button [routerLink]="['/pages/project-details']" type="button" md-raised-button>View Project</button>
+            <button [routerLink]="['/pages/project-details']" type="button" mat-raised-button>View Project</button>
           </div>
         </div>
       </div>
@@ -81,9 +81,9 @@
   </div>
 </div>
 
-<md-menu #menuRef="mdMenu">
-  <button md-menu-item> <md-icon>archive</md-icon> Archive </button>
-  <button md-menu-item> <md-icon>label</md-icon> Labels </button>
-  <md-divider></md-divider>
-  <button md-menu-item> <md-icon>delete</md-icon> Delete </button>
-</md-menu>
+<mat-menu #menuRef="matMenu">
+  <button mat-menu-item> <mat-icon>archive</mat-icon> Archive </button>
+  <button mat-menu-item> <mat-icon>label</mat-icon> Labels </button>
+  <mat-divider></mat-divider>
+  <button mat-menu-item> <mat-icon>delete</mat-icon> Delete </button>
+</mat-menu>

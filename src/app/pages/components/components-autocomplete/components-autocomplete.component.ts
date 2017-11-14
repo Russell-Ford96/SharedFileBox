@@ -11,14 +11,14 @@ export class ComponentsAutocompleteComponent implements OnInit {
 
 
   autocompleteHTML: string = _.escape(`
-<md-input-container>
-  <input mdInput [mdAutocomplete]="auto">
-</md-input-container>
-<md-autocomplete #auto="mdAutocomplete">
-  <md-option *ngFor="let option of options" [value]="option">
+<mat-input-container>
+  <input matInput [matAutocomplete]="auto">
+</mat-input-container>
+<mat-autocomplete #auto="matAutocomplete">
+  <mat-option *ngFor="let option of options" [value]="option">
     {{ option }}
-  </md-option>
-</md-autocomplete>
+  </mat-option>
+</mat-autocomplete>
 `);
 
   stateCtrl: FormControl;

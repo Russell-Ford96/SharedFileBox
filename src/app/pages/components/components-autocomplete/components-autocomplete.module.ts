@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ComponentsAutocompleteComponent } from './components-autocomplete.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { MdAutocompleteModule, MdCardModule, MdInputModule, MdTabsModule } from '@angular/material';
+import { MatAutocompleteModule, MatCardModule, MatInputModule, MatTabsModule } from '@angular/material';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { UtilsModule } from '../../../core/utils/utils.module';
 
@@ -11,12 +11,12 @@ import { UtilsModule } from '../../../core/utils/utils.module';
     CommonModule,
     UtilsModule,
     FlexLayoutModule,
-    MdCardModule,
-    MdTabsModule,
+    MatCardModule,
+    MatTabsModule,
     FormsModule,
     ReactiveFormsModule,
-    MdAutocompleteModule,
-    MdInputModule,
+    MatAutocompleteModule,
+    MatInputModule,
 
   ],
   declarations: [ComponentsAutocompleteComponent],

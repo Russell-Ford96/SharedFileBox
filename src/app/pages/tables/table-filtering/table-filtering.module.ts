@@ -6,7 +6,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { ScrollbarModule } from '../../../core/scrollbar/scrollbar.module';
 import { PageHeaderModule } from '../../../core/page-header/page-header.module';
 import { BreadcrumbsModule } from '../../../core/breadcrumbs/breadcrumbs.module';
-import { MdInputModule, MdTableModule } from '@angular/material';
+import { MatInputModule, MatTableModule } from '@angular/material';
 import { CdkTableModule } from '@angular/cdk/table';
 
 @NgModule({
@@ -17,9 +17,9 @@ import { CdkTableModule } from '@angular/cdk/table';
     ScrollbarModule,
     PageHeaderModule,
     BreadcrumbsModule,
-    MdTableModule,
+    MatTableModule,
     CdkTableModule,
-    MdInputModule
+    MatInputModule
   ],
   declarations: [TableFilteringComponent]
 })

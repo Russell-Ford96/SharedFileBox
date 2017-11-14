@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import * as fromRoot from '../../reducers/index';
 import * as layout from '../layout/shared/layout.action';
-import { MdRadioChange, MdSelectChange } from '@angular/material';
+import { MatRadioChange, MatSelectChange } from '@angular/material';
 
 @Component({
   selector: 'vr-settings',
@@ -20,11 +20,11 @@ export class SettingsComponent implements OnInit {
   ngOnInit() {
   }
 
-  setLayout(radioEvent: MdRadioChange) {
+  setLayout(radioEvent: MatRadioChange) {
     this.store.dispatch(new layout.SelectLayoutAction(radioEvent.value));
   }
 
-  setCardElevation(selectEvent: MdSelectChange) {
+  setCardElevation(selectEvent: MatSelectChange) {
     this.store.dispatch(new layout.SetCardElevationAction(selectEvent.value));
   }
 }

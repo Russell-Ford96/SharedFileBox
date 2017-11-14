@@ -1,8 +1,8 @@
 <div class="toolbar-button" fxLayout="row" fxLayoutAlign="center stretch" style="height: 100%;">
-  <button class="icon-button" md-button (click)="open()">
-    <md-icon>search</md-icon>
+  <button class="icon-button" mat-button (click)="open()">
+    <mat-icon>search</mat-icon>
   </button>
-  <md-input-container #input class="search" [class.search-open]="isOpen">
-    <input (blur)="close()" mdInput placeholder="Search...">
-  </md-input-container>
+  <mat-input-container #input class="search" [class.search-open]="isOpen">
+    <input (blur)="close()" matInput placeholder="Search...">
+  </mat-input-container>
 </div>

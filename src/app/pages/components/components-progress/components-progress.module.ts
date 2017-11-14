@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { ComponentsProgressComponent } from './components-progress.component';
 import { UtilsModule } from '../../../core/utils/utils.module';
 import { FlexLayoutModule } from '@angular/flex-layout';
-import { MdCardModule, MdProgressBarModule, MdProgressSpinnerModule, MdRadioModule, MdSliderModule, MdTabsModule } from '@angular/material';
+import { MatCardModule, MatProgressBarModule, MatProgressSpinnerModule, MatRadioModule, MatSliderModule, MatTabsModule } from '@angular/material';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
@@ -13,12 +13,12 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     ReactiveFormsModule,
     UtilsModule,
     FlexLayoutModule,
-    MdCardModule,
-    MdTabsModule,
-    MdProgressSpinnerModule,
-    MdProgressBarModule,
-    MdRadioModule,
-    MdSliderModule
+    MatCardModule,
+    MatTabsModule,
+    MatProgressSpinnerModule,
+    MatProgressBarModule,
+    MatRadioModule,
+    MatSliderModule
   ],
   declarations: [ComponentsProgressComponent],
   exports: [ComponentsProgressComponent]
