@@ -11,7 +11,9 @@ import { DragulaService } from 'ng2-dragula';
   animations: [...LIST_FADE_ANIMATION]
 })
 export class ComponentsAddItemBotComponent implements OnInit {
-  @Input() items: { name: String, file: boolean, position: number }[] = [{ name: '', file: false, position: 0 }];
+  @Input() items: { name: String, file: boolean, position: number, edit:boolean }[] = [{ name: '', file: false, position: 0, edit:false }];
+
+  itemEditing: any;
 
   private getIndexInParent(el) {
     return Array.from(el.parentNode.children).indexOf(el)
@@ -43,6 +45,16 @@ export class ComponentsAddItemBotComponent implements OnInit {
       }
       console.log(this.items);
     }, 100);
+  }
+  private onKeydown(event){
+    if (event.key === "Enter") {
+        console.log(event);
+        this.itemEditing = {};
+    }
+  }
+
+  private onEditItem(item){
+    this.itemEditing = item;
   }
 
   constructor(

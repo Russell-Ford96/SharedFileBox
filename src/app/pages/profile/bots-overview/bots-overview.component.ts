@@ -13,6 +13,7 @@ import { Bot } from '../bot.model';
 })
 export class BotsOverviewComponent implements OnInit {
   @Output() botWasSelected = new EventEmitter<Bot>();
+  @Output() newBot = new EventEmitter<boolean>() 
   @Input() bots: Bot[];
 
   //@ViewChild('sticky') sticky: ElementRef;
@@ -25,6 +26,11 @@ export class BotsOverviewComponent implements OnInit {
 
 
   constructor() { }
+
+
+  onNewBot(){
+    this.newBot.emit(true);
+  }
 
 
   onBotSelect(bot:Bot){

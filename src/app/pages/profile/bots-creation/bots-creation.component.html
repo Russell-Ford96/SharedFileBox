@@ -30,6 +30,17 @@
     <!-- <form [formGroup]="secondFormGroup"> -->
       <ng-template matStepLabel>Add bot items</ng-template>
             <!-- Start Item Bot -->
+            <mat-expansion-panel>
+              <mat-expansion-panel-header>
+                <mat-panel-title>
+                  Item bot
+                </mat-panel-title>
+                <mat-panel-description>
+                  Type a question or a file request
+                </mat-panel-description>
+              </mat-expansion-panel-header>
+
+
             <mat-grid-list cols="12" rowHeight="58.8px">
               <mat-grid-tile [colspan]="7" [rowspan]="1">
                 <mat-input-container class="addItemNameStyle">
@@ -48,22 +59,19 @@
 
               </mat-grid-tile>
             </mat-grid-list>
+            </mat-expansion-panel>
 
             <vr-components-add-item-bot [items]="getItems()"></vr-components-add-item-bot>
             <!-- End Item Bot -->
       <div>
         <button mat-button matStepperPrevious>Back</button>
-        <button mat-button matStepperNext>Next</button>
+
+          <button mat-raised-button  color="accent" (click)="onSubmit()">Save</button>
+
+
+
       </div>
     <!-- </form> -->
   </mat-step>
-  <mat-step>
-    <ng-template matStepLabel>Done</ng-template>
-    You are now done.
 
-    <div>
-      <button mat-button matStepperPrevious>Back</button>
-      <button mat-button matStepperNext (click)="onSubmit()">Send</button>
-    </div>
-  </mat-step>
 </mat-horizontal-stepper>

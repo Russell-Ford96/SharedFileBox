@@ -1,7 +1,8 @@
 import {
   AfterViewInit, ChangeDetectorRef, Component, ElementRef, OnInit,
-  Input, EventEmitter, OnChanges
+  Input, Output, EventEmitter, OnChanges
 } from '@angular/core';
+import { MatSnackBar } from '@angular/material';
 import Scrollbar from 'smooth-scrollbar';
 import { ROUTE_TRANSITION } from '../../../app.animation';
 import { FormArray, FormGroup, FormBuilder, Validators } from '@angular/forms';
@@ -23,7 +24,7 @@ export class BotsCreationComponent implements OnInit, OnChanges {
   public msgSent = false;
   public msgErr = false;
    @Input() bot: Bot;
-  // @Output() closeEvent = new EventEmitter<string>();
+   @Output() closeForm = new EventEmitter<boolean>();
 
   requestForm: FormGroup;
   secondFormGroup: FormGroup;
@@ -48,6 +49,7 @@ export class BotsCreationComponent implements OnInit, OnChanges {
   layout: string;
 
   layoutColumnOnBoxed = 'row';
+
 
 
   getType() {
@@ -78,10 +80,17 @@ export class BotsCreationComponent implements OnInit, OnChanges {
     private appService: AppService,
     private auth: AuthService,
     private store: Store<fromRoot.State>,
-    private cd: ChangeDetectorRef
+    private cd: ChangeDetectorRef,
+    public snackBar: MatSnackBar
   ) {
     console.log("############## bot-creation ############");
     console.log(this.bot);
+  }
+
+  openSnackBar(message: string, action: string) {
+    this.snackBar.open( message, action , {
+      duration: 1700,
+    });
   }
 
 
@@ -178,26 +187,21 @@ export class BotsCreationComponent implements OnInit, OnChanges {
     console.log(formValues);
     this.appService.updateBot(this.requestForm.value)
       .then(res => {
+        console.log("RESPUESTA DEL BACKEND");
         if (res._body != "false") {
           console.log(res);
-          this.callParent();
+          this.openSnackBar("Bot was updated successfully", "Update");
 
-          this.msgSent = true;
-          setTimeout(function() {
-            this.msgSent = false;
-            console.log(this.msgSent);
-          }.bind(this), 3000);
+          setTimeout(() => this.closeForm.emit(true), 1000);
 
 
         } else {
           console.log(res);
-          this.msgErr = true;
-          setTimeout(function() {
-            this.msgErr = false;
-          }.bind(this), 3000);
+          this.openSnackBar(res._body, "Update");
 
         }
       });
+
   }
 
   save(): void {
@@ -206,8 +210,10 @@ export class BotsCreationComponent implements OnInit, OnChanges {
     console.log(formValues);
     this.appService.createBot(this.requestForm.value)
       .then(res => {
+
         if (res._body != "false") {
           console.log(res);
+
           this.callParent();
 
           this.msgSent = true;
@@ -226,6 +232,7 @@ export class BotsCreationComponent implements OnInit, OnChanges {
 
         }
       });
+      this.openSnackBar("Bot saved", "Save");
   }
 
   // buildForm(): void {

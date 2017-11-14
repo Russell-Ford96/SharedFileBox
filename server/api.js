@@ -298,13 +298,14 @@ router.post('/createbot', (req, res) => {
 router.post('/updatebot', (req, res) => {
     console.log("********************* API Update Bot **********************");
     console.log(req.body);
-    reqId = req.body._id;
-    reqName = req.body.name;
-    reqUrl = req.body.url;
-    reqItemArray = req.body.itemArray;
-    reqCreatedBy = req.body.createdBy;
-    reqThanks = req.body.thanks;
-    reqActive = req.body.active;
+    //var reqId = req.body._id;
+    var o_id = new mongodb.ObjectID(req.body._id);
+    var reqName = req.body.name;
+    var reqUrl = req.body.url;
+    var reqItemArray = req.body.itemArray;
+    var reqCreatedBy = req.body.createdBy;
+    var reqThanks = req.body.thanks;
+    var reqActive = req.body.active;
 
   mongodb.MongoClient.connect(uri, function(err, db) {
       if(err){
@@ -313,7 +314,7 @@ router.post('/updatebot', (req, res) => {
       var reqBots = db.collection('bot');
 
       var existingName = reqBots.update(
-        {name: reqName},
+        { _id: o_id },
         {$set:{
         name: reqName,
         url: reqUrl,
@@ -322,10 +323,14 @@ router.post('/updatebot', (req, res) => {
         thanks: reqThanks,
         active: reqActive
         }
-      },function(err, result) {
-            console.log(result);
-                //do something.
+      },function (err, results) {
+        if (err) {
+          console.log(err);
+          return res.status(500).send("There was a problem finding the docrequests.");
         }
+        //console.log(results);
+        return res.status(200).send(results);
+      }
       );
   })
 })

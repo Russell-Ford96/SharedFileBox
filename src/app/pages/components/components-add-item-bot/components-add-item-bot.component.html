@@ -2,8 +2,10 @@
   <table class="table table-hover table-condensed table-bordered">
     <thead>
     <tr>
-      <th align="left" width="20%"></th>
       <th align="left" width="80%"></th>
+      <th align="left" width="10%"></th>
+      <th align="left" width="10%"></th>
+
 
     </tr>
     </thead>
@@ -12,11 +14,31 @@
             [dragula]="'one-bag'"
             [dragulaModel]='items'
             >
-    <tr  *ngFor="let item of items;let i=index">
-      <td  align="left" width="20%">
-        <mat-checkbox class="checkbox" [(ngModel)]="item.file" color="primary"></mat-checkbox>
+    <tr  *ngFor="let item of items;let i=index" >
+
+      <td align="left" width="80%" (click)="onEditItem(item)">
+       <div class="itembot" >
+
+
+        <div *ngIf="item != itemEditing" >
+          {{ item.name }}
+        </div>
+
+
+        <input *ngIf="item == itemEditing" [(ngModel)]="item.name" name="itemname" matInput placeholder="name" type="text" (keydown)="onKeydown($event)" >
+      </div>
+
       </td>
-      <td align="left" width="80%">{{ item.name }}</td>
+      <td  align="left" width="10%">
+
+        <mat-checkbox class="checkbox" [(ngModel)]="item.file" color="primary"></mat-checkbox>
+
+      </td>
+      <td  align="left" width="10%">
+        <mat-icon *ngIf="!item.file" class="icon">question_answer</mat-icon>
+        <mat-icon *ngIf="item.file" class="icon">attach_file</mat-icon>
+      </td>
+
     </tr>
     </tbody>
   </table>

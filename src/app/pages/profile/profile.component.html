@@ -50,11 +50,13 @@
     <div  *ngIf="!showFormBot">
      <vr-profile-bots  [bots]="botsElements"
                       (botWasSelected)="onBotSelected($event)"
+                      (newBot)="onNewBot()"
      ></vr-profile-bots>
      </div>
 
      <div  *ngIf="showFormBot">
-     <vr-create-bot [bot]="botSelected"></vr-create-bot>
+     <vr-create-bot [bot]="botSelected"
+                    (closeForm)="onShowBots($event)" ></vr-create-bot>
      </div>
     </div>
     <!-- <mat-tab-group class="profile-tabs clean-tabs mat-elevation-z4"

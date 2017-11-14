@@ -2,8 +2,9 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ProfileComponent } from './profile.component';
 import { FlexLayoutModule } from '@angular/flex-layout';
+
 import {
-  MatButtonModule, MatCheckboxModule, MatDatepickerModule, MatIconModule, MatInputModule, MatNativeDateModule, MatRadioModule, MatSelectModule, MatSliderModule, MatSlideToggleModule, MatTabsModule,
+  MatButtonModule, MatCheckboxModule, MatDatepickerModule, MatIconModule, MatInputModule, MatNativeDateModule, MatRadioModule, MatSelectModule, MatSliderModule, MatSlideToggleModule, MatTabsModule,MatExpansionModule,
   MatTooltipModule, MatChipsModule, MatGridListModule,
   MatStepperModule,MatSnackBarModule
 } from '@angular/material';
@@ -19,7 +20,7 @@ import { ComponentsAddItemBotModule } from '../components/components-add-item-bo
     CommonModule,
     FlexLayoutModule,
     PageHeaderModule,
-    MatButtonModule, MatCheckboxModule, MatDatepickerModule, MatIconModule, MatInputModule, MatNativeDateModule, MatRadioModule, MatSelectModule, MatSliderModule, MatSlideToggleModule, MatTabsModule,
+    MatButtonModule, MatCheckboxModule, MatDatepickerModule, MatIconModule, MatInputModule, MatNativeDateModule, MatRadioModule, MatSelectModule, MatSliderModule, MatSlideToggleModule, MatTabsModule,MatExpansionModule,
     MatTooltipModule, MatChipsModule,MatGridListModule,
     MatStepperModule,MatSnackBarModule,
     FormsModule,

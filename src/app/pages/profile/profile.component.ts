@@ -27,8 +27,30 @@ export class ProfileComponent implements OnInit {
   ) { this.tabSelected = 0;
       this.showFormBot = false;
     this.botSelected = {_id: "",name: "", url: "", itemArray:[{}], createdBy: "", thanks: "", active: true };
+    if(this.auth.userProfile){
+      console.log(this.auth.userProfile);
+      this.picture = this.auth.userProfile.picture;
+      this.email= this.auth.userProfile.email;
+      this.name= this.auth.userProfile.nickname;
+    }
+    this.getAllBots();
   }
 
+  onShowBots(){
+    console.log("################ profile.component->list bots ################");
+    this.botsElements = [];
+    this.getAllBots();
+    this.tabSelected = 0;
+    this.showFormBot = false;
+  }
+
+  onNewBot(){
+    console.log("################ profile.component->New Bot ################");
+
+    this.botSelected = {_id: "",name: "", url: "", itemArray:[{}], createdBy: "", thanks: "", active: true };
+    this.tabSelected = 1;
+    this.showFormBot = true;
+  }
 
   onBotSelected(botData: Bot){
     console.log("################ profile.component ################");
@@ -39,13 +61,8 @@ export class ProfileComponent implements OnInit {
   }
 
   ngOnInit() {
-    if(this.auth.userProfile){
-      console.log(this.auth.userProfile);
-      this.picture = this.auth.userProfile.picture;
-      this.email= this.auth.userProfile.email;
-      this.name= this.auth.userProfile.nickname;
-    }
-    this.getAllBots();
+
+
   }
 
   getAllBots(){
