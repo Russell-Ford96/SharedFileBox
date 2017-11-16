@@ -1,6 +1,6 @@
 import * as _ from 'lodash';
 import { ROUTE_TRANSITION } from '../../../app.animation';
-import { Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, ChangeDetectorRef} from '@angular/core';
 import { FormArray, FormGroup, FormBuilder, Validators, AbstractControl, ValidationErrors } from '@angular/forms';
 import {AuthService} from '../../../auth/auth.service';
 import {AppService} from '../../../app.service';
@@ -25,13 +25,14 @@ export class MessageComponent implements OnInit {
   myForm: FormGroup;
   submitted = false;
   profile: any;
-  phonemsg: any;
+  phonemsg: String;
 
 
   constructor(
     private fb: FormBuilder,
     private appService: AppService,
-    private auth: AuthService
+    private auth: AuthService,
+    private cdr: ChangeDetectorRef,
   ) { }
 
   callParent() {
@@ -52,7 +53,6 @@ export class MessageComponent implements OnInit {
   onSubmit() {
     this.submitted = true;
     this.save();
-
   }
 
   save(): void {
@@ -61,13 +61,14 @@ export class MessageComponent implements OnInit {
     this.appService.createRequest(this.requestForm.value)
       .then(res => {
         let error_str = res._body.slice(26);
-        if(error_str == 'is not a valid phone number.'){
+        if(res._body.indexOf('not a valid phone number.') >= 0 ){
             this.isphoneError = true;
             this.phonemsg = res._body;
-            this.val(true)
+            this.cdr.detectChanges();
         }
-        else if(error_str != 'is not a valid phone number.'){
-          this.isphoneError = false;
+        else{
+          this.phonemsg = '';
+          this.cdr.detectChanges();
         }
         if(res._body != "false") {
           this.callParent();
@@ -75,7 +76,6 @@ export class MessageComponent implements OnInit {
           this.msgSent = true;
           setTimeout(function () {
             this.msgSent = false;
-            console.log(this.msgSent);
           }.bind(this),3000);
 
         }  else {
@@ -105,8 +105,7 @@ export class MessageComponent implements OnInit {
       ],
       'phone': ['', [
         Validators.required,
-        Validators.pattern(/[0-9]/),
-        this.val,
+        Validators.pattern(this.PHONE_REGEX),
       ]
       ],
       'shortmessage': ['', [
@@ -180,6 +179,7 @@ export class MessageComponent implements OnInit {
     },
     'phone': {
       'required': 'Phone is required.',
+      'invalid': 'Invalid phone number',
     },
     'shortmessage': {
       'required': 'Short description is required.'
@@ -195,7 +195,7 @@ export class MessageComponent implements OnInit {
     }
   };
 
-
+//validate reference number is alpha numeric
 validateAN(control: AbstractControl): ValidationErrors | null {
     var letter = /[a-zA-Z]/;
     var number = /[0-9]/;
@@ -206,16 +206,8 @@ validateAN(control: AbstractControl): ValidationErrors | null {
       return null
   }
 
-
-val(msg?:Boolean, control?: AbstractControl, ): ValidationErrors | null{
-      if(msg){
-        return { val: 'phone format error' }
-      }
-      return null
-}
 EMAIL_REGEX = /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
-
-
+PHONE_REGEX = /^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/;
 
 
 

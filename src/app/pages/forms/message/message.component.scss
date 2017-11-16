@@ -4,6 +4,14 @@
 
   @include responsivePadding();
 
+  #phonemsg{
+    color: #f44336;
+    font-size: 9px;
+    margin-top: 6px !important;
+    position: absolute;
+  }
+
+
   .card.alternative {
 
     .content {
@@ -25,4 +33,10 @@
       }
     }
   }
+  .mat-form-field-subscript-wrapper {
+    font-size: 75%;
+    margin-top: 0.741667em !important;
+    top: calc(100% - 1.66666667em);
+}
+
 }

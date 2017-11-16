@@ -23,12 +23,8 @@
 
           <div class="content" fxLayout="column">
 
-            <form #myForm="ngForm" [formGroup]="requestForm" (ngSubmit)="onSubmit();">
+          <form #myForm="ngForm" [formGroup]="requestForm" (ngSubmit)="onSubmit();">
             <div class="result" fxLayout="column">
-             <mat-input-container class="fieldWidth" >
-                <input id="refnumb" name="refnumb" matInput placeholder="Reference Number" type="text" formControlName="refnumb" required>
-              </mat-input-container>
-
               <mat-input-container class="fieldWidth" >
                 <input id="refnumb" name="refnumb" matInput placeholder="Reference Number " type="text" formControlName="refnumb" required>
                 <mat-error *ngIf="formErrors.refnumb" >
@@ -43,14 +39,15 @@
                   </mat-error>
                 </mat-input-container>
 
+
                 <mat-input-container class="fieldWidth">
                    <input id="phone" name="phone" matInput placeholder="Phone Number" type="text" formControlName="phone" required>
-                   <mat-error *ngIf="isphoneError">
-                      {{ phonemsg }}
-                   </mat-error>
+                   <mat-error *ngIf="formErrors.phone">Please enter phone number in correct format</mat-error>
+                   <span id="phonemsg" *ngIf="isphoneError"> {{ phonemsg }}  </span>
                 </mat-input-container>
 
-              <mat-input-container class="fieldWidth" >
+
+              <mat-input-container class="fieldWidth">
                 <input id="shortmsg" name="shortmsg" matInput placeholder="Short message" type="text" formControlName="shortmessage" required>
               </mat-input-container>
 
