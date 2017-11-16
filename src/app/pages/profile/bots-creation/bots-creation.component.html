@@ -22,6 +22,7 @@
             <!-- End form -->
 
       <div>
+        <br>
         <button mat-button matStepperNext>Next</button>
       </div>
     </form>
@@ -55,7 +56,8 @@
                 </mat-slide-toggle>
               </mat-grid-tile>
               <mat-grid-tile [colspan]="2" [rowspan]="1">
-                <button mat-mini-fab (click)="addInput()">add</button>
+                  <mat-icon aria-label="Close" (click)="addInput()" style="cursor: pointer;">add_circle_outline</mat-icon>
+                <!-- <button mat-mini-fab (click)="addInput()">add</button> -->
 
               </mat-grid-tile>
             </mat-grid-list>

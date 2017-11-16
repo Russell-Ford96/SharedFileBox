@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+
 import { ROUTE_TRANSITION } from '../../app.animation';
 import { AuthService } from "../../auth/auth.service";
 import { AppService } from '../../app.service';
@@ -23,9 +25,15 @@ export class ProfileComponent implements OnInit {
 
   constructor(
     private auth: AuthService,
-    private appService: AppService
-  ) { this.tabSelected = 0;
-      this.showFormBot = false;
+    private appService: AppService,
+    private route: ActivatedRoute,
+    private cdr:ChangeDetectorRef
+  ) {
+
+
+    //this.getAllBots();
+    this.tabSelected = 0;
+    this.showFormBot = false;
     this.botSelected = {_id: "",name: "", url: "", itemArray:[{}], createdBy: "", thanks: "", active: true };
     if(this.auth.userProfile){
       console.log(this.auth.userProfile);
@@ -33,7 +41,7 @@ export class ProfileComponent implements OnInit {
       this.email= this.auth.userProfile.email;
       this.name= this.auth.userProfile.nickname;
     }
-    this.getAllBots();
+
   }
 
   onShowBots(){
@@ -62,15 +70,23 @@ export class ProfileComponent implements OnInit {
 
   ngOnInit() {
 
+    this.getAllBots();
 
+    // this.route.data
+    //   .subscribe((bots: any[]) => {
+    //     this.botsElements = bots;
+    //     console.log("botsElements");
+    //     console.log(  this.botsElements );
+    //   });
   }
 
   getAllBots(){
 
-    this.appService.getAllBotData().subscribe((bots: any[]) => {
+    this.appService.getAllBotData().then((bots: any[]) => {
       this.botsElements = bots;
       console.log("****************** All my bots *******************");
       console.log(this.botsElements);
+      this.cdr.detectChanges();
       return bots;
     });
 

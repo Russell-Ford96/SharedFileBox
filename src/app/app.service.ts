@@ -54,10 +54,11 @@ export class AppService {
       .catch(this.handleError);
   }
 
-
-  getAllBotData(): Observable<RequestData[]> {
+  getAllBotData(): Promise<RequestData[]> {
     return this.http.get('api/bots/' , { headers: this.headers })
-      .map(response => response.json() as RequestData[]);
+      .toPromise()
+      .then(response => response.json() as RequestData[])
+      .catch(this.handleError);
   }
 
   getDocRequest(id: any): Promise<any> {

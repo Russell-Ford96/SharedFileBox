@@ -24,6 +24,7 @@ export class BotsCreationComponent implements OnInit, OnChanges {
   public msgSent = false;
   public msgErr = false;
    @Input() bot: Bot;
+   @Output() botChange = new EventEmitter<Bot>();
    @Output() closeForm = new EventEmitter<boolean>();
 
   requestForm: FormGroup;
@@ -185,13 +186,16 @@ export class BotsCreationComponent implements OnInit, OnChanges {
     let formValues = this.requestForm.value;
     formValues.createdBy = this.profile.sub.split("|")[1];
     console.log(formValues);
+    this.bot = formValues;
+    console.log("****** this is the bot updated");
+    console.log(this.bot);
     this.appService.updateBot(this.requestForm.value)
       .then(res => {
         console.log("RESPUESTA DEL BACKEND");
         if (res._body != "false") {
           console.log(res);
           this.openSnackBar("Bot was updated successfully", "Update");
-
+          this.botChange.emit(this.bot);
           setTimeout(() => this.closeForm.emit(true), 1000);
 
 

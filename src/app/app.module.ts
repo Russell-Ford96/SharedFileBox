@@ -28,7 +28,6 @@ import { ProfileComponent } from './profile/profile.component';
 import { FileSelectDirective } from 'ng2-file-upload';
 import { RouterModule } from '@angular/router';
 
-
 @NgModule({
   imports: [
     BrowserModule,
@@ -44,7 +43,7 @@ import { RouterModule } from '@angular/router';
     AppRoutingModule,
     CoreModule,
     PagesModule,
-    RouteHandlerModule,
+    RouteHandlerModule
 
   ],
   providers: [{
