@@ -52,8 +52,8 @@ export class BotSimulatorComponent {
       this.uploader.options.additionalParameter = {
         index: item.formData[0].index,
         _id: item.formData[1]._id,
-        createdBy: this.docRequest.createdBy,
-        _refnumb: this.docRequest.refnumb
+        createdBy: 'this.docRequest.createdBy', // put the createdBy
+        _refnumb: 'this.docRequest.refnumb'  // put the refnumb
       };
     };
 
@@ -90,22 +90,27 @@ export class BotSimulatorComponent {
       console.log(this.bot.itemArray[0].name);
       this.itemsBot.splice(0, 1);
       var showtime = 100;
-      var i = 1;
+      var i = -1;
       this.itemsBot = [];
       for (let item in this.bot.itemArray) {
-        i++;
+
+        if(this.bot.itemArray[item].file){
+         i++;
+        }
 
                   console.log(showtime);
                   this.itemsBot.push( {'avatar': this.avatarService,
                                   'name': 'Eva',
                                   'msj': this.bot.itemArray[item].name,
                                   'date': new Date(),
-                                  'file': false,
+                                  'file': this.bot.itemArray[item].file,
                                   'showtime': showtime,
-                                  'show': false
+                                  'show': false,
+                                  'docIndex': i
                                 });
                   console.log(this.itemsBot[0]);
                   showtime = showtime + 700;
+
       }
 
       for (let item in this.itemsBot) {

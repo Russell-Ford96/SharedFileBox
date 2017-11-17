@@ -4,10 +4,11 @@ import { CommonModule } from '@angular/common';
 import { ProfileComponent } from './profile.component';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { BotSimulatorComponent } from '../../bot-simulator/bot-simulator.component';
+
 import {
   MatButtonModule, MatCheckboxModule, MatDatepickerModule, MatIconModule, MatInputModule, MatNativeDateModule, MatRadioModule, MatSelectModule, MatSliderModule, MatSlideToggleModule, MatTabsModule,MatExpansionModule,
   MatTooltipModule, MatChipsModule, MatGridListModule,
-  MatStepperModule,MatSnackBarModule,MatProgressSpinnerModule
+  MatStepperModule,MatSnackBarModule,MatProgressSpinnerModule,MatProgressBarModule
 } from '@angular/material';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BotsOverviewComponent } from './bots-overview/bots-overview.component';
@@ -18,6 +19,7 @@ import { ComponentsAddItemBotModule } from '../components/components-add-item-bo
 import { BotsPreviewComponent } from './bots-preview/bots-preview.component';
 import { ProfileRoutes } from './profile.routing';
 
+
 @NgModule({
   imports: [
     CommonModule,
@@ -25,7 +27,7 @@ import { ProfileRoutes } from './profile.routing';
     PageHeaderModule,
     MatButtonModule, MatCheckboxModule, MatDatepickerModule, MatIconModule, MatInputModule, MatNativeDateModule, MatRadioModule, MatSelectModule, MatSliderModule, MatSlideToggleModule, MatTabsModule,MatExpansionModule,
     MatTooltipModule, MatChipsModule,MatGridListModule,
-    MatStepperModule,MatSnackBarModule,MatProgressSpinnerModule,
+    MatStepperModule,MatSnackBarModule,MatProgressSpinnerModule,MatProgressBarModule,
     FormsModule,
     ReactiveFormsModule,
     BreadcrumbsModule,

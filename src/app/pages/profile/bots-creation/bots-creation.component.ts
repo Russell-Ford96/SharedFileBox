@@ -26,6 +26,7 @@ export class BotsCreationComponent implements OnInit, OnChanges {
    @Input() bot: Bot;
    @Output() botChange = new EventEmitter<Bot>();
    @Output() closeForm = new EventEmitter<boolean>();
+   showProgressBar: boolean;
 
   requestForm: FormGroup;
   secondFormGroup: FormGroup;
@@ -86,6 +87,7 @@ export class BotsCreationComponent implements OnInit, OnChanges {
   ) {
     console.log("############## bot-creation ############");
     console.log(this.bot);
+    this.showProgressBar =  false;
   }
 
   openSnackBar(message: string, action: string) {
@@ -107,7 +109,7 @@ export class BotsCreationComponent implements OnInit, OnChanges {
     console.log("************** OnSubmit **************")
     this.submitted = true;
 
-
+    
     if(this.bot._id != ''){
       console.log("********** Upload **********");
      this.update();
@@ -183,6 +185,7 @@ export class BotsCreationComponent implements OnInit, OnChanges {
   }
 
   update(): void {
+    this.showProgressBar = true;
     let formValues = this.requestForm.value;
     formValues.createdBy = this.profile.sub.split("|")[1];
     console.log(formValues);
@@ -196,7 +199,7 @@ export class BotsCreationComponent implements OnInit, OnChanges {
           console.log(res);
           this.openSnackBar("Bot was updated successfully", "Update");
           this.botChange.emit(this.bot);
-          setTimeout(() => this.closeForm.emit(true), 1000);
+          // setTimeout(() => this.closeForm.emit(true), 1000);
 
 
         } else {
@@ -204,11 +207,13 @@ export class BotsCreationComponent implements OnInit, OnChanges {
           this.openSnackBar(res._body, "Update");
 
         }
+        this.showProgressBar = false;
       });
 
   }
 
   save(): void {
+    this.showProgressBar = true;
     let formValues = this.requestForm.value;
     formValues.createdBy = this.profile.sub.split("|")[1];
     console.log(formValues);
@@ -217,26 +222,28 @@ export class BotsCreationComponent implements OnInit, OnChanges {
 
         if (res._body != "false") {
           console.log(res);
+          this.botChange.emit(this.bot);
+          this.openSnackBar("Bot saved", "Save");
+          //this.callParent();
 
-          this.callParent();
-
-          this.msgSent = true;
-          setTimeout(function() {
-            this.msgSent = false;
-            console.log(this.msgSent);
-          }.bind(this), 3000);
+          // this.msgSent = true;
+          // setTimeout(function() {
+          //   this.msgSent = false;
+          //   console.log(this.msgSent);
+          // }.bind(this), 3000);
 
 
         } else {
           console.log(res);
-          this.msgErr = true;
-          setTimeout(function() {
-            this.msgErr = false;
-          }.bind(this), 3000);
+          // this.msgErr = true;
+          // setTimeout(function() {
+          //   this.msgErr = false;
+          // }.bind(this), 3000);
 
         }
+        this.showProgressBar = false;
       });
-      this.openSnackBar("Bot saved", "Save");
+
   }
 
   // buildForm(): void {

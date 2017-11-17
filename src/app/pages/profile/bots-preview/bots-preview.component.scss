@@ -10,6 +10,18 @@
   padding-bottom: 20px !important;
 }
 
+.phone-simulator{
+    flex: 1 1 360px !important;
+    box-sizing: border-box !important;
+    display: flex !important;
+    flex-direction: column !important;
+    padding: 12px !important;
+    height: 730px !important;
+    max-width: 360px !important;
+    min-width: 360px !important;
+    background: url('/assets/phone.png') no-repeat center  !important;
+}
+
 .name {
   font-size: 20px !important;
   font-weight: 500 !important;
