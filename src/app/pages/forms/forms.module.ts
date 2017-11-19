@@ -15,8 +15,8 @@ import { FormWizardComponent } from './form-wizard/form-wizard.component';
 import { PageHeaderModule } from '../../core/page-header/page-header.module';
 import { MessageComponent } from './message/message.component';
 import { FormDialogsComponent, DialogOverviewComponent } from './message/form-dialogs.component';
-
-import { DialogDataService } from './message/dialog-data.service';//
+import { DialogDataService } from './message/dialog-data.service';
+import { SnackbarComponent } from './message/snackbar.component';
 
 @NgModule({
   imports: [
@@ -46,10 +46,12 @@ import { DialogDataService } from './message/dialog-data.service';//
     MessageComponent,
     FormDialogsComponent,
     DialogOverviewComponent,
+    SnackbarComponent,
   ],
   entryComponents:[
     FormDialogsComponent,
     DialogOverviewComponent,
+    SnackbarComponent,
   ],
   providers:[    DialogDataService,
 ]

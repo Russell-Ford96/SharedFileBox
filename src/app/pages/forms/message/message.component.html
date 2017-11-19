@@ -70,7 +70,7 @@
                 </div>
               </div>
 
-                <mat-input-container class="fieldWidth">
+              <mat-input-container class="fieldWidth">
                 <input id="thankmsg" name="thankmsg" matInput placeholder="Thank you" type="text" required>
               </mat-input-container>
 
@@ -85,9 +85,10 @@
           </div>
         </div>
 
-
       </div>
-
+      <span *ngIf="openSnackbar">
+          <message-sent-snackbar></message-sent-snackbar>
+      </span>
 
     </div>
   </div>

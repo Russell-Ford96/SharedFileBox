@@ -28,7 +28,7 @@ export class MessageComponent implements OnInit {
   submitted = false;
   profile: any;
   phonemsg: string;
-
+  openSnackbar = false;
 
   constructor(
     private fb: FormBuilder,
@@ -73,6 +73,7 @@ export class MessageComponent implements OnInit {
         }
         else{
           this.phonemsg = '';
+          this.openSnackbar = true;
           this.cdr.detectChanges();
         }
         if(res._body != "false") {
