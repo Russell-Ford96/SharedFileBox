@@ -67,6 +67,9 @@ export class MessageComponent implements OnInit {
         let error_str = res._body.slice(26);
         if(res._body.indexOf('not a valid phone number.') >= 0 ){
             this.isphoneError = true;
+            setTimeout(function(){
+              this.isphoneError = false;
+            }.bind(this),5000);
             this.phonemsg = res._body;
             this.dialogDataService.changeMessage(res._body)
             this.cdr.detectChanges();
@@ -74,6 +77,9 @@ export class MessageComponent implements OnInit {
         else{
           this.phonemsg = '';
           this.openSnackbar = true;
+          setTimeout(function(){
+            this.openSnackbar = false;
+          }.bind(this), 5000);
           this.cdr.detectChanges();
         }
         if(res._body != "false") {
