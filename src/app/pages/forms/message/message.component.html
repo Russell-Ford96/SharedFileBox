@@ -43,8 +43,11 @@
                 <mat-input-container class="fieldWidth">
                    <input id="phone" name="phone" matInput placeholder="Phone Number" type="text" formControlName="phone" required>
                    <mat-error *ngIf="formErrors.phone">Please enter phone number in correct format</mat-error>
-                   <span id="phonemsg" *ngIf="isphoneError"> {{ phonemsg }}  </span>
+                   <span id="phonemsg" *ngIf="isphoneError"> {{ phonemsg }}
+                   <formdialog></formdialog>
+                   </span>
                 </mat-input-container>
+
 
 
               <mat-input-container class="fieldWidth">
@@ -84,12 +87,6 @@
 
 
       </div>
-
-
-
-
-
-
 
 
     </div>

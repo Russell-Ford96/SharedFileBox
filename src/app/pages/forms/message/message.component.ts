@@ -1,9 +1,10 @@
 import * as _ from 'lodash';
 import { ROUTE_TRANSITION } from '../../../app.animation';
-import { Component, OnInit, Input, Output, EventEmitter, ChangeDetectorRef} from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, ChangeDetectorRef } from '@angular/core';
 import { FormArray, FormGroup, FormBuilder, Validators, AbstractControl, ValidationErrors } from '@angular/forms';
 import {AuthService} from '../../../auth/auth.service';
 import {AppService} from '../../../app.service';
+import { DialogDataService } from './dialog-data.service';
 
 
 @Component({
@@ -11,21 +12,22 @@ import {AppService} from '../../../app.service';
   templateUrl: 'message.component.html',
   styleUrls: ['./message.component.scss'],
   animations: [...ROUTE_TRANSITION],
-  host: { '[@routeTransition]': '' }
-
+  host: { '[@routeTransition]': '' },
 })
+
+
+
 export class MessageComponent implements OnInit {
   public msgSent= false;
   public msgErr= false;
   public isphoneError = false;
   @Input() inputArray: any[];
   @Output() closeEvent = new EventEmitter<string>();
-
   requestForm: FormGroup;
   myForm: FormGroup;
   submitted = false;
   profile: any;
-  phonemsg: String;
+  phonemsg: string;
 
 
   constructor(
@@ -33,6 +35,7 @@ export class MessageComponent implements OnInit {
     private appService: AppService,
     private auth: AuthService,
     private cdr: ChangeDetectorRef,
+    private dialogDataService: DialogDataService,
   ) { }
 
   callParent() {
@@ -48,6 +51,7 @@ export class MessageComponent implements OnInit {
       });
     }
     this.buildForm();
+    this.dialogDataService.currentMessage.subscribe(message => this.phonemsg = message)
   }
 
   onSubmit() {
@@ -64,6 +68,7 @@ export class MessageComponent implements OnInit {
         if(res._body.indexOf('not a valid phone number.') >= 0 ){
             this.isphoneError = true;
             this.phonemsg = res._body;
+            this.dialogDataService.changeMessage(res._body)
             this.cdr.detectChanges();
         }
         else{
@@ -195,20 +200,19 @@ export class MessageComponent implements OnInit {
     }
   };
 
-//validate reference number is alpha numeric
-validateAN(control: AbstractControl): ValidationErrors | null {
-    var letter = /[a-zA-Z]/;
-    var number = /[0-9]/;
-    var valid = number.test(control.value) && letter.test(control.value)
-    if (!valid) {
-        return { validateAN: control.value }
+  //validate reference number is alpha numeric
+  validateAN(control: AbstractControl): ValidationErrors | null {
+      var letter = /[a-zA-Z]/;
+      var number = /[0-9]/;
+      var valid = number.test(control.value) && letter.test(control.value)
+      if (!valid) {
+          return { validateAN: control.value }
+      }
+        return null
     }
-      return null
-  }
 
-EMAIL_REGEX = /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
-PHONE_REGEX = /^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/;
-
+  EMAIL_REGEX = /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+  PHONE_REGEX = /^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/;
 
 
 

@@ -14,6 +14,9 @@ import { UtilsModule } from '../../core/utils/utils.module';
 import { FormWizardComponent } from './form-wizard/form-wizard.component';
 import { PageHeaderModule } from '../../core/page-header/page-header.module';
 import { MessageComponent } from './message/message.component';
+import { FormDialogsComponent, DialogOverviewComponent } from './message/form-dialogs.component';
+
+import { DialogDataService } from './message/dialog-data.service';//
 
 @NgModule({
   imports: [
@@ -35,13 +38,21 @@ import { MessageComponent } from './message/message.component';
     MatSliderModule,
     MatTabsModule,
     PageHeaderModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
   ],
   declarations: [
     FormElementsComponent,
     FormWizardComponent,
     MessageComponent,
+    FormDialogsComponent,
+    DialogOverviewComponent,
+  ],
+  entryComponents:[
+    FormDialogsComponent,
+    DialogOverviewComponent,
+  ],
+  providers:[    DialogDataService,
+]
 
-  ]
 })
 export class FormModule { }
