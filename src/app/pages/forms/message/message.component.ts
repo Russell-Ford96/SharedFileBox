@@ -60,12 +60,17 @@ export class MessageComponent implements OnInit {
   }
 
   save(): void {
+    this.appService.setLoading(true);
     let formValues = this.requestForm.value;
+    if(this.formErrors.refnumb || this.formErrors.email){
+      this.appService.setLoading(false);
+      return
+    }
     formValues.createdBy = this.profile.sub.split("|")[1];
     this.appService.createRequest(this.requestForm.value)
       .then(res => {
         let error_str = res._body.slice(26);
-        if(res._body.indexOf('not a valid phone number.') >= 0 ){
+        if(res._body.indexOf('not a valid phone number') >= 0 ){
             this.isphoneError = true;
             setTimeout(function(){
               this.isphoneError = false;
@@ -73,6 +78,7 @@ export class MessageComponent implements OnInit {
             this.phonemsg = res._body;
             this.dialogDataService.changeMessage(res._body)
             this.cdr.detectChanges();
+            this.appService.setLoading(false);
         }
         else{
           this.phonemsg = '';
@@ -81,23 +87,24 @@ export class MessageComponent implements OnInit {
             this.openSnackbar = false;
           }.bind(this), 5000);
           this.cdr.detectChanges();
+          this.appService.setLoading(false);
         }
-        if(res._body != "false") {
-          this.callParent();
-
-          this.msgSent = true;
-          setTimeout(function () {
-            this.msgSent = false;
-          }.bind(this),3000);
-
-        }  else {
-          console.log(res);
-          this.msgErr = true;
-          setTimeout(function () {
-            this.msgErr = false;
-          }.bind(this),3000);
-
-        }
+        // if(res._body != "false") {
+        //   this.callParent();
+        //
+        //   this.msgSent = true;
+        //   setTimeout(function () {
+        //     this.msgSent = false;
+        //   }.bind(this),3000);
+        //
+        // }  else {
+        //   console.log(res);
+        //   this.msgErr = true;
+        //   setTimeout(function () {
+        //     this.msgErr = false;
+        //   }.bind(this),3000);
+        //
+        // }
       });
   }
 

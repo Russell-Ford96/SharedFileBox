@@ -1,3 +1,7 @@
+.box{
+  margin-top: 30px;
+}
+
 .chat-message {
   margin-top: 18px;
   padding: 2px 15px 10px 0px;
@@ -10,7 +14,6 @@
     margin: 0;
      padding-left: 20px;
 }
-
 
 .chat li img {
   width: 45px;
@@ -119,4 +122,8 @@ img {
 a:hover, a:active, a:focus {
   text-decoration: none;
   outline: 0;
+}
+
+[hidden] {
+  display: none !important;
 }

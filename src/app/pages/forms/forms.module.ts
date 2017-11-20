@@ -17,6 +17,7 @@ import { MessageComponent } from './message/message.component';
 import { FormDialogsComponent, DialogOverviewComponent } from './message/form-dialogs.component';
 import { DialogDataService } from './message/dialog-data.service';
 import { SnackbarComponent } from './message/snackbar.component';
+import { MessageSentSnack } from './message/snackbar.component';
 
 @NgModule({
   imports: [
@@ -47,11 +48,13 @@ import { SnackbarComponent } from './message/snackbar.component';
     FormDialogsComponent,
     DialogOverviewComponent,
     SnackbarComponent,
+    MessageSentSnack,
   ],
   entryComponents:[
     FormDialogsComponent,
     DialogOverviewComponent,
     SnackbarComponent,
+    MessageSentSnack,
   ],
   providers:[    DialogDataService,
 ]

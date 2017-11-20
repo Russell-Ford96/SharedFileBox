@@ -9,6 +9,7 @@ import { RequestData } from './pages/request/requestdata';
 @Injectable()
 export class AppService {
   private headers = new Headers({ 'Content-Type': 'application/json' });
+  public loading = false;
 
   constructor(private http: Http) { }
 
@@ -17,6 +18,14 @@ export class AppService {
       .toPromise()
       .then(response => response)
       .catch(this.handleError);
+  }
+
+  isLoading(){
+    return this.loading;
+  }
+
+  setLoading(loading:boolean){
+    this.loading = loading;
   }
 
 
@@ -54,10 +63,11 @@ export class AppService {
       .catch(this.handleError);
   }
 
-
-  getAllBotData(): Observable<RequestData[]> {
+  getAllBotData(): Promise<RequestData[]> {
     return this.http.get('api/bots/' , { headers: this.headers })
-      .map(response => response.json() as RequestData[]);
+      .toPromise()
+      .then(response => response.json() as RequestData[])
+      .catch(this.handleError);
   }
 
   getDocRequest(id: any): Promise<any> {

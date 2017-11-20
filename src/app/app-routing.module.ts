@@ -9,7 +9,7 @@ import { dashboardRoutes } from './pages/dashboard/dashboard.routing';
 import { componentsRoutes } from './pages/components/components.routing';
 import { formRoutes } from './pages/forms/forms.routing';
 import { inboxRoutes } from './pages/inbox/inbox.routing';
-import { profileRoutes } from './pages/profile/profile.routing';
+import { ProfileRoutes } from './pages/profile/profile.routing';
 import { tablesRoutes } from './pages/tables/tables.routing';
 import { editorRoutes } from './pages/editor/editor.routing';
 import { dragAndDropRoutes } from './pages/drag-and-drop/drag-and-drop.routing';
@@ -30,7 +30,7 @@ const routes: Routes = [
 
   },
   {
-    path: 'upload/:id', 
+    path: 'upload/:id',
     component: FileUploadComponent,
     resolve: { docRequest: FileUploadResolve }
   },
@@ -45,7 +45,7 @@ const routes: Routes = [
       ...componentsRoutes,
       ...formRoutes,
       ...inboxRoutes,
-      ...profileRoutes,
+      ...ProfileRoutes,
       ...tablesRoutes,
       ...editorRoutes,
       ...dragAndDropRoutes,

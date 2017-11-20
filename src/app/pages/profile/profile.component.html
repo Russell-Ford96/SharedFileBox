@@ -49,28 +49,21 @@
 
     <div  *ngIf="!showFormBot">
      <vr-profile-bots  [bots]="botsElements"
+
                       (botWasSelected)="onBotSelected($event)"
-                      (newBot)="onNewBot()"
-     ></vr-profile-bots>
+                      (newBot)="onNewBot()">
+    </vr-profile-bots>
      </div>
 
      <div  *ngIf="showFormBot">
-     <vr-create-bot [bot]="botSelected"
-                    (closeForm)="onShowBots($event)" ></vr-create-bot>
+
+       <vr-bots-preview [bot]="botSelected"
+                        (closePreview)="onShowBots($event)">
+       </vr-bots-preview>
+      <!-- <vr-create-bot [bot]="botSelected"
+                    (closeForm)="onShowBots($event)" ></vr-create-bot> -->
      </div>
     </div>
-    <!-- <mat-tab-group class="profile-tabs clean-tabs mat-elevation-z4"
-      [(selectedIndex)] = "tabSelected">
-      <mat-tab label="Bots" >
-        <vr-profile-bots [bots]="botsElements"
-                          (botWasSelected)="onBotSelected($event)"
-        ></vr-profile-bots>
-      </mat-tab>
-      <mat-tab label="Bot Creation" >
-        <vr-create-bot [bot]="botSelected"></vr-create-bot>
-      </mat-tab>
-
-    </mat-tab-group> -->
 
   </div>
 </div>

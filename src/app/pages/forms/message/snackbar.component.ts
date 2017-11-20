@@ -3,7 +3,7 @@ import { MatSnackBar } from '@angular/material';
 
 @Component({
   selector: 'message-sent-snackbar',
-  templateUrl: './snackbar.component.html',
+  template: ``,
 })
 
 export class SnackbarComponent implements OnInit{
@@ -20,3 +20,10 @@ export class SnackbarComponent implements OnInit{
     });
   }
 }
+
+@Component({
+  selector:'message-send-snack',
+  template:``,
+  styles: [``],
+})
+export class MessageSentSnack{}

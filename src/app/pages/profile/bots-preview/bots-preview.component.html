@@ -1,0 +1,134 @@
+<div class="project-details">
+  <!-- <div class="container"> -->
+  <div class="header" fxLayout="row" fxLayoutAlign="space-between center">
+    <div class="name">Bots</div>
+
+    <div class="actions" fxLayout="row">
+
+      <mat-icon aria-label="Close" (click)="onClose()" style="cursor: pointer;">highlight_off</mat-icon>
+
+    </div>
+  </div>
+
+  <div fxLayout="column" fxLayoutGap="16px" fxLayoutGap.gt-md="24px">
+    <div class="splash" fxLayout="column" fxLayout.gt-sm="row">
+
+
+      <div class="phone-simulator" fxLayout="column" fxFlex.gt-xs="220px" fxFlex.gt-sm="360px">
+
+        <section data-scrollbar>
+          <app-bot-simulator [(bot)]="bot" [(reloadSimulator)]="reloadSimulator"></app-bot-simulator>
+        </section>
+
+
+
+      </div>
+
+      <div class="right" fxFlex="auto" fxFlex.gt-sm fxLayout="column" fxLayoutAlign.gt-sm="space-between">
+        <mat-tab-group>
+          <mat-tab label="Details" *ngIf="!isNewBot()">
+            <br>
+            <div class="splash-title">{{ bot.name }}</div>
+            <div class="details" fxLayout="column" fxLayout.gt-sm="row" fxLayoutAlign.gt-sm="space-between" fxLayoutGap="16px" fxLayoutGap.gt-md="24px">
+              <div class="detail">
+                <div class="name">Url</div>
+                <div class="value">{{ bot.url }}</div>
+              </div>
+
+
+              <div class="detail">
+                <div class="name">Items</div>
+                <div class="value">
+                  <mat-chip-list>
+                    <mat-chip *ngFor="let item of bot.itemArray">{{ item.name }}</mat-chip>
+                  </mat-chip-list>
+                </div>
+              </div>
+
+              <div class="detail">
+                <div class="name">Members</div>
+                <div class="value" fxLayout="row">
+                  <div class="member" *ngFor="let member of [1,2,3]">
+                    <img matTooltip="Lina Miller" [src]="'assets/img/demo/avatars/' + member + '.png'">
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="divider reverse"></div>
+
+            <div class="right-bottom">
+              <div class="description-title">Project Description</div>
+              <div class="description">
+
+
+                The first one (constructor) is related to the class instantiation and has nothing to do with Angular2. I mean a constructor can be used on any class. You can put in it some initialization processing for the newly created instance.
+                <!-- <vr-create-bot [bot]="botSelected"
+                                  (closeForm)="onShowBots($event)" ></vr-create-bot> -->
+
+              </div>
+            </div>
+
+
+
+          </mat-tab>
+          <mat-tab label="{{setLabelNewOrEdit()}}">
+            <vr-create-bot [(bot)]="bot"
+                           (botChange)="onBotChange($event)"
+                           ></vr-create-bot>
+          </mat-tab>
+        </mat-tab-group>
+
+
+      </div>
+    </div>
+
+    <div class="progress-cards" fxLayout="column" fxLayout.gt-sm="row" fxLayoutGap="16px" fxLayoutGap.gt-md="24px">
+      <div class="progress-card" fxLayout="row" fxFlex="auto" fxFlex.gt-sm>
+        <div class="circle" fxFlex="auto" fxFlex.gt-sm>
+          <mat-progress-spinner mode="determinate" value="78"></mat-progress-spinner>
+        </div>
+        <div class="progress-details" fxLayout="column">
+          <div class="value" fxFlexAlign="end">6 Days</div>
+          <div class="description" fxFlexAlign="end">Remaining until deadline</div>
+          <div fxLayout="row" fxLayoutAlign="end" fxFlex="auto" fxFlexAlign="end">
+            <button class="arrow" type="button" mat-icon-button fxFlexAlign="end">
+            <mat-icon>arrow_forward</mat-icon>
+          </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="progress-card" fxLayout="row" fxFlex="auto" fxFlex.gt-sm>
+        <div class="circle" fxFlex="auto" fxFlex.gt-sm>
+          <mat-progress-spinner color="accent" mode="determinate" value="71"></mat-progress-spinner>
+        </div>
+        <div class="progress-details" fxLayout="column">
+          <div class="value" fxFlexAlign="end">97 Issues</div>
+          <div class="description" fxFlexAlign="end">Remaining till audit</div>
+          <div fxLayout="row" fxLayoutAlign="end" fxFlex="auto" fxFlexAlign="end">
+            <button class="arrow" type="button" mat-icon-button fxFlexAlign="end">
+            <mat-icon>arrow_forward</mat-icon>
+          </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="progress-card" fxLayout="row" fxFlex="auto" fxFlex.gt-sm>
+        <div class="circle" fxFlex="auto" fxFlex.gt-sm>
+          <mat-progress-spinner color="warn" mode="determinate" value="89"></mat-progress-spinner>
+        </div>
+        <div class="progress-details" fxLayout="column">
+          <div class="value" fxFlexAlign="end">2 Tasks</div>
+          <div class="description" fxFlexAlign="end">Left until next milestone</div>
+          <div fxLayout="row" fxLayoutAlign="end" fxFlex="auto" fxFlexAlign="end">
+            <button class="arrow" type="button" mat-icon-button fxFlexAlign="end">
+            <mat-icon>arrow_forward</mat-icon>
+          </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- </div> -->
+</div>

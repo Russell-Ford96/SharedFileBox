@@ -5,7 +5,7 @@ import { DialogDataService } from './dialog-data.service';
 
 @Component({
   selector: 'formdialog',
-  templateUrl: 'form-dialogs.component.html',
+  template: ``,
 })
 
 export class FormDialogsComponent implements OnInit{

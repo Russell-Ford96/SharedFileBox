@@ -24,7 +24,12 @@ export class BotsCreationComponent implements OnInit, OnChanges {
   public msgSent = false;
   public msgErr = false;
    @Input() bot: Bot;
+   @Output() botChange = new EventEmitter<Bot>();
    @Output() closeForm = new EventEmitter<boolean>();
+   // @Output() onLoading = new EventEmitter<boolean>();
+   showProgressBar: boolean;
+
+
 
   requestForm: FormGroup;
   secondFormGroup: FormGroup;
@@ -50,7 +55,10 @@ export class BotsCreationComponent implements OnInit, OnChanges {
 
   layoutColumnOnBoxed = 'row';
 
-
+  setLoading(loading:boolean){
+    //this.onLoading.emit(loading);
+    this.appService.setLoading(loading);
+  }
 
   getType() {
     if (this.item.file) {
@@ -85,6 +93,8 @@ export class BotsCreationComponent implements OnInit, OnChanges {
   ) {
     console.log("############## bot-creation ############");
     console.log(this.bot);
+    this.showProgressBar =  false;
+
   }
 
   openSnackBar(message: string, action: string) {
@@ -92,6 +102,7 @@ export class BotsCreationComponent implements OnInit, OnChanges {
       duration: 1700,
     });
   }
+
 
 
 
@@ -182,17 +193,22 @@ export class BotsCreationComponent implements OnInit, OnChanges {
   }
 
   update(): void {
+    this.showProgressBar = true;
+    this.setLoading(true);
     let formValues = this.requestForm.value;
     formValues.createdBy = this.profile.sub.split("|")[1];
     console.log(formValues);
+    this.bot = formValues;
+    console.log("****** this is the bot updated");
+    console.log(this.bot);
     this.appService.updateBot(this.requestForm.value)
       .then(res => {
         console.log("RESPUESTA DEL BACKEND");
         if (res._body != "false") {
           console.log(res);
           this.openSnackBar("Bot was updated successfully", "Update");
-
-          setTimeout(() => this.closeForm.emit(true), 1000);
+          this.botChange.emit(this.bot);
+          // setTimeout(() => this.closeForm.emit(true), 1000);
 
 
         } else {
@@ -200,11 +216,15 @@ export class BotsCreationComponent implements OnInit, OnChanges {
           this.openSnackBar(res._body, "Update");
 
         }
+        this.showProgressBar = false;
+        this.setLoading(false);
       });
 
   }
 
   save(): void {
+    this.showProgressBar = true;
+    this.setLoading(true);
     let formValues = this.requestForm.value;
     formValues.createdBy = this.profile.sub.split("|")[1];
     console.log(formValues);
@@ -213,26 +233,29 @@ export class BotsCreationComponent implements OnInit, OnChanges {
 
         if (res._body != "false") {
           console.log(res);
+          this.botChange.emit(this.bot);
+          this.openSnackBar("Bot saved", "Save");
+          //this.callParent();
 
-          this.callParent();
-
-          this.msgSent = true;
-          setTimeout(function() {
-            this.msgSent = false;
-            console.log(this.msgSent);
-          }.bind(this), 3000);
+          // this.msgSent = true;
+          // setTimeout(function() {
+          //   this.msgSent = false;
+          //   console.log(this.msgSent);
+          // }.bind(this), 3000);
 
 
         } else {
           console.log(res);
-          this.msgErr = true;
-          setTimeout(function() {
-            this.msgErr = false;
-          }.bind(this), 3000);
+          // this.msgErr = true;
+          // setTimeout(function() {
+          //   this.msgErr = false;
+          // }.bind(this), 3000);
 
         }
+        this.showProgressBar = false;
+        this.setLoading(false);
       });
-      this.openSnackBar("Bot saved", "Save");
+
   }
 
   // buildForm(): void {
