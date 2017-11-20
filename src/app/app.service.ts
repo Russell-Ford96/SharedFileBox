@@ -56,11 +56,10 @@ export class AppService {
 
   }
 
-  getRequestInbox(createdBy: string): Promise<any>{
+
+  getRequestInbox(createdBy: string): Observable<RequestData[]>{
     return this.http.get('api/getinbox/' + createdBy, {headers: this.headers})
-      .toPromise()
-      .then(response =>  response)
-      .catch(this.handleError);
+      .map(response =>  response.json() as RequestData[])
   }
 
   getImage(createdBy: string, refnumb:string, file: string): Promise<any>{

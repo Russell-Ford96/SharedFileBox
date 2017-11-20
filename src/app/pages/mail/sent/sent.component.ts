@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, ElementRef, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {chatDemoData} from "../../chat/chat.demo";
 import * as _ from 'lodash';
 import * as moment from 'moment';
@@ -7,6 +7,8 @@ import Scrollbar from 'smooth-scrollbar';
 import { ROUTE_TRANSITION } from '../../../app.animation';
 import {AppService} from "../../../app.service";
 import {AuthService} from "../../../auth/auth.service";
+import { Observable } from 'rxjs/Rx';
+import {AnonymousSubscription} from "rxjs/Subscription";
 
 @Component({
   selector: 'vr-sent',
@@ -17,6 +19,7 @@ import {AuthService} from "../../../auth/auth.service";
 })
 export class SentComponent implements OnInit, OnDestroy {
 
+  timerSubscription: AnonymousSubscription;
   mainScrollbarElem: any;
   scrollbar: any;
   userid: string;
@@ -32,7 +35,8 @@ export class SentComponent implements OnInit, OnDestroy {
 
   constructor(private cd: ChangeDetectorRef,
               private appService: AppService,
-              private auth: AuthService) { }
+              private auth: AuthService,
+              ) { }
 
   ngOnInit() {
     this.chats = _.sortBy(chatDemoData, 'lastMessageTime').reverse();
@@ -56,9 +60,11 @@ export class SentComponent implements OnInit, OnDestroy {
     this.userid = id;
 
 
-    this.appService.getDocRequests(id).
-    then(results=>{
-      this.theData= JSON.parse(results._body);
+    this.appService.getAllRequestData(id).subscribe(results => {
+
+      this.subscribeToData(this.userid);
+      this.theData= results;
+
 
       this.theData.sort(function compare(a, b) {
         var dateA = +new Date(a.datetime);
@@ -68,13 +74,22 @@ export class SentComponent implements OnInit, OnDestroy {
 
       }).reverse();
 
+
+
       this.activeMsg = this.theData[0];
       //console.log(this.theData);
+
     });
 
 
 
 
+  }
+
+  public subscribeToData(id: string)
+  {
+    this.userid = id;
+    this.timerSubscription = Observable.timer(5000).first().subscribe(() => this.requestByUser(this.userid));
   }
 
   setActiveMsg(item) {

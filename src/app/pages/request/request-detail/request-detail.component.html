@@ -1,3 +1,20 @@
+<style>
+  .line{
+    white-space: nowrap
+  }
+
+
+  .name{
+    font-weight: 700;
+    line-height: 30px;
+  }
+  .value{
+    line-height: 30px;
+  }
+
+
+</style>
+
 <div class="form-elements">
   <vr-page-header [height]="'180px'" background="url(/assets/img/demo/headers/mac-1.png)" [reverse]="true"></vr-page-header>
   <div class="container">
@@ -14,44 +31,47 @@
 
       <div class="content" *ngIf="requestData">
 
-        <table class="table">
+
+
+
+   <table cellspacing="15" style="border-spacing:0 1em; border-collapse: separate">
           <tbody>
           <tr>
-            <td>Reference Number</td>
+            <td class="line">Reference Number </td>
             <td class="refnumb">{{requestData.refnumb}}</td>
           </tr>
           <tr>
-            <td>Email</td>
+            <td>Email </td>
             <td class="email">{{requestData.email}}</td>
           </tr>
           <tr>
-            <td>Phone</td>
+            <td>Phone </td>
             <td>{{requestData.phone}}</td>
           </tr>
           <tr>
-            <td>Short Message</td>
+            <td class="line">Short Message </td>
             <td>{{requestData.shortmessage}}</td>
           </tr>
           <tr>
-            <td>Detailed Message</td>
+            <td class="line">Detailed Message </td>
             <td>{{requestData.detailedmessage}}</td>
           </tr>
           <tr>
-            <td>Documents</td>
+            <td>Documents </td>
             <td>
-              <table class="table" *ngFor="let doc of requestData.docArray">
+              <table *ngFor="let doc of requestData.docArray">
                 <tbody>
                 <tr>
-                  <td>Name</td>
+                  <td>Name  </td>
                   <td>{{doc.name}}</td>
                 </tr>
                   <tr>
-                    <td>URL</td>
+                    <td>URL  </td>
                     <td><a href="{{doc.url}}" target="_blank">{{doc.fileName}}</a></td>
 
                   </tr>
                 <tr>
-                    <td>Date and Time of Upload</td>
+                    <td>Date  </td>
                     <td>{{doc.dateTime}}</td>
                   </tr>
                 </tbody>
@@ -60,7 +80,7 @@
             </td>
           </tr>
           <tr>
-            <td>Thank you Message</td>
+            <td class="line">Thank you Message </td>
             <td>{{requestData.thanks}}</td>
           </tr>
 

@@ -2,6 +2,8 @@ import * as _ from 'lodash';
 import { ROUTE_TRANSITION } from '../../../app.animation';
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { FormArray, FormGroup, FormBuilder, Validators,FormControl } from '@angular/forms';
+import { Observable } from 'rxjs/Rx';
+import {AnonymousSubscription} from "rxjs/Subscription";
 import {AuthService} from '../../../auth/auth.service';
 import {AppService} from '../../../app.service';
 
@@ -22,6 +24,7 @@ import {AppService} from '../../../app.service';
 
 export class InboxComponent implements OnInit{
 
+  timerSubscription: AnonymousSubscription;
   userid: string;
   theData : any;
   activeMsg: any;
@@ -52,17 +55,19 @@ export class InboxComponent implements OnInit{
     this.userid = id;
 
 
-    this.appService.getRequestInbox(id).
-      then(results=> {
-      this.theData = JSON.parse(results._body);
+    this.appService.getRequestInbox(id).subscribe(results => {
+
+      this.subscribeToData(this.userid);
+      this.theData = results;
+
 
         for(let i=0;i<this.theData.length; i++){
         let documentArray= this.theData[i].docArray;
 
         for (let doc of documentArray) {
           if(doc.dateTime){
-            this.theData[i].latestDocTime=doc.dateTime;
-
+              this.theData[i].latestDocTime=+new Date(doc.dateTime);
+              //console.log(this.theData[i].latestDocTime);
           }
         }
 
@@ -74,6 +79,12 @@ export class InboxComponent implements OnInit{
     });
 
 
+  }
+
+  public subscribeToData(id: string)
+  {
+    this.userid = id;
+    this.timerSubscription = Observable.timer(5000).first().subscribe(() => this.userUpload(this.userid));
   }
 
   setActiveMsg(item) {

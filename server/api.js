@@ -189,8 +189,7 @@ router.get('/reqdata/:createdBy', function (req,res) {
       throw err;
     }
     var docRequestCollection = db.collection('docRequest');
-    docRequestCollection.find({ createdBy: req.params.createdBy })
-      .sort({"datetime":-1}).toArray(function (err, results) {
+    docRequestCollection.find({ createdBy: req.params.createdBy }).toArray(function (err, results) {
       if (err) {
         console.log(err);
         return res.status(500).send("There was a problem finding the docrequests.");
@@ -209,18 +208,14 @@ router.get('/getinbox/:createdBy',function (req,res) {
       throw err;
     }
     var docRequestCollection = db.collection('docRequest');
-    docRequestCollection.find(
-      {createdBy: req.params.createdBy,
-        "docArray.attachment":{$exists:true}})
-            .sort({"docArray.dateTime":-1})
-            .toArray(function (err,results) {
-              if (err) {
-                console.log(err);
-                return res.status(500).send("There was a problem finding the docrequests.");
-              }
-              console.log(results);
-              return res.status(200).send(results);
-            });
+    docRequestCollection.find({createdBy: req.params.createdBy,"docArray.attachment":{$exists:true}}).sort({"docArray.dateTime":1}).toArray(function (err,results) {
+      if (err) {
+        console.log(err);
+        return res.status(500).send("There was a problem finding the docrequests.");
+      }
+      //console.log(results);
+      return res.status(200).send(results);
+    });
 
     });
 

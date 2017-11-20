@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { DataSource } from '@angular/cdk/table';
 import { MdPaginator } from '@angular/material';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs/Rx';
 import * as _ from 'lodash';
 import * as moment from 'moment';
 import 'rxjs/add/operator/startWith';
@@ -15,6 +15,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 import { RouterLink } from '@angular/router'
 import {AuthService} from "../../auth/auth.service";
 import { IntervalObservable } from "rxjs/observable/IntervalObservable";
+import {AnonymousSubscription} from "rxjs/Subscription";
 
 @Component({
   selector: 'vr-table-pagination',
@@ -33,8 +34,10 @@ export class RequestComponent implements OnInit {
   @ViewChild(MdPaginator) paginator: MdPaginator;
 
   constructor(private appService: AppService,
+
               private auth: AuthService,
-              private router: Router) {}
+              private router: Router,
+              ) {}
 
   ngOnInit() {
     this.requestDatabase = new RequestDatabase(this.appService, this.auth);
@@ -77,23 +80,25 @@ export class RequestDataSource extends DataSource<RequestData>{
 
 }
 
-export class RequestDatabase{
+export class RequestDatabase {
 
   userid: string;
+  timerSubscription: AnonymousSubscription;
 
   public dataChange: BehaviorSubject<RequestData[]> = new BehaviorSubject<RequestData[]>([]);
-  get data(): RequestData[] { return this.dataChange.value; }
 
-  constructor(
-    private appService: AppService,
-    private auth: AuthService
+  get data(): RequestData[] {
+    return this.dataChange.value;
+  }
 
-  ) {
+  constructor(private appService: AppService,
+              private auth: AuthService,
+             ) {
 
-    if(this.auth.userProfile){
+    if (this.auth.userProfile) {
       this.userid = this.auth.userProfile.sub.split("|")[1];
       this.requestByUser(this.userid);
-    }else{
+    } else {
       this.auth.getProfile((err, profile) => {
         this.userid = profile.sub.split("|")[1];
         this.requestByUser(this.userid);
@@ -103,28 +108,28 @@ export class RequestDatabase{
 
   }
 
-  requestByUser(id: string ){
+  requestByUser(id: string) {
     this.userid = id;
 
 
-    this.appService.getAllRequestData(id).subscribe(data =>{
+    this.appService.getAllRequestData(id).subscribe(data => {
 
+
+      this.subscribeToData(this.userid);
       data.sort(function compare(a, b) {
         var dateA = +new Date(a.datetime);
         var dateB = +new Date(b.datetime);
         return dateA - dateB;
       }).reverse();
 
-
-
       this.dataChange.next(data);
 
-      for(let i=0;i<data.length; i++){
-        let documentArray= data[i].docArray;
-        let requestedDocuments=0;
+      for (let i = 0; i < data.length; i++) {
+        let documentArray = data[i].docArray;
+        let requestedDocuments = 0;
         requestedDocuments = documentArray.length;
         let numReceivedDocs = 0;
-        var checkdocs= false;
+        var checkdocs = false;
 
         for (let doc of documentArray) {
 
@@ -133,18 +138,23 @@ export class RequestDatabase{
           }
 
         }
-        if(requestedDocuments==numReceivedDocs){
+        if (requestedDocuments == numReceivedDocs) {
           checkdocs = true;
         }
 
 
-        data[i].checkdocs= checkdocs;
+        data[i].checkdocs = checkdocs;
 
 
       }
     });
+  }
 
-
-
+  public subscribeToData(id: string)
+  {
+    this.userid = id;
+    this.timerSubscription = Observable.timer(5000).first().subscribe(() => this.requestByUser(this.userid));
   }
 }
+
+
