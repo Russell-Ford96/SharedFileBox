@@ -246,9 +246,17 @@ router.get('/bots', function (req,res) {
 
 
 router.post('/createbot', (req, res) => {
-    console.log("********************* Bot **********************");
+    console.log("********************* New Bot **********************");
     console.log(req.body);
     reqName = req.body.name;
+    // body.name = req.body.name;
+    // body.url = req.body.url;
+    // body.itemArray = req.body.itemArray;
+    // body.createdBy = req.body.createdBy;
+    // body.thanks = req.body.thanks;
+    // body.active = req.body.active;
+    // req.body = body;
+    console.log(req);
   mongodb.MongoClient.connect(uri, function(err, db) {
       if(err){
           console.log(err);
@@ -269,11 +277,22 @@ router.post('/createbot', (req, res) => {
             }
           }
           else{
-            reqBots.insert(req.body, function(err, result) {
+            reqBots.insert({
+                            name: req.body.name, 
+                            url: req.body.url,
+                            itemArray: req.body.itemArray,
+                            createdBy: req.body.createdBy,
+                            thanks: req.body.thanks,
+                            active: req.body.active
+                          }, function(err, result) {
                 if(err)
                     return res.send("An error has occured");
                 else {
                   var id = result.insertedIds[0];
+                  console.log("id");
+                  console.log(id);
+                  //id =  id.split('"').join('');
+                  //console.log(id);
                      return res.send(id);
                     }
             })

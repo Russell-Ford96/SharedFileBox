@@ -91,9 +91,6 @@ export class BotsCreationComponent implements OnInit, OnChanges {
     private cd: ChangeDetectorRef,
     public snackBar: MatSnackBar
   ) {
-    console.log("############## bot-creation ############");
-    console.log(this.bot);
-    this.showProgressBar =  false;
 
   }
 
@@ -109,20 +106,12 @@ export class BotsCreationComponent implements OnInit, OnChanges {
   callParent() {
     // this.closeEvent.next();
   }
-  saveBot(botName: HTMLInputElement){
-
-  }
 
   onSubmit() {
-    console.log("************** OnSubmit **************")
     this.submitted = true;
-
-
     if(this.bot._id != ''){
-      console.log("********** Upload **********");
      this.update();
     }else{
-      console.log("********** save **********")
      this.save();
     }
 
@@ -130,7 +119,9 @@ export class BotsCreationComponent implements OnInit, OnChanges {
   }
 
   buildForm(bot:Bot): void {
+    console.log("buildForm");
     console.log(bot);
+    // if(bot._id){}
     this.requestForm = this.fb.group({
       'name': [bot.name, [
         Validators.required
@@ -147,22 +138,23 @@ export class BotsCreationComponent implements OnInit, OnChanges {
       ],
       'active': [bot.active, []],
       '_id':[bot._id,[]]
-
     });
+
     this.requestForm.valueChanges
       .subscribe(data => this.onValueChanged(data));
     this.onValueChanged(); // (re)set validation messages now
   }
 
   ngOnChanges(){
-    console.log("------------ ngOnChanges --------------");
-    console.log(this.bot);
 
-    this.buildForm(this.bot);
+//    this.buildForm(this.bot);
 
   }
 
   ngOnInit(): void {
+    //this.buildForm(this.bot);
+
+
     this.secondFormGroup = this.fb.group({
       secondCtrl: ['', Validators.required]
     });
@@ -197,22 +189,15 @@ export class BotsCreationComponent implements OnInit, OnChanges {
     this.setLoading(true);
     let formValues = this.requestForm.value;
     formValues.createdBy = this.profile.sub.split("|")[1];
-    console.log(formValues);
     this.bot = formValues;
-    console.log("****** this is the bot updated");
-    console.log(this.bot);
     this.appService.updateBot(this.requestForm.value)
       .then(res => {
-        console.log("RESPUESTA DEL BACKEND");
         if (res._body != "false") {
-          console.log(res);
           this.openSnackBar("Bot was updated successfully", "Update");
           this.botChange.emit(this.bot);
-          // setTimeout(() => this.closeForm.emit(true), 1000);
-
 
         } else {
-          console.log(res);
+
           this.openSnackBar(res._body, "Update");
 
         }
@@ -223,63 +208,33 @@ export class BotsCreationComponent implements OnInit, OnChanges {
   }
 
   save(): void {
-    this.showProgressBar = true;
     this.setLoading(true);
     let formValues = this.requestForm.value;
-    formValues.createdBy = this.profile.sub.split("|")[1];
     console.log(formValues);
+    formValues.createdBy = this.profile.sub.split("|")[1];
     this.appService.createBot(this.requestForm.value)
       .then(res => {
 
         if (res._body != "false") {
-          console.log(res);
+
+          this.requestForm.value._id = res._body.split('"').join('');
+          this.bot = this.requestForm.value;
+          console.log(this.bot);
           this.botChange.emit(this.bot);
+
           this.openSnackBar("Bot saved", "Save");
-          //this.callParent();
 
-          // this.msgSent = true;
-          // setTimeout(function() {
-          //   this.msgSent = false;
-          //   console.log(this.msgSent);
-          // }.bind(this), 3000);
-
+          this.buildForm(this.bot);
+          this.botChange.emit(this.bot);
 
         } else {
           console.log(res);
-          // this.msgErr = true;
-          // setTimeout(function() {
-          //   this.msgErr = false;
-          // }.bind(this), 3000);
-
         }
         this.showProgressBar = false;
         this.setLoading(false);
       });
 
   }
-
-  // buildForm(): void {
-  //   this.requestForm = this.fb.group({
-  //     'name': ['', [
-  //       Validators.required
-  //     ]
-  //     ],
-  //     'url': ['', [
-  //       Validators.required
-  //     ]
-  //     ],
-  //     itemArray: this.fb.array([]),
-  //     'thanks': ['', [
-  //       Validators.required
-  //     ]
-  //     ],
-  //     'active': [true, []]
-  //
-  //   });
-  //   this.requestForm.valueChanges
-  //     .subscribe(data => this.onValueChanged(data));
-  //   this.onValueChanged(); // (re)set validation messages now
-  // }
 
   initItemField(item: {name: String , file: boolean, position: number }) {
     console.log(item.name);
@@ -300,9 +255,6 @@ export class BotsCreationComponent implements OnInit, OnChanges {
   addInput(): void {
     const arrayControl = <FormArray>this.requestForm.controls['itemArray'];
 
-    console.log("***************** itemArray ********************")
-    console.log(this.requestForm.get('itemArray').value);
-
     this.item.position = (( this.requestForm.get('itemArray').value).length + 1);
 
     arrayControl.push(this.initItemField(this.item));
@@ -316,10 +268,6 @@ export class BotsCreationComponent implements OnInit, OnChanges {
     })
 
     this.clearItem();
-
-    console.log(arraySorted);
-
-    console.log(this.requestForm.get('itemArray').value);
   }
 
   delInput(index: number): void {
