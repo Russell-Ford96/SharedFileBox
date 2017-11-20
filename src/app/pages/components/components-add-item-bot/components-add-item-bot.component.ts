@@ -69,7 +69,8 @@ export class ComponentsAddItemBotComponent implements OnInit {
     };
 
     dragulaService.setOptions('one-bag', {
-      revertOnSpill: true
+      revertOnSpill: true,
+      removeOnSpill: true
     });
     dragulaService.drag.subscribe((value) => {
       this.onDrag(value.slice(1));
@@ -84,6 +85,7 @@ export class ComponentsAddItemBotComponent implements OnInit {
       this.onOut(value.slice(1));
     });
   }
+
 
   ngOnInit() { }
 

@@ -22,9 +22,11 @@ const DIR = './server/uploads/';
 var multer = require('multer');
 
 //upload with streams//
-var storage =  multer.memoryStorage();
-var upload = multer({ storage: storage });
-var streamifier = require('streamifier');  //npm install streamifier
+var storage = multer.memoryStorage();
+var upload = multer({
+  storage: storage
+});
+var streamifier = require('streamifier'); //npm install streamifier
 
 
 
@@ -40,22 +42,22 @@ var client = require('twilio')(ACCOUNT_SID, AUTH_TOKEN);
 
 
 router.get('/getimage/:createdBy/:refnumb/:file', function(req, res) {
-    var fileName =req.params.refnumb +'/'+ req.params.file;
-    var containerName= req.params.createdBy;
-    blobSvc.getBlobProperties(
-        containerName,
-        fileName,
-        function(err, properties, status) {
-            if (err) {
-                console.log(err.message);
-                res.send(502, "Error fetching file: %s", err.message);
-            } else if (!status.isSuccessful) {
-                res.send(404, "The file %s does not exist", fileName);
-            } else {
-                res.header('Content-Type', properties.contentType);
-                blobSvc.createReadStream(containerName, fileName).pipe(res);
-            }
-        });
+  var fileName = req.params.refnumb + '/' + req.params.file;
+  var containerName = req.params.createdBy;
+  blobSvc.getBlobProperties(
+    containerName,
+    fileName,
+    function(err, properties, status) {
+      if (err) {
+        console.log(err.message);
+        res.send(502, "Error fetching file: %s", err.message);
+      } else if (!status.isSuccessful) {
+        res.send(404, "The file %s does not exist", fileName);
+      } else {
+        res.header('Content-Type', properties.contentType);
+        blobSvc.createReadStream(containerName, fileName).pipe(res);
+      }
+    });
 });
 
 /*
@@ -85,34 +87,36 @@ router.get('/getimage/:createdBy/:refnumb/:file', function(req, res) {
 
 
 router.get('/getdoc/:id', (req, res) => {
-        mongodb.MongoClient.connect(uri, function(err, db) {
-            if(err){
-                console.log(err);
-                return res.status(500).send("Error connecting to db");
-            }
+  mongodb.MongoClient.connect(uri, function(err, db) {
+    if (err) {
+      console.log(err);
+      return res.status(500).send("Error connecting to db");
+    }
 
-            //create a new mongo ID using the supplied ID
-            var o_id = new mongodb.ObjectID(req.params.id);
+    //create a new mongo ID using the supplied ID
+    var o_id = new mongodb.ObjectID(req.params.id);
 
-            var docRequestCollection = db.collection('docRequest');
-            docRequestCollection.findOne({ _id: o_id }, function(err, result) {
-                if (err) {
-                 console.log(err);
-                }
-                db.close();
-                if(result != undefined)
-                    return res.send(result);
-                else
-                    return res.status(404).send("request not found");
-            });
-        });
+    var docRequestCollection = db.collection('docRequest');
+    docRequestCollection.findOne({
+      _id: o_id
+    }, function(err, result) {
+      if (err) {
+        console.log(err);
+      }
+      db.close();
+      if (result != undefined)
+        return res.send(result);
+      else
+        return res.status(404).send("request not found");
+    });
+  });
 });
 
 
 
 //upload
-router.post('/upload', upload.single('single'),function(req, res, next){
-    console.log('-----file---', req.body)
+router.post('/upload', upload.single('single'), function(req, res, next) {
+  console.log('-----file---', req.body)
 
   var stream = streamifier.createReadStream(req.file.buffer)
   const fullAzurePath = req.body._refnumb + '/' + req.file.filename;
@@ -120,66 +124,74 @@ router.post('/upload', upload.single('single'),function(req, res, next){
 
   console.log('stream----->', stream)
 
-      blobSvc.createBlockBlobFromStream(
-          containerName,
-          fullAzurePath,
-          stream,
-          req.file.size,
-          function(err, result, response){
-            if(err){
-              console.log('couldnt upload stream');
-              console.log('error**', err);
-              return res.status(500).send("broken");
+  blobSvc.createBlockBlobFromStream(
+    containerName,
+    fullAzurePath,
+    stream,
+    req.file.size,
+    function(err, result, response) {
+      if (err) {
+        console.log('couldnt upload stream');
+        console.log('error**', err);
+        return res.status(500).send("broken");
+      } else {
+        //mongo
+        mongodb.MongoClient.connect(uri, function(err, db) {
+          if (err) {
+            console.log(err);
+          }
+          //create a new mongo ID using the supplied ID ??
+          var o_id = new mongodb.ObjectID(req.body._id);
+          var index = req.body.index;
+          var today = new Date();
+
+          var existingRecord = db.collection('docRequest').findOne({
+            _id: o_id
+          }, function(err, result) {
+            if (err) console.log(err);
+
+            if (result == null) {
+              return res.status(422).send("an error occured");
             }
-            else{
-              //mongo
-              mongodb.MongoClient.connect(uri, function(err, db) {
-                  if(err){
-                      console.log(err);
-                  }
-                  //create a new mongo ID using the supplied ID ??
-                  var o_id = new mongodb.ObjectID(req.body._id);
-                  var index = req.body.index;
-                  var today= new Date();
+            result.docArray[index].attachment = fullAzurePath;
+            result.docArray[index].fileName = req.file.filename;
+            result.docArray[index].docName = req.body._namedoc;
+            result.docArray[index].dateTime = today.getFullYear() + '/' + (today.getMonth() + 1) + '/' + today.getDate() +
+              ' ' + today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+            db.collection("docRequest").updateOne({
+              _id: o_id
+            }, result, function(err, res) {
+              if (err) console.log(err);
+              console.log("1 document updated");
+              db.close();
+            });
+            db.close();
+          });
 
-                  var existingRecord = db.collection('docRequest').findOne({ _id: o_id }, function(err, result) {
-                      if (err) console.log(err);
-
-                      if(result == null) {
-                          return res.status(422).send("an error occured");
-                      }
-                      result.docArray[index].attachment = fullAzurePath;
-                      result.docArray[index].fileName = req.file.filename;
-                      result.docArray[index].docName = req.body._namedoc;
-                      result.docArray[index].dateTime= today.getFullYear()+'/'+(today.getMonth()+1)+'/'+today.getDate()
-                        +' '+today.getHours()+":" +today.getMinutes() + ":" + today.getSeconds();
-                      db.collection("docRequest").updateOne({ _id: o_id }, result, function(err, res) {
-                          if (err) console.log(err);
-                          console.log("1 document updated");
-                          db.close();
-                      });
-                      db.close();
-                  });
-
-                      return res.send(fullAzurePath);
-              });
-              console.log('stream uploaded successfully');
-              req.model.data = response;
-              next();
-            }
+          return res.send(fullAzurePath);
         });
+        console.log('stream uploaded successfully');
+        req.model.data = response;
+        next();
+      }
+    });
 });
 
 
 
-router.get('/getreq/:pageID',function (req,res) {
-  mongodb.MongoClient.connect(uri, function (err, db) {
+router.get('/getreq/:pageID', function(req, res) {
+  mongodb.MongoClient.connect(uri, function(err, db) {
     if (err) {
       throw err;
     }
     var docRequestCollection = db.collection('docRequest');
 
-    docRequestCollection.find({ createdBy: req.params.createdBy },{ "limit": 8, "skip": 8 * req.params.pageID  }).toArray( function (err, results) {
+    docRequestCollection.find({
+      createdBy: req.params.createdBy
+    }, {
+      "limit": 8,
+      "skip": 8 * req.params.pageID
+    }).toArray(function(err, results) {
       if (err) {
         console.log(err);
         return res.status(500).send("There was a problem finding the docrequests.");
@@ -191,13 +203,15 @@ router.get('/getreq/:pageID',function (req,res) {
 });
 
 
-router.get('/reqdata/:createdBy', function (req,res) {
-  mongodb.MongoClient.connect(uri, function (err, db) {
+router.get('/reqdata/:createdBy', function(req, res) {
+  mongodb.MongoClient.connect(uri, function(err, db) {
     if (err) {
       throw err;
     }
     var docRequestCollection = db.collection('docRequest');
-    docRequestCollection.find({ createdBy: req.params.createdBy }).toArray(function (err, results) {
+    docRequestCollection.find({
+      createdBy: req.params.createdBy
+    }).toArray(function(err, results) {
       if (err) {
         console.log(err);
         return res.status(500).send("There was a problem finding the docrequests.");
@@ -208,13 +222,15 @@ router.get('/reqdata/:createdBy', function (req,res) {
   });
 });
 
-router.get('/request/detail/:refNumb',function (req,res) {
-  mongodb.MongoClient.connect(uri, function (err, db) {
+router.get('/request/detail/:refNumb', function(req, res) {
+  mongodb.MongoClient.connect(uri, function(err, db) {
     if (err) {
       throw err;
     }
     var docRequestCollection = db.collection('docRequest');
-    docRequestCollection.findOne({refnumb: req.params.refNumb},function (err, results) {
+    docRequestCollection.findOne({
+      refnumb: req.params.refNumb
+    }, function(err, results) {
       if (err) {
         console.log(err);
         return res.status(500).send("There was a problem finding the request.");
@@ -226,14 +242,14 @@ router.get('/request/detail/:refNumb',function (req,res) {
 });
 
 
-router.get('/bots', function (req,res) {
+router.get('/bots', function(req, res) {
   console.log("++++++++++++++++++ bots +++++++++++++++++++++++");
-  mongodb.MongoClient.connect(uri, function (err, db) {
+  mongodb.MongoClient.connect(uri, function(err, db) {
     if (err) {
       throw err;
     }
     var botCollection = db.collection('bot');
-    botCollection.find().toArray(function (err, results) {
+    botCollection.find().toArray(function(err, results) {
       if (err) {
         console.log(err);
         return res.status(500).send("There was a problem finding all bot.");
@@ -246,131 +262,117 @@ router.get('/bots', function (req,res) {
 
 
 router.post('/createbot', (req, res) => {
-    console.log("********************* New Bot **********************");
-    console.log(req.body);
-    reqName = req.body.name;
-    // body.name = req.body.name;
-    // body.url = req.body.url;
-    // body.itemArray = req.body.itemArray;
-    // body.createdBy = req.body.createdBy;
-    // body.thanks = req.body.thanks;
-    // body.active = req.body.active;
-    // req.body = body;
-    console.log(req);
+  reqName = req.body.name;
   mongodb.MongoClient.connect(uri, function(err, db) {
-      if(err){
-          console.log(err);
-      }
-      var reqBots = db.collection('bot');
+    if (err) {
+      console.log(err);
+    }
+    var reqBots = db.collection('bot');
 
-      var existingName = reqBots.findOne({ name: reqName },
-          function(err, result) {
-          if (err){
-              console.log(err);
+    var existingName = reqBots.findOne({
+        name: reqName
+      },
+      function(err, result) {
+        if (err) {
+          console.log(err);
+        }
+        if (result != null) {
+          if (result.name != null) {
+            return res.send("Invalid Name.");
           }
-          if(result != null){
-          //validate name
-            console.log("*********** RESULT **********");
-            console.log(result);
-            if(result.name != null ) {
-              return res.send("Invalid Name.");
+        } else {
+          reqBots.insert({
+            name: req.body.name,
+            url: req.body.url,
+            itemArray: req.body.itemArray,
+            createdBy: req.body.createdBy,
+            thanks: req.body.thanks,
+            active: req.body.active
+          }, function(err, result) {
+            if (err)
+              return res.send("An error has occured");
+            else {
+              var id = result.insertedIds[0];
+              return res.send(id);
             }
-          }
-          else{
-            reqBots.insert({
-                            name: req.body.name, 
-                            url: req.body.url,
-                            itemArray: req.body.itemArray,
-                            createdBy: req.body.createdBy,
-                            thanks: req.body.thanks,
-                            active: req.body.active
-                          }, function(err, result) {
-                if(err)
-                    return res.send("An error has occured");
-                else {
-                  var id = result.insertedIds[0];
-                  console.log("id");
-                  console.log(id);
-                  //id =  id.split('"').join('');
-                  //console.log(id);
-                     return res.send(id);
-                    }
-            })
-            db.close();
-          }
+          })
+          db.close();
+        }
       });
   })
 })
 
 router.post('/updatebot', (req, res) => {
-    console.log("********************* API Update Bot **********************");
-    console.log(req.body);
-    //var reqId = req.body._id;
-    var o_id = new mongodb.ObjectID(req.body._id);
-    var reqName = req.body.name;
-    var reqUrl = req.body.url;
-    var reqItemArray = req.body.itemArray;
-    var reqCreatedBy = req.body.createdBy;
-    var reqThanks = req.body.thanks;
-    var reqActive = req.body.active;
+  console.log("********************* API Update Bot **********************");
+  console.log(req.body);
+  //var reqId = req.body._id;
+  var o_id = new mongodb.ObjectID(req.body._id);
+  var reqName = req.body.name;
+  var reqUrl = req.body.url;
+  var reqItemArray = req.body.itemArray;
+  var reqCreatedBy = req.body.createdBy;
+  var reqThanks = req.body.thanks;
+  var reqActive = req.body.active;
 
   mongodb.MongoClient.connect(uri, function(err, db) {
-      if(err){
-          console.log(err);
-      }
-      var reqBots = db.collection('bot');
+    if (err) {
+      console.log(err);
+    }
+    var reqBots = db.collection('bot');
 
-      var existingName = reqBots.update(
-        { _id: o_id },
-        {$set:{
+    var existingName = reqBots.update({
+      _id: o_id
+    }, {
+      $set: {
         name: reqName,
         url: reqUrl,
         itemArray: reqItemArray,
         createdBy: reqCreatedBy,
         thanks: reqThanks,
         active: reqActive
-        }
-      },function (err, results) {
-        if (err) {
-          console.log(err);
-          return res.status(500).send("There was a problem finding the docrequests.");
-        }
-        //console.log(results);
-        return res.status(200).send(results);
       }
-      );
+    }, function(err, results) {
+      if (err) {
+        console.log(err);
+        return res.status(500).send("There was a problem finding the docrequests.");
+      }
+      //console.log(results);
+      return res.status(200).send(results);
+    });
   })
 })
 
 //nodemailer email
-router.post('/email',(req,res)=> {
+router.post('/email', (req, res) => {
 
-  var toEmail= req.body.toemail;
-  var fromEmail= "chatbot.analytics@gmail.com";
+  var toEmail = req.body.toemail;
+  var fromEmail = "chatbot.analytics@gmail.com";
   var reqReferenceNum = req.body.refnumb;
-  var subject= req.body.subject;
-  var body= req.body.body;
+  var subject = req.body.subject;
+  var body = req.body.body;
 
 
   mongodb.MongoClient.connect(uri, function(err, db) {
-    if(err){
+    if (err) {
       console.log(err);
       return res.status(500).send("Error connecting to db");
     }
 
     var docRequestCollection = db.collection('docRequest');
-    docRequestCollection.findOne({ refnumb : reqReferenceNum }, function(err, result) {
+    docRequestCollection.findOne({
+      refnumb: reqReferenceNum
+    }, function(err, result) {
       if (err) {
         console.log(err);
       }
 
-      if(result != undefined){
-        var urlID= result._id;
+      if (result != undefined) {
+        var urlID = result._id;
         console.log("result is " + result._id);
 
         var transporter = nodemailer.createTransport({
           service: 'gmail',
-          host:'smtp.gmail.com',
+          host: 'smtp.gmail.com',
           port: 465,
           secure: true,
           auth: {
@@ -384,27 +386,25 @@ router.post('/email',(req,res)=> {
           to: toEmail, // list of receivers
           subject: subject, // Subject line
           //html: '<p>Hello</p>',// plain text body
-          text: body + "\n"+ "http://localhost:5000/upload/"+ urlID
+          text: body + "\n" + "http://localhost:5000/upload/" + urlID
         };
 
-        transporter.sendMail(mailOptions, function (err, info) {
-          if(err){
+        transporter.sendMail(mailOptions, function(err, info) {
+          if (err) {
             console.log(err);
-          }
-          else{
+          } else {
             console.log(info);
             // return res.send(info);
 
           }
         });
         //return res.send(result);
-      }
-      else{
+      } else {
         return res.status(404).send("request not found");
       }
     });
     db.close();
-    });
+  });
 
 });
 
@@ -413,75 +413,75 @@ router.post('/email',(req,res)=> {
 
 
 router.post('/create', (req, res) => {
-    var toNumber = req.body.phone;
-    var ourNumber = "+12016883122";
-    var shortMessage = req.body.shortmessage;
-    var detailedMessage = req.body.detailedmessage;
-    var success = true;
-    var reqReferenceNum = req.body.refnumb;
+  var toNumber = req.body.phone;
+  var ourNumber = "+12016883122";
+  var shortMessage = req.body.shortmessage;
+  var detailedMessage = req.body.detailedmessage;
+  var success = true;
+  var reqReferenceNum = req.body.refnumb;
 
 
-    //validate refnumb
-    var isnum = /[0-9]/;
-    var isletter = /[a-zA-Z]/;
-    var validref = isnum.test(reqReferenceNum) && isletter.test(reqReferenceNum)
-    if(!validref || reqReferenceNum.length < 7){
-        return res.send("Invalid reference number")
+  //validate refnumb
+  var isnum = /[0-9]/;
+  var isletter = /[a-zA-Z]/;
+  var validref = isnum.test(reqReferenceNum) && isletter.test(reqReferenceNum)
+  if (!validref || reqReferenceNum.length < 7) {
+    return res.send("Invalid reference number")
+  }
+  //validate email
+  var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+  if (!(re.test(req.body.email))) {
+    return res.send("Invalid email")
+  }
+
+  mongodb.MongoClient.connect(uri, function(err, db) {
+    if (err) {
+      console.log(err);
     }
-    //validate email
-    var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-    if(!(re.test(req.body.email))){
-         return res.send("Invalid email")
-    }
+    var reqDocs = db.collection('docRequest');
 
-    mongodb.MongoClient.connect(uri, function(err, db) {
-        if(err){
-            console.log(err);
-        }
-        var reqDocs = db.collection('docRequest');
-
-        var existingRef = reqDocs.findOne({ refnumb: reqReferenceNum }, function(err, result) {
-            if (err){
+    var existingRef = reqDocs.findOne({
+      refnumb: reqReferenceNum
+    }, function(err, result) {
+      if (err) {
+        console.log(err);
+      } else {
+        reqDocs.insert(req.body, function(err, result) {
+          if (err)
+            return res.send("An error has occured");
+          else {
+            var id = result.insertedIds[0];
+            client.messages.create({
+              to: toNumber,
+              from: ourNumber,
+              body: detailedMessage
+            }, function(err, message) {
+              if (err) {
+                console.log(err)
+              }
+            });
+            client.messages.create({
+              to: toNumber,
+              from: ourNumber,
+              body: "https://sharedfilebox.azurewebsites.net/upload/" + id
+            }, function(err, message) {
+              if (err) {
                 console.log(err);
-            }
-            else{
-              reqDocs.insert(req.body, function(err, result) {
-                  if(err)
-                      return res.send("An error has occured");
-                  else {
-                    var id = result.insertedIds[0];
-                    client.messages.create({
-                      to: toNumber,
-                      from: ourNumber,
-                      body: detailedMessage
-                    }, function(err, message) {
-                        if(err){
-                          console.log(err)
-                        }
-                    });
-                    client.messages.create({
-                      to: toNumber,
-                      from: ourNumber,
-                      body: "https://sharedfilebox.azurewebsites.net/upload/" + id
-                      }, function(err, message) {
-                              if(err) {
-                                console.log(err);
-                                if(err.code == 21211){
-                                   res.send(err.message)
-                                }
-                              }
-                              else if(err == null){
-                                res.send(id)
-                              }
-                              console.log('*****message', message)
-                          });
-                      }
-              })
-              db.close();
-            }
-        });
+                if (err.code == 21211) {
+                  res.send(err.message)
+                }
+              } else if (err == null) {
+                res.send(id)
+              }
+              console.log('*****message', message)
+            });
+          }
+        })
+        db.close();
+      }
+    });
 
-    })
+  })
 })
 
 module.exports = router;
