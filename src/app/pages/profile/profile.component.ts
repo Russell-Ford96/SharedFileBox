@@ -5,6 +5,7 @@ import { ROUTE_TRANSITION } from '../../app.animation';
 import { AuthService } from "../../auth/auth.service";
 import { AppService } from '../../app.service';
 import { Bot } from './bot.model';
+import { OriginConnectionPosition, Overlay, OverlayConnectionPosition, OverlayRef} from "@angular/cdk/overlay";
 
 @Component({
   selector: 'vr-profile',
@@ -21,15 +22,23 @@ export class ProfileComponent implements OnInit {
   picture:string;
   botSelected: Bot;
   botsElements: Bot[];
+  public loadingOn = false;
+
+
+
 
 
   constructor(
     private auth: AuthService,
     private appService: AppService,
     private route: ActivatedRoute,
-    private cdr:ChangeDetectorRef
+    private cdr:ChangeDetectorRef,
+    public overlay: Overlay
   ) {
 
+    const overlayRef = overlay.create();
+    //const userProfilePortal = new ComponentPortal(BotsCreationComponent);
+    //overlayRef.attach('Hola mundo');
 
     //this.getAllBots();
     this.tabSelected = 0;
@@ -42,6 +51,10 @@ export class ProfileComponent implements OnInit {
       this.name= this.auth.userProfile.nickname;
     }
 
+  }
+
+  isloading(loading:boolean){
+    this.loadingOn = loading;
   }
 
   onShowBots(){

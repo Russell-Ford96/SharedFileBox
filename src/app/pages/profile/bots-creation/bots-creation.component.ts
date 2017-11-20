@@ -26,7 +26,10 @@ export class BotsCreationComponent implements OnInit, OnChanges {
    @Input() bot: Bot;
    @Output() botChange = new EventEmitter<Bot>();
    @Output() closeForm = new EventEmitter<boolean>();
+   @Output() onLoading = new EventEmitter<boolean>();
    showProgressBar: boolean;
+
+
 
   requestForm: FormGroup;
   secondFormGroup: FormGroup;
@@ -52,7 +55,9 @@ export class BotsCreationComponent implements OnInit, OnChanges {
 
   layoutColumnOnBoxed = 'row';
 
-
+  isLoading(loading:boolean){
+    this.onLoading.emit(loading);
+  }
 
   getType() {
     if (this.item.file) {
@@ -88,6 +93,7 @@ export class BotsCreationComponent implements OnInit, OnChanges {
     console.log("############## bot-creation ############");
     console.log(this.bot);
     this.showProgressBar =  false;
+
   }
 
   openSnackBar(message: string, action: string) {
@@ -95,6 +101,7 @@ export class BotsCreationComponent implements OnInit, OnChanges {
       duration: 1700,
     });
   }
+
 
 
 
@@ -109,7 +116,7 @@ export class BotsCreationComponent implements OnInit, OnChanges {
     console.log("************** OnSubmit **************")
     this.submitted = true;
 
-    
+
     if(this.bot._id != ''){
       console.log("********** Upload **********");
      this.update();
@@ -186,6 +193,7 @@ export class BotsCreationComponent implements OnInit, OnChanges {
 
   update(): void {
     this.showProgressBar = true;
+    this.isLoading(true);
     let formValues = this.requestForm.value;
     formValues.createdBy = this.profile.sub.split("|")[1];
     console.log(formValues);
@@ -208,12 +216,14 @@ export class BotsCreationComponent implements OnInit, OnChanges {
 
         }
         this.showProgressBar = false;
+        this.isLoading(false);
       });
 
   }
 
   save(): void {
     this.showProgressBar = true;
+    this.isLoading(true);
     let formValues = this.requestForm.value;
     formValues.createdBy = this.profile.sub.split("|")[1];
     console.log(formValues);
@@ -242,6 +252,7 @@ export class BotsCreationComponent implements OnInit, OnChanges {
 
         }
         this.showProgressBar = false;
+        this.isLoading(false);
       });
 
   }

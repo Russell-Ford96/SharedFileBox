@@ -60,6 +60,8 @@
             <div class="right-bottom">
               <div class="description-title">Project Description</div>
               <div class="description">
+
+              
                 The first one (constructor) is related to the class instantiation and has nothing to do with Angular2. I mean a constructor can be used on any class. You can put in it some initialization processing for the newly created instance.
                 <!-- <vr-create-bot [bot]="botSelected"
                                   (closeForm)="onShowBots($event)" ></vr-create-bot> -->
@@ -71,7 +73,9 @@
 
           </mat-tab>
           <mat-tab label="Edit Bot">
-            <vr-create-bot [(bot)]="bot" (botChange)="onBotChange($event)"></vr-create-bot>
+            <vr-create-bot [(bot)]="bot"
+                           (botChange)="onBotChange($event)"
+                           (onLoading)="isLoading($event)"></vr-create-bot>
           </mat-tab>
         </mat-tab-group>
 

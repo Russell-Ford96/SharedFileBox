@@ -18,6 +18,7 @@ import { BotsCreationComponent } from "./bots-creation/bots-creation.component";
 import { ComponentsAddItemBotModule } from '../components/components-add-item-bot/components-add-item-bot.module';
 import { BotsPreviewComponent } from './bots-preview/bots-preview.component';
 import { ProfileRoutes } from './profile.routing';
+import { LoadingModule, ANIMATION_TYPES } from 'ngx-loading';
 
 
 @NgModule({
@@ -25,14 +26,29 @@ import { ProfileRoutes } from './profile.routing';
     CommonModule,
     FlexLayoutModule,
     PageHeaderModule,
-    MatButtonModule, MatCheckboxModule, MatDatepickerModule, MatIconModule, MatInputModule, MatNativeDateModule, MatRadioModule, MatSelectModule, MatSliderModule, MatSlideToggleModule, MatTabsModule,MatExpansionModule,
-    MatTooltipModule, MatChipsModule,MatGridListModule,
-    MatStepperModule,MatSnackBarModule,MatProgressSpinnerModule,MatProgressBarModule,
+    LoadingModule.forRoot({
+        animationType: ANIMATION_TYPES.threeBounce,
+        //animationType: ANIMATION_TYPES.wanderingCubes,
+        //animationType: ANIMATION_TYPES.rotatingPlane,
+        //animationType: ANIMATION_TYPES.rectangleBounce,
+        backdropBackgroundColour: 'rgba(0,0,0,0.1)',
+        backdropBorderRadius: '4px',
+        primaryColour: '#ffffff',
+        secondaryColour: '#ffffff',
+        tertiaryColour: '#ffffff'
+    }),
     FormsModule,
     ReactiveFormsModule,
     BreadcrumbsModule,
+    RouterModule.forRoot(ProfileRoutes),
     ComponentsAddItemBotModule,
-    RouterModule.forRoot(ProfileRoutes)
+
+    //Material Design
+    MatButtonModule,
+    MatCheckboxModule, MatDatepickerModule, MatIconModule, MatInputModule, MatNativeDateModule, MatRadioModule, MatSelectModule, MatSliderModule, MatSlideToggleModule, MatTabsModule,MatExpansionModule,
+    MatTooltipModule, MatChipsModule,MatGridListModule,
+    MatStepperModule,MatSnackBarModule,MatProgressSpinnerModule,MatProgressBarModule,
+
   ],
   declarations: [
     ProfileComponent,
