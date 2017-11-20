@@ -17,12 +17,10 @@
 
       <td align="left" width="80%" (click)="onEditItem(item)">
        <div class="itembot" >
-
-
+         
         <div *ngIf="item != itemEditing" >
           {{ item.name }}
         </div>
-
 
         <input *ngIf="item == itemEditing" [(ngModel)]="item.name" name="itemname" matInput placeholder="name" type="text" (keydown)="onKeydown($event)" >
       </div>

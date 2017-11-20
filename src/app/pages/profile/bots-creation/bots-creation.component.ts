@@ -131,6 +131,8 @@ export class BotsCreationComponent implements OnInit, OnChanges {
         Validators.required
       ]
       ],
+      'description': [bot.description, []
+      ],
       itemArray: this.fb.array(bot.itemArray),
       'thanks': [bot.thanks, [
         Validators.required

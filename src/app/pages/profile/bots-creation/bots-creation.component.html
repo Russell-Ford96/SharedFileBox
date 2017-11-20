@@ -14,6 +14,11 @@
             <input id="url" name="url" formControlName="url" matInput placeholder="Url" type="text" required>
           </mat-input-container>
 
+          <mat-input-container class="fieldWidth">
+            <textarea matInput id="description" name="description" formControlName="description" placeholder="Description" matTextareaAutosize matAutosizeMinRows="2"
+            matAutosizeMaxRows="12"></textarea>
+          </mat-input-container>
+
           <mat-slide-toggle class="fieldWidth" formControlName="active">Active</mat-slide-toggle>
 
 

@@ -283,6 +283,7 @@ router.post('/createbot', (req, res) => {
         } else {
           reqBots.insert({
             name: req.body.name,
+            description: req.body.description,
             url: req.body.url,
             itemArray: req.body.itemArray,
             createdBy: req.body.createdBy,
@@ -305,9 +306,9 @@ router.post('/createbot', (req, res) => {
 router.post('/updatebot', (req, res) => {
   console.log("********************* API Update Bot **********************");
   console.log(req.body);
-  //var reqId = req.body._id;
   var o_id = new mongodb.ObjectID(req.body._id);
   var reqName = req.body.name;
+  var reqDescription = req.body.description;
   var reqUrl = req.body.url;
   var reqItemArray = req.body.itemArray;
   var reqCreatedBy = req.body.createdBy;
@@ -326,6 +327,7 @@ router.post('/updatebot', (req, res) => {
       $set: {
         name: reqName,
         url: reqUrl,
+        description: reqDescription,
         itemArray: reqItemArray,
         createdBy: reqCreatedBy,
         thanks: reqThanks,
