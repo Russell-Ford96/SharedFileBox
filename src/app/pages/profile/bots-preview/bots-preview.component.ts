@@ -13,7 +13,7 @@ import { Bot } from '../bot.model';
 })
 export class BotsPreviewComponent implements OnInit {
   @Input() bot: Bot;
-  @Output() onLoading = new EventEmitter<boolean>();
+  // @Output() onLoading = new EventEmitter<boolean>();
   @Output() closePreview = new EventEmitter<boolean>();
 
   private reloadSimulator: boolean;
@@ -23,9 +23,12 @@ export class BotsPreviewComponent implements OnInit {
 
   }
 
-  isLoading(loading: boolean){
-    console.log(loading);
-    this.onLoading.emit(loading);
+  isNewBot(){
+    return this.bot._id == '';
+  }
+
+  setLabelNewOrEdit(){
+    return this.bot._id == '' ? 'New ' : 'Edit ';
   }
 
   ngOnInit() {

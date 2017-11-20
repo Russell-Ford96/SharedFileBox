@@ -1,16 +1,3 @@
-<!-- <mat-card >
-  <mat-card-content>
-    <section class="progressbar-section">
-      <mat-progress-bar
-          *ngIf="showProgressBar"
-          class="progressbar-margin"
-          color="warn"
-          mode="indeterminate">
-      </mat-progress-bar>
-    </section>
-  </mat-card-content>
-</mat-card> -->
-
 <mat-horizontal-stepper [linear]="false">
   <mat-step [stepControl]="requestForm">
     <form [formGroup]="requestForm">
@@ -34,9 +21,9 @@
             </div>
             <!-- End form -->
 
-      <div>
+      <div class="footer-button">
         <br>
-        <button mat-button matStepperNext>Next</button>
+        <button mat-raised-button matStepperNext>Next</button>
       </div>
     </form>
   </mat-step>
@@ -78,8 +65,8 @@
 
             <vr-components-add-item-bot [items]="getItems()"></vr-components-add-item-bot>
             <!-- End Item Bot -->
-      <div>
-        <button mat-button matStepperPrevious>Back</button>
+      <div class="footer-button">
+        <button mat-raised-button matStepperPrevious>Back</button>
 
           <button mat-raised-button  color="accent" (click)="onSubmit()">Save</button>
 

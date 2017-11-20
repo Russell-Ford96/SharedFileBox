@@ -1,5 +1,4 @@
 <div class="profile">
-  <ngx-loading [show]="loadingOn" > </ngx-loading>
 
   <vr-page-header [height]="'416px'" background="url(/assets/img/demo/headers/pattern-1.png)" [reverse]="true"></vr-page-header>
 
@@ -59,8 +58,7 @@
      <div  *ngIf="showFormBot">
 
        <vr-bots-preview [bot]="botSelected"
-                        (closePreview)="onShowBots($event)"
-                        (onLoading)="isloading($event)">
+                        (closePreview)="onShowBots($event)">
        </vr-bots-preview>
       <!-- <vr-create-bot [bot]="botSelected"
                     (closeForm)="onShowBots($event)" ></vr-create-bot> -->

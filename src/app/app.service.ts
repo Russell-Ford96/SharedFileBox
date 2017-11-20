@@ -9,6 +9,7 @@ import { RequestData } from './pages/request/requestdata';
 @Injectable()
 export class AppService {
   private headers = new Headers({ 'Content-Type': 'application/json' });
+  public loading = false;
 
   constructor(private http: Http) { }
 
@@ -17,6 +18,14 @@ export class AppService {
       .toPromise()
       .then(response => response)
       .catch(this.handleError);
+  }
+
+  isLoading(){
+    return this.loading;
+  }
+
+  setLoading(loading:boolean){
+    this.loading = loading;
   }
 
 

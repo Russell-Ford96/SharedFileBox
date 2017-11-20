@@ -26,7 +26,7 @@ export class BotsCreationComponent implements OnInit, OnChanges {
    @Input() bot: Bot;
    @Output() botChange = new EventEmitter<Bot>();
    @Output() closeForm = new EventEmitter<boolean>();
-   @Output() onLoading = new EventEmitter<boolean>();
+   // @Output() onLoading = new EventEmitter<boolean>();
    showProgressBar: boolean;
 
 
@@ -55,8 +55,9 @@ export class BotsCreationComponent implements OnInit, OnChanges {
 
   layoutColumnOnBoxed = 'row';
 
-  isLoading(loading:boolean){
-    this.onLoading.emit(loading);
+  setLoading(loading:boolean){
+    //this.onLoading.emit(loading);
+    this.appService.setLoading(loading);
   }
 
   getType() {
@@ -193,7 +194,7 @@ export class BotsCreationComponent implements OnInit, OnChanges {
 
   update(): void {
     this.showProgressBar = true;
-    this.isLoading(true);
+    this.setLoading(true);
     let formValues = this.requestForm.value;
     formValues.createdBy = this.profile.sub.split("|")[1];
     console.log(formValues);
@@ -216,14 +217,14 @@ export class BotsCreationComponent implements OnInit, OnChanges {
 
         }
         this.showProgressBar = false;
-        this.isLoading(false);
+        this.setLoading(false);
       });
 
   }
 
   save(): void {
     this.showProgressBar = true;
-    this.isLoading(true);
+    this.setLoading(true);
     let formValues = this.requestForm.value;
     formValues.createdBy = this.profile.sub.split("|")[1];
     console.log(formValues);
@@ -252,7 +253,7 @@ export class BotsCreationComponent implements OnInit, OnChanges {
 
         }
         this.showProgressBar = false;
-        this.isLoading(false);
+        this.setLoading(false);
       });
 
   }

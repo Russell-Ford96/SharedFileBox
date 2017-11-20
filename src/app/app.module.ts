@@ -27,12 +27,24 @@ import { FileUploadComponent } from './file-upload/file-upload.component';
 import { ProfileComponent } from './profile/profile.component';
 import { FileSelectDirective } from 'ng2-file-upload';
 import { RouterModule } from '@angular/router';
+import { LoadingModule, ANIMATION_TYPES } from 'ngx-loading';
 
 @NgModule({
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
     HttpModule,
+    LoadingModule.forRoot({
+        //animationType: ANIMATION_TYPES.threeBounce,
+        //animationType: ANIMATION_TYPES.wanderingCubes,
+        //animationType: ANIMATION_TYPES.rotatingPlane,
+        animationType: ANIMATION_TYPES.rectangleBounce,
+        backdropBackgroundColour: 'rgba(0,0,0,0.1)',
+        backdropBorderRadius: '4px',
+        primaryColour: '#ffffff',
+        secondaryColour: '#ffffff',
+        tertiaryColour: '#ffffff'
+    }),
     StoreModule.forRoot(reducers),
     // StoreRouterConnectingModule,
     !environment.production ? StoreDevtoolsModule.instrument({ maxAge: 50 }) : [],
