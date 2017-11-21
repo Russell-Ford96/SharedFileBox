@@ -4,8 +4,8 @@ import { UsertableWidgetComponent } from './usertable-widget.component';
 import { FormsModule } from '@angular/forms';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import {
-  MdButtonModule, MdCheckboxModule, MdIconModule, MdMenuModule, MdPaginatorModule, MdProgressSpinnerModule, MdSortModule, MdTableModule,
-  MdTooltipModule
+  MatButtonModule, MatCheckboxModule, MatIconModule, MatMenuModule, MatPaginatorModule, MatProgressSpinnerModule, MatSortModule, MatTableModule,
+  MatTooltipModule
 } from '@angular/material';
 import { CdkTableModule } from '@angular/cdk/table';
 
@@ -14,16 +14,16 @@ import { CdkTableModule } from '@angular/cdk/table';
     CommonModule,
     FormsModule,
     FlexLayoutModule,
-    MdMenuModule,
-    MdIconModule,
-    MdCheckboxModule,
-    MdTooltipModule,
-    MdButtonModule,
-    MdTableModule,
+    MatMenuModule,
+    MatIconModule,
+    MatCheckboxModule,
+    MatTooltipModule,
+    MatButtonModule,
+    MatTableModule,
     CdkTableModule,
-    MdPaginatorModule,
-    MdSortModule,
-    MdProgressSpinnerModule
+    MatPaginatorModule,
+    MatSortModule,
+    MatProgressSpinnerModule
   ],
   declarations: [UsertableWidgetComponent],
   exports: [UsertableWidgetComponent]

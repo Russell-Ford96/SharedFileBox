@@ -5,16 +5,16 @@
     </div>
 
     <div class="actions" fxLayout="row">
-      <button type="button" md-icon-button [mdMenuTriggerFor]="cardMenuRef">
-        <md-icon class="icon">more_vert</md-icon>
+      <button type="button" mat-icon-button [matMenuTriggerFor]="cardMenuRef">
+        <mat-icon class="icon">more_vert</mat-icon>
       </button>
     </div>
   </div>
 
   <div class="content">
     <div class="data" fxLayout="column"
-         fxLayout.gt-md="row" fxLayoutAlign="center" fxLayoutAlign.gt-md="space-between"
-         fxLayoutGap="16px" fxLayoutGap.gt-md="24px" fxLayoutWrap="wrap0">
+         fxLayout.gt-mat="row" fxLayoutAlign="center" fxLayoutAlign.gt-mat="space-between"
+         fxLayoutGap="16px" fxLayoutGap.gt-mat="24px" fxLayoutWrap="wrap0">
       <div class="group" fxLayout="column" fxFlexAlign="center">
         <div class="property">Total Sales</div>
         <div class="value primary" [vrCountUp]="{ prefix: '$' }" [startVal]="0" [endVal]="17532">$17,532</div>
@@ -36,17 +36,17 @@
 
 </div>
 
-<md-menu #cardMenuRef="mdMenu">
-  <button md-menu-item>
-    <md-icon>refresh</md-icon>
+<mat-menu #cardMenuRef="matMenu">
+  <button mat-menu-item>
+    <mat-icon>refresh</mat-icon>
     <span>Refresh</span>
   </button>
-  <button md-menu-item>
-    <md-icon>notifications_off</md-icon>
+  <button mat-menu-item>
+    <mat-icon>notifications_off</mat-icon>
     <span>Disable alerts</span>
   </button>
-  <button md-menu-item>
-    <md-icon>exit_to_app</md-icon>
+  <button mat-menu-item>
+    <mat-icon>exit_to_app</mat-icon>
     <span>Remove Widget</span>
   </button>
-</md-menu>
+</mat-menu>

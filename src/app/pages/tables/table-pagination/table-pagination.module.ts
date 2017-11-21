@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TablePaginationComponent } from './table-pagination.component';
-import { MdPaginatorModule, MdTableModule } from '@angular/material';
+import { MatPaginatorModule, MatTableModule } from '@angular/material';
 import { FormsModule } from '@angular/forms';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { ScrollbarModule } from '../../../core/scrollbar/scrollbar.module';
@@ -17,9 +17,9 @@ import { CdkTableModule } from '@angular/cdk/table';
     ScrollbarModule,
     PageHeaderModule,
     BreadcrumbsModule,
-    MdTableModule,
+    MatTableModule,
     CdkTableModule,
-    MdPaginatorModule
+    MatPaginatorModule
   ],
   declarations: [TablePaginationComponent]
 })

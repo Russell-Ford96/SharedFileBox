@@ -5,8 +5,8 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { PageHeaderModule } from '../../core/page-header/page-header.module';
 import { BreadcrumbsModule } from '../../core/breadcrumbs/breadcrumbs.module';
 import {
-  MdButtonModule, MdChipsModule, MdIconModule, MdProgressBarModule, MdProgressSpinnerModule,
-  MdTooltipModule
+  MatButtonModule, MatChipsModule, MatIconModule, MatProgressBarModule, MatProgressSpinnerModule,
+  MatTooltipModule
 } from '@angular/material';
 
 @NgModule({
@@ -15,12 +15,12 @@ import {
     FlexLayoutModule,
     PageHeaderModule,
     BreadcrumbsModule,
-    MdIconModule,
-    MdProgressBarModule,
-    MdProgressSpinnerModule,
-    MdButtonModule,
-    MdChipsModule,
-    MdTooltipModule
+    MatIconModule,
+    MatProgressBarModule,
+    MatProgressSpinnerModule,
+    MatButtonModule,
+    MatChipsModule,
+    MatTooltipModule
   ],
   declarations: [ProjectDetailsComponent]
 })

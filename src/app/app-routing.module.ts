@@ -21,7 +21,7 @@ import {requestRoutes} from './pages/request/request.routing';
 import {RequestDetailComponent} from './pages/request/request-detail/request-detail.component';
 import {LoginComponent} from './pages/auth/login/login.component';
 import {mailRoutes} from "./pages/mail/mail.routing";
-import {chatRoutes} from "./pages/chat/chat.routing";
+// import {chatRoutes} from "./pages/chat/chat.routing";
 
 const routes: Routes = [
 
@@ -49,7 +49,7 @@ const routes: Routes = [
       ...mailRoutes,
       ...chatRoutes,
       ...inboxRoutes,
-      ...profileRoutes,
+      ...ProfileRoutes,
       ...tablesRoutes,
       ...editorRoutes,
       ...dragAndDropRoutes,

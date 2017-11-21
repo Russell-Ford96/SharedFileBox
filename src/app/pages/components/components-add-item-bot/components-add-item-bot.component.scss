@@ -1,0 +1,73 @@
+@import '../../../../styles/var';
+
+.itembot{
+  cursor: move;
+}
+.gu-mirror {
+  position: fixed !important;
+  margin: 0 !important;
+  z-index: 9999 !important;
+  opacity: 0.8;
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=80)";
+  filter: alpha(opacity=80);
+}
+.gu-hide {
+  display: none !important;
+}
+.gu-unselectable {
+  -webkit-user-select: none !important;
+  -moz-user-select: none !important;
+  -ms-user-select: none !important;
+  user-select: none !important;
+}
+.gu-transit {
+  opacity: 0.2;
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=20)";
+  filter: alpha(opacity=20);
+}
+
+.card {
+
+  .content {
+    padding: 0;
+
+    .task-container {
+      border-bottom: 1px solid #E0E0E0;
+      cursor: move;
+      &:last-child {
+        border-bottom: none;
+      }
+    }
+
+    .task {
+      @include responsivePadding(left);
+      @include responsivePadding(right);
+      min-height: 54px;
+
+      .checkbox {
+        @include responsiveMargin(right);
+      }
+
+      &:hover {
+        background: #F5F5F5;
+      }
+
+      &.done {
+
+        background: #F5F5F5;
+
+        .name {
+          text-decoration: line-through;
+        }
+      }
+
+      .archive {
+        color: $color__text-dark;
+      }
+    }
+  }
+
+  .footer {
+
+  }
+}

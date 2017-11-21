@@ -1,29 +1,14 @@
 <vr-tour></vr-tour>
 
-<!--<div class="buy-now-toolbar mat-elevation-z4" *ngIf="buyNowToolbarVisible">
-  <div class="rainbow" fxLayout="row">
-    <div fxLayout="row" fxLayoutAlign="center center" fxFlex>
-      <div class="name" fxHide fxShow.gt-sm>elastic ui - Angular 4 Material Design + Redux/ngrx Admin Template - Save 1000s of hours designing and coding with this template</div>
-      <a href="https://themeforest.net/item/elastic-ui-angular-4-material-design-reduxngrx-admin-template/20513764?ref=visurel" class="action" md-raised-button color="primary">
-        <md-icon class="icon">shopping_basket</md-icon>
-        GET IT HERE
-      </a>
-    </div>
-    <div fxLayout="row" fxLayoutAlign="start center">
-      <button type="button" md-icon-button (click)="buyNowToolbarVisible = false">
-        <md-icon class="close">close</md-icon>
-      </button>
-    </div>
-  </div>
-</div> -->
 
-<md-sidenav-container class="layout-container" [ngClass]="cardElevation$ | async">
+<mat-sidenav-container class="layout-container" [ngClass]="cardElevation$ | async">
 
-  <md-sidenav class="settings-sidenav"
+  <mat-sidenav class="settings-sidenav"
               (open)="openSettings()" (close)="closeSettings()"
               [opened]="settingsOpen$ | async" mode="over" align="end" #options>
+
     <vr-settings></vr-settings>
-  </md-sidenav>
+  </mat-sidenav>
 
   <div class="layout" fxLayout="column"
        [class.alpha]="layout === 'alpha'"
@@ -45,15 +30,15 @@
 
     <vr-toolbar-navigation *ngIf="layout === 'gamma'"></vr-toolbar-navigation>
 
-    <md-sidenav-container fxFlex>
+    <mat-sidenav-container fxFlex>
 
-      <md-sidenav class="quickpanel-container"
+      <mat-sidenav class="quickpanel-container"
                   (open)="openQuickpanel()" (close)="closeQuickpanel()"
                   [opened]="quickpanelOpen$ | async" [align]="quickpanelAlign" [mode]="quickpanelMode">
         <vr-quickpanel></vr-quickpanel>
-      </md-sidenav>
+      </mat-sidenav>
 
-      <md-sidenav class="sidenav-container"
+      <mat-sidenav class="sidenav-container"
                   (open)="openSidenav()" (close)="closeSidenav()"
                   [opened]="sidenavOpen$ | async" [align]="sidenavAlign$ | async"
                   [mode]="sidenavMode$ | async" [disableClose]="sidenavDisableClose$ | async"
@@ -62,7 +47,7 @@
         <vr-sidenav [layout]="layout" [collapsed]="sidenavCollapsed$ | async"
                     (toggledSidenavCollapse)="toggleSidenavCollapse()"></vr-sidenav>
 
-      </md-sidenav>
+      </mat-sidenav>
 
       <div class="toolbar-container" fxLayout="column">
         <!-- Layout Alpha -->
@@ -76,14 +61,13 @@
           <router-outlet (activate)="onActivate()"></router-outlet>
         </vr-scrollbar>
       </div>
-    </md-sidenav-container>
+    </mat-sidenav-container>
 
   </div>
-
-  <div id="settings" class="options-toggle mat-elevation-z4" md-ripple (click)="toggleSettings()"
+  <div id="settings" class="options-toggle mat-elevation-z4"  (click)="toggleSettings()"
        fxLayout="row" fxLayoutAlign="center center">
-    <md-icon>settings</md-icon>
+    <mat-icon>settings</mat-icon>
   </div>
 
-</md-sidenav-container>
 
+</mat-sidenav-container>

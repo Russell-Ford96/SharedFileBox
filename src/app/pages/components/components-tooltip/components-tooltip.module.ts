@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ComponentsTooltipComponent } from './components-tooltip.component';
-import { MdButtonModule, MdCardModule, MdIconModule, MdTabsModule, MdTooltipModule } from '@angular/material';
+import { MatButtonModule, MatCardModule, MatIconModule, MatTabsModule, MatTooltipModule } from '@angular/material';
 import { UtilsModule } from '../../../core/utils/utils.module';
 import { FlexLayoutModule } from '@angular/flex-layout';
 
@@ -10,11 +10,11 @@ import { FlexLayoutModule } from '@angular/flex-layout';
     CommonModule,
     UtilsModule,
     FlexLayoutModule,
-    MdCardModule,
-    MdTabsModule,
-    MdTooltipModule,
-    MdIconModule,
-    MdButtonModule
+    MatCardModule,
+    MatTabsModule,
+    MatTooltipModule,
+    MatIconModule,
+    MatButtonModule
   ],
   declarations: [ComponentsTooltipComponent],
   exports: [ComponentsTooltipComponent]

@@ -4,8 +4,8 @@ import { ProjectWidgetComponent } from './project-widget.component';
 import { FormsModule } from '@angular/forms';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import {
-  MdButtonModule, MdCheckboxModule, MdIconModule, MdMenuModule, MdRippleModule, MdSnackBarModule,
-  MdTooltipModule
+  MatButtonModule, MatCheckboxModule, MatIconModule, MatMenuModule, MatRippleModule, MatSnackBarModule,
+  MatTooltipModule
 } from '@angular/material';
 import { RouterModule } from '@angular/router';
 
@@ -15,13 +15,13 @@ import { RouterModule } from '@angular/router';
     FormsModule,
     RouterModule,
     FlexLayoutModule,
-    MdMenuModule,
-    MdIconModule,
-    MdCheckboxModule,
-    MdTooltipModule,
-    MdButtonModule,
-    MdSnackBarModule,
-    MdRippleModule
+    MatMenuModule,
+    MatIconModule,
+    MatCheckboxModule,
+    MatTooltipModule,
+    MatButtonModule,
+    MatSnackBarModule,
+    MatRippleModule
   ],
   declarations: [ProjectWidgetComponent],
   exports: [ProjectWidgetComponent]

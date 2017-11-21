@@ -3,17 +3,17 @@ import { CommonModule } from '@angular/common';
 import { ComponentsCardComponent } from './components-card.component';
 import { UtilsModule } from '../../../core/utils/utils.module';
 import { FlexLayoutModule } from '@angular/flex-layout';
-import { MdButtonModule, MdCardModule, MdIconModule, MdTabsModule } from '@angular/material';
+import { MatButtonModule, MatCardModule, MatIconModule, MatTabsModule } from '@angular/material';
 
 @NgModule({
   imports: [
     CommonModule,
     UtilsModule,
     FlexLayoutModule,
-    MdCardModule,
-    MdTabsModule,
-    MdButtonModule,
-    MdIconModule
+    MatCardModule,
+    MatTabsModule,
+    MatButtonModule,
+    MatIconModule
   ],
   declarations: [ComponentsCardComponent],
   exports: [ComponentsCardComponent]

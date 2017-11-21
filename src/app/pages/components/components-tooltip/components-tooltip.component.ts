@@ -8,8 +8,8 @@ import * as _ from 'lodash';
 export class ComponentsTooltipComponent implements OnInit {
 
   tooltipHTML: string = _.escape(
-`<button md-icon-button mdTooltip="Favorite this">
-  <md-icon>favorite</md-icon>
+`<button mat-icon-button mdTooltip="Favorite this">
+  <mat-icon>favorite</mat-icon>
 </button>`);
 
   constructor() { }

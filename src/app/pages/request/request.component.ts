@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { DataSource } from '@angular/cdk/table';
-import { MdPaginator } from '@angular/material';
+import { MatPaginator } from '@angular/material';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Observable } from 'rxjs/Rx';
 import * as _ from 'lodash';
@@ -31,7 +31,7 @@ export class RequestComponent implements OnInit {
   public requestDatabase : RequestDatabase | null;
   public dataSource : RequestDataSource | null;
 
-  @ViewChild(MdPaginator) paginator: MdPaginator;
+  @ViewChild(MatPaginator) paginator: MatPaginator;
 
   constructor(private appService: AppService,
 
@@ -54,7 +54,7 @@ export class RequestComponent implements OnInit {
 export class RequestDataSource extends DataSource<RequestData>{
 
   constructor(private _reqDatabase: RequestDatabase,
-              private _paginator: MdPaginator,
+              private _paginator: MatPaginator,
              ) {
     super();
   }
@@ -156,5 +156,3 @@ export class RequestDatabase {
     this.timerSubscription = Observable.timer(5000).first().subscribe(() => this.requestByUser(this.userid));
   }
 }
-
-

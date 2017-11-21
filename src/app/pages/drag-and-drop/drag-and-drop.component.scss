@@ -23,7 +23,7 @@ h1 {
 .list-container {
   margin: 12px;
 
-  md-list-item {
+  mat-list-item {
     background: white;
   }
 
@@ -31,13 +31,13 @@ h1 {
     margin: 24px;
   }
 
-  md-list {
+  mat-list {
     padding-top: 0;
     max-width: 100%;
   }
 }
 
-md-icon.left-right-compare {
+mat-icon.left-right-compare {
   text-shadow: 0px 0px 20px #444;
   font-size: 60px;
   width: 60px;

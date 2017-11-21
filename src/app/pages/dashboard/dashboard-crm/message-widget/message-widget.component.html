@@ -3,15 +3,15 @@
     <div class="name">My Messages</div>
 
     <div class="actions" fxLayout="row">
-      <button type="button" md-icon-button [mdMenuTriggerFor]="cardMenuRef">
-        <md-icon class="icon">more_vert</md-icon>
+      <button type="button" mat-icon-button [matMenuTriggerFor]="cardMenuRef">
+        <mat-icon class="icon">more_vert</mat-icon>
       </button>
     </div>
   </div>
 
   <div class="content" fxLayout="column">
     <div class="list">
-      <div class="list-item" *ngFor="let message of messages" fxLayout="row" md-ripple>
+      <div class="list-item" *ngFor="let message of messages" fxLayout="row" mat-ripple>
         <img class="list-image" [src]="message.image" alt="...">
         <div fxFlex class="list-content" fxLayout="column">
           <div> {{message.from}} </div>
@@ -26,21 +26,21 @@
   </div>
 
   <div class="footer" fxLayout="row" fxLayoutAlign="end center">
-    <button type="button" md-button color="primary">NEW MESSAGE</button>
+    <button type="button" mat-button color="primary">NEW MESSAGE</button>
   </div>
 </div>
 
-<md-menu #cardMenuRef="mdMenu">
-  <button md-menu-item>
-    <md-icon>refresh</md-icon>
+<mat-menu #cardMenuRef="matMenu">
+  <button mat-menu-item>
+    <mat-icon>refresh</mat-icon>
     <span>Refresh</span>
   </button>
-  <button md-menu-item>
-    <md-icon>notifications_off</md-icon>
+  <button mat-menu-item>
+    <mat-icon>notifications_off</mat-icon>
     <span>Disable alerts</span>
   </button>
-  <button md-menu-item>
-    <md-icon>exit_to_app</md-icon>
+  <button mat-menu-item>
+    <mat-icon>exit_to_app</mat-icon>
     <span>Remove Widget</span>
   </button>
-</md-menu>
+</mat-menu>

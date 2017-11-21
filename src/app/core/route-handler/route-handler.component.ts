@@ -96,6 +96,8 @@ export class RouteHandlerComponent implements OnInit {
     // Push the just created Sub Items into the Top Level Item
     dashboard.subItems.push(...dashboardSubItems);
 
+
+
   const request = new SidenavItem({
       name: 'Request',
       icon: 'format_line_spacing',

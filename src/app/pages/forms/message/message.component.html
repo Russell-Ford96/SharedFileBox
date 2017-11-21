@@ -26,26 +26,38 @@
             <form #myForm="ngForm" [formGroup]="requestForm" (ngSubmit)="onSubmit();">
             <div class="result" fxLayout="column">
 
-             <md-input-container class="fieldWidth"  >
-                <input id="refnumb" name="refnumb" mdInput placeholder="Reference Number" type="text" formControlName="refnumb" >
-             </md-input-container>
+             <mat-input-container class="fieldWidth"  >
+                <input id="refnumb" name="refnumb" matInput placeholder="Reference Number" type="text" formControlName="refnumb" >
+             </mat-input-container>
 
+              <mat-input-container class="fieldWidth" >
+                <input id="refnumb" name="refnumb" matInput placeholder="Reference Number " type="text" formControlName="refnumb" required>
+                <mat-error *ngIf="formErrors.refnumb" >
+                    Reference number must be 50 characters, letters and numbers
+                </mat-error>
+              </mat-input-container>
 
-                <md-input-container class="fieldWidth">
-                  <input id="email" name="email" mdInput placeholder="Email" type="text" formControlName="email" required>
-                </md-input-container>
+                <mat-input-container class="fieldWidth">
+                  <input id="email" name="email" matInput placeholder="Email" type="text" formControlName="email" required>
+                  <mat-error *ngIf="formErrors.email">
+                    Please enter a valid email address
+                  </mat-error>
+                </mat-input-container>
 
-                <md-input-container class="fieldWidth">
-                   <input id="phone" name="phone" mdInput placeholder="Phone Number" type="text" formControlName="phone" required>
-                </md-input-container>
+                <mat-input-container class="fieldWidth">
+                   <input id="phone" name="phone" matInput placeholder="Phone Number" type="text" formControlName="phone" required>
+                   <mat-error *ngIf="isphoneError">
+                      {{ phonemsg }}
+                   </mat-error>
+                </mat-input-container>
 
-              <md-input-container class="fieldWidth" >
-                <input id="shortmsg" name="shortmsg" mdInput placeholder="Short message" type="text" formControlName="shortmessage" required>
-              </md-input-container>
+              <mat-input-container class="fieldWidth" >
+                <input id="shortmsg" name="shortmsg" matInput placeholder="Short message" type="text" formControlName="shortmessage" required>
+              </mat-input-container>
 
-              <md-input-container class="fieldWidth">
-                <textarea id="detailedmsg" name="detailedmsg" mdInput placeholder="Detailed Message" type="text" formControlName="detailedmessage" required></textarea>
-              </md-input-container>
+              <mat-input-container class="fieldWidth">
+                <textarea id="detailedmsg" name="detailedmsg" matInput placeholder="Detailed Message" type="text" formControlName="detailedmessage" required></textarea>
+              </mat-input-container>
 
 
               <div  fxLayout.gt-sm="row" fxLayoutGap.gt-sm="16px"  >
@@ -53,11 +65,11 @@
               <div formArrayName="docArray" fxFlex>
                 <div *ngFor="let address of requestForm.controls.docArray.controls; let i=index" >
                   <div [formGroupName]="i">
-                      <md-input-container class="fieldWidth"  >
-                          <input id="doclist1" name="doclist1" mdInput placeholder="Documents" type="text" formControlName="name" required>
-                          <md-icon mdSuffix (click)="addInput()">add</md-icon>
-                          <md-icon mdSuffix *ngIf="requestForm.controls.docArray.controls.length > 1" (click)="delInput(i)">clear</md-icon>
-                      </md-input-container>
+                      <mat-input-container class="fieldWidth" >
+                          <input id="doclist1" name="doclist1" matInput placeholder="Documents" type="text" formControlName="name" required>
+                          <mat-icon matSuffix (click)="addInput()">add</mat-icon>
+                          <mat-icon matSuffix *ngIf="requestForm.controls.docArray.controls.length > 1" (click)="delInput(i)">clear</mat-icon>
+                      </mat-input-container>
                   </div>
                 </div>
               </div>
@@ -74,15 +86,15 @@
                 </div>
               </div>
 
-                <md-input-container class="fieldWidth">
-                <input id="thankmsg" name="thankmsg" mdInput placeholder="Thank you" type="text" formControlName="thanks" required>
-              </md-input-container>
+                <mat-input-container class="fieldWidth">
+                <input id="thankmsg" name="thankmsg" matInput placeholder="Thank you" type="text" required>
+              </mat-input-container>
 
-              <md-card>
-                <md-card-content fxLayout="column" fxLayout.gt-sm="row" >
-                <button type="submit" md-raised-button  color="accent" >Send</button>
-                </md-card-content>
-              </md-card>
+              <mat-card>
+                <mat-card-content fxLayout="column" fxLayout.gt-sm="row" >
+                <button type="submit" mat-raised-button  color="accent">Send</button>
+                </mat-card-content>
+              </mat-card>
 
             </div>
             </form>

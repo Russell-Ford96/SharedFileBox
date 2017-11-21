@@ -3,8 +3,8 @@
     <div class="name">My Meetings</div>
 
     <div class="actions" fxLayout="row">
-      <button type="button" md-icon-button [mdMenuTriggerFor]="cardMenuRef">
-        <md-icon class="icon">more_vert</md-icon>
+      <button type="button" mat-icon-button [matMenuTriggerFor]="cardMenuRef">
+        <mat-icon class="icon">more_vert</mat-icon>
       </button>
     </div>
   </div>
@@ -27,8 +27,8 @@
           </div>
           <span fxFlex></span>
           <div fxLayout="row" fxLayoutGap="8px">
-            <button type="button" md-button color="primary">Add Notes</button>
-            <button type="button" md-raised-button color="primary">Done</button>
+            <button type="button" mat-button color="primary">Add Notes</button>
+            <button type="button" mat-raised-button color="primary">Done</button>
           </div>
         </div>
         <div class="meeting" fxLayout="row" fxLayoutAlign="start center">
@@ -39,8 +39,8 @@
           </div>
           <span fxFlex></span>
           <div fxLayout="row" fxLayoutGap="8px">
-            <button type="button" md-button color="primary">Add Notes</button>
-            <button type="button" md-raised-button color="primary">Done</button>
+            <button type="button" mat-button color="primary">Add Notes</button>
+            <button type="button" mat-raised-button color="primary">Done</button>
           </div>
         </div>
       </div>
@@ -53,8 +53,8 @@
             <div class="extra">17:30</div>
           </div>
           <div class="actions" fxLayout="row">
-            <button type="button" md-raised-button color="primary">Accept</button>
-            <button type="button" md-button color="warn">Decline</button>
+            <button type="button" mat-raised-button color="primary">Accept</button>
+            <button type="button" mat-button color="warn">Decline</button>
           </div>
         </div>
       </div>
@@ -62,21 +62,21 @@
   </div>
 
   <div class="footer" fxLayout="row" fxLayoutAlign="end center">
-    <button type="button" md-button color="primary">NEW MEETING</button>
+    <button type="button" mat-button color="primary">NEW MEETING</button>
   </div>
 </div>
 
-<md-menu #cardMenuRef="mdMenu">
-  <button md-menu-item>
-    <md-icon>refresh</md-icon>
+<mat-menu #cardMenuRef="matMenu">
+  <button mat-menu-item>
+    <mat-icon>refresh</mat-icon>
     <span>Refresh</span>
   </button>
-  <button md-menu-item>
-    <md-icon>notifications_off</md-icon>
+  <button mat-menu-item>
+    <mat-icon>notifications_off</mat-icon>
     <span>Disable alerts</span>
   </button>
-  <button md-menu-item>
-    <md-icon>exit_to_app</md-icon>
+  <button mat-menu-item>
+    <mat-icon>exit_to_app</mat-icon>
     <span>Remove Widget</span>
   </button>
-</md-menu>
+</mat-menu>

@@ -4,13 +4,13 @@
       <div>Sales this week</div>
       <div class="change increase" fxLayout="row" fxLayoutAlign="start center">
         <div class="percent">+32%</div>
-        <md-icon class="change-icon">trending_up</md-icon>
+        <mat-icon class="change-icon">trending_up</mat-icon>
       </div>
     </div>
 
     <div class="actions" fxLayout="row">
-      <button type="button" md-icon-button [mdMenuTriggerFor]="cardMenuRef">
-        <md-icon class="icon">more_vert</md-icon>
+      <button type="button" mat-icon-button [matMenuTriggerFor]="cardMenuRef">
+        <mat-icon class="icon">more_vert</mat-icon>
       </button>
     </div>
   </div>
@@ -21,17 +21,17 @@
 
 </div>
 
-<md-menu #cardMenuRef="mdMenu">
-  <button md-menu-item>
-    <md-icon>refresh</md-icon>
+<mat-menu #cardMenuRef="matMenu">
+  <button mat-menu-item>
+    <mat-icon>refresh</mat-icon>
     <span>Refresh</span>
   </button>
-  <button md-menu-item>
-    <md-icon>notifications_off</md-icon>
+  <button mat-menu-item>
+    <mat-icon>notifications_off</mat-icon>
     <span>Disable alerts</span>
   </button>
-  <button md-menu-item>
-    <md-icon>exit_to_app</md-icon>
+  <button mat-menu-item>
+    <mat-icon>exit_to_app</mat-icon>
     <span>Remove Widget</span>
   </button>
-</md-menu>
+</mat-menu>

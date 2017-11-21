@@ -1,6 +1,6 @@
 <div class="navigation-item-container" *ngIf="item.hasSubItems()" routerLinkActive="dropdown-item-active">
   <a class="navigation-item" fxLayout="row" fxLayoutAlign="start center">
-    <md-icon class="icon">{{ item.icon }}</md-icon>
+    <mat-icon class="icon">{{ item.icon }}</mat-icon>
     <span class="name">{{ item.name }}</span>
   </a>
 
@@ -13,8 +13,7 @@
 <div class="navigation-item-container" *ngIf="!item.hasSubItems()">
   <a [routerLink]="item.route" routerLinkActive="active" [routerLinkActiveOptions]="item.routerLinkActiveOptions"
      class="navigation-item" fxLayout="row" fxLayoutAlign="start center" md-ripple>
-    <md-icon class="icon">{{ item.icon }}</md-icon>
+    <mat-icon class="icon">{{ item.icon }}</mat-icon>
     <span class="name">{{ item.name }}</span>
   </a>
 </div>
-

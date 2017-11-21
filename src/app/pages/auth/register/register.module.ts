@@ -4,7 +4,7 @@ import { RegisterComponent } from './register.component';
 import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { FlexLayoutModule } from '@angular/flex-layout';
-import { MdButtonModule, MdCheckboxModule, MdInputModule } from '@angular/material';
+import { MatButtonModule, MatCheckboxModule, MatInputModule } from '@angular/material';
 
 @NgModule({
   imports: [
@@ -12,9 +12,9 @@ import { MdButtonModule, MdCheckboxModule, MdInputModule } from '@angular/materi
     RouterModule,
     FormsModule,
     FlexLayoutModule,
-    MdInputModule,
-    MdButtonModule,
-    MdCheckboxModule
+    MatInputModule,
+    MatButtonModule,
+    MatCheckboxModule
   ],
   declarations: [RegisterComponent]
 })

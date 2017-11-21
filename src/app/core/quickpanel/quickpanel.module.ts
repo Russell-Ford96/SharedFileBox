@@ -2,17 +2,17 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { QuickpanelComponent } from './quickpanel.component';
-import { MdButtonModule, MdListModule, MdProgressBarModule, MdTabsModule } from '@angular/material';
+import { MatButtonModule, MatListModule, MatProgressBarModule, MatTabsModule } from '@angular/material';
 import { ScrollbarModule } from '../scrollbar/scrollbar.module';
 
 @NgModule({
   imports: [
     CommonModule,
     FlexLayoutModule,
-    MdButtonModule,
-    MdProgressBarModule,
-    MdTabsModule,
-    MdListModule,
+    MatButtonModule,
+    MatProgressBarModule,
+    MatTabsModule,
+    MatListModule,
     ScrollbarModule
   ],
   declarations: [QuickpanelComponent],

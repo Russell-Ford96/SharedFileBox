@@ -153,6 +153,7 @@ export class LayoutComponent implements OnInit, AfterViewInit, OnDestroy {
 
   toggleSettings() {
     this.store.dispatch(new layout.ToggleSettingsAction());
+    console.log("************************************** toggleSettings");
     try {
       hopscotch.nextStep();
     } catch (error) { }

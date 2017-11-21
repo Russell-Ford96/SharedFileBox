@@ -4,8 +4,8 @@
       <div class="name">My Projects</div>
 
       <div class="actions" fxLayout="row">
-        <button type="button" md-icon-button [mdMenuTriggerFor]="cardMenuRef">
-          <md-icon class="icon">more_vert</md-icon>
+        <button type="button" mat-icon-button [matMenuTriggerFor]="cardMenuRef">
+          <mat-icon class="icon">more_vert</mat-icon>
         </button>
       </div>
     </div>
@@ -13,7 +13,7 @@
     <div class="content" fxLayout="column">
       <div class="projects">
         <div class="category">
-          <div [routerLink]="['/pages/projects']" md-ripple class="project" fxLayout="row" fxLayoutAlign="space-between center">
+          <div [routerLink]="['/pages/projects']" mat-ripple class="project" fxLayout="row" fxLayoutAlign="space-between center">
             <div fxLayout="column">
               <div class="name">New Dashboard</div>
               <div class="users" fxLayout="row">
@@ -28,7 +28,7 @@
             </div>
           </div>
 
-          <div [routerLink]="['/pages/projects']" md-ripple class="project" fxLayout="row" fxLayoutAlign="space-between center">
+          <div [routerLink]="['/pages/projects']" mat-ripple class="project" fxLayout="row" fxLayoutAlign="space-between center">
             <div fxLayout="column">
               <div class="name">Secret side project</div>
               <div class="users" fxLayout="row">
@@ -50,7 +50,7 @@
 
           <div class="heading">Initiatives</div>
 
-          <div [routerLink]="['/pages/projects']" md-ripple class="project" fxLayout="row" fxLayoutAlign="space-between center">
+          <div [routerLink]="['/pages/projects']" mat-ripple class="project" fxLayout="row" fxLayoutAlign="space-between center">
             <div fxLayout="column">
               <div class="name">CXX Implementation</div>
               <div class="users" fxLayout="row">
@@ -65,7 +65,7 @@
             </div>
           </div>
 
-          <div [routerLink]="['/pages/projects']" md-ripple class="project" fxLayout="row" fxLayoutAlign="space-between center">
+          <div [routerLink]="['/pages/projects']" mat-ripple class="project" fxLayout="row" fxLayoutAlign="space-between center">
             <div fxLayout="column">
               <div class="name">Quality AS3</div>
               <div class="users" fxLayout="row">
@@ -84,22 +84,22 @@
     </div>
 
     <div class="footer" fxLayout="row" fxLayoutAlign="end center">
-      <button type="button" md-button color="primary">NEW PROJECT</button>
+      <button type="button" mat-button color="primary">NEW PROJECT</button>
     </div>
   </div>
 </div>
 
-<md-menu #cardMenuRef="mdMenu">
-  <button md-menu-item>
-    <md-icon>refresh</md-icon>
+<mat-menu #cardMenuRef="matMenu">
+  <button mat-menu-item>
+    <mat-icon>refresh</mat-icon>
     <span>Refresh</span>
   </button>
-  <button md-menu-item>
-    <md-icon>notifications_off</md-icon>
+  <button mat-menu-item>
+    <mat-icon>notifications_off</mat-icon>
     <span>Disable alerts</span>
   </button>
-  <button md-menu-item>
-    <md-icon>exit_to_app</md-icon>
+  <button mat-menu-item>
+    <mat-icon>exit_to_app</mat-icon>
     <span>Remove Widget</span>
   </button>
-</md-menu>
+</mat-menu>

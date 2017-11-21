@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {FlexLayoutModule} from '@angular/flex-layout';
-import {MdIconModule, MdPaginatorModule, MdTableModule} from '@angular/material';
+import {MatIconModule, MatPaginatorModule, MatTableModule} from '@angular/material';
 import {QuillModule} from 'ngx-quill';
 import {RequestComponent} from './request.component';
 import {FormsModule} from '@angular/forms';
@@ -19,16 +19,16 @@ import {AppService} from "../../app.service";
     AppRoutingModule,
     CommonModule,
     FlexLayoutModule,
-    MdIconModule,
+    MatIconModule,
     QuillModule,
     FormsModule,
     FlexLayoutModule,
     ScrollbarModule,
     PageHeaderModule,
     BreadcrumbsModule,
-    MdTableModule,
+    MatTableModule,
     CdkTableModule,
-    MdPaginatorModule,
+    MatPaginatorModule,
     RouterModule.forChild([
 
     ])

@@ -1,39 +1,39 @@
 <div class="user-button-container" #userButton (vrClickOutside)="onClickOutside()">
-  <button class="user-button" md-button (click)="toggleDropdown()" [class.open]="isOpen">
+  <button class="user-button" mat-button (click)="toggleDropdown()" [class.open]="isOpen">
     <span fxLayout="row" fxLayoutAlign="start center">
       <span class="avatar-container" fxLayout="row" fxLayoutAlign="start center">
-        <img class="avatar" src="assets/img/demo/avatars/noavatar.png">
+        <img class="avatar" src="{{auth.userProfile?.picture}}">
         <i class="status primary"></i>
       </span>
       <span class="name" fxHide fxShow.gt-sm></span>
-      <md-icon class="icon" fxHide fxShow.gt-sm>keyboard_arrow_down</md-icon>
+      <mat-icon class="icon" fxHide fxShow.gt-sm>keyboard_arrow_down</mat-icon>
     </span>
   </button>
 
   <div class="dropdown mat-elevation-z1" [class.open]="isOpen">
     <div class="content">
       <div class="list">
-        <div class="item" fxLayout="row" fxLayoutAlign="start center" md-ripple [routerLink]="['/pages/profile']">
-          <md-icon class="icon">account_circle</md-icon>
+        <div class="item" fxLayout="row" fxLayoutAlign="start center" mat-ripple [routerLink]="['/pages/profile']">
+          <mat-icon class="icon">account_circle</mat-icon>
           <span class="title">Profile</span>
         </div>
-        <div class="item" fxLayout="row" fxLayoutAlign="start center" md-ripple [routerLink]="['/pages/profile']">
-          <md-icon class="icon">settings</md-icon>
+        <div class="item" fxLayout="row" fxLayoutAlign="start center" mat-ripple [routerLink]="['/pages/profile']">
+          <mat-icon class="icon">settings</mat-icon>
           <span class="title">Settings</span>
         </div>
-        <div class="item" fxLayout="row" fxLayoutAlign="start center" md-ripple>
-          <md-icon class="icon">person</md-icon>
+        <div class="item" fxLayout="row" fxLayoutAlign="start center" mat-ripple>
+          <mat-icon class="icon">person</mat-icon>
           <span class="title">Online</span>
 
           <div class="second-level-dropdown"></div>
         </div>
-        <div class="item" fxLayout="row" fxLayoutAlign="start center" md-ripple>
-          <md-icon class="icon">help</md-icon>
+        <div class="item" fxLayout="row" fxLayoutAlign="start center" mat-ripple>
+          <mat-icon class="icon">help</mat-icon>
           <span class="title">Help</span>
         </div>
         <div class="divider"></div>
-        <div class="item" fxLayout="row" fxLayoutAlign="start center" md-ripple [routerLink]="['/auth/login']">
-          <md-icon class="icon">exit_to_app</md-icon>
+        <div class="item" fxLayout="row" fxLayoutAlign="start center" mat-ripple [routerLink]="['/auth/login']">
+          <mat-icon class="icon">exit_to_app</mat-icon>
           <span class="title" (click)="logout()">Logout</span>
         </div>
       </div>

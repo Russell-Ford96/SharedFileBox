@@ -1,0 +1,154 @@
+@import "../../../../styles/var";
+
+.header{
+  box-sizing: border-box !important;
+  max-height: 100% !important;
+  display: flex !important;
+  flex-direction: row !important;
+  place-content: center space-between !important;
+  align-items: center !important;
+  padding-bottom: 20px !important;
+}
+
+.phone-simulator{
+    flex: 1 1 360px !important;
+    box-sizing: border-box !important;
+    display: flex !important;
+    flex-direction: column !important;
+    padding: 12px !important;
+    height: 730px !important;
+    max-width: 360px !important;
+    min-width: 360px !important;
+    background: url('/assets/phone.png') no-repeat center  !important;
+}
+
+.name {
+  font-size: 20px !important;
+  font-weight: 500 !important;
+  line-height: normal !important;
+  font-family: Roboto, 'Helvetica Neue', Arial, sans-serif !important;
+  color: #111 !important;
+  -webkit-tap-highlight-color: transparent !important;
+}
+
+
+:host {
+  display: block;
+}
+
+.project-details {
+  @include responsivePadding();
+
+  .splash {
+    background: white;
+    border-radius: 2px;
+    overflow: hidden;
+    @include mat-elevation(4);
+
+    .left {
+      @include responsivePaddingHalf();
+
+      .options {
+        color: white;
+      }
+
+      .codename {
+        font-size: 20px;
+        font-weight: bold;
+        color: white;
+        margin-bottom: 40px;
+      }
+    }
+
+    .right {
+      @include responsivePadding();
+
+      .splash-title {
+        font-size: 18px;
+        font-weight: 500;
+
+        @include responsiveMargin(bottom);
+      }
+
+      .details {
+        @include responsiveMarginHalf(left);
+        @include responsiveMarginHalf(right);
+
+        .detail {
+
+          &:first-child {
+            padding-left: 0;
+          }
+
+          .name {
+            margin-bottom: 12px;
+            font-weight: 500;
+          }
+
+          .value {
+            color: $color__text-dark;
+          }
+        }
+
+        .mat-chip {
+          margin-bottom: 4px;
+        }
+
+        .member {
+          img {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            margin-right: 6px;
+          }
+        }
+      }
+
+      .divider {
+        @include responsiveMargin(top);
+        @include responsiveMargin(bottom);
+      }
+
+      .right-bottom {
+        .description-title {
+          font-weight: 500;
+        }
+
+        .description {
+          color: $color__text-dark;
+
+          @include responsiveMarginHalf(top);
+          @include responsiveMarginHalf(left);
+          @include responsiveMarginHalf(right);
+        }
+      }
+    }
+  }
+
+  .progress-cards {
+
+    .progress-card {
+      background: white;
+      @include responsivePadding();
+
+      @include mat-elevation(4);
+
+      .progress-details {
+
+        .value {
+          font-size: 30px;
+        }
+
+        .description {
+          color: $color__text-dark;
+        }
+
+        .arrow {
+          color: $color__text-dark;
+          @include responsivePaddingHalf(right, true);
+          @include responsivePaddingHalf(bottom, true);
+        }
+      }
+    }
+  }
+}

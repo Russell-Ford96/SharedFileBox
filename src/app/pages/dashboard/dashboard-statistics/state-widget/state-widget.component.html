@@ -5,10 +5,10 @@
       <div class="property">{{ property }}</div>
     </div>
     <div fxLayout="column" fxLayoutAlign="space-between">
-      <md-icon class="icon" fxFlexAlign="end">{{ icon }}</md-icon>
+      <mat-icon class="icon" fxFlexAlign="end">{{ icon }}</mat-icon>
       <div class="change" fxLayout="row" fxLayoutAlign="end center" fxFlexAlign="end">
         <div class="percent" [vrCountUp]="{ suffix: '%' }" [startVal]="0" [endVal]="changePercent">{{ changePercent }}</div>
-        <md-icon class="change-icon">{{ changeIcon }}</md-icon>
+        <mat-icon class="change-icon">{{ changeIcon }}</mat-icon>
       </div>
     </div>
   </div>

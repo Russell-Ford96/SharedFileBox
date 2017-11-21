@@ -3,8 +3,8 @@
   <div class="container" fxLayout="row" fxLayoutAlign="space-between">
 
     <div class="sidenav-header" fxLayout="row" fxLayoutAlign="start center">
-      <button fxShow fxHide.gt-sm class="menu-toggle-mobile" type="button" md-icon-button (click)="toggleSidenav()">
-        <md-icon>menu</md-icon>
+      <button fxShow fxHide.gt-sm class="menu-toggle-mobile" type="button" mat-icon-button (click)="toggleSidenav()">
+        <mat-icon>menu</mat-icon>
       </button>
 
       <a fxHide fxShow.gt-xs [routerLink]="['/']">
@@ -24,10 +24,9 @@
 
       <vr-toolbar-user-button></vr-toolbar-user-button>
 
-      <button md-button class="quickpanel-button icon-button" [class.open]="quickpanelOpen" (click)="toggleQuickpanel()">
-        <md-icon class="icon">format_align_right</md-icon>
+      <button mat-button class="quickpanel-button icon-button" [class.open]="quickpanelOpen" (click)="toggleQuickpanel()">
+        <mat-icon class="icon">format_align_right</mat-icon>
       </button>
     </div>
   </div>
 </div>
-

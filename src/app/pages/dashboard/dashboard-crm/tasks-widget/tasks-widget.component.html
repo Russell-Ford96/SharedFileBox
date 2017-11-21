@@ -3,8 +3,8 @@
     <div class="name">My Tasks</div>
 
     <div class="actions" fxLayout="row">
-      <button type="button" md-icon-button [mdMenuTriggerFor]="cardMenuRef">
-        <md-icon class="icon">more_vert</md-icon>
+      <button type="button" mat-icon-button [matMenuTriggerFor]="menu">
+        <mat-icon class="icon">more_vert</mat-icon>
       </button>
     </div>
   </div>
@@ -15,13 +15,13 @@
            fxLayout="row" fxLayoutAlign="space-between center"
            [class.done]="task.done" >
         <div fxLayout="row" fxLayoutAlign="start center">
-          <md-checkbox class="checkbox" [(ngModel)]="task.done" color="primary"></md-checkbox>
+          <mat-checkbox class="checkbox" [(ngModel)]="task.done" color="primary"></mat-checkbox>
           <div class="name">{{ task.name }}</div>
         </div>
 
         <div fxLayout="row" fxLayoutAlign="end center">
-          <button class="archive" *ngIf="task.done" (click)="archive(task)" type="button" md-icon-button>
-            <md-icon>archive</md-icon>
+          <button class="archive" *ngIf="task.done" (click)="archive(task)" type="button" mat-icon-button>
+            <mat-icon>archive</mat-icon>
           </button>
           <div class="date">{{ task.date }}</div>
         </div>
@@ -31,22 +31,22 @@
   </div>
 
   <div class="footer" fxLayout="row" fxLayoutAlign="end center">
-    <button type="button" md-button color="primary">VIEW ALL TASKS</button>
-    <button type="button" md-button color="primary">ADD TASK</button>
+    <button type="button" mat-button color="primary">VIEW ALL TASKS</button>
+    <button type="button" mat-button color="primary">ADD TASK</button>
   </div>
 </div>
 
-<md-menu #cardMenuRef="mdMenu">
-  <button md-menu-item>
-    <md-icon>refresh</md-icon>
+<mat-menu #menu="matMenu">
+  <button mat-menu-item>
+    <mat-icon>refresh</mat-icon>
     <span>Refresh</span>
   </button>
-  <button md-menu-item>
-    <md-icon>notifications_off</md-icon>
+  <button mat-menu-item>
+    <mat-icon>notifications_off</mat-icon>
     <span>Disable alerts</span>
   </button>
-  <button md-menu-item>
-    <md-icon>exit_to_app</md-icon>
+  <button mat-menu-item>
+    <mat-icon>exit_to_app</mat-icon>
     <span>Remove Widget</span>
   </button>
-</md-menu>
+</mat-menu>

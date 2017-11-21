@@ -15,12 +15,12 @@ export class ComponentsGridlistComponent implements OnInit {
   ];
 
   gridListHTML: string = _.escape(`
-  <md-grid-list cols="4" rowHeight="100px">
-    <md-grid-tile *ngFor="let tile of tiles" [colspan]="tile.cols" [rowspan]="tile.rows"
+  <mat-grid-list cols="4" rowHeight="100px">
+    <mat-grid-tile *ngFor="let tile of tiles" [colspan]="tile.cols" [rowspan]="tile.rows"
                   [style.background]="tile.color">
       {{tile.text}}
-    </md-grid-tile>
-  </md-grid-list>
+    </mat-grid-tile>
+  </mat-grid-list>
   `);
 
   constructor() { }

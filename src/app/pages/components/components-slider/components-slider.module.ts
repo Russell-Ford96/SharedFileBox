@@ -3,16 +3,16 @@ import { CommonModule } from '@angular/common';
 import { ComponentsSliderComponent } from './components-slider.component';
 import { UtilsModule } from '../../../core/utils/utils.module';
 import { FlexLayoutModule } from '@angular/flex-layout';
-import { MdCardModule, MdSliderModule, MdTabsModule } from '@angular/material';
+import { MatCardModule, MatSliderModule, MatTabsModule } from '@angular/material';
 
 @NgModule({
   imports: [
     CommonModule,
     UtilsModule,
     FlexLayoutModule,
-    MdCardModule,
-    MdTabsModule,
-    MdSliderModule
+    MatCardModule,
+    MatTabsModule,
+    MatSliderModule
   ],
   declarations: [ComponentsSliderComponent],
   exports: [ComponentsSliderComponent]

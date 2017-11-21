@@ -1,4 +1,4 @@
-import { Component } from "@angular/core";
+import { Component,Input } from "@angular/core";
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
@@ -69,12 +69,12 @@ export class FileUploadComponent {
         createdBy: this.docRequest.createdBy,
         _refnumb: this.docRequest.refnumb
       };
-      this.docRequest.docArray[item.formData[0].index].attachment = "uploaded";
-
+      // this.docRequest.docArray[item.formData[0].index].attachment = "uploaded";
     };
 
     //override the onAfterAddingfile property of the uploader so it doesn't authenticate with //credentials.
     this.uploader.onAfterAddingFile = (file) => {
+      console.log('*******uploader', this.docRequest)
       file.withCredentials = false;
       //here we push the index of the file into formdata because it's the only place i could find that would hold the value.
       this.audio.play();

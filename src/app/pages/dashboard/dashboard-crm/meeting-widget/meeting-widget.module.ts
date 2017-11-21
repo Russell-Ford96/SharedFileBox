@@ -4,8 +4,8 @@ import { MeetingWidgetComponent } from './meeting-widget.component';
 import { FormsModule } from '@angular/forms';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import {
-  MdButtonModule, MdCheckboxModule, MdIconModule, MdListModule, MdMenuModule, MdRippleModule,
-  MdTooltipModule
+  MatButtonModule, MatCheckboxModule, MatIconModule, MatListModule, MatMenuModule, MatRippleModule,
+  MatTooltipModule
 } from '@angular/material';
 
 @NgModule({
@@ -13,13 +13,13 @@ import {
     CommonModule,
     FormsModule,
     FlexLayoutModule,
-    MdMenuModule,
-    MdIconModule,
-    MdCheckboxModule,
-    MdTooltipModule,
-    MdButtonModule,
-    MdListModule,
-    MdRippleModule
+    MatMenuModule,
+    MatIconModule,
+    MatCheckboxModule,
+    MatTooltipModule,
+    MatButtonModule,
+    MatListModule,
+    MatRippleModule
   ],
   declarations: [MeetingWidgetComponent],
   exports: [MeetingWidgetComponent]

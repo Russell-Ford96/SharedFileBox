@@ -1,29 +1,47 @@
-<div class="simple-table">
+<div class="project-widget">
+  <div class="card border space">
+    <div class="header" fxLayout="row" fxLayoutAlign="space-between center">
+      <div class="name">Bots</div>
 
-    <div class="container">
+      <div class="actions" fxLayout="row">
 
-     <div fxLayout="column" fxLayout.gt-md="row" fxLayoutGap="16px" fxLayoutAlign="start start">
+          <button type="button" mat-button color="primary" (click)="onNewBot()">New Bot</button>
 
-      <div fxFlex class="mat-elevation-z2">
-        <table class="table" [class.table-hover]="tableHover" [class.table-striped]="tableStriped" [class.table-condensed]="tableCondensed" [class.table-bordered]="tableBordered">
-          <thead>
-          <tr>
-            <th>Name</th>
-            <th>URL</th>
-            <th>Active</th>
-
-          </tr>
-          </thead>
-          <tbody>
-          <tr *ngFor="let row of rows">
-            <td>{{ row.name}}</td>
-            <td>{{ row.url }}</td>
-            <td>{{ row.active }}</td>
-
-          </tr>
-          </tbody>
-        </table>
       </div>
+    </div>
+
+    <div class="content" fxLayout="column">
+      <div class="projects">
+        <div class="category">
+
+          <div  mat-ripple class="project"
+                fxLayout="row"
+                fxLayoutAlign="space-between center"
+                *ngFor="let bot of bots" (click)="onBotSelect(bot)" >
+
+            <div fxLayout="column">
+              <div class="name">{{ bot.name}}</div>
+              <div class="users" fxLayout="row">
+                <div class="user" *ngFor="let item of bot.itemArray">
+                  <mat-icon *ngIf="!item.file" class="icon">question_answer</mat-icon>
+                  <mat-icon *ngIf="item.file" class="icon">attach_file</mat-icon>
+                </div>
+              </div>
+            </div>
+            <div fxLayout="row" fxLayoutAlign="end center">
+              <div class="time">2 min ago</div>
+              <div *ngIf="bot.active" class="status-circle accent"></div>
+              <div *ngIf="!bot.active" class="status-circle warn"></div>
+            </div>
+          </div>
+
+
+        </div>
+      </div>
+    </div>
+
+    <div class="footer" fxLayout="row" fxLayoutAlign="end center">
+      <button type="button" mat-button color="primary">New Bot</button>
     </div>
   </div>
 </div>

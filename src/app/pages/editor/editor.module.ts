@@ -3,13 +3,13 @@ import { CommonModule } from '@angular/common';
 import { EditorComponent } from './editor.component';
 import { QuillModule } from 'ngx-quill';
 import { FlexLayoutModule } from '@angular/flex-layout';
-import { MdIconModule } from '@angular/material';
+import { MatIconModule } from '@angular/material';
 
 @NgModule({
   imports: [
     CommonModule,
     FlexLayoutModule,
-    MdIconModule,
+    MatIconModule,
     QuillModule
   ],
   declarations: [EditorComponent]

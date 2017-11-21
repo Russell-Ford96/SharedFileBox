@@ -1,5 +1,4 @@
 import { ChangeDetectorRef, Component, ElementRef, OnDestroy, OnInit, ViewChild} from '@angular/core';
-import {chatDemoData} from "../../chat/chat.demo";
 import * as _ from 'lodash';
 import * as moment from 'moment';
 import { ScrollbarComponent, scrollbarOptions } from '../../../core/scrollbar/scrollbar.component';
@@ -39,7 +38,7 @@ export class SentComponent implements OnInit, OnDestroy {
               ) { }
 
   ngOnInit() {
-    this.chats = _.sortBy(chatDemoData, 'lastMessageTime').reverse();
+    // this.chats = _.sortBy(chatDemoData, 'lastMessageTime').reverse();
 
     this.mainScrollbarElem = document.getElementById('main-scrollbar');
     this.scrollbar = Scrollbar.get(this.mainScrollbarElem);

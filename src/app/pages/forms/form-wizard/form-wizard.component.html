@@ -5,9 +5,9 @@
     <vr-breadcrumbs [currentPage]="'Form Wizard'" [names]="['Forms']" [header]="'primary'"></vr-breadcrumbs>
 
     <div class="card alternative">
-      <md-tab-group class="form-wizard" [(selectedIndex)]="selectedIndex">
-        <md-tab>
-          <ng-template md-tab-label>
+      <mat-tab-group class="form-wizard" [(selectedIndex)]="selectedIndex">
+        <mat-tab>
+          <ng-template mat-tab-label>
             <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="8px">
               <span class="badge primary">1</span>
               <span>Shopping Cart</span>
@@ -85,9 +85,9 @@
               </div>
             </div>
           </div>
-        </md-tab>
-        <md-tab>
-          <ng-template md-tab-label>
+        </mat-tab>
+        <mat-tab>
+          <ng-template mat-tab-label>
             <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="8px">
               <span class="badge primary">2</span>
               <span>Shipping Address</span>
@@ -95,38 +95,38 @@
           </ng-template>
           <div class="shipping-address">
             <div fxLayout="column" fxLayout.gt-sm="row" fxLayoutGap.gt-sm="24px">
-              <md-input-container fxFlex="100%" fxFlex.gt-sm>
+              <mat-input-container fxFlex="100%" fxFlex.gt-sm>
                 <input mdInput placeholder="First Name">
-              </md-input-container>
-              <md-input-container fxFlex="100%" fxFlex.gt-sm>
+              </mat-input-container>
+              <mat-input-container fxFlex="100%" fxFlex.gt-sm>
               <input mdInput placeholder="Last Name">
-            </md-input-container>
+            </mat-input-container>
             </div>
 
             <div fxLayout="column" fxLayout.gt-sm="row" fxLayoutGap.gt-sm="24px">
-              <md-input-container fxFlex="100%" fxFlex.gt-sm>
+              <mat-input-container fxFlex="100%" fxFlex.gt-sm>
                 <input mdInput placeholder="Email Address">
-              </md-input-container>
-              <md-input-container fxFlex="100%" fxFlex.gt-sm>
+              </mat-input-container>
+              <mat-input-container fxFlex="100%" fxFlex.gt-sm>
                 <input mdInput placeholder="Confirm Email Address">
-              </md-input-container>
+              </mat-input-container>
             </div>
 
             <div fxLayout="column" fxLayout.gt-sm="row" fxLayoutGap.gt-sm="24px">
-              <md-input-container fxFlex="100%" fxFlex.gt-sm>
+              <mat-input-container fxFlex="100%" fxFlex.gt-sm>
                 <input mdInput placeholder="Address">
-              </md-input-container>
-              <md-input-container fxFlex="100%" fxFlex.gt-sm>
+              </mat-input-container>
+              <mat-input-container fxFlex="100%" fxFlex.gt-sm>
                 <input mdInput placeholder="City">
-              </md-input-container>
-              <md-input-container fxFlex="100%" fxFlex.gt-sm>
+              </mat-input-container>
+              <mat-input-container fxFlex="100%" fxFlex.gt-sm>
                 <input mdInput placeholder="Zipcode">
-              </md-input-container>
+              </mat-input-container>
             </div>
           </div>
-        </md-tab>
-        <md-tab>
-          <ng-template md-tab-label>
+        </mat-tab>
+        <mat-tab>
+          <ng-template mat-tab-label>
             <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="8px">
               <span class="badge primary">3</span>
               <span>Payment Details</span>
@@ -134,51 +134,51 @@
           </ng-template>
           <div class="payment-details" fxLayout="column">
             <div fxLayout="column" fxLayout.gt-sm="row" fxLayoutGap.gt-sm="24px">
-              <md-input-container fxFlex="100%" fxFlex.gt-sm>
+              <mat-input-container fxFlex="100%" fxFlex.gt-sm>
                 <input mdInput placeholder="First Name - Card Holder">
-              </md-input-container>
-              <md-input-container fxFlex="100%" fxFlex.gt-sm>
+              </mat-input-container>
+              <mat-input-container fxFlex="100%" fxFlex.gt-sm>
                 <input mdInput placeholder="Last Name - Card Holder">
-              </md-input-container>
+              </mat-input-container>
             </div>
 
-            <md-input-container fxFlex="100%" fxFlex.gt-sm>
+            <mat-input-container fxFlex="100%" fxFlex.gt-sm>
               <input mdInput placeholder="Credit Card Number">
-            </md-input-container>
+            </mat-input-container>
 
             <div fxLayout="column" fxLayout.gt-sm="row" fxLayoutAlign="start baseline" fxLayoutGap.gt-sm="24px">
-              <md-input-container fxFlex="100%" fxFlex.gt-sm>
+              <mat-input-container fxFlex="100%" fxFlex.gt-sm>
                 <input mdInput placeholder="CVC Number">
-              </md-input-container>
-              <md-select placeholder="Expiration Month">
-                <md-option value="01">January</md-option>
-                <md-option value="02">February</md-option>
-                <md-option value="03">March</md-option>
-                <md-option value="04">April</md-option>
-                <md-option value="05">May</md-option>
-                <md-option value="06">June</md-option>
-                <md-option value="07">July</md-option>
-                <md-option value="08">August</md-option>
-                <md-option value="09">September</md-option>
-                <md-option value="10">October</md-option>
-                <md-option value="11">November</md-option>
-                <md-option value="12">December</md-option>
-              </md-select>
-              <md-select placeholder="Expiration Year">
-                <md-option value="2017">2017</md-option>
-                <md-option value="2018">2018</md-option>
-                <md-option value="2019">2019</md-option>
-                <md-option value="2020">2020</md-option>
-                <md-option value="2021">2021</md-option>
-                <md-option value="2022">2022</md-option>
-                <md-option value="2023">2023</md-option>
-                <md-option value="2024">2024</md-option>
-              </md-select>
+              </mat-input-container>
+              <mat-select placeholder="Expiration Month">
+                <mat-option value="01">January</mat-option>
+                <mat-option value="02">February</mat-option>
+                <mat-option value="03">March</mat-option>
+                <mat-option value="04">April</mat-option>
+                <mat-option value="05">May</mat-option>
+                <mat-option value="06">June</mat-option>
+                <mat-option value="07">July</mat-option>
+                <mat-option value="08">August</mat-option>
+                <mat-option value="09">September</mat-option>
+                <mat-option value="10">October</mat-option>
+                <mat-option value="11">November</mat-option>
+                <mat-option value="12">December</mat-option>
+              </mat-select>
+              <mat-select placeholder="Expiration Year">
+                <mat-option value="2017">2017</mat-option>
+                <mat-option value="2018">2018</mat-option>
+                <mat-option value="2019">2019</mat-option>
+                <mat-option value="2020">2020</mat-option>
+                <mat-option value="2021">2021</mat-option>
+                <mat-option value="2022">2022</mat-option>
+                <mat-option value="2023">2023</mat-option>
+                <mat-option value="2024">2024</mat-option>
+              </mat-select>
             </div>
           </div>
-        </md-tab>
-        <md-tab>
-          <ng-template md-tab-label>
+        </mat-tab>
+        <mat-tab>
+          <ng-template mat-tab-label>
             <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="8px">
               <span class="badge primary">4</span>
               <span>Confirmation</span>
@@ -281,13 +281,13 @@
               </div>
             </div>
           </div>
-        </md-tab>
-      </md-tab-group>
+        </mat-tab>
+      </mat-tab-group>
 
       <div class="tab-navigation" fxLayout="row" fxLayoutAlign="space-between">
-        <button type="button" md-raised-button color="primary" (click)="previousPage()" [disabled]="selectedIndex == 0">PREVIOUS</button>
-        <button type="button" md-raised-button color="primary" (click)="nextPage()" *ngIf="selectedIndex !== lastIndex">NEXT</button>
-        <button type="button" md-raised-button color="accent" *ngIf="selectedIndex == lastIndex">CONFIRM ORDER</button>
+        <button type="button" mat-raised-button color="primary" (click)="previousPage()" [disabled]="selectedIndex == 0">PREVIOUS</button>
+        <button type="button" mat-raised-button color="primary" (click)="nextPage()" *ngIf="selectedIndex !== lastIndex">NEXT</button>
+        <button type="button" mat-raised-button color="accent" *ngIf="selectedIndex == lastIndex">CONFIRM ORDER</button>
       </div>
     </div>
   </div>

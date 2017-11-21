@@ -1,0 +1,58 @@
+@import "../../../../styles/var";
+
+.fieldWidth {
+  width: 100%;
+}
+
+.footer-button{
+  padding: 10px;
+}
+
+.progressbar-section {
+  display: flex;
+  align-content: center;
+  align-items: center;
+  height: 30px;
+}
+
+.progressbar-margin {
+  margin: 5px 5px;
+}
+
+.addItemNameStyle {
+  padding-left: 0px;
+  padding-right: 10px;
+  width: 100%;
+}
+.addItemTypeStyle {
+  padding-left: 15px;
+  padding-right: 0px;
+  width: 100%;
+}
+.form-elements {
+
+  @include responsivePadding();
+
+  .card.alternative {
+
+    .content {
+      padding-top: 16px;
+
+      .source {
+        @include responsivePadding(left, true);
+        @include responsivePadding(right, true);
+        margin-bottom: 12px;
+      }
+
+      .result {
+        width: 100%;
+        .description {
+          color: $color__text-dark;
+          margin: 0 0 8px 0;
+          font-size: 14px;
+
+        }
+      }
+    }
+  }
+}
