@@ -1,9 +1,10 @@
 import * as _ from 'lodash';
 import { ROUTE_TRANSITION } from '../../../app.animation';
-import { Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, ChangeDetectorRef } from '@angular/core';
 import { FormArray, FormGroup, FormBuilder, Validators, AbstractControl, ValidationErrors } from '@angular/forms';
 import {AuthService} from '../../../auth/auth.service';
 import {AppService} from '../../../app.service';
+import { DialogDataService } from './dialog-data.service';
 
 
 
@@ -27,18 +28,19 @@ export class MessageComponent implements OnInit {
   public isphoneError = false;
   @Input() inputArray: any[];
   @Output() closeEvent = new EventEmitter<string>();
-
   requestForm: FormGroup;
 
   submitted = false;
   profile: any;
-  phonemsg: any;
-
+  phonemsg: string;
+  openSnackbar = false;
 
   constructor(
     private fb: FormBuilder,
     private appService: AppService,
-    private auth: AuthService
+    private auth: AuthService,
+    private cdr: ChangeDetectorRef,
+    private dialogDataService: DialogDataService,
   ) { }
 
   callParent() {
@@ -55,6 +57,7 @@ export class MessageComponent implements OnInit {
       });
     }
     this.buildForm();
+    this.dialogDataService.currentMessage.subscribe(message => this.phonemsg = message)
   }
 
 
@@ -67,36 +70,51 @@ export class MessageComponent implements OnInit {
   }
 
   save(): void {
+    this.appService.setLoading(true);
     let formValues = this.requestForm.value;
+    if(this.formErrors.refnumb || this.formErrors.email){
+      this.appService.setLoading(false);
+      return
+    }
     formValues.createdBy = this.profile.sub.split("|")[1];
     this.appService.createRequest(this.requestForm.value)
       .then(res => {
         let error_str = res._body.slice(26);
-        if(error_str == 'is not a valid phone number.'){
+        if(res._body.indexOf('not a valid phone number') >= 0 ){
             this.isphoneError = true;
+            setTimeout(function(){
+              this.isphoneError = false;
+            }.bind(this),5000);
             this.phonemsg = res._body;
-            this.val(true)
+            this.dialogDataService.changeMessage(res._body)
+            this.cdr.detectChanges();
+            this.appService.setLoading(false);
         }
-        else if(error_str != 'is not a valid phone number.'){
-          this.isphoneError = false;
+        else{
+          this.phonemsg = '';
+          this.openSnackbar = true;
+          setTimeout(function(){
+            this.openSnackbar = false;
+          }.bind(this), 5000);
+          this.cdr.detectChanges();
+          this.appService.setLoading(false);
         }
-        if(res._body != "false") {
-          this.callParent();
-
-          this.msgSent = true;
-          setTimeout(function () {
-            this.msgSent = false;
-            console.log(this.msgSent);
-          }.bind(this),3000);
-
-        }  else {
-          console.log(res);
-          this.msgErr = true;
-          setTimeout(function () {
-            this.msgErr = false;
-          }.bind(this),3000);
-
-        }
+        // if(res._body != "false") {
+        //   this.callParent();
+        //
+        //   this.msgSent = true;
+        //   setTimeout(function () {
+        //     this.msgSent = false;
+        //   }.bind(this),3000);
+        //
+        // }  else {
+        //   console.log(res);
+        //   this.msgErr = true;
+        //   setTimeout(function () {
+        //     this.msgErr = false;
+        //   }.bind(this),3000);
+        //
+        // }
       });
   }
 
@@ -116,8 +134,7 @@ export class MessageComponent implements OnInit {
       ],
       'phone': ['', [
         Validators.required,
-        Validators.pattern(/[0-9]/),
-        this.val,
+        Validators.pattern(this.PHONE_REGEX),
       ]
       ],
       'shortmessage': ['', [
@@ -211,6 +228,7 @@ export class MessageComponent implements OnInit {
     },
     'phone': {
       'required': 'Phone is required.',
+      'invalid': 'Invalid phone number',
     },
     'shortmessage': {
       'required': 'Short description is required.'
@@ -229,28 +247,19 @@ export class MessageComponent implements OnInit {
     }
   };
 
-
-validateAN(control: AbstractControl): ValidationErrors | null {
-    var letter = /[a-zA-Z]/;
-    var number = /[0-9]/;
-    var valid = number.test(control.value) && letter.test(control.value)
-    if (!valid) {
-        return { validateAN: control.value }
-    }
-      return null
-  }
-
-
-val(msg?:Boolean, control?: AbstractControl, ): ValidationErrors | null{
-      if(msg){
-        return { val: 'phone format error' }
+  //validate reference number is alpha numeric
+  validateAN(control: AbstractControl): ValidationErrors | null {
+      var letter = /[a-zA-Z]/;
+      var number = /[0-9]/;
+      var valid = number.test(control.value) && letter.test(control.value)
+      if (!valid) {
+          return { validateAN: control.value }
       }
-      return null
-}
-EMAIL_REGEX = /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+        return null
+    }
 
-
-
+  EMAIL_REGEX = /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+  PHONE_REGEX = /^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/;
 
 
 
