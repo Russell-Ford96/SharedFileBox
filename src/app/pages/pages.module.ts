@@ -14,8 +14,8 @@ import { GoogleMapsModule } from './google-maps/google-maps.module';
 import { ProjectsModule } from './projects/projects.module';
 import { ProjectDetailsModule } from './project-details/project-details.module';
 import { RequestModule } from './request/request.module';
-// import {MailModule} from "./mail/mail.module";
-// import {ChatModule} from "./chat/chat.module";
+import {MailModule} from "./mail/mail.module";
+import {ChatModule} from "./chat/chat.module";
 
 
 @NgModule({
@@ -34,9 +34,9 @@ import { RequestModule } from './request/request.module';
     GoogleMapsModule,
     ProjectsModule,
     ProjectDetailsModule,
-    RequestModule
-    // MailModule,
-    // ChatModule
+    RequestModule,
+    MailModule,
+    ChatModule
 
 
   ],

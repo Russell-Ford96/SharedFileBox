@@ -30,6 +30,7 @@ import { RouterModule } from '@angular/router';
 import { LoadingModule, ANIMATION_TYPES } from 'ngx-loading';
 import { Angular2FlexModule } from "angular2-flex";
 
+
 @NgModule({
   imports: [
     BrowserModule,

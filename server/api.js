@@ -40,24 +40,6 @@ var client = require('twilio')(ACCOUNT_SID, AUTH_TOKEN);
 
 //get image uploaded by file number
 router.get('/getimage/:createdBy/:refnumb/:file', function(req, res) {
-    var fileName =req.params.refnumb +'/'+ req.params.file;
-    var containerName= req.params.createdBy;
-    blobSvc.getBlobProperties(
-        containerName,
-        fileName,
-        function(err, properties, status) {
-            if (err) {
-                console.log(err.message);
-                res.send(502, "Error fetching file: %s", err.message);
-            } else if (!status.isSuccessful) {
-                res.send(404, "The file %s does not exist", fileName);
-            } else {
-                res.header('Content-Type', properties.contentType);
-               blobSvc.createReadStream(containerName, fileName).pipe(res);
-
-
-
-router.get('/getimage/:createdBy/:refnumb/:file', function(req, res) {
   var fileName = req.params.refnumb + '/' + req.params.file;
   var containerName = req.params.createdBy;
   blobSvc.getBlobProperties(
@@ -130,80 +112,83 @@ router.get('/getdoc/:id', (req, res) => {
 
 
 //upload docs
-router.post('/upload', function (req, res, next) {
+router.post('/upload', function(req, res, next) {
 
-    upload(req, res, function (err) {
-       if (err) {
-         // An error occurred when uploading
-         console.log("error"+err);
-         return res.status(422).send("an Error occured")
-       }
+  upload(req, res, function(err) {
+    if (err) {
+      // An error occurred when uploading
+      console.log("error" + err);
+      return res.status(422).send("an Error occured")
+    }
 
-  var stream = streamifier.createReadStream(req.file.buffer)
-  const fullAzurePath = req.body._refnumb + '/' + req.file.filename;
-  var containerName = req.body.createdBy;
+    var stream = streamifier.createReadStream(req.file.buffer)
+    const fullAzurePath = req.body._refnumb + '/' + req.file.filename;
+    var containerName = req.body.createdBy;
 
-  console.log('stream----->', stream)
+    console.log('stream----->', stream)
 
-    blobSvc.createContainerIfNotExists(containerName, function(error, result, response){
-        if(!error){
-          blobSvc.createBlockBlobFromLocalFile(containerName, fileName, path, function(error, result, response){
-            if(!error){
-              // file uploaded
-            } else {
-                //return res.status(500).send("An error occured");
-            }
-          });
-        } else {
-            //return res.status(500).send("An error has occured.");
-        }
+    blobSvc.createContainerIfNotExists(containerName, function(error, result, response) {
+      if (!error) {
+        blobSvc.createBlockBlobFromLocalFile(containerName, fileName, path, function(error, result, response) {
+          if (!error) {
+            // file uploaded
+          } else {
+            //return res.status(500).send("An error occured");
+          }
+        });
+      } else {
+        //return res.status(500).send("An error has occured.");
+      }
     });
 
     mongodb.MongoClient.connect(uri, function(err, db) {
-        if(err){
-            console.log(err);
-          }
-          //create a new mongo ID using the supplied ID ??
-          var o_id = new mongodb.ObjectID(req.body._id);
-          var index = req.body.index;
-          var today = new Date();
-
-          var existingRecord = db.collection('docRequest').findOne({
-            _id: o_id
-          }, function(err, result) {
-            if (err) console.log(err);
-
-            if (result == null) {
-              return res.status(422).send("an error occured");
-            }
-            result.docArray[index].attachment = fullAzurePath;
-            result.docArray[index].fileName = req.file.filename;
-            result.docArray[index].docName = req.body._namedoc;
-            result.docArray[index].dateTime = today.getFullYear() + '/' + (today.getMonth() + 1) + '/' + today.getDate() +
-              ' ' + today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
-            db.collection("docRequest").updateOne({
-              _id: o_id
-            }, result, function(err, res) {
-              if (err) console.log(err);
-              console.log("1 document updated");
-              db.close();
-            });
-            db.close();
-          });
-
-          return res.send(fullAzurePath);
-        });
-        console.log('stream uploaded successfully');
-        req.model.data = response;
-        next();
+      if (err) {
+        console.log(err);
       }
+      //create a new mongo ID using the supplied ID ??
+      var o_id = new mongodb.ObjectID(req.body._id);
+      var index = req.body.index;
+      var today = new Date();
+
+      var existingRecord = db.collection('docRequest').findOne({
+        _id: o_id
+      }, function(err, result) {
+        if (err) console.log(err);
+
+        if (result == null) {
+          return res.status(422).send("an error occured");
+        }
+        result.docArray[index].attachment = fullAzurePath;
+        result.docArray[index].fileName = req.file.filename;
+        result.docArray[index].docName = req.body._namedoc;
+        result.docArray[index].dateTime = today.getFullYear() + '/' + (today.getMonth() + 1) + '/' + today.getDate() +
+          ' ' + today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+        db.collection("docRequest").updateOne({
+          _id: o_id
+        }, result, function(err, res) {
+          if (err) console.log(err);
+          console.log("1 document updated");
+          db.close();
+        });
+        db.close();
+      });
+
+      return res.send(fullAzurePath);
     });
+
+
+
+    console.log('stream uploaded successfully');
+    req.model.data = response;
+    next();
+  });
 });
 
 
+
 //instead using '/reqdata/:createdBy'
-router.get('/getreq/:createdBy',function (req,res) {
-  mongodb.MongoClient.connect(uri, function (err, db) {
+router.get('/getreq/:createdBy', function(req, res) {
+  mongodb.MongoClient.connect(uri, function(err, db) {
     if (err) {
       throw err;
     }
@@ -248,13 +233,20 @@ router.get('/reqdata/:createdBy', function(req, res) {
 });
 
 //get data for inbox
-router.get('/getinbox/:createdBy',function (req,res) {
-  mongodb.MongoClient.connect(uri, function (err, db) {
+router.get('/getinbox/:createdBy', function(req, res) {
+  mongodb.MongoClient.connect(uri, function(err, db) {
     if (err) {
       throw err;
     }
     var docRequestCollection = db.collection('docRequest');
-    docRequestCollection.find({createdBy: req.params.createdBy,"docArray.attachment":{$exists:true}}).sort({"docArray.dateTime":1}).toArray(function (err,results) {
+    docRequestCollection.find({
+      createdBy: req.params.createdBy,
+      "docArray.attachment": {
+        $exists: true
+      }
+    }).sort({
+      "docArray.dateTime": 1
+    }).toArray(function(err, results) {
       if (err) {
         console.log(err);
         return res.status(500).send("There was a problem finding the docrequests.");
@@ -263,7 +255,7 @@ router.get('/getinbox/:createdBy',function (req,res) {
       return res.status(200).send(results);
     });
 
-    });
+  });
 
 });
 
@@ -273,8 +265,8 @@ router.get('/getinbox/:createdBy',function (req,res) {
 
 
 //detailed request detail by reference number
-router.get('/request/detail/:refNumb',function (req,res) {
-  mongodb.MongoClient.connect(uri, function (err, db) {
+router.get('/request/detail/:refNumb', function(req, res) {
+  mongodb.MongoClient.connect(uri, function(err, db) {
     if (err) {
       throw err;
     }
@@ -466,12 +458,21 @@ router.post('/email', (req, res) => {
 
 //create request
 router.post('/create', (req, res) => {
+  // var toNumber = req.body.phone;
+  // var ourNumber = "+12016883122";
+  // var shortMessage = req.body.shortmessage;
+  // var detailedMessage = req.body.detailedmessage;
+  // var success = true;
+  // var reqReferenceNum = req.body.refnumb;
   var toNumber = req.body.phone;
-  var ourNumber = "+12016883122";
-  var shortMessage = req.body.shortmessage;
+  //var ourNumber = "+12016883122";
+  var ourNumber = "+12134087854";
   var detailedMessage = req.body.detailedmessage;
-  var success = true;
   var reqReferenceNum = req.body.refnumb;
+  var today= new Date();
+  var datetime= today.getFullYear()+'/'+(today.getMonth()+1)+'/'+today.getDate()
+    +' '+today.getHours()+":" +today.getMinutes() + ":" + today.getSeconds();
+  req.body.datetime= datetime;
 
 
   //validate refnumb

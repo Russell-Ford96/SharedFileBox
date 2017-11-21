@@ -9,35 +9,35 @@
     <div class="chat mat-elevation-z4">
 
       <div fxLayout="row" style="height:100%" >
-        <md-card-content fxFlex="100" fxFlex.gt-xs="50" fxFlex.gt-lg="40" style="overflow-y: auto" >
-          <md-nav-list >
-            <md-list-item  *ngFor="let item of sentData" (click)="setActiveMsg(item)"  >
+        <mat-card-content fxFlex="100" fxFlex.gt-xs="50" fxFlex.gt-lg="40" style="overflow-y: auto" >
+          <mat-nav-list >
+            <mat-list-item  *ngFor="let item of sentData" (click)="setActiveMsg(item)"  >
               <div class="mat-list-item" style="width: 100%">
                 <h4 style="font-weight: 700; margin: 0 " md-line>{{item.phone}}
                   <span style="font-size: x-small; float: right; ">{{item.latestDocTime | timeAgo}}</span></h4>
 
 
               </div>
-              <md-divider></md-divider>
-            </md-list-item>
+              <mat-divider></mat-divider>
+            </mat-list-item>
 
 
-          </md-nav-list>
+          </mat-nav-list>
 
 
-        </md-card-content>
+        </mat-card-content>
 
-        <md-card style="padding: 30px; width: 100%; border: 0.7px solid lightgrey">
-          <md-card-header>
+        <mat-card style="padding: 30px; width: 100%; border: 0.7px solid lightgrey">
+          <mat-card-header>
             <div fxLayout="column"  *ngIf="activeMsg">
               <span class="name"><b>{{activeMsg.phone}}</b></span>
             </div>
 
-          </md-card-header>
-          <md-divider></md-divider>
+          </mat-card-header>
+          <mat-divider></mat-divider>
 
 
-          <md-card-content>
+          <mat-card-content>
             <div class="chat-content" fxLayout="column" fxLayoutAlign="start stretch">
 
               <vr-scrollbar #chatScroll>
@@ -57,16 +57,13 @@
               </vr-scrollbar>
             </div>
 
-          </md-card-content>
+          </mat-card-content>
 
 
 
 
-        </md-card>
+        </mat-card>
       </div>
     </div>
   </div>
 </div>
-
-
-

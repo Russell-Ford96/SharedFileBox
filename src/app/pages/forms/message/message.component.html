@@ -26,9 +26,9 @@
             <form #myForm="ngForm" [formGroup]="requestForm" (ngSubmit)="onSubmit();">
             <div class="result" fxLayout="column">
 
-             <mat-input-container class="fieldWidth"  >
+             <!-- <mat-input-container class="fieldWidth"  >
                 <input id="refnumb" name="refnumb" matInput placeholder="Reference Number" type="text" formControlName="refnumb" >
-             </mat-input-container>
+             </mat-input-container> -->
 
               <mat-input-container class="fieldWidth" >
                 <input id="refnumb" name="refnumb" matInput placeholder="Reference Number " type="text" formControlName="refnumb" required>
@@ -76,11 +76,11 @@
                 <div formArrayName="infoArray" fxFlex>
                   <div *ngFor="let address of requestForm.controls.infoArray.controls; let i=index" >
                     <div [formGroupName]="i">
-                      <md-input-container class="fieldWidth" >
-                        <input id="infolist1" name="infolist1" mdInput placeholder="Information" type="text" formControlName="info" required>
-                        <md-icon mdSuffix (click)="addInfoInput()">add</md-icon>
-                        <md-icon mdSuffix *ngIf="requestForm.controls.infoArray.controls.length > 1" (click)="delInfoInput(i)">clear</md-icon>
-                      </md-input-container>
+                      <mat-input-container class="fieldWidth" >
+                        <input id="infolist1" name="infolist1" matInput placeholder="Information" type="text" formControlName="info" required>
+                        <mat-icon matSuffix (click)="addInfoInput()">add</mat-icon>
+                        <mat-icon matSuffix *ngIf="requestForm.controls.infoArray.controls.length > 1" (click)="delInfoInput(i)">clear</mat-icon>
+                      </mat-input-container>
                     </div>
                   </div>
                 </div>

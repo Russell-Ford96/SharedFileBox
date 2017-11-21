@@ -2,8 +2,8 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SortablejsModule } from 'angular-sortablejs';
 import {
-  MdButtonModule, MdIconModule, MdInputModule, MdListModule, MdMenuModule, MdRippleModule, MdSidenavModule,
-  MdToolbarModule
+  MatButtonModule, MatIconModule, MatInputModule, MatListModule, MatMenuModule, MatRippleModule, MatSidenavModule,
+  MatToolbarModule
 } from '@angular/material';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import {PageHeaderModule} from "../../core/page-header/page-header.module";
@@ -20,20 +20,20 @@ import {TimeAgoPipe} from "time-ago-pipe";
   imports: [
     CommonModule,
     SortablejsModule,
-    MdIconModule,
+    MatIconModule,
     FlexLayoutModule,
-    MdToolbarModule,
-    MdListModule,
+    MatToolbarModule,
+    MatListModule,
     PageHeaderModule,
     BreadcrumbsModule,
     FormsModule,
     UtilsModule,
     ScrollbarModule,
-    MdRippleModule,
-    MdMenuModule,
-    MdButtonModule,
-    MdInputModule,
-    MdSidenavModule,
+    MatRippleModule,
+    MatMenuModule,
+    MatButtonModule,
+    MatInputModule,
+    MatSidenavModule,
 
   ],
   declarations: [InboxComponent,
