@@ -21,7 +21,9 @@ export class FormDialogsComponent implements OnInit{
         width: '400px',
         height: '250px',
       });
-    dialogRef.afterClosed().subscribe(result => {})
+      dialogRef.afterClosed().subscribe(result => {
+        this.dialog = null;
+    })
   }
 
 }
@@ -37,9 +39,7 @@ export class FormDialogsComponent implements OnInit{
 
 export class DialogOverviewComponent {
 
-
   message: string;
-
 
   constructor(
      public dialogRef: MatDialogRef<DialogOverviewComponent>,
