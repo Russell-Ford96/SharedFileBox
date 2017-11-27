@@ -2,8 +2,9 @@ import * as _ from 'lodash';
 import { ROUTE_TRANSITION } from '../../../app.animation';
 import { Component, OnInit, Input, Output, EventEmitter, ChangeDetectorRef } from '@angular/core';
 import { FormArray, FormGroup, FormBuilder, Validators, AbstractControl, ValidationErrors } from '@angular/forms';
-import {AuthService} from '../../../auth/auth.service';
-import {AppService} from '../../../app.service';
+import { AuthService } from '../../../auth/auth.service';
+import { AppService } from '../../../app.service';
+import { AppSocketService } from '../../../app.socket.service';
 import { DialogDataService } from './dialog-data.service';
 
 
@@ -35,6 +36,7 @@ export class MessageComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private appService: AppService,
+    private socketService: AppSocketService,
     private auth: AuthService,
     private cdr: ChangeDetectorRef,
     private dialogDataService: DialogDataService,
@@ -53,8 +55,9 @@ export class MessageComponent implements OnInit {
 
       });
     }
+
     this.buildForm();
-    this.dialogDataService.currentMessage.subscribe(message => this.phonemsg = message)
+    this.dialogDataService.currentMessage.subscribe(message => this.phonemsg = message);
   }
 
   onSubmit() {
@@ -87,18 +90,22 @@ export class MessageComponent implements OnInit {
             setTimeout(function(){
               this.isphoneError = false;
             }.bind(this),5000);
+            this.phonemsg = res._body;
+            this.dialogDataService.changeMessage(res._body);
+            this.socketService.sendMessage('new Request from save');
             this.cdr.detectChanges();
             this.appService.setLoading(false);
         }
         else{
-            this.phonemsg = '';
-            this.openSnackbar = true;
-            setTimeout(function(){
-              this.openSnackbar = false;
-            }.bind(this), 5000);
-            this.cdr.detectChanges();
-            this.appService.setLoading(false);
-            }
+          this.phonemsg = '';
+          this.openSnackbar = true;
+          setTimeout(function(){
+            this.openSnackbar = false;
+          }.bind(this), 5000);
+          this.cdr.detectChanges();
+          this.socketService.sendMessage('newRequest ERROR');
+          this.appService.setLoading(false);
+        }
       });
   }
 

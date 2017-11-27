@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, ChangeDetectorRef } from '@angular/core';
 import { DataSource } from '@angular/cdk/table';
 import { MatPaginator } from '@angular/material';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
@@ -9,13 +9,14 @@ import 'rxjs/add/operator/startWith';
 import 'rxjs/add/observable/merge';
 import 'rxjs/add/operator/map';
 import { ROUTE_TRANSITION } from './../../app.animation';
-import {AppService} from '../../app.service';
-import {RequestData} from './requestdata';
-import {ActivatedRoute, Router} from '@angular/router';
+import { AppService } from '../../app.service';
+import { AppSocketService } from '../../app.socket.service';
+import { RequestData } from './requestdata';
+import { ActivatedRoute, Router } from '@angular/router';
 import { RouterLink } from '@angular/router'
-import {AuthService} from "../../auth/auth.service";
+import { AuthService } from "../../auth/auth.service";
 import { IntervalObservable } from "rxjs/observable/IntervalObservable";
-import {AnonymousSubscription} from "rxjs/Subscription";
+import { AnonymousSubscription } from "rxjs/Subscription";
 
 @Component({
   selector: 'vr-table-pagination',
@@ -23,29 +24,56 @@ import {AnonymousSubscription} from "rxjs/Subscription";
   styleUrls: ['./request.component.scss'],
   animations: [...ROUTE_TRANSITION],
   host: { '[@routeTransition]': '' },
-  providers : [AppService]
+  providers: [AppService]
 })
 export class RequestComponent implements OnInit {
 
-  public displayedColumns = ['refnumb', 'email', 'phone','shortmessage','checkdocs'];
-  public requestDatabase : RequestDatabase | null;
-  public dataSource : RequestDataSource | null;
+  public displayedColumns = ['refnumb', 'email', 'phone', 'shortmessage', 'checkdocs'];
+  public requestDatabase: RequestDatabase | null;
+  public dataSource: RequestDataSource | null;
+  public dataChange: BehaviorSubject<RequestData[]> = new BehaviorSubject<RequestData[]>([]);
+  userid: string;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
-  constructor(private appService: AppService,
+  constructor(
+    private appService: AppService,
+    private auth: AuthService,
+    private socketService: AppSocketService,
+    private cdr: ChangeDetectorRef,
+    private router: Router,
+  ) {
 
-              private auth: AuthService,
-              private router: Router,
-              ) {}
-
-  ngOnInit() {
-    this.requestDatabase = new RequestDatabase(this.appService, this.auth);
-    this.dataSource = new RequestDataSource(this.requestDatabase, this.paginator);
   }
 
-  moreDetails(refnumb: string){
-    this.router.navigate(['/request/detail/' ,   refnumb]);
+
+  ngOnInit() {
+
+    this.requestDatabase = new RequestDatabase(this.appService, this.auth);
+    this.dataSource = new RequestDataSource(this.requestDatabase, this.paginator);
+
+    // This service is to update the data in real time through socket
+    this.socketService
+      .getMessages()
+      .subscribe((message: any) => {
+        console.log(message);
+        console.log(" *********** On Request Component ********** ");
+        this.requestDatabase.getData();
+        this.cdr.detectChanges();
+      });
+
+
+
+
+
+
+
+  }
+
+
+
+  moreDetails(refnumb: string) {
+    this.router.navigate(['/request/detail/', refnumb]);
     // console.log(refnumb);
   }
 
@@ -54,8 +82,8 @@ export class RequestComponent implements OnInit {
 export class RequestDataSource extends DataSource<RequestData>{
 
   constructor(private _reqDatabase: RequestDatabase,
-              private _paginator: MatPaginator,
-             ) {
+    private _paginator: MatPaginator,
+  ) {
     super();
   }
 
@@ -71,12 +99,12 @@ export class RequestDataSource extends DataSource<RequestData>{
       let data = this._reqDatabase.data.slice();
 
       const startIndex = this._paginator.pageIndex * this._paginator.pageSize;
-       return data.splice(startIndex, this._paginator.pageSize);
+      return data.splice(startIndex, this._paginator.pageSize);
 
     })
   }
 
-  disconnect() {}
+  disconnect() { }
 
 }
 
@@ -92,9 +120,14 @@ export class RequestDatabase {
   }
 
   constructor(private appService: AppService,
-              private auth: AuthService,
-             ) {
+    private auth: AuthService,
+  ) {
 
+    this.getData();
+
+  }
+
+  getData() {
     if (this.auth.userProfile) {
       this.userid = this.auth.userProfile.sub.split("|")[1];
       this.requestByUser(this.userid);
@@ -105,7 +138,6 @@ export class RequestDatabase {
 
       });
     }
-
   }
 
   requestByUser(id: string) {
@@ -115,7 +147,7 @@ export class RequestDatabase {
     this.appService.getAllRequestData(id).subscribe(data => {
 
 
-      this.subscribeToData(this.userid);
+      //this.subscribeToData(this.userid);
       data.sort(function compare(a, b) {
         var dateA = +new Date(a.datetime);
         var dateB = +new Date(b.datetime);
@@ -150,9 +182,8 @@ export class RequestDatabase {
     });
   }
 
-  public subscribeToData(id: string)
-  {
+  public subscribeToData(id: string) {
     this.userid = id;
-    this.timerSubscription = Observable.timer(5000).first().subscribe(() => this.requestByUser(this.userid));
+    //this.timerSubscription = Observable.timer(5000).first().subscribe(() => this.requestByUser(this.userid));
   }
 }

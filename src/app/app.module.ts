@@ -18,6 +18,7 @@ import { EffectsModule } from '@ngrx/effects';
 import { AgmCoreModule } from '@agm/core';
 import { RouteHandlerModule } from './core/route-handler/route-handler.module';
 import { AppService } from './app.service';
+import { AppSocketService } from './app.socket.service';
 import { LocationStrategy, PathLocationStrategy } from '@angular/common';
 import { AuthService } from './auth/auth.service';
 import { AuthGuard } from './auth/auth.guard';
@@ -68,6 +69,7 @@ import { Angular2FlexModule } from "angular2-flex";
     useClass: PathLocationStrategy
   },
     AppService,
+    AppSocketService,
     AuthService,
     AuthGuard,
     LoginGuard,
