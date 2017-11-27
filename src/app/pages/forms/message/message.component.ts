@@ -14,9 +14,6 @@ import { DialogDataService } from './dialog-data.service';
   styleUrls: ['./message.component.scss'],
   animations: [...ROUTE_TRANSITION],
   host: { '[@routeTransition]': '' },
-
-
-
 })
 
 
@@ -60,44 +57,47 @@ export class MessageComponent implements OnInit {
     this.dialogDataService.currentMessage.subscribe(message => this.phonemsg = message)
   }
 
-
-
   onSubmit() {
     this.submitted = true;
     this.save();
-
-
   }
 
   save(): void {
     this.appService.setLoading(true);
-    let formValues = this.requestForm.value;
-    if(this.formErrors.refnumb || this.formErrors.email){
+    if(
+      this.requestForm.value.refnumb == '' ||
+      this.requestForm.value.email == '' ||
+      this.requestForm.value.phone == ''){
       this.appService.setLoading(false);
       return
     }
+    if(this.formErrors.refnumb || this.formErrors.email || this.formErrors.phone){
+      this.appService.setLoading(false);
+      return
+    }
+    let formValues = this.requestForm.value;
     formValues.createdBy = this.profile.sub.split("|")[1];
     this.appService.createRequest(this.requestForm.value)
       .then(res => {
         let error_str = res._body.slice(26);
         if(res._body.indexOf('not a valid phone number') >= 0 ){
             this.isphoneError = true;
+            this.dialogDataService.changeMessage(res._body);
             setTimeout(function(){
               this.isphoneError = false;
             }.bind(this),5000);
-            this.phonemsg = res._body;
-            this.dialogDataService.changeMessage(res._body)
             this.cdr.detectChanges();
             this.appService.setLoading(false);
         }
         else{
-          this.phonemsg = '';
-          this.openSnackbar = true;
-          setTimeout(function(){
-            this.openSnackbar = false;
-          }.bind(this), 5000);
-          this.cdr.detectChanges();
-          this.appService.setLoading(false);
+            this.phonemsg = '';
+            this.openSnackbar = true;
+            setTimeout(function(){
+              this.openSnackbar = false;
+            }.bind(this), 5000);
+            this.cdr.detectChanges();
+            this.appService.setLoading(false);
+            }
         }
         // if(res._body != "false") {
         //   this.callParent();
