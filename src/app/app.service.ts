@@ -8,14 +8,40 @@ import {Observable} from 'rxjs/Observable';
 import {RequestData} from './pages/request/requestdata';
 import {BehaviorSubject} from "rxjs/BehaviorSubject";
 
+import * as io from 'socket.io-client';
+
 @Injectable()
 
 
 export class AppService {
   private headers = new Headers({ 'Content-Type': 'application/json' });
   public loading = false;
+  //private url = 'http://localhost:3100';
+  //private socket;
 
-  constructor(private http: Http) { }
+  constructor(private http: Http) {
+    //this.socket = io(this.url);
+  }
+
+
+  // public sendMessageBySocket(message) {
+  //   console.log("------------------------ sending the message");
+  //   console.log(message);
+  //   //console.log(this.socket.name);
+  //   this.socket.emit('new_message', message);
+  // }
+  //
+  // public getMessagesBySocket = () => {
+  //       return Observable.create((observer) => {
+  //           this.socket.on('new_message', (message) => {
+  //               console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>>>> geting the message");
+  //               observer.next(message);
+  //           });
+  //       });
+  // }
+
+
+
 
   createRequest(formData: any): Promise<any> {
     return this.http.post('api/create', JSON.stringify(formData), { headers: this.headers })
@@ -103,10 +129,6 @@ export class AppService {
       .catch(this.handleError);
   }
 
-  /* getImage(url: string): Observable<File>{
-     return this.http.get('api/getimage/'+ url,{ responseType: ResponseContentType.Blob})
-       .map((res: Response) => res.blob());
-   } */
 
   getAllRequestData(createdBy: string): Observable<RequestData[]> {
     return this.http.get('api/reqdata/' + createdBy, {headers: this.headers})

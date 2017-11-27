@@ -9,6 +9,34 @@ var jwt = require('jsonwebtoken');
 var bcrypt = require('bcrypt');
 const saltRounds = 10;
 
+//Socket.io
+var app = express();
+var http = require('http');
+var server = http.Server(app);
+
+var socketIO = require('socket.io');
+var io = socketIO(server);
+
+const socketPort = process.env.PORT || 3100;
+
+io.on('connection', (socket) => {
+    console.log(io.sockets.name);
+    console.log('user connected');
+
+    socket.on('new_message', (message) => {
+      console.log(io.sockets.name);
+      console.log(" on api socket");
+      console.log(message);
+      //socket.emit('new_message',message+' from server');
+      io.emit('new_message',message);
+      console.log("socket emit try");
+    });
+});
+
+server.listen(socketPort, () => {
+    console.log(`started on port: ${socketPort}`);
+});
+
 var azure = require('azure-storage');
 var blobSvc = azure.createBlobService();
 const containerName = "mycontainer";
@@ -465,8 +493,8 @@ router.post('/create', (req, res) => {
   // var success = true;
   // var reqReferenceNum = req.body.refnumb;
   var toNumber = req.body.phone;
-  //var ourNumber = "+12016883122";
-  var ourNumber = "+12134087854";
+  var ourNumber = "+12016883122";
+  //var ourNumber = "+12134087854";
   var detailedMessage = req.body.detailedmessage;
   var reqReferenceNum = req.body.refnumb;
   var today= new Date();
