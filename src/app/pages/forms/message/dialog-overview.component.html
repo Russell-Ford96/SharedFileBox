@@ -1,9 +1,16 @@
 
-<i class="material-icons orange600">call_end</i>
-  <h3 mat-dialog-title>
+<!-- <i class="material-icons">error_outline</i> -->
+<i class="fa fa-exclamation-circle" aria-hidden="true" style="font-size:25px; color:#b6b6b6;"></i>
+
+
+  <h3 md-dialog-title>
     Invalid Phone Number
   </h3>
 
   <mat-dialog-content>
     <h5>{{ message }}</h5>
   </mat-dialog-content>
+
+<mat-dialog-actions>
+  <button mat-raised-button (click)="dialogRef.close()" style="background-color:#b6b6b6; margin-top:45px; color:white;">Ok</button>
+</mat-dialog-actions>

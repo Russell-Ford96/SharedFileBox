@@ -44,7 +44,7 @@ export class RequestComponent implements OnInit {
     private router: Router,
   ) {
 
-    }
+  }
 
 
   ngOnInit() {
@@ -60,7 +60,7 @@ export class RequestComponent implements OnInit {
         console.log(" *********** On Request Component ********** ");
         this.requestDatabase.getData();
         this.cdr.detectChanges();
-    });
+      });
 
 
 
@@ -127,7 +127,7 @@ export class RequestDatabase {
 
   }
 
-  getData(){
+  getData() {
     if (this.auth.userProfile) {
       this.userid = this.auth.userProfile.sub.split("|")[1];
       this.requestByUser(this.userid);
