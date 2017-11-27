@@ -56,13 +56,6 @@ export class MessageComponent implements OnInit {
       });
     }
 
-    // this.socketService
-    //   .getMessages()
-    //   .subscribe((message: any) => {
-    //     console.log(message);
-    //     console.log(" *********** On Request Component ********** ");
-    // });
-
     this.buildForm();
     this.dialogDataService.currentMessage.subscribe(message => this.phonemsg = message);
   }
@@ -98,7 +91,7 @@ export class MessageComponent implements OnInit {
             }.bind(this),5000);
             this.phonemsg = res._body;
             this.dialogDataService.changeMessage(res._body);
-            this.socketService.sendMessage('new Request from save');
+            this.socketService.sendMessage('newRequest ERROR');
             this.cdr.detectChanges();
             this.appService.setLoading(false);
         }
@@ -107,10 +100,12 @@ export class MessageComponent implements OnInit {
           this.openSnackbar = true;
           setTimeout(function(){
             this.openSnackbar = false;
+            console.log("openSnackbar false");
           }.bind(this), 5000);
-          this.cdr.detectChanges();
-          this.socketService.sendMessage('newRequest ERROR');
+
+          this.socketService.sendMessage('new Request from save');
           this.appService.setLoading(false);
+          this.cdr.detectChanges();
         }
       });
   }

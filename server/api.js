@@ -20,16 +20,9 @@ var io = socketIO(server);
 const socketPort = process.env.PORT || 3100;
 
 io.on('connection', (socket) => {
-    console.log(io.sockets.name);
-    console.log('user connected');
 
     socket.on('new_message', (message) => {
-      console.log(io.sockets.name);
-      console.log(" on api socket");
-      console.log(message);
-      //socket.emit('new_message',message+' from server');
       io.emit('new_message',message);
-      console.log("socket emit try");
     });
 });
 
