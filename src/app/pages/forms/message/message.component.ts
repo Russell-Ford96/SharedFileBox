@@ -2,8 +2,9 @@ import * as _ from 'lodash';
 import { ROUTE_TRANSITION } from '../../../app.animation';
 import { Component, OnInit, Input, Output, EventEmitter, ChangeDetectorRef } from '@angular/core';
 import { FormArray, FormGroup, FormBuilder, Validators, AbstractControl, ValidationErrors } from '@angular/forms';
-import {AuthService} from '../../../auth/auth.service';
-import {AppService} from '../../../app.service';
+import { AuthService } from '../../../auth/auth.service';
+import { AppService } from '../../../app.service';
+import { AppSocketService } from '../../../app.socket.service';
 import { DialogDataService } from './dialog-data.service';
 
 
@@ -38,6 +39,7 @@ export class MessageComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private appService: AppService,
+    private socketService: AppSocketService,
     private auth: AuthService,
     private cdr: ChangeDetectorRef,
     private dialogDataService: DialogDataService,
@@ -56,8 +58,16 @@ export class MessageComponent implements OnInit {
 
       });
     }
+
+    // this.socketService
+    //   .getMessages()
+    //   .subscribe((message: any) => {
+    //     console.log(message);
+    //     console.log(" *********** On Request Component ********** ");
+    // });
+
     this.buildForm();
-    this.dialogDataService.currentMessage.subscribe(message => this.phonemsg = message)
+    this.dialogDataService.currentMessage.subscribe(message => this.phonemsg = message);
   }
 
 
@@ -65,8 +75,6 @@ export class MessageComponent implements OnInit {
   onSubmit() {
     this.submitted = true;
     this.save();
-
-
   }
 
   save(): void {
@@ -86,7 +94,8 @@ export class MessageComponent implements OnInit {
               this.isphoneError = false;
             }.bind(this),5000);
             this.phonemsg = res._body;
-            this.dialogDataService.changeMessage(res._body)
+            this.dialogDataService.changeMessage(res._body);
+            this.socketService.sendMessage('new Request from save');
             this.cdr.detectChanges();
             this.appService.setLoading(false);
         }
@@ -97,24 +106,9 @@ export class MessageComponent implements OnInit {
             this.openSnackbar = false;
           }.bind(this), 5000);
           this.cdr.detectChanges();
+          this.socketService.sendMessage('newRequest ERROR');
           this.appService.setLoading(false);
         }
-        // if(res._body != "false") {
-        //   this.callParent();
-        //
-        //   this.msgSent = true;
-        //   setTimeout(function () {
-        //     this.msgSent = false;
-        //   }.bind(this),3000);
-        //
-        // }  else {
-        //   console.log(res);
-        //   this.msgErr = true;
-        //   setTimeout(function () {
-        //     this.msgErr = false;
-        //   }.bind(this),3000);
-        //
-        // }
       });
   }
 
