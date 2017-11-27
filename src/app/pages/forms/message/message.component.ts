@@ -62,6 +62,7 @@ export class MessageComponent implements OnInit {
     this.save();
   }
 
+
   save(): void {
     this.appService.setLoading(true);
     if(
@@ -98,25 +99,10 @@ export class MessageComponent implements OnInit {
             this.cdr.detectChanges();
             this.appService.setLoading(false);
             }
-        }
-        // if(res._body != "false") {
-        //   this.callParent();
-        //
-        //   this.msgSent = true;
-        //   setTimeout(function () {
-        //     this.msgSent = false;
-        //   }.bind(this),3000);
-        //
-        // }  else {
-        //   console.log(res);
-        //   this.msgErr = true;
-        //   setTimeout(function () {
-        //     this.msgErr = false;
-        //   }.bind(this),3000);
-        //
-        // }
       });
   }
+
+
 
   buildForm(): void {
     this.requestForm = this.fb.group({
