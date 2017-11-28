@@ -51,7 +51,7 @@
         </thead>
         <tbody>
         <tr *ngFor="let bot of bots" (click)="onBotSelect(bot)"  style="cursor:pointer !important">
-          <td class="avatar-cell"><img class="avatar" [src]=""></td>
+          <td class="avatar-cell"><img class="avatar" [src]="'../../assets/avatar-chica.png'"></td>
           <td>{{ bot.name}}</td>
           <td>{{ bot.url}}</td>
           <td>{{ bot.itemArray.length }}</td>
