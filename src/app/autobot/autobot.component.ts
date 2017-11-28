@@ -1,88 +1,52 @@
-import { Component, Input, ChangeDetectorRef } from "@angular/core";
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
-import { Bot } from '../pages/profile/bot.model';
 import 'rxjs/add/operator/map';
 
 import { FileSelectDirective, FileDropDirective, FileUploader } from 'ng2-file-upload/ng2-file-upload';
 
 import { AppService} from '../app.service';
 
-
 @Component({
-  selector: 'app-bot-simulator',
-  templateUrl: './bot-simulator.component.html',
-  styleUrls: ['./bot-simulator.component.scss']
+  selector: 'vr-autobot',
+  templateUrl: './autobot.component.html',
+  styleUrls: ['./autobot.component.scss']
 })
-
-export class BotSimulatorComponent {
-  @Input() bot:Bot;
-  @Input() reloadSimulator:boolean;
-
-  itemsBot:any[] = [{}];
-
-  public uploader: FileUploader = new FileUploader({
-    url: 'http://localhost:5000/api/upload', itemAlias: "single", autoUpload: true
-  });
+export class AutobotComponent implements OnInit {
   audio = new Audio();
-  id: any;
-  docRequest: any;
-  fileIndex: number;
+  url: any;
+  bot: any;
   avatarService = '../../assets/avatar-chica.png';
-  dateUpdate = new Date();
-
+  itemsBot:any[] = [{}];
 
   constructor(
     private appService: AppService,
-    private cdr:ChangeDetectorRef
+    private cdr:ChangeDetectorRef,
+    private route: ActivatedRoute
   ) {
-    //this.id = route.params.map(p => p.id);
+    this.url = route.params.map(p => p.url);
     this.audio.src = "../../assets/send.wav";
     this.audio.load();
-    this.reloadSimulator = false;
   }
 
   ngOnInit() {
-    this.messageSimulation();
+    console.log("ngOnInit");
+    this.route.data
+      .subscribe((data: { bot: any }) => {
+        this.bot = data.bot;
 
+        for (var doc in this.bot.itemArray) {
 
+          this.bot.itemArray[doc].docIndex = doc;
+          this.bot.itemArray[doc].show = false;
+        }
+      });
 
-    this.uploader.onBeforeUploadItem = (item: any) => {
-      item.withCredentials = false;
-      this.uploader.options.additionalParameter = {
-        index: item.formData[0].index,
-        _id: item.formData[1]._id,
-        createdBy: 'this.docRequest.createdBy', // put the createdBy
-        _refnumb: 'this.docRequest.refnumb'  // put the refnumb
-      };
-    };
-
-    this.uploader.onAfterAddingFile = (file) => {
-      console.log('*******uploader', this.docRequest)
-      file.withCredentials = false;
-      this.audio.play();
-      file.formData.push({ "index": this.fileIndex });
-      file.formData.push({ "_id": this.docRequest._id });
-      this.dateUpdate = new Date();
-    };
-
-    this.uploader.onCompleteItem = (item: any, response: any, status: any, headers: any) => {
-
-    };
+      this.messageSimulation();
 
   }
 
-  private updateFileIndex(index: number) {
-    this.fileIndex = index;
-  }
 
-  private ngOnChanges(){
-   console.log("---------- bot-simulator ngOnChanges -------------");
-   console.log(this.bot);
-   if(this.reloadSimulator){
-     this.messageSimulation();
-   }
-  }
 
   private messageSimulation() {
     if(this.bot.itemArray){

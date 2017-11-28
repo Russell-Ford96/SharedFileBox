@@ -16,11 +16,8 @@ import * as io from 'socket.io-client';
 export class AppService {
   private headers = new Headers({ 'Content-Type': 'application/json' });
   public loading = false;
-  //private url = 'http://localhost:3100';
-  //private socket;
 
   constructor(private http: Http) {
-    //this.socket = io(this.url);
   }
 
 
@@ -41,9 +38,6 @@ export class AppService {
   setLoading(loading:boolean){
     this.loading = loading;
   }
-
-
-
 
   createBot(formData: any): Promise<any> {
     return this.http.post('api/createbot', JSON.stringify(formData), { headers: this.headers })
@@ -81,6 +75,13 @@ export class AppService {
     return this.http.get('api/bots/' , { headers: this.headers })
       .toPromise()
       .then(response => response.json() as RequestData[])
+      .catch(this.handleError);
+  }
+
+  getBotByUrl(url: any): Promise<any> {
+    return this.http.get('api/getbotbyurl/' + url, { headers: this.headers })
+      .toPromise()
+      .then(response => { console.log('req'); return response })
       .catch(this.handleError);
   }
 

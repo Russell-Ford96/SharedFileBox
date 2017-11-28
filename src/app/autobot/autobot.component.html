@@ -1,0 +1,58 @@
+<div class="col-md-12 bg-white">
+  <div class="chat-message">
+    <ul class="chat">
+      <li class="left clearfix" *ngFor="let msj of itemsBot; let i = index" [hidden]="!msj.show">
+        <span class="chat-img pull-left">
+                <img src="{{msj.avatar}}" alt="User Avatar">
+              </span>
+        <div class="chat-body clearfix">
+          <div class="header">
+            <strong class="primary-font">{{msj.name}}</strong>
+            <small class="pull-right text-muted"><i class="fa fa-clock-o"></i> {{ msj.date}}</small>
+          </div>
+          <p>
+            {{msj.msj}}
+          </p>
+        </div>
+      </li>
+
+      <!-- <form>
+        <li class="left clearfix" *ngFor="let doc of docRequest.docArray; let i = index" [hidden]="!doc.show">
+          <span class="chat-img pull-left">
+                  <img src="{{avatarService}}" alt="User Avatar">
+                </span>
+          <div class="chat-body clearfix">
+            <div class="header">
+              <strong class="primary-font">Eva</strong>
+              <small class="pull-right text-muted"><i class="fa fa-clock-o"></i> {{ doc.date}}</small>
+            </div>
+            <p>
+              Upload document {{doc.name}}
+            </p>
+            <p>
+              <input type="file" class="form-control" name="single" (click)="updateFileIndex(i)" ng2FileSelect [uploader]="uploader" [disabled]="doc.attachment != null" />
+            </p>
+          </div>
+        </li>
+      </form> -->
+
+
+      <!-- <li class="left clearfix" *ngFor="let item of uploader.queue">
+        <span class="chat-img pull-left">
+                <img src="{{avatarService}}" alt="User Avatar">
+              </span>
+        <div class="chat-body clearfix">
+          <div class="header">
+            <strong class="primary-font">{{ item.file.name }}</strong>
+            <small class="pull-right text-muted"><i class="fa fa-clock-o"></i> {{dateUpdate}}</small>
+          </div>
+          <p>Thanks the file {{ item.file.name }} is being uploaded </p>
+          <div class="progress" style="margin-bottom: 0;">
+            <div class="progress-bar" role="progressbar" [ngStyle]="{ 'width': item.progress + '%' }"></div>
+          </div>
+
+        </div>
+      </li> -->
+    </ul>
+  </div>
+</div>

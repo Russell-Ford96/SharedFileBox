@@ -79,31 +79,6 @@ router.get('/getimage/:createdBy/:refnumb/:file', function(req, res) {
     });
 });
 
-/*
-
-router.get('/getimage/:createdBy/:refnumb/:file', function(req, res) {
-
-  var blobName = req.params.refnumb +'/'+ req.params.file;
-  var containerName= req.params.createdBy;
-  blobSvc.getBlobToStream(
-    containerName,
-    blobName,
-    res,
-    function(err, blob) {
-      if (!err) {
-        res.writeHead(200,{'Content-Type': 'image/png'});
-        console.error("Couldn't download blob %s", blobName);
-        console.error(err);
-
-      } else {
-        console.log("Sucessfully downloaded blob %s", blobName);
-        res.end();
-
-      }
-    });
-});
-*/
-
 
 router.get('/getdoc/:id', (req, res) => {
   mongodb.MongoClient.connect(uri, function(err, db) {
@@ -118,6 +93,36 @@ router.get('/getdoc/:id', (req, res) => {
     var docRequestCollection = db.collection('docRequest');
     docRequestCollection.findOne({
       _id: o_id
+    }, function(err, result) {
+      if (err) {
+        console.log(err);
+      }
+      db.close();
+      if (result != undefined)
+        return res.send(result);
+      else
+        return res.status(404).send("request not found");
+    });
+  });
+});
+
+
+// Get AutoBot by Url
+router.get('/getbotbyurl/:url', (req, res) => {
+  console.log("api/getBotByUrl");
+  mongodb.MongoClient.connect(uri, function(err, db) {
+    if (err) {
+      console.log(err);
+      return res.status(500).send("Error connecting to db");
+    }
+
+    //create a new mongo ID using the supplied ID
+    //var o_url = new mongodb.ObjectID(req.params.url);
+    var o_url = req.params.url;
+
+    var docRequestCollection = db.collection('bot');
+    docRequestCollection.findOne({
+      url: o_url
     }, function(err, result) {
       if (err) {
         console.log(err);
