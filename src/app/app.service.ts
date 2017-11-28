@@ -24,22 +24,6 @@ export class AppService {
   }
 
 
-  // public sendMessageBySocket(message) {
-  //   console.log("------------------------ sending the message");
-  //   console.log(message);
-  //   //console.log(this.socket.name);
-  //   this.socket.emit('new_message', message);
-  // }
-  //
-  // public getMessagesBySocket = () => {
-  //       return Observable.create((observer) => {
-  //           this.socket.on('new_message', (message) => {
-  //               console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>>>> geting the message");
-  //               observer.next(message);
-  //           });
-  //       });
-  // }
-
 
 
 

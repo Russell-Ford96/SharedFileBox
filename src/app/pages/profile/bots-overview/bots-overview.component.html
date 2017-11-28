@@ -5,28 +5,25 @@
 
       <div class="actions" fxLayout="row">
 
-          <button type="button" mat-button color="primary" (click)="onNewBot()">New Bot</button>
+        <button type="button" mat-button color="primary" (click)="onNewBot()">New Bot</button>
 
       </div>
     </div>
 
-    <div class="content" fxLayout="column">
+    <!-- <div class="content" fxLayout="column">
       <div class="projects">
         <div class="category">
 
-          <div  mat-ripple class="project"
-                fxLayout="row"
-                fxLayoutAlign="space-between center"
-                *ngFor="let bot of bots" (click)="onBotSelect(bot)" >
+          <div mat-ripple class="project" fxLayout="row" fxLayoutAlign="space-between center" *ngFor="let bot of bots" (click)="onBotSelect(bot)">
 
-            <div fxLayout="column">
+            <div fxLayout="column" fxLayout="row" fxLayoutAlign="start start">
               <div class="name">{{ bot.name}}</div>
-              <div class="users" fxLayout="row">
-                <div class="user" *ngFor="let item of bot.itemArray">
-                  <mat-icon *ngIf="!item.file" class="icon">question_answer</mat-icon>
-                  <mat-icon *ngIf="item.file" class="icon">attach_file</mat-icon>
-                </div>
-              </div>
+            </div>
+            <div fxLayout="column" fxLayout="row" fxLayoutAlign="start start">
+              <div class="name">{{ bot.url}}</div>
+            </div>
+            <div fxLayout="column" fxLayout="row" fxLayoutAlign="start start">
+              <div class="name">{{ bot.itemArray.length}}</div>
             </div>
             <div fxLayout="row" fxLayoutAlign="end center">
               <div class="time">2 min ago</div>
@@ -38,10 +35,41 @@
 
         </div>
       </div>
+    </div> -->
+
+
+    <div class="content">
+      <table class="table table-hover table-condensed table-bordered">
+        <thead>
+        <tr>
+          <th></th>
+          <th>Bot</th>
+          <th>Url</th>
+          <th>Items</th>
+          <th>State</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let bot of bots" (click)="onBotSelect(bot)"  style="cursor:pointer !important">
+          <td class="avatar-cell"><img class="avatar" [src]=""></td>
+          <td>{{ bot.name}}</td>
+          <td>{{ bot.url}}</td>
+          <td>{{ bot.itemArray.length }}</td>
+          <td>
+            <div *ngIf="bot.active" class="status-circle accent"></div>
+            <div *ngIf="!bot.active" class="status-circle warn"></div>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+      <!-- <div class="chart">
+        <canvas width="150" height="30" #canvas></canvas>
+      </div> -->
     </div>
 
+
     <div class="footer" fxLayout="row" fxLayoutAlign="end center">
-      <button type="button" mat-button color="primary">New Bot</button>
+      <button type="button" mat-button color="primary" (click)="onNewBot()">New Bot</button>
     </div>
   </div>
 </div>
