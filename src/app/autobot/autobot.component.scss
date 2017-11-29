@@ -1,8 +1,14 @@
 .chat-message {
   margin-top: 18px;
+  min-height: 300px !important;
   padding: 2px 15px 10px 0px;
-  border-radius: 2em;
+  //border-radius: 2em;
   background: #f9f9f9;
+}
+
+.mat-input-container {
+  width: 100%;
+  margin: 0 0 18px;
 }
 
 .chat {

@@ -30,7 +30,7 @@ import { FileSelectDirective } from 'ng2-file-upload';
 import { RouterModule } from '@angular/router';
 import { LoadingModule, ANIMATION_TYPES } from 'ngx-loading';
 import { Angular2FlexModule } from "angular2-flex";
-import { AutobotComponent } from './autobot/autobot.component';
+import { AutobotModule } from './autobot/autobot.module';
 
 
 @NgModule({
@@ -60,7 +60,8 @@ import { AutobotComponent } from './autobot/autobot.component';
     CoreModule,
     PagesModule,
     RouteHandlerModule,
-    Angular2FlexModule
+    Angular2FlexModule,
+    AutobotModule
 
 
 
@@ -81,7 +82,6 @@ import { AutobotComponent } from './autobot/autobot.component';
     FileUploadComponent,
     ProfileComponent,
     FileSelectDirective,
-    AutobotComponent,
 
 
 
