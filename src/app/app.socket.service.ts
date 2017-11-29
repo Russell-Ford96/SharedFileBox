@@ -18,10 +18,22 @@ export class AppSocketService {
             this.socket.on('new_message', (message) => {
                 console.log("new message ");
                 console.log(message);
-                //console.log(message.body);
                 observer.next(message);
             });
         });
     }
+    // sent message
+    public sendMessageToSent(message){
+        this.socket.emit('sent_message', message);
+    }
+    public getMessagesFromSent = () => {
+        return Observable.create( (observer) => {
+          this.socket.on('sent_message', (message) => {
+             console.log('message----->', message);
+             observer.next(message);
+          })
+        })
+    }
+
 
 }

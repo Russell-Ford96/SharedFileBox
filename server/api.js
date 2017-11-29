@@ -27,15 +27,22 @@ io.on('connection', (socket) => {
       console.log(io.sockets.name);
       console.log(" on api socket");
       console.log(message);
-      //socket.emit('new_message',message+' from server');
       io.emit('new_message',message);
       console.log("socket emit try");
     });
+    //sent message socket
+    socket.on('sent_message', (message) => {
+      console.log('---> on api sent_message');
+      io.emit('sent_message', message);
+      console.log('socket emit sent_message')
+    })
+
 });
 
 server.listen(socketPort, () => {
     console.log(`started on port: ${socketPort}`);
 });
+
 
 var azure = require('azure-storage');
 var blobSvc = azure.createBlobService();
@@ -203,8 +210,6 @@ router.post('/upload', function(req, res, next) {
 
       return res.send(fullAzurePath);
     });
-
-
 
     console.log('stream uploaded successfully');
     req.model.data = response;

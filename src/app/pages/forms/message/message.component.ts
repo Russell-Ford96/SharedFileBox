@@ -52,7 +52,6 @@ export class MessageComponent implements OnInit {
     } else {
       this.auth.getProfile((err, profile) => {
         this.profile = profile;
-
       });
     }
 
@@ -93,6 +92,7 @@ export class MessageComponent implements OnInit {
             this.phonemsg = res._body;
             this.dialogDataService.changeMessage(res._body);
             this.socketService.sendMessage('newRequest ERROR');
+            this.socketService.sendMessageToSent('sentMessageToSent error')
             this.cdr.detectChanges();
             this.appService.setLoading(false);
         }
@@ -103,6 +103,7 @@ export class MessageComponent implements OnInit {
             this.openSnackbar = false;
           }.bind(this), 5000);
           this.socketService.sendMessage('new Request from save');
+          this.socketService.sendMessageToSent('sendMessageToSent success')
           this.appService.setLoading(false);
           this.cdr.detectChanges();
         }

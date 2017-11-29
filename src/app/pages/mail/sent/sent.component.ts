@@ -8,6 +8,7 @@ import {AppService} from "../../../app.service";
 import {AuthService} from "../../../auth/auth.service";
 import { Observable } from 'rxjs/Rx';
 import {AnonymousSubscription} from "rxjs/Subscription";
+import { AppSocketService } from  "../../../app.socket.service";//
 
 @Component({
   selector: 'vr-sent',
@@ -35,61 +36,63 @@ export class SentComponent implements OnInit, OnDestroy {
   constructor(private cd: ChangeDetectorRef,
               private appService: AppService,
               private auth: AuthService,
+              private socketService: AppSocketService,//
               ) { }
 
   ngOnInit() {
     // this.chats = _.sortBy(chatDemoData, 'lastMessageTime').reverse();
-
     this.mainScrollbarElem = document.getElementById('main-scrollbar');
     this.scrollbar = Scrollbar.get(this.mainScrollbarElem);
-    this.scrollbar.destroy();
+    if(this.scrollbar){this.scrollbar.destroy();}
+
+    //socket
+    this.socketService
+      .getMessages()
+      .subscribe((message: any) => {
+       this.getData();
+        this.cd.detectChanges();
+      });
+      this.getData();
+  }
+
+  getData(){
     if(this.auth.userProfile){
-      this.userid = this.auth.userProfile.sub.split("|")[1];
-      this.requestByUser(this.userid);
+        this.userid = this.auth.userProfile.sub.split("|")[1];
+        this.requestByUser(this.userid);
     }else{
-      this.auth.getProfile((err, profile) => {
+        this.auth.getProfile((err, profile) => {
         this.userid = profile.sub.split("|")[1];
         this.requestByUser(this.userid);
-
       });
     }
   }
 
+
   requestByUser(id: string ){
     this.userid = id;
 
-
     this.appService.getAllRequestData(id).subscribe(results => {
 
-      this.subscribeToData(this.userid);
-      this.theData= results;
-
+      // this.subscribeToData(this.userid);//
+      this.theData = results;
 
       this.theData.sort(function compare(a, b) {
         var dateA = +new Date(a.datetime);
         var dateB = +new Date(b.datetime);
-
         return dateA - dateB;
-
       }).reverse();
-
-
-
       this.activeMsg = this.theData[0];
       //console.log(this.theData);
-
     });
-
-
-
-
   }
+
 
   public subscribeToData(id: string)
   {
     this.userid = id;
-    this.timerSubscription = Observable.timer(5000).first().subscribe(() => this.requestByUser(this.userid));
-  }
+    // this.timerSubscription = Observable.timer(5000).first().subscribe(() => this.requestByUser(this.userid));
+  } 
+
 
   setActiveMsg(item) {
     this.activeMsg = item;
