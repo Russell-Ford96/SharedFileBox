@@ -352,6 +352,7 @@ router.post('/createbot', (req, res) => {
         } else {
           reqBots.insert({
             name: req.body.name,
+            avatar: req.body.avatar,
             description: req.body.description,
             url: req.body.url,
             itemArray: req.body.itemArray,
@@ -377,6 +378,7 @@ router.post('/updatebot', (req, res) => {
   console.log(req.body);
   var o_id = new mongodb.ObjectID(req.body._id);
   var reqName = req.body.name;
+  var reqAvatar = req.body.avatar;
   var reqDescription = req.body.description;
   var reqUrl = req.body.url;
   var reqItemArray = req.body.itemArray;
@@ -395,6 +397,7 @@ router.post('/updatebot', (req, res) => {
     }, {
       $set: {
         name: reqName,
+        avatar: reqAvatar,
         url: reqUrl,
         description: reqDescription,
         itemArray: reqItemArray,

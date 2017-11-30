@@ -10,13 +10,18 @@
             <input id="name" name="name" formControlName="name" matInput placeholder="Name" type="text" required>
           </mat-input-container>
 
+
+
           <mat-input-container class="fieldWidth">
             <input id="url" name="url" formControlName="url" matInput placeholder="Url" type="text" required>
           </mat-input-container>
 
           <mat-input-container class="fieldWidth">
-            <textarea matInput id="description" name="description" formControlName="description" placeholder="Description" matTextareaAutosize matAutosizeMinRows="2"
-            matAutosizeMaxRows="12"></textarea>
+            <input id="thanks" name="thanks" formControlName="thanks" matInput placeholder="Thanks" type="text" required>
+          </mat-input-container>
+
+          <mat-input-container class="fieldWidth">
+            <textarea matInput id="description" name="description" formControlName="description" placeholder="Description" matTextareaAutosize matAutosizeMinRows="2" matAutosizeMaxRows="12"></textarea>
           </mat-input-container>
 
           <mat-slide-toggle class="fieldWidth" formControlName="active">Active</mat-slide-toggle>
@@ -32,40 +37,66 @@
       </div>
     </form>
   </mat-step>
-  <mat-step [stepControl]="secondFormGroup">
+  <mat-step>
+
+    <ng-template matStepLabel>Select the bot avatar</ng-template>
+    <div class="detail">
+      <div class="name">Members</div>
+      <div class="value" fxLayout="row">
+        <div class="member" *ngFor="let member of [1,2,3]">
+          <img matTooltip="Lina Miller" [src]="'assets/img/demo/avatars/' + member + '.png'" (click)="onSelectAvatar('assets/img/demo/avatars/' + member + '.png')">
+        </div>
+      </div>
+    </div>
+    <!-- <div class="detail">
+      <div class="name">Members</div>
+      <div class="value" fxLayout="row">
+        <div class="member">
+          <mat-radio-group class="bot-radio-group" [(ngModel)]="botAvatar">
+            <mat-radio-button class="bot-radio-button" *ngFor="let avatar of [1,2,3]" [value]="avatar">
+              <img matTooltip="Lina Miller" [src]="'assets/img/demo/avatars/' + avatar + '.png'">
+            </mat-radio-button>
+          </mat-radio-group>
+        </div>
+      </div>
+    </div> -->
+    <div class="detail">
+
+      <div class="member">
+        <div class="bot-selected-value">Your avatar is: <img matTooltip="Lina Miller" [src]=" botAvatar "></div>
+      </div>
+    </div>
+    <div class="footer-button">
+      <button mat-raised-button matStepperPrevious>Back</button>
+      <button mat-raised-button matStepperNext>Next</button>
+    </div>
+
+  </mat-step>
+  <mat-step>
     <!-- <form [formGroup]="secondFormGroup"> -->
     <ng-template matStepLabel>Add bot items</ng-template>
     <!-- Start Item Bot -->
-    <!-- <mat-expansion-panel  [disabled]="false">
-      <mat-expansion-panel-header>
-        <mat-panel-title>
-          Item bot
-        </mat-panel-title>
-        <mat-panel-description>
-          Type a question or a file request
-        </mat-panel-description>
-      </mat-expansion-panel-header> -->
 
-      <mat-card>
-        <mat-grid-list cols="12" rowHeight="60px">
-            <mat-grid-tile [colspan]="7" [rowspan]="1">
-              <mat-input-container class="addItemNameStyle">
-                <input [(ngModel)]="item.name" name="itemlist1" matInput placeholder="Documents" type="text">
-              </mat-input-container>
-            </mat-grid-tile>
+    <mat-card>
+      <mat-grid-list cols="12" rowHeight="60px">
+        <mat-grid-tile [colspan]="7" [rowspan]="1">
+          <mat-input-container class="addItemNameStyle">
+            <input [(ngModel)]="item.name" name="itemlist1" matInput placeholder="Documents" type="text">
+          </mat-input-container>
+        </mat-grid-tile>
 
-            <mat-grid-tile [colspan]="3" [rowspan]="1">
+        <mat-grid-tile [colspan]="3" [rowspan]="1">
 
-              <mat-slide-toggle class="addItemTypeStyle" [(ngModel)]="item.file" [color]="primary">
-                {{getType()}}
-              </mat-slide-toggle>
-            </mat-grid-tile>
+          <mat-slide-toggle class="addItemTypeStyle" [(ngModel)]="item.file" [color]="primary">
+            {{getType()}}
+          </mat-slide-toggle>
+        </mat-grid-tile>
 
-            <mat-grid-tile [colspan]="2" [rowspan]="1">
-              <mat-icon aria-label="Close" (click)="addInput()" style="cursor: pointer">add_circle_outline</mat-icon>
-            </mat-grid-tile>
-        </mat-grid-list>
-      </mat-card>
+        <mat-grid-tile [colspan]="2" [rowspan]="1">
+          <mat-icon aria-label="Close" (click)="addInput()" style="cursor: pointer">add_circle_outline</mat-icon>
+        </mat-grid-tile>
+      </mat-grid-list>
+    </mat-card>
     <!-- </mat-expansion-panel> -->
 
     <vr-components-add-item-bot [items]="getItems()">

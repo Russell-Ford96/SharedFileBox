@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 
+import { BotRequest } from './bot-request.model';
 import { FileSelectDirective, FileDropDirective, FileUploader } from 'ng2-file-upload/ng2-file-upload';
 
 import { AppService} from '../app.service';
@@ -29,11 +30,15 @@ import { AppService} from '../app.service';
 export class AutobotComponent implements OnInit {
   audio = new Audio();
   state = 'normal';
+  showBot = false;
+  botRequest: BotRequest;
   url: any;
   bot: any;
   index: number;
   showtime: number;
-  avatarService = '../../assets/avatar-chica.png';
+  botAvatar = '../../assets/avatar-chica.png';
+  botName: string;
+  botTyping = ' online';
   itemsBot:any[] = [{}];
   newMessage: string;
 
@@ -42,7 +47,11 @@ export class AutobotComponent implements OnInit {
     private cdr:ChangeDetectorRef,
     private route: ActivatedRoute
   ) {
+
+    this.botRequest = new BotRequest();
+    this.botRequest.requests = [];
     this.url = route.params.map(p => p.url);
+
     this.audio.src = "../../assets/send.wav";
     this.audio.load();
     this.index = -1;
@@ -50,33 +59,89 @@ export class AutobotComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log("ngOnInit");
+
     this.route.data
       .subscribe((data: { bot: any }) => {
         this.bot = data.bot;
+        this.botName = this.bot.name;
+        this.botRequest.bot = this.bot;
 
         for (var doc in this.bot.itemArray) {
-
+          this.botRequest.requests.push( {"question":this.bot.itemArray[doc].name, "answer":''} );
           this.bot.itemArray[doc].docIndex = doc;
           this.bot.itemArray[doc].show = false;
         }
       });
 
-      this.messageSimulation();
+      this.itemsBot.splice(0, 1);
 
+      this.index = 0;
+      this.itemsBot = [];
+
+      //this.messageSimulation();
+
+  }
+  private isShowBot(){
+    return this.showBot;
+  }
+
+  private onShowBot(data){
+    console.log("onShowBot");
+    console.log(data.customerFullName);
+    console.log(data.customerPhoneNumber);
+    this.botRequest.customerFullName = data.customerFullName;
+    this.botRequest.customerPhoneNumber = data.customerPhoneNumber;
+    console.log(this.botRequest.customerFullName + ' ' + this.botRequest.customerPhoneNumber);
+    this.showBot = true;
+
+    this.itemsBot.push( {
+                    'avatar': this.botAvatar,
+                    'name': this.botName,
+                    'user': 'bot',
+                    'msj': "Hello welcome " + this.botRequest.customerFullName.split(" ")[0] + " a pleasure to help you",//this.bot.itemArray[this.index].name,
+                    'date': new Date(),
+                    'file': false,//this.bot.itemArray[this.index].file,
+                    'show': false,
+                    'docIndex': 0
+                  });
+    this.messageSimulation();
+  }
+
+
+  private typingSimulation(x: number){
+    console.log("Palabras ",x);
+    setTimeout(() => {
+      this.botTyping = ' Typing.';
+      this.cdr.detectChanges();
+      console.log(this.botTyping);
+      x--;
+      setTimeout(() => {
+        this.botTyping = ' Typing..';
+        this.cdr.detectChanges();
+        console.log(this.botTyping);
+        x--;
+        setTimeout(() => {
+          this.botTyping = ' Typing...';
+          this.cdr.detectChanges();
+          console.log(this.botTyping);
+          x--;
+            if(x <= 1){
+              this.sendMessgeBot(this.bot.itemArray[this.index].name,this.bot.itemArray[this.index].file);
+            }else{
+              this.typingSimulation(x);
+            }
+
+        },200);
+      },110);
+    },210);
   }
 
   private send() {
     if (this.newMessage) {
-      // this.itemsBot.push({
-      //   message: this.newMessage,
-      //   when: moment(),
-      //   who: 'me'
-      // });
       var i = this.itemsBot.length + 1;
       this.itemsBot.push( {
                       'avatar': '../../assets/tiger.jpeg',
-                      'name': 'Client',
+                      'name': this.botRequest.customerFullName.split(" ")[0],
                       'user': 'client',
                       'msj': this.newMessage,
                       'date': new Date(),
@@ -85,131 +150,58 @@ export class AutobotComponent implements OnInit {
                       'show': false,
                       'docIndex': i
                     });
+      var lastindex = this.index - 1;
+      if(this.botRequest.requests.length > lastindex){
+        console.log(lastindex);
+        this.botRequest.requests[lastindex].answer = this.newMessage;
+        console.log(this.botRequest.requests[lastindex].question);
+        console.log(this.botRequest.requests[lastindex].answer);
+      }
 
       this.newMessage = '';
       this.audio.play();
       this.cdr.detectChanges();
-      this.sendMessgeBot();
 
-      // this.cd.markForCheck();
-      //
-      // this.chatScroll.scrollbarRef.scrollIntoView(this.scrollToBottomElem.nativeElement, {
-      //   alignToTop: false
-      // });
-
-      // setTimeout(() => {
-      //   this.chats[0].messages.push({
-      //     message: 'Oh look! I can even answer you. ;)',
-      //     when: moment(),
-      //     who: 'partner'
-      //   });
-      //
-      //   this.cd.markForCheck();
-      //
-      //   this.chatScroll.scrollbarRef.scrollIntoView(this.scrollToBottomElem.nativeElement, {
-      //     alignToTop: false
-      //   });
-      // }, 1000)
+      this.messageSimulation();
     }
   }
 
-  private sendMessgeBot(){
-      if(this.bot.itemArray.length > this.index){
-
-          this.showtime = this.showtime + 700;
+  private sendMessgeBot(msj,file){
               setTimeout(() => {
-                  console.log(this.showtime);
                   this.itemsBot.push( {
-                                  'avatar': this.avatarService,
-                                  'name': 'Eva',
+                                  'avatar': this.botAvatar,
+                                  'name': this.botName,
                                   'user': 'bot',
-                                  'msj': this.bot.itemArray[this.index].name,
+                                  'msj': msj,//this.bot.itemArray[this.index].name,
                                   'date': new Date(),
-                                  'file': this.bot.itemArray[this.index].file,
-                                  'showtime': this.showtime,
+                                  'file': file,//this.bot.itemArray[this.index].file,
                                   'show': false,
                                   'docIndex': this.index
                                 });
                   this.index++;
-                  console.log(this.itemsBot[0]);
-
-
+                  this.botTyping = ' online';
                   this.audio.play();
                   this.cdr.detectChanges();
-              }, this.showtime);
-      }
+              }, 100);
   }
 
   private messageSimulation() {
     if(this.bot.itemArray){
+      if(this.bot.itemArray.length > this.index){
       console.log("BOT messageSimulation  _------------------_");
-      console.log(this.bot.itemArray[0].name);
-      this.itemsBot.splice(0, 1);
+      console.log(this.bot.itemArray[this.index].name);
 
-      this.index = 0;
-      this.itemsBot = [];
 
-      this.sendMessgeBot();
-      // for (let item in this.bot.itemArray) {
-      //
-      //   if(this.bot.itemArray[item].file){
-      //    i++;
-      //   }           showtime = showtime + 700;
-      //             setTimeout(() => {
-      //                 console.log(showtime);
-      //                 this.itemsBot.push( {
-      //                                 'avatar': this.avatarService,
-      //                                 'name': 'Eva',
-      //                                 'user': 'bot',
-      //                                 'msj': this.bot.itemArray[item].name,
-      //                                 'date': new Date(),
-      //                                 'file': this.bot.itemArray[item].file,
-      //                                 'showtime': showtime,
-      //                                 'show': false,
-      //                                 'docIndex': i
-      //                               });
-      //                 console.log(this.itemsBot[0]);
-      //
-      //
-      //                 this.audio.play();
-      //                 this.cdr.detectChanges();
-      //             }, showtime);
-      //
-      // }
+      var x = this.bot.itemArray[this.index].name.split(" ").length;
 
+      this.typingSimulation(x);
+      //this.typingSimulation();
+
+    }else{
+      this.sendMessgeBot(this.bot.thanks,false);
+      console.log(this.botRequest);
+    }
     }
 
   }
-
-
-  // showMessage(){
-  //
-  //   console.log("showLoginForm app");
-  //   if(this.state == 'one'){
-  //   setTimeout(() => {this.state = 'one'
-  //     setTimeout(() => {this.state = 'two'
-  //     setTimeout(() => {this.state = 'three'
-  //                     setTimeout(() => {
-  //                       this.state = 'four'
-  //                         setTimeout(() => this.state = 'five', 300);
-  //                     }, 320);
-  //                   }, 400);
-  //                 },150);
-  //               },10);
-  //   } else {
-  //   setTimeout(() => {this.state = 'five'
-  //     setTimeout(() => {this.state = 'four'
-  //     setTimeout(() => {this.state = 'three'
-  //                     setTimeout(() => {
-  //                       this.state = 'two'
-  //                         setTimeout(() => this.state = 'one', 300);
-  //                     }, 320);
-  //                   }, 400);
-  //                 },150);
-  //               },10);
-  //   }
-  //
-  //
-  // }
-
 }

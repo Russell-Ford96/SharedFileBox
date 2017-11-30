@@ -1,5 +1,5 @@
 <div class="project-details">
-  <!-- <div class="container"> -->
+
   <div class="header" fxLayout="row" fxLayoutAlign="space-between center">
     <div class="name">Bots</div>
 
@@ -26,13 +26,12 @@
         <mat-tab-group>
           <mat-tab label="Details" *ngIf="!isNewBot()">
             <br>
-            <div class="splash-title">{{ bot.name }}</div>
+            <div class="splash-title"   matTooltip="Bot name">{{ bot.name }}</div>
             <div class="details" fxLayout="column" fxLayout.gt-sm="row" fxLayoutAlign.gt-sm="space-between" fxLayoutGap="16px" fxLayoutGap.gt-md="24px">
               <div class="detail">
                 <div class="name">Url</div>
-                <div class="value">{{ bot.url }}</div>
+                <div class="value" matTooltip="Bot Url" >{{ bot.url }}</div>
               </div>
-
 
               <div class="detail">
                 <div class="name">Items</div>
@@ -44,10 +43,10 @@
               </div>
 
               <div class="detail">
-                <div class="name">Members</div>
+                <div class="name">Avatar</div>
                 <div class="value" fxLayout="row">
-                  <div class="member" *ngFor="let member of [1,2,3]">
-                    <img matTooltip="Lina Miller" [src]="'assets/img/demo/avatars/' + member + '.png'">
+                  <div class="member" >
+                    <img matTooltip="Bot Avatar" [src]="bot.avatar">
                   </div>
                 </div>
               </div>
@@ -56,15 +55,26 @@
             <div class="divider reverse"></div>
 
             <div class="right-bottom">
-              <div class="description-title">Project Description</div>
+
+              <div class="description-title">Thanks</div>
+              <div class="description">
+
+
+                {{bot.thanks}}
+
+              </div>
+            </div>
+            <div class="divider reverse"></div>
+            <div class="right-bottom">
+              <div class="description-title">Bot description</div>
               <div class="description">
 
 
                 {{bot.description}}
-                <!-- <vr-create-bot [bot]="botSelected"
-                                  (closeForm)="onShowBots($event)" ></vr-create-bot> -->
+
 
               </div>
+
             </div>
 
 

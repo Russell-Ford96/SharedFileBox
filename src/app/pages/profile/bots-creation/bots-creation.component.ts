@@ -23,9 +23,11 @@ import { Bot } from '../bot.model';
 export class BotsCreationComponent implements OnInit, OnChanges {
   public msgSent = false;
   public msgErr = false;
-   @Input() bot: Bot;
-   @Output() botChange = new EventEmitter<Bot>();
-   @Output() closeForm = new EventEmitter<boolean>();
+  botAvatar: string;
+  @Input() bot: Bot;
+  @Output() botChange = new EventEmitter<Bot>();
+  @Output() closeForm = new EventEmitter<boolean>();
+
    // @Output() onLoading = new EventEmitter<boolean>();
    showProgressBar: boolean;
 
@@ -92,6 +94,8 @@ export class BotsCreationComponent implements OnInit, OnChanges {
     public snackBar: MatSnackBar
   ) {
 
+
+
   }
 
   openSnackBar(message: string, action: string) {
@@ -118,10 +122,15 @@ export class BotsCreationComponent implements OnInit, OnChanges {
 
   }
 
+  onSelectAvatar(avatar){
+    console.log(avatar);
+     this.botAvatar = avatar;
+  }
+
   buildForm(bot:Bot): void {
     console.log("buildForm");
     console.log(bot);
-    // if(bot._id){}
+    this.botAvatar = bot.avatar;
     this.requestForm = this.fb.group({
       'name': [bot.name, [
         Validators.required
@@ -132,6 +141,8 @@ export class BotsCreationComponent implements OnInit, OnChanges {
       ]
       ],
       'description': [bot.description, []
+      ],
+      'avatar': [bot.avatar, []
       ],
       itemArray: this.fb.array(bot.itemArray),
       'thanks': [bot.thanks, [
@@ -154,12 +165,6 @@ export class BotsCreationComponent implements OnInit, OnChanges {
   }
 
   ngOnInit(): void {
-    //this.buildForm(this.bot);
-
-
-    this.secondFormGroup = this.fb.group({
-      secondCtrl: ['', Validators.required]
-    });
 
     this.store.select(fromRoot.getLayout).subscribe((layout) => {
       this.layout = layout;
@@ -183,7 +188,6 @@ export class BotsCreationComponent implements OnInit, OnChanges {
 
     this.item = { name: '', file: false, position: 0 };
     this.buildForm(this.bot);
-
   }
 
   update(): void {
@@ -191,6 +195,8 @@ export class BotsCreationComponent implements OnInit, OnChanges {
     this.setLoading(true);
     let formValues = this.requestForm.value;
     formValues.createdBy = this.profile.sub.split("|")[1];
+    formValues.avatar = this.botAvatar;
+    console.log('this.botAvatar ',this.requestForm.value);
     this.bot = formValues;
     this.appService.updateBot(this.requestForm.value)
       .then(res => {
@@ -214,6 +220,8 @@ export class BotsCreationComponent implements OnInit, OnChanges {
     let formValues = this.requestForm.value;
     console.log(formValues);
     formValues.createdBy = this.profile.sub.split("|")[1];
+    formValues.avatar = this.botAvatar;
+    console.log('this.botAvatar ',this.requestForm.value);
     this.appService.createBot(this.requestForm.value)
       .then(res => {
 
@@ -294,7 +302,8 @@ export class BotsCreationComponent implements OnInit, OnChanges {
   }
   formErrors = {
     'name': '',
-    'url': ''
+    'url': '',
+    'thanks': ''
   };
   validationMessages = {
     'name': {
@@ -302,6 +311,9 @@ export class BotsCreationComponent implements OnInit, OnChanges {
     },
     'url': {
       'required': 'Url is required.'
+    },
+    'thanks': {
+      'required': 'Thanks is required.'
     }
   };
 

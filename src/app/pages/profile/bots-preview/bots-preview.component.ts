@@ -13,7 +13,6 @@ import { Bot } from '../bot.model';
 })
 export class BotsPreviewComponent implements OnInit {
   @Input() bot: Bot;
-  // @Output() onLoading = new EventEmitter<boolean>();
   @Output() closePreview = new EventEmitter<boolean>();
 
   private reloadSimulator: boolean;

@@ -1,3 +1,30 @@
+.toolbar-icon {
+  padding: 0 14px;
+  margin-right: 20px;
+}
+
+.mat-fab.mat-primary {
+    background-color: #1697CF !important;
+}
+
+.mat-toolbar.mat-primary {
+    background: #1697CF !important;
+    color: rgba(255, 255, 255, 0.87);
+    box-shadow: 0 3px 1px -2px rgba(0,0,0,.2), 0 2px 2px 0 rgba(0,0,0,.14), 0 1px 5px 0 rgba(0,0,0,.12);
+}
+
+.toolbar-spacer {
+  flex: 1 1 auto;
+}
+
+.toolbar-img {
+  border-style: none;
+    -webkit-border-radius: 50em !important;
+    width: 45px;
+    height: 45px;
+    margin-right: 20px;
+}
+
 .chat-message {
   margin-top: 18px;
   min-height: 300px !important;
@@ -15,6 +42,13 @@
     list-style: none;
     margin: 0;
      padding-left: 20px;
+}
+
+.botTyping{
+  margin-top: 40px;
+  margin-left: -33px;
+  font-size: 11px;
+  color: #e2dbdb;
 }
 
 

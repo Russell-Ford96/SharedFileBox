@@ -10,40 +10,13 @@
       </div>
     </div>
 
-    <!-- <div class="content" fxLayout="column">
-      <div class="projects">
-        <div class="category">
-
-          <div mat-ripple class="project" fxLayout="row" fxLayoutAlign="space-between center" *ngFor="let bot of bots" (click)="onBotSelect(bot)">
-
-            <div fxLayout="column" fxLayout="row" fxLayoutAlign="start start">
-              <div class="name">{{ bot.name}}</div>
-            </div>
-            <div fxLayout="column" fxLayout="row" fxLayoutAlign="start start">
-              <div class="name">{{ bot.url}}</div>
-            </div>
-            <div fxLayout="column" fxLayout="row" fxLayoutAlign="start start">
-              <div class="name">{{ bot.itemArray.length}}</div>
-            </div>
-            <div fxLayout="row" fxLayoutAlign="end center">
-              <div class="time">2 min ago</div>
-              <div *ngIf="bot.active" class="status-circle accent"></div>
-              <div *ngIf="!bot.active" class="status-circle warn"></div>
-            </div>
-          </div>
-
-
-        </div>
-      </div>
-    </div> -->
-
 
     <div class="content">
       <table class="table table-hover table-condensed table-bordered">
         <thead>
         <tr>
-          <th></th>
-          <th>Bot</th>
+          <th>Avatar</th>
+          <th>Name</th>
           <th>Url</th>
           <th>Items</th>
           <th>State</th>
@@ -51,7 +24,8 @@
         </thead>
         <tbody>
         <tr *ngFor="let bot of bots" (click)="onBotSelect(bot)"  style="cursor:pointer !important">
-          <td class="avatar-cell"><img class="avatar" [src]="'../../assets/avatar-chica.png'"></td>
+          <!-- <td class="avatar-cell"><img class="avatar" [src]="'../../assets/avatar-chica.png'"></td> -->
+          <td class="avatar-cell"><img class="avatar" [src]="bot.avatar"> </td>
           <td>{{ bot.name}}</td>
           <td>{{ bot.url}}</td>
           <td>{{ bot.itemArray.length }}</td>

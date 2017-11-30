@@ -1,49 +1,51 @@
-<div class="col-md-12 bg-white " style="min-height:300px">
-  <div class="chat-message">
-    <ul class="chat">
-      <li class="left clearfix" *ngFor="let msj of itemsBot; let i = index" [@messageChat]="state">
+<div *ngIf="!isShowBot()">
+<vr-welcome (showTheBot)="onShowBot($event)">
+</vr-welcome>
+</div>
+<div *ngIf="isShowBot()">
+  <mat-toolbar color="primary">
+    <span class="pull-left">
+            <img [src]="botAvatar" class="toolbar-img " alt="User Avatar">
+    </span>
 
-        <div >
-          <span class="chat-img pull-left">
-                  <img src="{{msj.avatar}}" alt="User Avatar">
-                </span>
-          <div class="chat-body clearfix">
-            <div class="header">
-              <strong class="primary-font">{{msj.name}}</strong>
-              <small class="pull-right text-muted"><i class="fa fa-clock-o"></i> {{ msj.date}}</small>
+      <span>{{botName}}</span>
+      <span class="botTyping"> {{botTyping}}</span>
+      <span class="toolbar-spacer"></span>
+      <mat-icon class="toolbar-icon">verified_user</mat-icon>
+
+  </mat-toolbar>
+
+  <div class="col-md-12 bg-white " style="min-height:300px">
+
+
+    <div class="chat-message">
+      <ul class="chat">
+        <li class="left clearfix" *ngFor="let msj of itemsBot; let i = index" [@messageChat]="state">
+
+          <div >
+            <span class="chat-img pull-left">
+                    <img src="{{msj.avatar}}" alt="User Avatar">
+            </span>
+            <div class="chat-body clearfix">
+              <div class="header">
+                <strong class="primary-font">{{msj.name}}</strong>
+                <small class="pull-right text-muted"><i class="fa fa-clock-o"></i> {{ msj.date}}</small>
+              </div>
+              <p>
+                {{msj.msj}}
+              </p>
             </div>
-            <p>
-              {{msj.msj}}
-            </p>
-          </div>
-        </div>
-        <!-- <div *ngIf="!msj.user=='bot'">
-
-          <div class="chat-body clearfix">
-            <div class="header">
-              <strong class="primary-font">{{msj.name}}</strong>
-              <small class="pull-right text-muted"><i class="fa fa-clock-o"></i> {{ msj.date}}</small>
-            </div>
-            <p>
-              {{msj.msj}}
-            </p>
           </div>
 
-          <span class="chat-img pull-left">
-                  <img src="{{msj.avatar}}" alt="User Avatar">
-          </span>
-        </div> -->
+        </li>
+      </ul>
+    </div>
 
-      </li>
-    </ul>
-  </div>
-
-
-
-  <div class="chat-respond" fxLayout="row" fxLayoutAlign="start center">
-    <mat-input-container fxFlex>
-      <textarea matInput (keyup.enter)="send()" [(ngModel)]="newMessage" placeholder="Type and hit enter to send your message"></textarea>
-    </mat-input-container>
-    <button (click)="send()" mat-fab color="primary"><mat-icon>send</mat-icon></button>
+    <div class="chat-respond" fxLayout="row" fxLayoutAlign="start center">
+      <mat-input-container fxFlex>
+        <textarea matInput (keyup.enter)="send()" [(ngModel)]="newMessage" placeholder="Type and hit enter to send your message"></textarea>
+      </mat-input-container>
+      <button (click)="send()" mat-fab color="primary"><mat-icon>send</mat-icon></button>
+    </div>
   </div>
 </div>
