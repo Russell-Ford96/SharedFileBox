@@ -43,23 +43,11 @@
     <div class="detail">
       <div class="name">Members</div>
       <div class="value" fxLayout="row">
-        <div class="member" *ngFor="let member of [1,2,3]">
-          <img matTooltip="Lina Miller" [src]="'assets/img/demo/avatars/' + member + '.png'" (click)="onSelectAvatar('assets/img/demo/avatars/' + member + '.png')">
+        <div class="member" *ngFor="let member of [1,2,3,4]">
+          <img matTooltip="Select avatar" [src]="'assets/img/avatars/' + member + '.png'" (click)="onSelectAvatar('assets/img/avatars/' + member + '.png')">
         </div>
       </div>
     </div>
-    <!-- <div class="detail">
-      <div class="name">Members</div>
-      <div class="value" fxLayout="row">
-        <div class="member">
-          <mat-radio-group class="bot-radio-group" [(ngModel)]="botAvatar">
-            <mat-radio-button class="bot-radio-button" *ngFor="let avatar of [1,2,3]" [value]="avatar">
-              <img matTooltip="Lina Miller" [src]="'assets/img/demo/avatars/' + avatar + '.png'">
-            </mat-radio-button>
-          </mat-radio-group>
-        </div>
-      </div>
-    </div> -->
     <div class="detail">
 
       <div class="member">

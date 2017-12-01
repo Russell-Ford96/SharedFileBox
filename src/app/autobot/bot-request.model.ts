@@ -7,7 +7,6 @@ export class Request{
 
 export class BotRequest{
   customerFullName: string;
-  customerPhoneNumber: string;
   bot: Bot;
   requests:Request[];
   answerDate: string;

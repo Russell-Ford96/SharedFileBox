@@ -36,8 +36,8 @@ export class AutobotComponent implements OnInit {
   bot: any;
   index: number;
   showtime: number;
-  botAvatar = '../../assets/avatar-chica.png';
-  botName: string;
+  //botAvatar = '../../assets/avatar-chica.png';
+  //botName: string;
   botTyping = ' online';
   itemsBot:any[] = [{}];
   newMessage: string;
@@ -63,7 +63,7 @@ export class AutobotComponent implements OnInit {
     this.route.data
       .subscribe((data: { bot: any }) => {
         this.bot = data.bot;
-        this.botName = this.bot.name;
+        //this.botName = this.bot.name;
         this.botRequest.bot = this.bot;
 
         for (var doc in this.bot.itemArray) {
@@ -88,15 +88,12 @@ export class AutobotComponent implements OnInit {
   private onShowBot(data){
     console.log("onShowBot");
     console.log(data.customerFullName);
-    console.log(data.customerPhoneNumber);
     this.botRequest.customerFullName = data.customerFullName;
-    this.botRequest.customerPhoneNumber = data.customerPhoneNumber;
-    console.log(this.botRequest.customerFullName + ' ' + this.botRequest.customerPhoneNumber);
     this.showBot = true;
 
     this.itemsBot.push( {
-                    'avatar': this.botAvatar,
-                    'name': this.botName,
+                    'avatar': this.bot.avatar,
+                    'name': this.bot.name,
                     'user': 'bot',
                     'msj': "Hello welcome " + this.botRequest.customerFullName.split(" ")[0] + " a pleasure to help you",//this.bot.itemArray[this.index].name,
                     'date': new Date(),
@@ -140,7 +137,7 @@ export class AutobotComponent implements OnInit {
     if (this.newMessage) {
       var i = this.itemsBot.length + 1;
       this.itemsBot.push( {
-                      'avatar': '../../assets/tiger.jpeg',
+                      'avatar': '../../assets/img/avatars/noavatar.png',
                       'name': this.botRequest.customerFullName.split(" ")[0],
                       'user': 'client',
                       'msj': this.newMessage,
@@ -169,8 +166,8 @@ export class AutobotComponent implements OnInit {
   private sendMessgeBot(msj,file){
               setTimeout(() => {
                   this.itemsBot.push( {
-                                  'avatar': this.botAvatar,
-                                  'name': this.botName,
+                                  'avatar': this.bot.avatar,
+                                  'name': this.bot.name,
                                   'user': 'bot',
                                   'msj': msj,//this.bot.itemArray[this.index].name,
                                   'date': new Date(),
@@ -199,9 +196,24 @@ export class AutobotComponent implements OnInit {
 
     }else{
       this.sendMessgeBot(this.bot.thanks,false);
+      this.saveRequest();
       console.log(this.botRequest);
     }
     }
 
+  }
+
+  private saveRequest(){
+    this.appService.setLoading(true);
+    this.appService.createBotRequest( this.botRequest )
+      .then(res => {
+        let error_str = res._body.slice(26);
+
+          //this.socketService.sendMessage('new Request from save');
+          console.log(res);
+          this.appService.setLoading(false);
+          this.cdr.detectChanges();
+
+      });
   }
 }

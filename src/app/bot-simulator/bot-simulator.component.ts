@@ -28,7 +28,7 @@ export class BotSimulatorComponent {
   id: any;
   docRequest: any;
   fileIndex: number;
-  avatarService = '../../assets/avatar-chica.png';
+  
   dateUpdate = new Date();
 
 
@@ -99,8 +99,8 @@ export class BotSimulatorComponent {
         }
 
                   console.log(showtime);
-                  this.itemsBot.push( {'avatar': this.avatarService,
-                                  'name': 'Eva',
+                  this.itemsBot.push( {'avatar': this.bot.avatar,
+                                  'name': this.bot.name,
                                   'msj': this.bot.itemArray[item].name,
                                   'date': new Date(),
                                   'file': this.bot.itemArray[item].file,

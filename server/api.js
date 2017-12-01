@@ -107,6 +107,42 @@ router.get('/getdoc/:id', (req, res) => {
 });
 
 
+router.post('/createBotRequest', (req, res) => {
+    console.log(req.body);
+    var customerFullName = req.body.customerFullName;
+    var botName = req.body.bot.name;
+    var botUrl = req.body.bot.url;
+    var botId = req.body.bot._id;
+    var requests = req.body.requests;
+    var answerDate = new Date();
+
+  mongodb.MongoClient.connect(uri, function(err, db) {
+    if (err) {
+      console.log(err);
+    }
+    var botRequest = db.collection('botRequest');
+
+          botRequest.insert({
+            customerFullName: customerFullName,
+            botName: botName,
+            botUrl: botUrl,
+            botId: botId,
+            requests: requests,
+            answerDate: answerDate
+          }, function(err, result) {
+            if (err)
+              return res.send("An error has occured");
+            else {
+              var id = result.insertedIds[0];
+              return res.send(id);
+            }
+          })
+          db.close();
+
+      });
+  });
+
+
 // Get AutoBot by Url
 router.get('/getbotbyurl/:url', (req, res) => {
   console.log("api/getBotByUrl");

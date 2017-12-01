@@ -20,12 +20,18 @@ export class AppService {
   constructor(private http: Http) {
   }
 
-
-
-
-
   createRequest(formData: any): Promise<any> {
     return this.http.post('api/create', JSON.stringify(formData), { headers: this.headers })
+      .toPromise()
+      .then(response => response)
+      .catch(this.handleError);
+  }
+
+  createBotRequest(formData: any): Promise<any> {
+    console.log("createBotRequest");
+    console.log(formData);
+    console.log(JSON.stringify(formData));
+    return this.http.post('api/createBotRequest', JSON.stringify(formData), { headers: this.headers })
       .toPromise()
       .then(response => response)
       .catch(this.handleError);

@@ -5,10 +5,10 @@
 <div *ngIf="isShowBot()">
   <mat-toolbar color="primary">
     <span class="pull-left">
-            <img [src]="botAvatar" class="toolbar-img " alt="User Avatar">
+            <img [src]="bot.avatar" class="toolbar-img " alt="User Avatar">
     </span>
 
-      <span>{{botName}}</span>
+      <span>{{bot.name}}</span>
       <span class="botTyping"> {{botTyping}}</span>
       <span class="toolbar-spacer"></span>
       <mat-icon class="toolbar-icon">verified_user</mat-icon>
