@@ -4,10 +4,6 @@ const router = express.Router();
 const path = require('path');
 const nodemailer = require('nodemailer');
 var fs = require('fs');
-const crypto = require('crypto');
-var jwt = require('jsonwebtoken');
-var bcrypt = require('bcrypt');
-const saltRounds = 10;
 
 //Socket.io
 var app = express();

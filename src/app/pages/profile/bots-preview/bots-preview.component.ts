@@ -26,6 +26,18 @@ export class BotsPreviewComponent implements OnInit {
     return this.bot._id == '';
   }
 
+  isFile(file){
+    var value: string;
+    console.log(file);
+    if(file){
+      value = "accent";
+    }else{
+      value = "void";
+    }
+      console.log(value);
+    return value
+  }
+
   setLabelNewOrEdit(){
     return this.bot._id == '' ? 'New ' : 'Edit ';
   }
