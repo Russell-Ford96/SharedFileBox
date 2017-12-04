@@ -52,7 +52,6 @@ export class MessageComponent implements OnInit {
     } else {
       this.auth.getProfile((err, profile) => {
         this.profile = profile;
-
       });
     }
 
@@ -64,6 +63,7 @@ export class MessageComponent implements OnInit {
     this.submitted = true;
     this.save();
   }
+
 
   save(): void {
     this.appService.setLoading(true);
@@ -92,6 +92,7 @@ export class MessageComponent implements OnInit {
             this.phonemsg = res._body;
             this.dialogDataService.changeMessage(res._body);
             this.socketService.sendMessage('newRequest ERROR');
+
             this.cdr.detectChanges();
             this.appService.setLoading(false);
         }
@@ -102,13 +103,14 @@ export class MessageComponent implements OnInit {
             this.openSnackbar = false;
             console.log("openSnackbar false");
           }.bind(this), 5000);
-
           this.socketService.sendMessage('new Request from save');
           this.appService.setLoading(false);
           this.cdr.detectChanges();
         }
       });
   }
+
+
 
   buildForm(): void {
     this.requestForm = this.fb.group({

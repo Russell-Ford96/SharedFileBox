@@ -18,10 +18,11 @@ export class AppSocketService {
             this.socket.on('new_message', (message) => {
                 console.log("new message ");
                 console.log(message);
-                //console.log(message.body);
                 observer.next(message);
             });
         });
     }
+    
+
 
 }

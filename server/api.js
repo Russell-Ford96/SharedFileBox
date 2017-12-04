@@ -18,13 +18,24 @@ const socketPort = process.env.PORT || 3100;
 io.on('connection', (socket) => {
 
     socket.on('new_message', (message) => {
+      console.log(io.sockets.name);
+      console.log(" on api socket");
+      console.log(message);
       io.emit('new_message',message);
     });
+    //sent message socket
+    socket.on('sent_message', (message) => {
+      console.log('---> on api sent_message');
+      io.emit('sent_message', message);
+      console.log('socket emit sent_message')
+    })
+
 });
 
 server.listen(socketPort, () => {
     console.log(`started on port: ${socketPort}`);
 });
+
 
 var azure = require('azure-storage');
 var blobSvc = azure.createBlobService();
@@ -233,8 +244,6 @@ router.post('/upload', function(req, res, next) {
 
       return res.send(fullAzurePath);
     });
-
-
 
     console.log('stream uploaded successfully');
     req.model.data = response;

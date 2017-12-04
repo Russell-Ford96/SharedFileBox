@@ -122,6 +122,7 @@ export class AppService {
 
 
   getAllRequestData(createdBy: string): Observable<RequestData[]> {
+    console.log('inside getAllRequestData')
     return this.http.get('api/reqdata/' + createdBy, {headers: this.headers})
          .map(response =>  response.json() as RequestData[]);
   }
