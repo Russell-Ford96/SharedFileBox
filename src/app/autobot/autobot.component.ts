@@ -1,10 +1,11 @@
 import { Component, OnInit, ChangeDetectorRef, trigger, state, style, transition, animate } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
+
 import 'rxjs/add/operator/map';
 
 import { BotRequest } from './bot-request.model';
-import { FileSelectDirective, FileDropDirective, FileUploader } from 'ng2-file-upload/ng2-file-upload';
+import { FileUploader } from 'ng2-file-upload/ng2-file-upload';
 
 import { AppService} from '../app.service';
 
@@ -28,9 +29,17 @@ import { AppService} from '../app.service';
   ]
 })
 export class AutobotComponent implements OnInit {
+
+  public uploader: FileUploader = new FileUploader({
+    url: 'http://localhost:5000/api/upload', itemAlias: "single", autoUpload: true
+  });
+
   audio = new Audio();
   state = 'normal';
   showBot = false;
+  fileIndex: number;
+  lastindex: number;
+  dateUpdate: Date;
   botRequest: BotRequest;
   url: any;
   bot: any;
@@ -69,6 +78,9 @@ export class AutobotComponent implements OnInit {
         for (var doc in this.bot.itemArray) {
           this.botRequest.requests.push( {"question":this.bot.itemArray[doc].name, "answer":''} );
           this.bot.itemArray[doc].docIndex = doc;
+          if(this.bot.itemArray[doc].file){
+
+          }
           this.bot.itemArray[doc].show = false;
         }
       });
@@ -78,9 +90,43 @@ export class AutobotComponent implements OnInit {
       this.index = 0;
       this.itemsBot = [];
 
+      this.uploader.onBeforeUploadItem = (item: any) => {
+        item.withCredentials = false;
+        this.uploader.options.additionalParameter = {
+          index: item.formData[0].index,
+          _id: item.formData[1]._id
+        };
+        // this.docRequest.docArray[item.formData[0].index].attachment = "uploaded";
+      };
+
+      //override the onAfterAddingfile property of the uploader so it doesn't authenticate with //credentials.
+      this.uploader.onAfterAddingFile = (file) => {
+        console.log("****************");
+        console.log(this.bot.itemArray);
+        console.log(this.index);
+        console.log('*******uploader', this.bot.itemArray[this.lastindex].docIndex)
+        file.withCredentials = false;
+        //here we push the index of the file into formdata because it's the only place i could find that would hold the value.
+        this.audio.play();
+        file.formData.push({ "index": this.fileIndex });
+        file.formData.push({ "_id": this.bot._id });
+        this.dateUpdate = new Date();
+      };
+
+      //overide the onCompleteItem property of the uploader so we are
+      //able to deal with the server response.
+      this.uploader.onCompleteItem = (item: any, response: any, status: any, headers: any) => {
+
+      };
+
       //this.messageSimulation();
 
   }
+
+  updateFileIndex(index: number) {
+    this.fileIndex = index;
+  }
+
   private isShowBot(){
     return this.showBot;
   }
@@ -147,12 +193,12 @@ export class AutobotComponent implements OnInit {
                       'show': false,
                       'docIndex': i
                     });
-      var lastindex = this.index - 1;
-      if(this.botRequest.requests.length > lastindex){
-        console.log(lastindex);
-        this.botRequest.requests[lastindex].answer = this.newMessage;
-        console.log(this.botRequest.requests[lastindex].question);
-        console.log(this.botRequest.requests[lastindex].answer);
+      this.lastindex = this.index - 1;
+      if(this.botRequest.requests.length > this.lastindex){
+        console.log(this.lastindex);
+        this.botRequest.requests[this.lastindex].answer = this.newMessage;
+        console.log(this.botRequest.requests[this.lastindex].question);
+        console.log(this.botRequest.requests[this.lastindex].answer);
       }
 
       this.newMessage = '';

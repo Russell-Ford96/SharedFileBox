@@ -20,6 +20,7 @@
 
     <div class="chat-message">
       <ul class="chat">
+        <form>
         <li class="left clearfix" *ngFor="let msj of itemsBot; let i = index" [@messageChat]="state">
 
           <div >
@@ -34,10 +35,14 @@
               <p>
                 {{msj.msj}}
               </p>
+              <div *ngIf="msj.file">
+                <input type="file" class="form-control" name="single" (click)="updateFileIndex(i)" ng2FileSelect [uploader]="uploader" [disabled]="msj.attachment != null" />
+              </div>
             </div>
           </div>
 
         </li>
+      </form>
       </ul>
     </div>
 

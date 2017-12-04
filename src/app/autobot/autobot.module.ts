@@ -7,6 +7,8 @@ import { UtilsModule } from '../core/utils/utils.module';
 import { ScrollbarModule } from '../core/scrollbar/scrollbar.module';
 import { PageHeaderModule } from '../core/page-header/page-header.module';
 import { BreadcrumbsModule } from '../core/breadcrumbs/breadcrumbs.module';
+import { NgxfUploaderModule } from 'ngxf-uploader';
+import { FileUploadModule } from "ng2-file-upload/";
 
 
 import {
@@ -25,6 +27,8 @@ import { WelcomeComponent } from './welcome/welcome.component';
     PageHeaderModule,
     BreadcrumbsModule,
     FlexLayoutModule,
+    NgxfUploaderModule.forRoot(),
+    FileUploadModule,
     //Material Design
     MatInputModule,
     MatSidenavModule,
