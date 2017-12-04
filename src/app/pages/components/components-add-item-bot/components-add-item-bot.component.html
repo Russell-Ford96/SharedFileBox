@@ -15,14 +15,13 @@
             >
     <tr  *ngFor="let item of items;let i=index" >
 
-      <td align="left" width="80%" (click)="onEditItem(item)">
+      <td align="left" width="80%" (dblclick)="onEditItem(item)">
        <div class="itembot" >
-         
-        <div *ngIf="item != itemEditing" >
+
+        <div *ngIf="item != itemEditing" matTooltip="Doble click to edit!" >
           {{ item.name }}
         </div>
-
-        <input *ngIf="item == itemEditing" [(ngModel)]="item.name" name="itemname" matInput placeholder="name" type="text" (keydown)="onKeydown($event)" >
+         <input class="editItem" *ngIf="item == itemEditing" [(ngModel)]="item.name" name="itemname" matInput placeholder="name" type="text" (keydown)="onKeydown($event)" >
       </div>
 
       </td>
@@ -32,7 +31,7 @@
 
       </td>
       <td  align="left" width="10%">
-        <mat-icon *ngIf="!item.file" class="icon">question_answer</mat-icon>
+        <mat-icon *ngIf="!item.file" class="icon">comment_question</mat-icon>
         <mat-icon *ngIf="item.file" class="icon">attach_file</mat-icon>
       </td>
 
