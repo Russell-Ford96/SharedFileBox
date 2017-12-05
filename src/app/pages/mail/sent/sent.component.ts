@@ -4,8 +4,9 @@ import * as moment from 'moment';
 import { ScrollbarComponent, scrollbarOptions } from '../../../core/scrollbar/scrollbar.component';
 import Scrollbar from 'smooth-scrollbar';
 import { ROUTE_TRANSITION } from '../../../app.animation';
-import {AppService} from "../../../app.service";
-import {AuthService} from "../../../auth/auth.service";
+import { AppService} from "../../../app.service";
+import { AuthService} from "../../../auth/auth.service";
+import { AppSocketService } from '../../../app.socket.service';
 import { Observable } from 'rxjs/Rx';
 import {AnonymousSubscription} from "rxjs/Subscription";
 
@@ -35,6 +36,8 @@ export class SentComponent implements OnInit, OnDestroy {
   constructor(private cd: ChangeDetectorRef,
               private appService: AppService,
               private auth: AuthService,
+              private socketService: AppSocketService,
+              private cdr: ChangeDetectorRef,
               ) { }
 
   ngOnInit() {
@@ -42,7 +45,28 @@ export class SentComponent implements OnInit, OnDestroy {
 
     this.mainScrollbarElem = document.getElementById('main-scrollbar');
     this.scrollbar = Scrollbar.get(this.mainScrollbarElem);
-    this.scrollbar.destroy();
+    if(this.scrollbar){
+     this.scrollbar.destroy();
+    }
+
+    this.appService.setLoading(true);
+    this.getData();
+
+    // This service is to update the data in real time through socket
+    this.socketService
+      .getMessages()
+      .subscribe((message: any) => {
+        console.log(message);
+        console.log(" *********** On Request Component ********** ");
+        this.getData();
+        this.cdr.detectChanges();
+      });
+
+
+
+  }
+
+  getData(){
     if(this.auth.userProfile){
       this.userid = this.auth.userProfile.sub.split("|")[1];
       this.requestByUser(this.userid);
@@ -58,7 +82,7 @@ export class SentComponent implements OnInit, OnDestroy {
   requestByUser(id: string ){
     this.userid = id;
 
-
+    //this.appService.setLoading(true);
     this.appService.getAllRequestData(id).subscribe(results => {
 
       this.subscribeToData(this.userid);
@@ -76,8 +100,9 @@ export class SentComponent implements OnInit, OnDestroy {
 
 
       this.activeMsg = this.theData[0];
+      this.cdr.detectChanges();
       //console.log(this.theData);
-
+      this.appService.setLoading(false);
     });
 
 
@@ -88,7 +113,7 @@ export class SentComponent implements OnInit, OnDestroy {
   public subscribeToData(id: string)
   {
     this.userid = id;
-    this.timerSubscription = Observable.timer(5000).first().subscribe(() => this.requestByUser(this.userid));
+    //this.timerSubscription = Observable.timer(5000).first().subscribe(() => this.requestByUser(this.userid));
   }
 
   setActiveMsg(item) {
