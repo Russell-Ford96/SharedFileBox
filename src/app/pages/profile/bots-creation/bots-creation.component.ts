@@ -60,6 +60,7 @@ export class BotsCreationComponent implements OnInit, OnChanges {
   setLoading(loading:boolean){
     //this.onLoading.emit(loading);
     this.appService.setLoading(loading);
+    this.cdr.detectChanges();
   }
 
   getType() {
@@ -90,7 +91,7 @@ export class BotsCreationComponent implements OnInit, OnChanges {
     private appService: AppService,
     private auth: AuthService,
     private store: Store<fromRoot.State>,
-    private cd: ChangeDetectorRef,
+    private cdr: ChangeDetectorRef,
     public snackBar: MatSnackBar
   ) {
 
@@ -175,7 +176,7 @@ export class BotsCreationComponent implements OnInit, OnChanges {
         this.layoutColumnOnBoxed = 'row';
       }
 
-      this.cd.markForCheck();
+      this.cdr.markForCheck();
     });
 
     if (this.auth.userProfile) {
@@ -193,6 +194,8 @@ export class BotsCreationComponent implements OnInit, OnChanges {
   update(): void {
     this.showProgressBar = true;
     this.setLoading(true);
+    this.cdr.markForCheck();
+    this.cdr.detectChanges();
     let formValues = this.requestForm.value;
     formValues.createdBy = this.profile.sub.split("|")[1];
     formValues.avatar = this.botAvatar;
@@ -211,12 +214,16 @@ export class BotsCreationComponent implements OnInit, OnChanges {
         }
         this.showProgressBar = false;
         this.setLoading(false);
+        this.cdr.markForCheck();
+        this.cdr.detectChanges();
       });
 
   }
 
   save(): void {
     this.setLoading(true);
+    this.cdr.markForCheck();
+    this.cdr.detectChanges();
     let formValues = this.requestForm.value;
     console.log(formValues);
     formValues.createdBy = this.profile.sub.split("|")[1];
@@ -242,6 +249,8 @@ export class BotsCreationComponent implements OnInit, OnChanges {
         }
         this.showProgressBar = false;
         this.setLoading(false);
+        this.cdr.markForCheck();
+        this.cdr.detectChanges();
       });
 
   }

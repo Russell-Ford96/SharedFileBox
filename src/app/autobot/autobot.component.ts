@@ -251,6 +251,7 @@ export class AutobotComponent implements OnInit {
 
   private saveRequest(){
     this.appService.setLoading(true);
+    this.cdr.detectChanges();
     this.appService.createBotRequest( this.botRequest )
       .then(res => {
         let error_str = res._body.slice(26);

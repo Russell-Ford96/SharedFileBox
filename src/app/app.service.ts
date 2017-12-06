@@ -1,12 +1,12 @@
-import {Component, Injectable} from '@angular/core';
+import { Component, Injectable } from '@angular/core';
 import { Headers, Http } from '@angular/http';
 
 import 'rxjs/add/operator/toPromise';
 import 'rxjs/add/operator/map'
-import {toPromise} from "rxjs/operator/toPromise";
-import {Observable} from 'rxjs/Observable';
-import {RequestData} from './pages/request/requestdata';
-import {BehaviorSubject} from "rxjs/BehaviorSubject";
+import { toPromise } from "rxjs/operator/toPromise";
+import { Observable } from 'rxjs/Observable';
+import { RequestData } from './pages/request/requestdata';
+import { BehaviorSubject } from "rxjs/BehaviorSubject";
 
 import * as io from 'socket.io-client';
 
@@ -15,7 +15,7 @@ import * as io from 'socket.io-client';
 
 export class AppService {
   private headers = new Headers({ 'Content-Type': 'application/json' });
-  public loading = false;
+  private loading = false;
 
   constructor(private http: Http) {
   }
@@ -36,13 +36,14 @@ export class AppService {
       .then(response => response)
       .catch(this.handleError);
   }
-
   isLoading(){
     return this.loading;
   }
 
-  setLoading(loading:boolean){
-    this.loading = loading;
+  setLoading(loading: boolean) {
+    console.log(loading);
+    Observable.timer(1).subscribe(()=> this.loading = loading );
+
   }
 
   createBot(formData: any): Promise<any> {
@@ -78,7 +79,7 @@ export class AppService {
   }
 
   getAllBotData(): Promise<RequestData[]> {
-    return this.http.get('api/bots/' , { headers: this.headers })
+    return this.http.get('api/bots/', { headers: this.headers })
       .toPromise()
       .then(response => response.json() as RequestData[])
       .catch(this.handleError);
@@ -100,7 +101,7 @@ export class AppService {
 
 
   getDocRequests(createdBy: string): Promise<any> {
-      return this.http.get('api/getreq/' + createdBy , {headers: this.headers})
+    return this.http.get('api/getreq/' + createdBy, { headers: this.headers })
       .toPromise()
       .then(response => response)
       .catch(this.handleError);
@@ -108,13 +109,13 @@ export class AppService {
   }
 
 
-  getRequestInbox(createdBy: string): Observable<RequestData[]>{
-    return this.http.get('api/getinbox/' + createdBy, {headers: this.headers})
-      .map(response =>  response.json() as RequestData[])
+  getRequestInbox(createdBy: string): Observable<RequestData[]> {
+    return this.http.get('api/getinbox/' + createdBy, { headers: this.headers })
+      .map(response => response.json() as RequestData[])
   }
 
-  getImage(createdBy: string, refnumb:string, file: string): Promise<any>{
-      return this.http.get('api/getimage/'+ createdBy + '/' + refnumb + '/' + file,{headers: this.headers})
+  getImage(createdBy: string, refnumb: string, file: string): Promise<any> {
+    return this.http.get('api/getimage/' + createdBy + '/' + refnumb + '/' + file, { headers: this.headers })
       .toPromise()
       .then(response => response)
       .catch(this.handleError);
@@ -122,8 +123,8 @@ export class AppService {
 
 
   getAllRequestData(createdBy: string): Observable<RequestData[]> {
-    return this.http.get('api/reqdata/' + createdBy, {headers: this.headers})
-         .map(response =>  response.json() as RequestData[]);
+    return this.http.get('api/reqdata/' + createdBy, { headers: this.headers })
+      .map(response => response.json() as RequestData[]);
   }
 
   getRefNumbRequest(refNumb: any): Promise<any> {
@@ -141,9 +142,9 @@ export class AppService {
       .catch(this.handleError);
   }
 
-    private handleError(error: any): Promise<any> {
-        console.error('An error occurred', error);
-        return Promise.reject(error.message || error);
+  private handleError(error: any): Promise<any> {
+    console.error('An error occurred', error);
+    return Promise.reject(error.message || error);
 
-    }
+  }
 }
