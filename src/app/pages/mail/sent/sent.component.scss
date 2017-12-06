@@ -4,3 +4,14 @@
 .md-padding{
   padding: 8px;
 }
+
+.page-chat .chat-container .chat {
+    background: white;
+    height: calc(100% - 74px);
+    max-height: 100%;
+}
+
+.chat-img img {
+   border-radious:50%;
+   width: 40px;
+}

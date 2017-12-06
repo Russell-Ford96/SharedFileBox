@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, ElementRef, OnDestroy, OnInit, ViewChild} from '@angular/core';
+import { ChangeDetectorRef, Component, ElementRef, OnDestroy, OnInit, ViewChild, AfterViewChecked } from '@angular/core';
 import * as _ from 'lodash';
 import * as moment from 'moment';
 import { ScrollbarComponent, scrollbarOptions } from '../../../core/scrollbar/scrollbar.component';
@@ -8,7 +8,9 @@ import {AppService} from "../../../app.service";
 import {AuthService} from "../../../auth/auth.service";
 import { Observable } from 'rxjs/Rx';
 import {AnonymousSubscription} from "rxjs/Subscription";
-import { AppSocketService } from  "../../../app.socket.service";//
+import { AppSocketService } from  "../../../app.socket.service";
+
+
 
 @Component({
   selector: 'vr-sent',
@@ -17,7 +19,7 @@ import { AppSocketService } from  "../../../app.socket.service";//
   animations: [...ROUTE_TRANSITION],
   host: { '[@routeTransition]': '' }
 })
-export class SentComponent implements OnInit, OnDestroy {
+export class SentComponent implements OnInit, OnDestroy, AfterViewChecked {
 
   timerSubscription: AnonymousSubscription;
   mainScrollbarElem: any;
@@ -30,30 +32,37 @@ export class SentComponent implements OnInit, OnDestroy {
   activeMsg: any;
   newMessage: string;
 
+
+
   @ViewChild('scrollToBottomElem') scrollToBottomElem: ElementRef;
   @ViewChild('chatScroll') chatScroll: ScrollbarComponent;
 
   constructor(private cd: ChangeDetectorRef,
               private appService: AppService,
               private auth: AuthService,
-              private socketService: AppSocketService,//
-              ) { }
+              private socketService: AppSocketService,
+            ) {}
+
+  ngAfterViewChecked(){
+    this.mainScrollbarElem = document.getElementById('main-scrollbar');
+    console.log('### mainscrollbarelemonInit', this.mainScrollbarElem);
+    this.scrollbar = Scrollbar.get(this.mainScrollbarElem);
+    if(this.scrollbar){this.scrollbar.destroy();
+    }
+  }
+
 
   ngOnInit() {
-    // this.chats = _.sortBy(chatDemoData, 'lastMessageTime').reverse();
-    this.mainScrollbarElem = document.getElementById('main-scrollbar');
-    this.scrollbar = Scrollbar.get(this.mainScrollbarElem);
-    if(this.scrollbar){this.scrollbar.destroy();}
-
     //socket
     this.socketService
       .getMessages()
       .subscribe((message: any) => {
        this.getData();
-        this.cd.detectChanges();
       });
       this.getData();
+      this.cd.detectChanges();
   }
+
 
   getData(){
     if(this.auth.userProfile){
@@ -87,16 +96,14 @@ export class SentComponent implements OnInit, OnDestroy {
   }
 
 
-  public subscribeToData(id: string)
-  {
-    this.userid = id;
-    // this.timerSubscription = Observable.timer(5000).first().subscribe(() => this.requestByUser(this.userid));
-  } 
-
+  // public subscribeToData(id: string)
+  // {
+  //  this.userid = id;
+  //  this.timerSubscription = Observable.timer(5000).first().subscribe(() => this.requestByUser(this.userid));
+  // }
 
   setActiveMsg(item) {
     this.activeMsg = item;
-
   }
 
   send() {
@@ -106,11 +113,8 @@ export class SentComponent implements OnInit, OnDestroy {
         when: moment(),
         who: 'me'
       });
-
       this.newMessage = '';
-
       this.cd.markForCheck();
-
       this.chatScroll.scrollbarRef.scrollIntoView(this.scrollToBottomElem.nativeElement, {
         alignToTop: false
       });
@@ -121,7 +125,6 @@ export class SentComponent implements OnInit, OnDestroy {
           when: moment(),
           who: 'partner'
         });
-
         this.cd.markForCheck();
 
         this.chatScroll.scrollbarRef.scrollIntoView(this.scrollToBottomElem.nativeElement, {
@@ -136,6 +139,9 @@ export class SentComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    Scrollbar.init(this.mainScrollbarElem, scrollbarOptions);
+    console.log('@@@mainscrollbarelem ondestroy', this.mainScrollbarElem)
+    if(this.mainScrollbarElem != undefined){
+      Scrollbar.init(this.mainScrollbarElem, scrollbarOptions);
+    }
   }
 }
