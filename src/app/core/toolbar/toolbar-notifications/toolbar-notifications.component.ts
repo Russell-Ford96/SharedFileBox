@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit, trigger, state, style, transition, animate } from '@angular/core';
 import moment from 'moment/src/moment';
 import { LIST_FADE_ANIMATION } from '../../utils/list.animation';
 import { AppSocketService } from '../../../app.socket.service';
@@ -7,10 +7,26 @@ import { AppSocketService } from '../../../app.socket.service';
   selector: 'vr-toolbar-notifications',
   templateUrl: './toolbar-notifications.component.html',
   styleUrls: ['./toolbar-notifications.component.scss'],
-  animations: [...LIST_FADE_ANIMATION]
+  animations: [...LIST_FADE_ANIMATION,
+    trigger('notificationAnimation',[
+        state('small',style({
+          transform: 'scale(1)',
+        })),
+        state('large', style({
+          transform: 'scale(1.2)',
+        })),
+        state('superSmall', style({
+          transform: 'scale(0.8)',
+        })),
+
+        transition('small  => large', animate('250ms ease-in')),
+        transition('large  => superSmall', animate('100ms ease-in')),
+        transition('superSmall  => small', animate('100ms ease-in')),
+      ])
+  ]
 })
 export class ToolbarNotificationsComponent implements OnInit {
-
+  state: string = 'small';
   isOpen: boolean;
   notifications: any[];
   demoTriggers = 0;
@@ -19,6 +35,24 @@ export class ToolbarNotificationsComponent implements OnInit {
     private socketService: AppSocketService,
     private cd: ChangeDetectorRef
   ) { }
+
+  onAnimateNotification(){
+
+    setTimeout(() => {
+      this.state = (this.state === 'superSmall' ? 'small' : 'small');
+      this.cd.detectChanges();
+      console.log("superSmall  => small");
+
+    }, 380);
+    setTimeout(() => {
+        this.state = (this.state === 'large' ? 'superSmall' : 'superSmall');
+        this.cd.detectChanges();
+        console.log("large  => superSmall");
+    }, 110);
+    this.state = (this.state === 'small' ? 'large' : 'large');
+    this.cd.detectChanges();
+    console.log("small  => large");
+  }
 
   ngOnInit() {
 
@@ -36,6 +70,8 @@ export class ToolbarNotificationsComponent implements OnInit {
           read: false,
           colorClass: 'accent'
         })
+
+        this.onAnimateNotification();
         this.cd.markForCheck();
       });
 
@@ -85,6 +121,7 @@ export class ToolbarNotificationsComponent implements OnInit {
   dismiss(notification) {
     this.notifications.splice(this.notifications.indexOf(notification), 1);
     this.triggerDemoNotification();
+    this.onAnimateNotification();
   }
 
   toggleDropdown() {
@@ -108,7 +145,7 @@ export class ToolbarNotificationsComponent implements OnInit {
           read: false,
           colorClass: '',
         });
-
+        this.onAnimateNotification();
         this.cd.markForCheck();
       }, 2000);
     } else if (this.demoTriggers === 1) {
@@ -122,7 +159,7 @@ export class ToolbarNotificationsComponent implements OnInit {
           read: false,
           colorClass: 'primary'
         });
-
+        this.onAnimateNotification();
         this.cd.markForCheck();
       }, 2000);
     }

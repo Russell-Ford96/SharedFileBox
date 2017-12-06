@@ -1,10 +1,17 @@
 <div class="toolbar-button" fxLayout="row" fxLayoutAlign="start center" (vrClickOutside)="onClickOutside()">
 
   <button class="icon-button" type="button" mat-button (click)="toggleDropdown()" [class.open]="isOpen">
-    <mat-icon class="icon">notifications_active</mat-icon>
-    <!-- <section>
-      <div class="icon material-icons mdl-badge" data-badge="♥">account_box</div>
-    </section> -->
+
+    <!-- Star -->
+    <div class="angular-notifications-container" >
+        <div class="angular-notifications-icon overlay" [@notificationAnimation]='state'>
+          <div class="angular-notification">{{ notifications.length }}</div>
+        </div>
+        <div class="notification-inner">
+            <mat-icon class="icon" >notifications_active</mat-icon>
+        </div>
+    </div>
+    <!-- End -->
   </button>
 
   <div class="dropdown mat-elevation-z1" [class.open]="isOpen">
@@ -12,7 +19,9 @@
       <div class="header" fxLayout="row" fxLayoutAlign="space-between center">
         <div class="title">
           <div class="name">Notifications</div>
-          <div class="extra">You have {{ notifications.length }} new notifications.</div>
+          <div class="extra">You have {{ notifications.length }} new notifications.
+
+          </div>
         </div>
         <button type="button" mat-icon-button>
           <mat-icon class="icon">settings</mat-icon>
