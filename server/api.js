@@ -20,6 +20,12 @@ io.on('connection', (socket) => {
     socket.on('new_message', (message) => {
       io.emit('new_message',message);
     });
+
+    socket.on('new_notification', (message) => {
+      console.log("*****************************");
+      console.log(message);
+      io.emit('new_notification',message);
+    });
 });
 
 server.listen(socketPort, () => {

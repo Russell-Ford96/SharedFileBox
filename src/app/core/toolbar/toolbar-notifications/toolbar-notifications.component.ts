@@ -1,6 +1,7 @@
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import moment from 'moment/src/moment';
 import { LIST_FADE_ANIMATION } from '../../utils/list.animation';
+import { AppSocketService } from '../../../app.socket.service';
 
 @Component({
   selector: 'vr-toolbar-notifications',
@@ -15,10 +16,29 @@ export class ToolbarNotificationsComponent implements OnInit {
   demoTriggers = 0;
 
   constructor(
+    private socketService: AppSocketService,
     private cd: ChangeDetectorRef
   ) { }
 
   ngOnInit() {
+
+    // This service is to update the data in real time through socket
+    this.socketService
+      .getNotification()
+      .subscribe((message: any) => {
+        console.log(message);
+        console.log(" *********** On ToolbarNotificationsComponent ********** ");
+        //this.getData();
+        this.notifications.unshift({
+          icon: 'notifications',
+          name: message,
+          time: moment().fromNow(),
+          read: false,
+          colorClass: 'accent'
+        })
+        this.cd.markForCheck();
+      });
+
     this.notifications = [
       {
         icon: 'notifications',

@@ -1,6 +1,10 @@
 <div class="toolbar-button" fxLayout="row" fxLayoutAlign="start center" (vrClickOutside)="onClickOutside()">
+
   <button class="icon-button" type="button" mat-button (click)="toggleDropdown()" [class.open]="isOpen">
     <mat-icon class="icon">notifications_active</mat-icon>
+    <!-- <section>
+      <div class="icon material-icons mdl-badge" data-badge="♥">account_box</div>
+    </section> -->
   </button>
 
   <div class="dropdown mat-elevation-z1" [class.open]="isOpen">
