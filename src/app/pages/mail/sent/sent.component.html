@@ -4,56 +4,59 @@
   <div class="page chat-container container">
     <vr-breadcrumbs [currentPage]="'Sent'" [names]="['Mail']" [header]="'primary'"></vr-breadcrumbs>
 
+
     <div class="chat mat-elevation-z4">
         <div fxLayout="row" style="height:100%">
 
 
-      <!-- message list -->
-        <vr-scrollbar>
-             <mat-nav-list style="border:thin solid lightgrey; color:red;">
-                <mat-list-item style="border-bottom:thin solid #f7f7f7fc;" *ngFor="let item of theData" (click)="setActiveMsg(item)">
-                   <h5 mat-line class="chat-img pull-left">
-                     <img src="https://i.pinimg.com/originals/7c/c7/a6/7cc7a630624d20f7797cb4c8e93c09c1.png">
-                     {{ item.phone }}
-                     <span style="font-size:x-small; float:right;"> {{ item.datetime | timeAgo }}</span>
-                   </h5>
-                   <p mat-line style="color:#797979;">{{ item.shortmessage }}</p>
-                </mat-list-item>
-            </mat-nav-list>
-        </vr-scrollbar>
+          <!-- message list -->
+            <vr-scrollbar>
+                 <mat-nav-list style="border:thin solid lightgrey; color:red;">
+                    <mat-list-item style="border-bottom:thin solid #f7f7f7fc;" *ngFor="let item of theData" (click)="setActiveMsg(item)">
+                       <h5 mat-line class="chat-img pull-left">
+                         <img src="https://i.pinimg.com/originals/7c/c7/a6/7cc7a630624d20f7797cb4c8e93c09c1.png">
+                         {{ item.phone }}
+                         <span style="font-size:x-small; float:right;"> {{ item.datetime | timeAgo }}</span>
+                       </h5>
+                       <p mat-line style="color:#797979;">{{ item.shortmessage }}</p>
+                    </mat-list-item>
+                </mat-nav-list>
+            </vr-scrollbar>
 
-        <!-- send message card -->
-       <mat-card flex="25" style="overflow-y:scroll; width:250%; margin:20px; height:30%; padding:30px; border: 0.7px solid #f7f7f7fc;" class="mat-elevation-z4">
 
-            <!-- header -->
-           <mat-card-header>
-             <span mat-line class="chat-img pull-left" style="margin-right: 10px;">
-               <img src="https://i.pinimg.com/originals/7c/c7/a6/7cc7a630624d20f7797cb4c8e93c09c1.png">
-            </span>
-             <div fxLayout="column"  *ngIf="activeMsg" style="padding-bottom:15px; margin-left:10px;">
-               <span class="name"><b>{{ activeMsg.phone }}</b></span>
-               <span class="status" style="color:#797979;">{{ activeMsg.shortmessage }}</span>
-             </div>
-           </mat-card-header>
-           <mat-divider></mat-divider>
+            <!-- send message card -->
+           <mat-card  style="overflow-y:scroll; width:250%; margin:20px; height:30%; padding:30px; border: 0.7px solid #f7f7f7fc;" class="mat-elevation-z4">
 
-           <!-- card content -->
-           <mat-card-content>
-             <div class="chat-content" fxLayout="column" fxLayoutAlign="start stretch">
-                 <div class="messages-container">
-                   <div *ngIf="activeMsg" >
-                     <p style="margin-top:10px;">Message sent to {{activeMsg.phone}} requesting
-                       <span *ngFor="let doc of activeMsg.docArray">{{doc.name}}  </span>
-                       for {{activeMsg.refnumb}} application
-                     </p>
-                   </div>
-                 </div>
-             </div>
-             <mat-divider></mat-divider>
-           </mat-card-content>
-      </mat-card>
+                    <!-- header -->
+                   <mat-card-header>
+                     <span mat-line class="chat-img pull-left" style="margin-right: 10px;">
+                       <img src="https://i.pinimg.com/originals/7c/c7/a6/7cc7a630624d20f7797cb4c8e93c09c1.png">
+                    </span>
+                     <div fxLayout="column"  *ngIf="activeMsg" style="padding-bottom:15px; margin-left:10px;">
+                       <span class="name"><b>{{ activeMsg.phone }}</b></span>
+                       <span class="status" style="color:#797979;">{{ activeMsg.shortmessage }}</span>
+                     </div>
+                   </mat-card-header>
+                   <mat-divider></mat-divider>
+
+                   <!-- card content -->
+                   <mat-card-content>
+                     <div class="chat-content" fxLayout="column" fxLayoutAlign="start stretch">
+                         <div class="messages-container">
+                           <div *ngIf="activeMsg" >
+                             <p style="margin-top:10px;">Message sent to {{activeMsg.phone}} requesting
+                               <span *ngFor="let doc of activeMsg.docArray">{{doc.name}}  </span>
+                               for {{activeMsg.refnumb}} application
+                             </p>
+                           </div>
+                         </div>
+                     </div>
+                     <mat-divider></mat-divider>
+                   </mat-card-content>
+             </mat-card>
 
         </div>
     </div>
+
   </div>
 </div>
