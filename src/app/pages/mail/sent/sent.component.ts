@@ -1,14 +1,16 @@
-import { ChangeDetectorRef, Component, ElementRef, OnDestroy, OnInit, ViewChild,  AfterViewInit, AfterViewChecked} from '@angular/core';
+import { ChangeDetectorRef, Component, ElementRef, OnDestroy, OnInit, ViewChild, AfterViewChecked } from '@angular/core';
 import * as _ from 'lodash';
 import * as moment from 'moment';
 import { ScrollbarComponent, scrollbarOptions } from '../../../core/scrollbar/scrollbar.component';
 import Scrollbar from 'smooth-scrollbar';
 import { ROUTE_TRANSITION } from '../../../app.animation';
-import { AppService} from "../../../app.service";
-import { AuthService} from "../../../auth/auth.service";
-import { AppSocketService } from '../../../app.socket.service';
+import {AppService} from "../../../app.service";
+import {AuthService} from "../../../auth/auth.service";
 import { Observable } from 'rxjs/Rx';
 import {AnonymousSubscription} from "rxjs/Subscription";
+import { AppSocketService } from  "../../../app.socket.service";
+
+
 
 @Component({
   selector: 'vr-sent',
@@ -17,7 +19,7 @@ import {AnonymousSubscription} from "rxjs/Subscription";
   animations: [...ROUTE_TRANSITION],
   host: { '[@routeTransition]': '' }
 })
-export class SentComponent implements OnInit, OnDestroy,  AfterViewInit, AfterViewChecked {
+export class SentComponent implements OnInit, OnDestroy, AfterViewChecked {
 
   timerSubscription: AnonymousSubscription;
   mainScrollbarElem: any;
@@ -30,6 +32,8 @@ export class SentComponent implements OnInit, OnDestroy,  AfterViewInit, AfterVi
   activeMsg: any;
   newMessage: string;
 
+
+
   @ViewChild('scrollToBottomElem') scrollToBottomElem: ElementRef;
   @ViewChild('chatScroll') chatScroll: ScrollbarComponent;
 
@@ -37,127 +41,69 @@ export class SentComponent implements OnInit, OnDestroy,  AfterViewInit, AfterVi
               private appService: AppService,
               private auth: AuthService,
               private socketService: AppSocketService,
-              private cdr: ChangeDetectorRef,
-              ) {
-              console.log("constructor");
-             }
-
-  ngAfterViewInit(){
-    console.log("ngAfterViewInit");
-    // this.chats = _.sortBy(chatDemoData, 'lastMessageTime').reverse();
-    this.mainScrollbarElem = document.getElementById('main-scrollbar');
-     if(Scrollbar){
-      this.scrollbar = Scrollbar.get(this.mainScrollbarElem);
-     }
-
-    console.log("this.scrollbar ",this.scrollbar);
-    if(this.scrollbar){
-     this.scrollbar.destroy();
-    }
-  }
+            ) {}
 
   ngAfterViewChecked(){
-    console.log("ngOnInit");
-    // this.chats = _.sortBy(chatDemoData, 'lastMessageTime').reverse();
     this.mainScrollbarElem = document.getElementById('main-scrollbar');
-     if(Scrollbar){
-      this.scrollbar = Scrollbar.get(this.mainScrollbarElem);
-     }
-
-    console.log("this.scrollbar ",this.scrollbar);
-    if(this.scrollbar){
-     this.scrollbar.destroy();
+    console.log('### mainscrollbarelemonInit', this.mainScrollbarElem);
+    this.scrollbar = Scrollbar.get(this.mainScrollbarElem);
+    if(this.scrollbar){this.scrollbar.destroy();
     }
   }
 
+
   ngOnInit() {
-    console.log("ngOnInit");
-    // this.chats = _.sortBy(chatDemoData, 'lastMessageTime').reverse();
-    this.mainScrollbarElem = document.getElementById('main-scrollbar');
-     if(Scrollbar){
-      this.scrollbar = Scrollbar.get(this.mainScrollbarElem);
-     }
-
-    console.log("this.scrollbar ",this.scrollbar);
-    if(this.scrollbar){
-     this.scrollbar.destroy();
-    }
-
-    this.appService.setLoading(true);
-
-    this.cdr.detectChanges();
-
-    this.getData();
-
-    // This service is to update the data in real time through socket
+    //socket
     this.socketService
       .getMessages()
       .subscribe((message: any) => {
-        console.log(message);
-        console.log(" *********** On Request Component ********** ");
-        this.getData();
-        this.cdr.detectChanges();
+       this.getData();
       });
-
-
-
+      this.getData();
+      this.cd.detectChanges();
   }
+
 
   getData(){
     if(this.auth.userProfile){
-      this.userid = this.auth.userProfile.sub.split("|")[1];
-      this.requestByUser(this.userid);
+        this.userid = this.auth.userProfile.sub.split("|")[1];
+        this.requestByUser(this.userid);
     }else{
-      this.auth.getProfile((err, profile) => {
+        this.auth.getProfile((err, profile) => {
         this.userid = profile.sub.split("|")[1];
         this.requestByUser(this.userid);
-
       });
     }
   }
+
 
   requestByUser(id: string ){
     this.userid = id;
 
-    //this.appService.setLoading(true);
     this.appService.getAllRequestData(id).subscribe(results => {
 
-      //this.subscribeToData(this.userid);
-      this.theData= results;
-
+      // this.subscribeToData(this.userid);//
+      this.theData = results;
 
       this.theData.sort(function compare(a, b) {
         var dateA = +new Date(a.datetime);
         var dateB = +new Date(b.datetime);
-
         return dateA - dateB;
-
       }).reverse();
-
-
-
       this.activeMsg = this.theData[0];
-
       //console.log(this.theData);
-      this.appService.setLoading(false);
-      this.cdr.markForCheck();
-      this.cdr.detectChanges();
     });
-
-
-
-
   }
+
 
   // public subscribeToData(id: string)
   // {
-  //   this.userid = id;
-  //   //this.timerSubscription = Observable.timer(5000).first().subscribe(() => this.requestByUser(this.userid));
+  //  this.userid = id;
+  //  this.timerSubscription = Observable.timer(5000).first().subscribe(() => this.requestByUser(this.userid));
   // }
 
   setActiveMsg(item) {
     this.activeMsg = item;
-
   }
 
   send() {
@@ -167,11 +113,8 @@ export class SentComponent implements OnInit, OnDestroy,  AfterViewInit, AfterVi
         when: moment(),
         who: 'me'
       });
-
       this.newMessage = '';
-
       this.cd.markForCheck();
-
       this.chatScroll.scrollbarRef.scrollIntoView(this.scrollToBottomElem.nativeElement, {
         alignToTop: false
       });
@@ -182,7 +125,6 @@ export class SentComponent implements OnInit, OnDestroy,  AfterViewInit, AfterVi
           when: moment(),
           who: 'partner'
         });
-
         this.cd.markForCheck();
 
         this.chatScroll.scrollbarRef.scrollIntoView(this.scrollToBottomElem.nativeElement, {
@@ -197,8 +139,9 @@ export class SentComponent implements OnInit, OnDestroy,  AfterViewInit, AfterVi
   }
 
   ngOnDestroy() {
+    console.log('@@@mainscrollbarelem ondestroy', this.mainScrollbarElem)
     if(this.mainScrollbarElem != undefined){
-    Scrollbar.init(this.mainScrollbarElem, scrollbarOptions);
+      Scrollbar.init(this.mainScrollbarElem, scrollbarOptions);
     }
   }
 }

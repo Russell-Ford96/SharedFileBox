@@ -32,7 +32,7 @@ import { AppSocketService } from '../app.socket.service';
 export class AutobotComponent implements OnInit {
 
   public uploader: FileUploader = new FileUploader({
-    url: 'http://10.73.30.110:5000/api/upload', itemAlias: "single", autoUpload: true
+    url: 'http://localhost:5000/api/upload', itemAlias: "single", autoUpload: true
   });
 
   audio = new Audio();

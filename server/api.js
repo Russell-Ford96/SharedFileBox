@@ -498,7 +498,7 @@ router.post('/email', (req, res) => {
           to: toEmail, // list of receivers
           subject: subject, // Subject line
           //html: '<p>Hello</p>',// plain text body
-          text: body + "\n" + "http://10.73.30.110:5000/upload/" + urlID
+          text: body + "\n" + "http://localhost:5000/upload/" + urlID
         };
 
         transporter.sendMail(mailOptions, function(err, info) {

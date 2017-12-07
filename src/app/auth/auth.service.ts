@@ -12,7 +12,7 @@ export class AuthService {
     domain: 'senddoc.auth0.com',
     responseType: 'token id_token',
     audience: 'https://senddoc.auth0.com/userinfo',
-      redirectUri: 'http://10.73.30.110:5000/request',
+      redirectUri: 'http://localhost:5000/request',
     //'http://sharedfilebox.azurewebsites.net/dashboard',
     scope: 'openid profile email roles'
   });

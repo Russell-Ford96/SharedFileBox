@@ -8,29 +8,24 @@ import { AppSocketService } from '../../../app.socket.service';
   templateUrl: './toolbar-notifications.component.html',
   styleUrls: ['./toolbar-notifications.component.scss'],
   animations: [...LIST_FADE_ANIMATION,
-    trigger('notificationAnimation',[
-        state('small',style({
-          transform: 'scale(1)',
-          opacity: 1
-        })),
-        state('large', style({
-          transform: 'scale(1.4)',
-          opacity: 1
-        })),
-        state('superSmall', style({
-          transform: 'scale(0.7)',
-          opacity: 1
-        })),
-        state('leave', style({
-          transform: 'scale(0.2)',
-          opacity: 0
-        })),
+      trigger('notificationAnimation',[
+          state('small',style({
+            transform: 'scale(1)',
+            opacity: 1
+          })),
+          state('large', style({
+            transform: 'scale(1.4)',
+            opacity: 1
+          })),
+          state('leave', style({
+            transform: 'scale(0.2)',
+            opacity: 0
+          })),
 
-        transition('small  => large', animate('250ms cubic-bezier(.92,1.84,.87,-1.02)')),
-        transition('large  => superSmall', animate('100ms cubic-bezier(.92,1.84,.87,-1.02)')),
-        transition('superSmall  => small', animate('100ms cubic-bezier(.92,1.84,.87,-1.02)')),
-        transition('*  => leave', animate('100ms ease-in')),
-      ])
+          transition('small  => large', animate('300ms cubic-bezier(.92,1.84,.87,-1.02)')),
+          transition('large  => small', animate('100ms cubic-bezier(.51,.5,.52,.51)')),
+          transition('*  => leave', animate('300ms ease-in')),
+        ])
   ]
 })
 export class ToolbarNotificationsComponent implements OnInit {
@@ -44,33 +39,21 @@ export class ToolbarNotificationsComponent implements OnInit {
     private cd: ChangeDetectorRef
   ) { }
 
-  onAnimateNotificationLeave(){
 
-    this.state = ('leave');
-    this.cd.detectChanges();
-    console.log("small  => leave");
+  setBackToSmall(){
+    console.log( this.state);
+    console.log("setBackToSmall");
+    this.state = 'small';
   }
 
   onAnimateNotification(){
 
-    setTimeout(() => {
-      this.state = (this.state === 'superSmall' ? 'small' : 'small');
-      this.cd.detectChanges();
-      console.log("superSmall  => small");
 
-    }, 380);
-    setTimeout(() => {
-        this.state = (this.state === 'large' ? 'superSmall' : 'superSmall');
-        this.cd.detectChanges();
-        console.log("large  => superSmall");
-    }, 110);
-    this.state = (this.state === 'small' ? 'large' : 'large');
-    this.cd.detectChanges();
-    console.log("small  => large");
+    this.state = (this.state === 'large' ? 'small' : 'large');
   }
 
   ngOnInit() {
-
+ 
     // This service is to update the data in real time through socket
     this.socketService
       .getNotification()
@@ -137,9 +120,7 @@ export class ToolbarNotificationsComponent implements OnInit {
     this.notifications.splice(this.notifications.indexOf(notification), 1);
     this.triggerDemoNotification();
     this.onAnimateNotification();
-    if(this.notifications.length == 0){
-      this.onAnimateNotificationLeave();
-    }
+
   }
 
   toggleDropdown() {
