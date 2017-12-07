@@ -402,7 +402,7 @@ export class RouteHandlerComponent implements OnInit {
     this.store.dispatch(new sidenavAction.AddSidenavItemAction(mail));
    // this.store.dispatch(new sidenavAction.AddSidenavItemAction(pages));
    // this.store.dispatch(new sidenavAction.AddSidenavItemAction(inbox));
-   // this.store.dispatch(new sidenavAction.AddSidenavItemAction(chat));
+   this.store.dispatch(new sidenavAction.AddSidenavItemAction(chat));
     //this.store.dispatch(new sidenavAction.AddSidenavItemAction(components));
     //this.store.dispatch(new sidenavAction.AddSidenavItemAction(tables));
     //this.store.dispatch(new sidenavAction.AddSidenavItemAction(editor));
