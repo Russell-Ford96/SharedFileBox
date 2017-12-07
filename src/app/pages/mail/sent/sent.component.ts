@@ -34,6 +34,7 @@ export class SentComponent implements OnInit, OnDestroy, AfterViewChecked {
 
 
 
+
   @ViewChild('scrollToBottomElem') scrollToBottomElem: ElementRef;
   @ViewChild('chatScroll') chatScroll: ScrollbarComponent;
 
@@ -144,4 +145,17 @@ export class SentComponent implements OnInit, OnDestroy, AfterViewChecked {
       Scrollbar.init(this.mainScrollbarElem, scrollbarOptions);
     }
   }
+
+
+
+//message card on small screens
+  onClose(): void{
+    this.activeMsg = '';
+  }
+
+
+
+
+
+
 }
