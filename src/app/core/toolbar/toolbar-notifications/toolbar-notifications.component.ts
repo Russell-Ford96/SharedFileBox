@@ -11,17 +11,25 @@ import { AppSocketService } from '../../../app.socket.service';
     trigger('notificationAnimation',[
         state('small',style({
           transform: 'scale(1)',
+          opacity: 1
         })),
         state('large', style({
-          transform: 'scale(1.2)',
+          transform: 'scale(1.4)',
+          opacity: 1
         })),
         state('superSmall', style({
-          transform: 'scale(0.8)',
+          transform: 'scale(0.7)',
+          opacity: 1
+        })),
+        state('leave', style({
+          transform: 'scale(0.2)',
+          opacity: 0
         })),
 
-        transition('small  => large', animate('250ms ease-in')),
-        transition('large  => superSmall', animate('100ms ease-in')),
-        transition('superSmall  => small', animate('100ms ease-in')),
+        transition('small  => large', animate('250ms cubic-bezier(.92,1.84,.87,-1.02)')),
+        transition('large  => superSmall', animate('100ms cubic-bezier(.92,1.84,.87,-1.02)')),
+        transition('superSmall  => small', animate('100ms cubic-bezier(.92,1.84,.87,-1.02)')),
+        transition('*  => leave', animate('100ms ease-in')),
       ])
   ]
 })
@@ -35,6 +43,13 @@ export class ToolbarNotificationsComponent implements OnInit {
     private socketService: AppSocketService,
     private cd: ChangeDetectorRef
   ) { }
+
+  onAnimateNotificationLeave(){
+
+    this.state = ('leave');
+    this.cd.detectChanges();
+    console.log("small  => leave");
+  }
 
   onAnimateNotification(){
 
@@ -122,6 +137,9 @@ export class ToolbarNotificationsComponent implements OnInit {
     this.notifications.splice(this.notifications.indexOf(notification), 1);
     this.triggerDemoNotification();
     this.onAnimateNotification();
+    if(this.notifications.length == 0){
+      this.onAnimateNotificationLeave();
+    }
   }
 
   toggleDropdown() {

@@ -17,7 +17,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 //create a cors middleware
 app.use(function(req, res, next) {
 //set headers to allow cross origin request.
-    res.header("Access-Control-Allow-Origin", "localhost:5000/api/upload");
+    res.header("Access-Control-Allow-Origin", "10.73.30.110:5000/api/upload");
     res.header('Access-Control-Allow-Methods', 'PUT, GET, POST, DELETE, OPTIONS');
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
     next();
@@ -41,4 +41,4 @@ app.set('port', port);
 
 const server = http.createServer(app);
 
-server.listen(port, () => console.log(`API running on localhost:${port}`));
+server.listen(port, () => console.log(`API running on 10.73.30.110:${port}`));

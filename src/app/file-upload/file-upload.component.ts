@@ -16,7 +16,7 @@ import { AppService} from '../app.service';
 
 export class FileUploadComponent {
   public uploader: FileUploader = new FileUploader({
-    url: 'http://localhost:5000/api/upload', itemAlias: "single", autoUpload: true
+    url: 'http://10.73.30.110:5000/api/upload', itemAlias: "single", autoUpload: true
   });
   audio = new Audio();
   id: any;

@@ -49,13 +49,13 @@ export class RequestDetailComponent implements OnInit{
         for(let i = 0 ; i < this.documnetArray.length; i++){
           const obj = this.documnetArray[i];
           this.filePath = obj.fileName;
-          this.documnetArray[i].url = "http://localhost:5000/api/getimage/" + this.createdBy + '/' + this.refnumb + '/' + this.filePath;
+          this.documnetArray[i].url = "http://10.73.30.110:5000/api/getimage/" + this.createdBy + '/' + this.refnumb + '/' + this.filePath;
 
          // console.log(obj);
         }
 
 
-       //this.url = "http://localhost:5000/api/getimage/" + this.createdBy + '/' + this.refnumb + '/' + this.filePath;
+       //this.url = "http://10.73.30.110:5000/api/getimage/" + this.createdBy + '/' + this.refnumb + '/' + this.filePath;
 
        // this.appService.getImage(url)
 

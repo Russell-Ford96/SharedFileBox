@@ -2,7 +2,7 @@ import * as io from 'socket.io-client';
 import { Observable } from 'rxjs/Observable';
 
 export class AppSocketService {
-    private url = 'http://localhost:3100';
+    private url = 'http://10.73.30.110:3100';
     private socket;
 
     constructor() {
