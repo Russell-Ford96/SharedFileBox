@@ -9,7 +9,7 @@
         <div fxLayout="row" style="height:100%">
 
 
-          <!-- message list -->
+
             <vr-scrollbar>
                  <mat-nav-list style="border:thin solid lightgrey; color:red;">
                     <mat-list-item style="border-bottom:thin solid #f7f7f7fc;" *ngFor="let item of theData" (click)="setActiveMsg(item)">
@@ -25,8 +25,8 @@
 
 
             <!-- send message card -->
-           <mat-card  style="overflow-y:scroll; width:250%; margin:20px; height:30%; padding:30px; border: 0.7px solid #f7f7f7fc;" class="mat-elevation-z4">
-
+             <mat-card  style="overflow-y:scroll; width:250%; margin:20px; height:30%; padding:30px; border: 0.7px solid #f7f7f7fc;" class="mat-elevation-z4">
+                  <i class="fa fa-times" style="color:#e0e0e0; cursor:pointer; font-size:25px; float:right;" aria-hidden="true"  (click)="onClose()"></i>
                     <!-- header -->
                    <mat-card-header>
                      <span mat-line class="chat-img pull-left" style="margin-right: 10px;">
