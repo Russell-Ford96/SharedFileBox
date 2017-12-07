@@ -43,7 +43,7 @@
                    <mat-card-content>
                      <div class="chat-content" fxLayout="column" fxLayoutAlign="start stretch">
                          <div class="messages-container">
-                           <div *ngIf="activeMsg" >
+                           <div *ngIf="activeMsg">
                              <p style="margin-top:10px;">Message sent to {{activeMsg.phone}} requesting
                                <span *ngFor="let doc of activeMsg.docArray">{{doc.name}}  </span>
                                for {{activeMsg.refnumb}} application
