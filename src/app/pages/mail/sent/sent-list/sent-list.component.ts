@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, ViewChild,ElementRef, AfterViewChecked } from '@angular/core';
+import { Component, Input, Output, EventEmitter, OnInit, ViewChild,ElementRef, AfterViewChecked } from '@angular/core';
 
 import { ScrollbarComponent, scrollbarOptions } from '../../../../core/scrollbar/scrollbar.component';
 import Scrollbar from 'smooth-scrollbar';
@@ -10,6 +10,7 @@ import Scrollbar from 'smooth-scrollbar';
 })
 export class SentListComponent implements OnInit, AfterViewChecked {
   @Input() data: any;
+  @Output() activeMsg = new EventEmitter<any>();
   mainScrollbarElem: any;
   scrollbar: any;
 
@@ -19,6 +20,10 @@ export class SentListComponent implements OnInit, AfterViewChecked {
   constructor() { }
 
   ngOnInit() {
+  }
+
+  setActiveMsg(item) {
+    this.activeMsg.emit(item);
   }
 
 

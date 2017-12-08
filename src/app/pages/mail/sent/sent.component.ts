@@ -27,13 +27,14 @@ export class SentComponent implements OnInit, OnDestroy, AfterViewChecked {
   scrollbar: any;
   userid: string;
   sentData: any;
-  theData : any;
+  theData: any;
+  showDetails: boolean = false;
   colspanList: number = 4;
   heightList: number = 800;
   colspanDetail: number = 8;
-
+  showList: boolean = true;
   chats: any[];
-  activeMsg: any;
+  activeMsg: any = '';
   newMessage: string;
 
 
@@ -64,13 +65,18 @@ export class SentComponent implements OnInit, OnDestroy, AfterViewChecked {
 
     console.log("wdHeight ",wdHeight);
 
-  
+
 
     if(wdwidth < 768){
     /* xs */
       console.log('xs ', wdwidth);
+      if(this.showDetails == true){
+        this.colspanList = 0;
+        this.colspanDetail = 12;
+      }else{
       this.colspanList = 12;
       this.colspanDetail = 0;
+      }
     }
     /* sm */
      if(wdwidth >= 768 && wdwidth < 992){
@@ -98,6 +104,25 @@ export class SentComponent implements OnInit, OnDestroy, AfterViewChecked {
 
   }
 
+  OnShowList(){
+    if((this.showDetails == true)&&(this.colspanList == 12)){
+
+        //this.showList = false;
+        this.colspanList = 0;
+        this.colspanDetail = 12;
+        console.log("OnShowList", false);
+        return false;
+
+    }else{
+      console.log("OnShowList", true);
+      return true;
+    }
+
+  }
+
+  setCloseDetails(){
+    this.showDetails = false;
+  }
 
   ngOnInit() {
     //socket
@@ -106,12 +131,14 @@ export class SentComponent implements OnInit, OnDestroy, AfterViewChecked {
       .subscribe((message: any) => {
        this.getData();
       });
+
       this.getData();
       this.cd.detectChanges();
   }
 
 
   getData(){
+    console.log("**************************************");
     if(this.auth.userProfile){
         this.userid = this.auth.userProfile.sub.split("|")[1];
         this.requestByUser(this.userid);
@@ -146,6 +173,7 @@ export class SentComponent implements OnInit, OnDestroy, AfterViewChecked {
 
 
   setActiveMsg(item) {
+    this.showDetails = true;
     this.activeMsg = item;
   }
 

@@ -3,22 +3,32 @@
   <div class="page chat-container container">
     <vr-breadcrumbs [currentPage]="'Sent'" [names]="['Mail']" [header]="'primary'"></vr-breadcrumbs>
 
-    <mat-card>
+    <mat-card  class="mail-card">
 
-      <mat-grid-list cols="12" rowHeight="95%">
+      <mat-grid-list cols="12" rowHeight="100%">
+        <div *ngIf="OnShowList()">
 
-        <mat-grid-tile [colspan]="colspanList" [rowspan]="1" [style.background]="'lightpink'">
 
-              <vr-sent-list [data]="theData"></vr-sent-list>
+          <mat-grid-tile [colspan]="colspanList" [rowspan]="1" [style.background]="'lightpink'">
 
-        </mat-grid-tile>
+                <vr-sent-list [data]="theData"
+                              (activeMsg)="setActiveMsg($event)"
 
-        <mat-grid-tile [colspan]="colspanDetail" [rowspan]="1" [style.background]="'#DDBDF1'">
+                  ></vr-sent-list>
 
-          <vr-sent-detail></vr-sent-detail>
+          </mat-grid-tile>
+        </div>
+        <div *ngIf="colspanDetail > 0">
 
-        </mat-grid-tile>
+          <mat-grid-tile [colspan]="colspanDetail" [rowspan]="1" [style.background]="'#DDBDF1'" >
 
+            <vr-sent-detail [activeMsg]="activeMsg"
+                            (closeDetailds)="setCloseDetails($event)"
+                            *ngIf="showDetails"></vr-sent-detail>
+
+          </mat-grid-tile>
+
+        </div>
 
       </mat-grid-list>
 
