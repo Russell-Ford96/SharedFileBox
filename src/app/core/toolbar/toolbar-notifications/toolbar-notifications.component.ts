@@ -10,19 +10,24 @@ import { AppSocketService } from '../../../app.socket.service';
   animations: [...LIST_FADE_ANIMATION,
       trigger('notificationAnimation',[
           state('small',style({
-            transform: 'scale(1)',
+            //transform: 'scale(1)',
+            transform: 'rotate(0)',
             opacity: 1
           })),
           state('large', style({
-            transform: 'scale(1.4)',
-            opacity: 1
+            //transform: 'scale(1.4)',
+            transform: 'rotate(-60deg)',
+            opacity: 1,
+
           })),
           state('leave', style({
-            transform: 'scale(0.2)',
+            //transform: 'scale(0.2)',
+            transform: 'rotate(0)',
             opacity: 0
           })),
 
-          transition('small  => large', animate('300ms cubic-bezier(.92,1.84,.87,-1.02)')),
+          //transition('small  => large', animate('300ms cubic-bezier(.92,1.84,.87,-1.02)')),
+          transition('small  => large', animate('300ms cubic-bezier(.92,1.84,.26,-0.77)')),
           transition('large  => small', animate('100ms cubic-bezier(.51,.5,.52,.51)')),
           transition('*  => leave', animate('300ms ease-in')),
         ])
@@ -53,7 +58,7 @@ export class ToolbarNotificationsComponent implements OnInit {
   }
 
   ngOnInit() {
- 
+
     // This service is to update the data in real time through socket
     this.socketService
       .getNotification()
