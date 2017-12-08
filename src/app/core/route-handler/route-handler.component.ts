@@ -114,13 +114,13 @@ export class RouteHandlerComponent implements OnInit {
       position: 1
     });
 
-    const chat = new SidenavItem({
-      name: 'Chat',
-      icon: 'message',
-      route: '/apps/chat',
-      subItems: [ ],
-      position: 1
-    });
+    // const chat = new SidenavItem({
+    //   name: 'Chat',
+    //   icon: 'message',
+    //   route: '/apps/chat',
+    //   subItems: [ ],
+    //   position: 1
+    // });
 
     const forms = new SidenavItem({
       name: 'Forms',
@@ -402,7 +402,7 @@ export class RouteHandlerComponent implements OnInit {
     this.store.dispatch(new sidenavAction.AddSidenavItemAction(mail));
    // this.store.dispatch(new sidenavAction.AddSidenavItemAction(pages));
    // this.store.dispatch(new sidenavAction.AddSidenavItemAction(inbox));
-   this.store.dispatch(new sidenavAction.AddSidenavItemAction(chat));
+   //this.store.dispatch(new sidenavAction.AddSidenavItemAction(chat));
     //this.store.dispatch(new sidenavAction.AddSidenavItemAction(components));
     //this.store.dispatch(new sidenavAction.AddSidenavItemAction(tables));
     //this.store.dispatch(new sidenavAction.AddSidenavItemAction(editor));

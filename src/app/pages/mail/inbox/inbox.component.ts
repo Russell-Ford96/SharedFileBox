@@ -84,7 +84,7 @@ export class InboxComponent implements OnInit{
   public subscribeToData(id: string)
   {
     this.userid = id;
-    this.timerSubscription = Observable.timer(5000).first().subscribe(() => this.userUpload(this.userid));
+    //this.timerSubscription = Observable.timer(5000).first().subscribe(() => this.userUpload(this.userid));
   }
 
   setActiveMsg(item) {
@@ -97,5 +97,3 @@ export class InboxComponent implements OnInit{
 
 
   }
-
-

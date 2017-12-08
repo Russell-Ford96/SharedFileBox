@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { SortablejsModule } from 'angular-sortablejs';
 import {
   MatButtonModule, MatIconModule, MatInputModule, MatListModule, MatMenuModule, MatRippleModule, MatSidenavModule,
-  MatToolbarModule
+  MatToolbarModule, MatGridListModule
 } from '@angular/material';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import {PageHeaderModule} from "../../core/page-header/page-header.module";
@@ -15,6 +15,8 @@ import {ScrollbarModule} from "../../core/scrollbar/scrollbar.module";
 import {InboxComponent} from "./inbox/inbox.component";
 import {SentComponent} from "./sent/sent.component";
 import {TimeAgoPipe} from "time-ago-pipe";
+import { SentListComponent } from './sent/sent-list/sent-list.component';
+import { SentDetailComponent } from './sent/sent-detail/sent-detail.component';
 
 @NgModule({
   imports: [
@@ -34,10 +36,13 @@ import {TimeAgoPipe} from "time-ago-pipe";
     MatButtonModule,
     MatInputModule,
     MatSidenavModule,
+    MatGridListModule
 
   ],
   declarations: [InboxComponent,
                   SentComponent,
-                  TimeAgoPipe]
+                  TimeAgoPipe,
+                  SentListComponent,
+                  SentDetailComponent]
 })
 export class MailModule { }

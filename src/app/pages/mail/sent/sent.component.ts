@@ -7,8 +7,9 @@ import { ROUTE_TRANSITION } from '../../../app.animation';
 import {AppService} from "../../../app.service";
 import {AuthService} from "../../../auth/auth.service";
 import { Observable } from 'rxjs/Rx';
-import {AnonymousSubscription} from "rxjs/Subscription";
+import { AnonymousSubscription} from "rxjs/Subscription";
 import { AppSocketService } from  "../../../app.socket.service";
+
 
 
 
@@ -27,6 +28,9 @@ export class SentComponent implements OnInit, OnDestroy, AfterViewChecked {
   userid: string;
   sentData: any;
   theData : any;
+  colspanList: number = 4;
+  heightList: number = 800;
+  colspanDetail: number = 8;
 
   chats: any[];
   activeMsg: any;
@@ -50,6 +54,48 @@ export class SentComponent implements OnInit, OnDestroy, AfterViewChecked {
     this.scrollbar = Scrollbar.get(this.mainScrollbarElem);
     if(this.scrollbar){this.scrollbar.destroy();
     }
+
+    this.onResize(innerWidth,innerHeight);
+  }
+
+  onResize(wdwidth,wdHeight) {
+
+    console.log('onResize');
+
+    console.log("wdHeight ",wdHeight);
+
+  
+
+    if(wdwidth < 768){
+    /* xs */
+      console.log('xs ', wdwidth);
+      this.colspanList = 12;
+      this.colspanDetail = 0;
+    }
+    /* sm */
+     if(wdwidth >= 768 && wdwidth < 992){
+     /* sm */
+       console.log('sm', wdwidth);
+       this.colspanList = 5;
+       this.colspanDetail = 7;
+     }
+    /* md */
+     if(wdwidth >= 992 && wdwidth < 1200){
+     /* md */
+      this.colspanList = 4;
+      this.colspanDetail = 8;
+       console.log('md', wdwidth);
+     }
+    /* lg */
+    if(wdwidth >= 1200){
+    /* lg */
+      this.colspanList = 4;
+      this.colspanDetail = 8;
+      console.log('lg', wdwidth);
+    }
+
+    console.log(wdwidth);
+
   }
 
 
@@ -83,8 +129,10 @@ export class SentComponent implements OnInit, OnDestroy, AfterViewChecked {
 
     this.appService.getAllRequestData(id).subscribe(results => {
 
-      // this.subscribeToData(this.userid);//
       this.theData = results;
+
+      console.log("*******************************");
+      console.log(this.theData);
 
       this.theData.sort(function compare(a, b) {
         var dateA = +new Date(a.datetime);
@@ -96,12 +144,6 @@ export class SentComponent implements OnInit, OnDestroy, AfterViewChecked {
     });
   }
 
-
-  // public subscribeToData(id: string)
-  // {
-  //  this.userid = id;
-  //  this.timerSubscription = Observable.timer(5000).first().subscribe(() => this.requestByUser(this.userid));
-  // }
 
   setActiveMsg(item) {
     this.activeMsg = item;

@@ -1,11 +1,30 @@
-
 <div class="page-chat">
   <vr-page-header [height]="'160px'" background="url(/assets/img/demo/headers/mac-2.png)" [reverse]="true"></vr-page-header>
   <div class="page chat-container container">
     <vr-breadcrumbs [currentPage]="'Sent'" [names]="['Mail']" [header]="'primary'"></vr-breadcrumbs>
 
+    <mat-card>
 
-    <div class="chat mat-elevation-z4">
+      <mat-grid-list cols="12" rowHeight="95%">
+
+        <mat-grid-tile [colspan]="colspanList" [rowspan]="1" [style.background]="'lightpink'">
+
+              <vr-sent-list [data]="theData"></vr-sent-list>
+
+        </mat-grid-tile>
+
+        <mat-grid-tile [colspan]="colspanDetail" [rowspan]="1" [style.background]="'#DDBDF1'">
+
+          <vr-sent-detail></vr-sent-detail>
+
+        </mat-grid-tile>
+
+
+      </mat-grid-list>
+
+    </mat-card>
+
+    <!-- <div class="chat mat-elevation-z4">
         <div fxLayout="row" style="height:100%">
 
 
@@ -24,10 +43,10 @@
             </vr-scrollbar>
 
 
-            <!-- send message card -->
+
              <mat-card  style="overflow-y:scroll; width:250%; margin:20px; height:30%; padding:30px; border: 0.7px solid #f7f7f7fc;" class="mat-elevation-z4">
                   <i class="fa fa-times" style="color:#e0e0e0; cursor:pointer; font-size:25px; float:right;" aria-hidden="true"  (click)="onClose()"></i>
-                    <!-- header -->
+
                    <mat-card-header>
                      <span mat-line class="chat-img pull-left" style="margin-right: 10px;">
                        <img src="https://i.pinimg.com/originals/7c/c7/a6/7cc7a630624d20f7797cb4c8e93c09c1.png">
@@ -39,7 +58,7 @@
                    </mat-card-header>
                    <mat-divider></mat-divider>
 
-                   <!-- card content -->
+
                    <mat-card-content>
                      <div class="chat-content" fxLayout="column" fxLayoutAlign="start stretch">
                          <div class="messages-container">
@@ -56,7 +75,7 @@
              </mat-card>
 
         </div>
-    </div>
+    </div> -->
 
   </div>
 </div>
