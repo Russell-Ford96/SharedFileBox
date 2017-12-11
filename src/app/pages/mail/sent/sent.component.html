@@ -13,7 +13,7 @@
                  <mat-nav-list *ngIf="showList" style="border:thin solid lightgrey; color:red;">
                     <mat-list-item style="border-bottom:thin solid #f7f7f7fc;" *ngFor="let item of theData" (click)="setActiveMsg(item)">
                        <h5 mat-line class="chat-img pull-left">
-                         <img src="https://i.pinimg.com/originals/7c/c7/a6/7cc7a630624d20f7797cb4c8e93c09c1.png">
+                         <img src="http://www.designshock.com/wp-content/uploads/2016/10/Avatar-Icon-Creator3.png">
                          {{ item.phone }}
                          <span style="font-size:x-small; float:right;"> {{ item.datetime | timeAgo }}</span>
                        </h5>
@@ -31,7 +31,7 @@
                     <!-- header -->
                    <mat-card-header>
                      <span mat-line class="chat-img pull-left" style="margin-right: 10px;">
-                       <img src="https://i.pinimg.com/originals/7c/c7/a6/7cc7a630624d20f7797cb4c8e93c09c1.png">
+                       <img src="http://www.designshock.com/wp-content/uploads/2016/10/Avatar-Icon-Creator3.png">
                     </span>
                      <div fxLayout="column"  *ngIf="activeMsg" style="padding-bottom:15px; margin-left:10px;">
                        <span class="name"><b>{{ activeMsg.phone }}</b></span>
