@@ -9,26 +9,26 @@ import {AuthService} from "../../../auth/auth.service";
 import { Observable } from 'rxjs/Rx';
 import {AnonymousSubscription} from "rxjs/Subscription";
 import { AppSocketService } from  "../../../app.socket.service";
-import { trigger, state, style, animate, transition, query, stagger } from '@angular/animations';
+// import { trigger, state, style, animate, transition, query, stagger } from '@angular/animations';
 
 
 @Component({
   selector: 'vr-sent',
   templateUrl: './sent.component.html',
   styleUrls: ['./sent.component.scss'],
-  host: { '[@routeTransition]': '' },
+  // host: { '[@routeTransition]': '' },
 
-  animations: [...ROUTE_TRANSITION,
-    trigger('cardslider', [
-      transition('* => *', [
-        query('mat-card', style({ transform: 'translateX(-100%)'})),
-        query('mat-card',
-          stagger('600ms', [
-            animate('900ms', style({ transform: 'translateX(0)'}))
-            ]))
-          ])
-        ]),
-    ]
+  // animations: [...ROUTE_TRANSITION,
+  //   trigger('cardslider', [
+  //     transition('* => *', [
+  //       query('mat-card', style({ transform: 'translateX(-100%)'})),
+  //       query('mat-card',
+  //         stagger('600ms', [
+  //           animate('900ms', style({ transform: 'translateX(0)'}))
+  //           ]))
+  //         ])
+  //       ]),
+  //   ]
 })
 
 
