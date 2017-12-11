@@ -11,7 +11,7 @@
 
 
             <vr-scrollbar>
-                 <mat-nav-list style="border:thin solid lightgrey; color:red;">
+                 <mat-nav-list *ngIf="showList" style="border:thin solid lightgrey; color:red;">
                     <mat-list-item style="border-bottom:thin solid #f7f7f7fc;" *ngFor="let item of theData" (click)="setActiveMsg(item)">
                        <h5 mat-line class="chat-img pull-left">
                          <img src="https://i.pinimg.com/originals/7c/c7/a6/7cc7a630624d20f7797cb4c8e93c09c1.png">
@@ -24,9 +24,11 @@
             </vr-scrollbar>
 
 
-            <!-- send message card -->
-             <mat-card  style="overflow-y:scroll; width:250%; margin:20px; height:30%; padding:30px; border: 0.7px solid #f7f7f7fc;" class="mat-elevation-z4">
-                  <i class="fa fa-times" style="color:#e0e0e0; cursor:pointer; font-size:25px; float:right;" aria-hidden="true"  (click)="onClose()"></i>
+
+
+            <!-- message card -->
+             <mat-card [@cardslider]="stateName" *ngIf="showCard" style="overflow-y:scroll; width:250%; margin:20px; height:30%; padding:30px; border: 0.7px solid #f7f7f7fc;" class="mat-elevation-z4">
+                  <i class="fa fa-times" style="color:#e0e0e0; cursor:pointer; font-size:25px; float:right;" aria-hidden="true"  (click)="closeCard()"></i>
                     <!-- header -->
                    <mat-card-header>
                      <span mat-line class="chat-img pull-left" style="margin-right: 10px;">
@@ -54,6 +56,8 @@
                      <mat-divider></mat-divider>
                    </mat-card-content>
              </mat-card>
+
+
 
         </div>
     </div>

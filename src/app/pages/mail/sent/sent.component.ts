@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, ElementRef, OnDestroy, OnInit, ViewChild, AfterViewChecked } from '@angular/core';
+import { ChangeDetectorRef, Component, ElementRef, OnDestroy, OnInit, ViewChild, AfterViewChecked, HostListener, NgZone } from '@angular/core';
 import * as _ from 'lodash';
 import * as moment from 'moment';
 import { ScrollbarComponent, scrollbarOptions } from '../../../core/scrollbar/scrollbar.component';
@@ -9,16 +9,29 @@ import {AuthService} from "../../../auth/auth.service";
 import { Observable } from 'rxjs/Rx';
 import {AnonymousSubscription} from "rxjs/Subscription";
 import { AppSocketService } from  "../../../app.socket.service";
-
+import { trigger, state, style, animate, transition, query, stagger } from '@angular/animations';
 
 
 @Component({
   selector: 'vr-sent',
   templateUrl: './sent.component.html',
   styleUrls: ['./sent.component.scss'],
-  animations: [...ROUTE_TRANSITION],
-  host: { '[@routeTransition]': '' }
+  host: { '[@routeTransition]': '' },
+
+  animations: [...ROUTE_TRANSITION,
+    trigger('cardslider', [
+      transition('* => *', [
+        query('mat-card', style({ transform: 'translateX(-100%)'})),
+        query('mat-card',
+          stagger('600ms', [
+            animate('900ms', style({ transform: 'translateX(0)'}))
+            ]))
+          ])
+        ]),
+    ]
 })
+
+
 export class SentComponent implements OnInit, OnDestroy, AfterViewChecked {
 
   timerSubscription: AnonymousSubscription;
@@ -32,7 +45,9 @@ export class SentComponent implements OnInit, OnDestroy, AfterViewChecked {
   activeMsg: any;
   newMessage: string;
 
-
+  showList: boolean;
+  showCard: boolean;
+  show = false;
 
 
   @ViewChild('scrollToBottomElem') scrollToBottomElem: ElementRef;
@@ -42,18 +57,37 @@ export class SentComponent implements OnInit, OnDestroy, AfterViewChecked {
               private appService: AppService,
               private auth: AuthService,
               private socketService: AppSocketService,
-            ) {}
+              private ngZone: NgZone,
+            ) {
+                window.onresize = (e) =>{
+                  this.ngZone.run(() =>{
+                    if(window.innerWidth >= 750 && this.showCard == true){
+                      this.showListandCard();
+                    }
+                    if(window.innerWidth >= 750 && this.showCard == false){
+                      this.showListOnly();
+                    }
+                    if(window.innerWidth <= 750 && this.showCard == true){
+                      this.showCardOnly();
+                    }
+                    if(window.innerWidth <= 750 && this.showCard == false){
+                      this.showListOnly();
+                    }
+                  })
+                }
+            }
+
+
 
   ngAfterViewChecked(){
     this.mainScrollbarElem = document.getElementById('main-scrollbar');
-    console.log('### mainscrollbarelemonInit', this.mainScrollbarElem);
     this.scrollbar = Scrollbar.get(this.mainScrollbarElem);
     if(this.scrollbar){this.scrollbar.destroy();
     }
   }
 
-
   ngOnInit() {
+    this.showListOnly();
     //socket
     this.socketService
       .getMessages()
@@ -63,7 +97,6 @@ export class SentComponent implements OnInit, OnDestroy, AfterViewChecked {
       this.getData();
       this.cd.detectChanges();
   }
-
 
   getData(){
     if(this.auth.userProfile){
@@ -103,9 +136,7 @@ export class SentComponent implements OnInit, OnDestroy, AfterViewChecked {
   //  this.timerSubscription = Observable.timer(5000).first().subscribe(() => this.requestByUser(this.userid));
   // }
 
-  setActiveMsg(item) {
-    this.activeMsg = item;
-  }
+
 
   send() {
     if (this.newMessage) {
@@ -146,11 +177,48 @@ export class SentComponent implements OnInit, OnDestroy, AfterViewChecked {
     }
   }
 
-
-
 //message card on small screens
-  onClose(): void{
-    this.activeMsg = '';
+  setActiveMsg(item) {
+    this.activeMsg = item;
+    if(innerWidth >= 750){
+      this.showList = true;
+      this.showCard = true;
+    }
+    else if(innerWidth <= 750){
+      this.showList = false;
+      this.showCard = true;
+    }
+  }
+
+  closeCard(): void{
+    this.showCard = false;
+    this.showList = true;
+    this.show = !this.show;
+  }
+
+  showListOnly():void{
+      this.showCard = false;
+      this.showList = true;
+  }
+
+  showCardOnly():void{
+      this.showCard = true;
+      this.showList = false;
+  }
+
+  showListandCard():void{
+      this.showCard = true;
+      this.showList = true;
+  }
+
+
+  showCardWide():void{
+      this.showCard = true;
+      this.showList = false;
+  }
+
+  get stateName() {
+    return this.show ? 'show' : 'hide'
   }
 
 

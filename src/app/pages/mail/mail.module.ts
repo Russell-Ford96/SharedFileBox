@@ -15,6 +15,8 @@ import {ScrollbarModule} from "../../core/scrollbar/scrollbar.module";
 import {InboxComponent} from "./inbox/inbox.component";
 import {SentComponent} from "./sent/sent.component";
 import {TimeAgoPipe} from "time-ago-pipe";
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
 
 @NgModule({
   imports: [
@@ -34,7 +36,7 @@ import {TimeAgoPipe} from "time-ago-pipe";
     MatButtonModule,
     MatInputModule,
     MatSidenavModule,
-
+    BrowserAnimationsModule,
   ],
   declarations: [InboxComponent,
                   SentComponent,
