@@ -29,7 +29,7 @@ export class SentListComponent implements OnInit, AfterViewChecked {
 
   ngAfterViewChecked(){
     this.mainScrollbarElem = document.getElementById('main-scrollbar');
-    console.log('### mainscrollbarelemonInit', this.mainScrollbarElem);
+    //console.log('### mainscrollbarelemonInit', this.mainScrollbarElem);
     this.scrollbar = Scrollbar.get(this.mainScrollbarElem);
     if(this.scrollbar){this.scrollbar.destroy();
     }

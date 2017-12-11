@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, ElementRef, OnDestroy, OnInit, ViewChild, AfterViewChecked } from '@angular/core';
+import { ChangeDetectorRef, Component, ElementRef, OnDestroy, OnInit, ViewChild, AfterViewChecked} from '@angular/core';
 import * as _ from 'lodash';
 import * as moment from 'moment';
 import { ScrollbarComponent, scrollbarOptions } from '../../../core/scrollbar/scrollbar.component';
@@ -17,8 +17,8 @@ import { AppSocketService } from  "../../../app.socket.service";
   selector: 'vr-sent',
   templateUrl: './sent.component.html',
   styleUrls: ['./sent.component.scss'],
-  animations: [...ROUTE_TRANSITION],
-  host: { '[@routeTransition]': '' }
+  host: { '[@routeTransition]': '' },
+  animations: [...ROUTE_TRANSITION]
 })
 export class SentComponent implements OnInit, OnDestroy, AfterViewChecked {
 
@@ -50,7 +50,7 @@ export class SentComponent implements OnInit, OnDestroy, AfterViewChecked {
 
   ngAfterViewChecked(){
     this.mainScrollbarElem = document.getElementById('main-scrollbar');
-    console.log('### mainscrollbarelemonInit', this.mainScrollbarElem);
+    //console.log('### mainscrollbarelemonInit', this.mainScrollbarElem);
     this.scrollbar = Scrollbar.get(this.mainScrollbarElem);
     if(this.scrollbar){this.scrollbar.destroy();
     }
@@ -60,15 +60,15 @@ export class SentComponent implements OnInit, OnDestroy, AfterViewChecked {
 
   onResize(wdwidth,wdHeight) {
 
-    console.log('onResize');
+    //console.log('onResize');
 
-    console.log("wdHeight ",wdHeight);
+    //console.log("wdHeight ",wdHeight);
 
 
 
     if(wdwidth < 768){
     /* xs */
-      console.log('xs ', wdwidth);
+      //console.log('xs ', wdwidth);
       if(this.showDetails == true){
         this.colspanList = 0;
         this.colspanDetail = 12;
@@ -80,7 +80,7 @@ export class SentComponent implements OnInit, OnDestroy, AfterViewChecked {
     /* sm */
      if(wdwidth >= 768 && wdwidth < 992){
      /* sm */
-       console.log('sm', wdwidth);
+       //console.log('sm', wdwidth);
        this.colspanList = 5;
        this.colspanDetail = 7;
      }
@@ -89,17 +89,17 @@ export class SentComponent implements OnInit, OnDestroy, AfterViewChecked {
      /* md */
       this.colspanList = 4;
       this.colspanDetail = 8;
-       console.log('md', wdwidth);
+       //console.log('md', wdwidth);
      }
     /* lg */
     if(wdwidth >= 1200){
     /* lg */
       this.colspanList = 4;
       this.colspanDetail = 8;
-      console.log('lg', wdwidth);
+      //console.log('lg', wdwidth);
     }
 
-    console.log(wdwidth);
+    //console.log(wdwidth);
 
   }
 
@@ -109,11 +109,11 @@ export class SentComponent implements OnInit, OnDestroy, AfterViewChecked {
         //this.showList = false;
         this.colspanList = 0;
         this.colspanDetail = 12;
-        console.log("OnShowList", false);
+        //console.log("OnShowList", false);
         return false;
 
     }else{
-      console.log("OnShowList", true);
+      //console.log("OnShowList", true);
       return true;
     }
 
@@ -137,14 +137,16 @@ export class SentComponent implements OnInit, OnDestroy, AfterViewChecked {
 
 
   getData(){
-    console.log("**************************************");
+    //console.log("**************************************");
     if(this.auth.userProfile){
         this.userid = this.auth.userProfile.sub.split("|")[1];
         this.requestByUser(this.userid);
+        this.cd.detectChanges();
     }else{
         this.auth.getProfile((err, profile) => {
         this.userid = profile.sub.split("|")[1];
         this.requestByUser(this.userid);
+        this.cd.detectChanges();
       });
     }
   }
@@ -157,8 +159,8 @@ export class SentComponent implements OnInit, OnDestroy, AfterViewChecked {
 
       this.theData = results;
 
-      console.log("*******************************");
-      console.log(this.theData);
+      //console.log("*******************************");
+      //console.log(this.theData);
 
       this.theData.sort(function compare(a, b) {
         var dateA = +new Date(a.datetime);
@@ -184,7 +186,8 @@ export class SentComponent implements OnInit, OnDestroy, AfterViewChecked {
         who: 'me'
       });
       this.newMessage = '';
-      this.cd.markForCheck();
+      //this.cd.markForCheck();
+      this.cd.detectChanges();
       this.chatScroll.scrollbarRef.scrollIntoView(this.scrollToBottomElem.nativeElement, {
         alignToTop: false
       });
@@ -195,7 +198,8 @@ export class SentComponent implements OnInit, OnDestroy, AfterViewChecked {
           when: moment(),
           who: 'partner'
         });
-        this.cd.markForCheck();
+        //this.cd.markForCheck();
+        this.cd.detectChanges();
 
         this.chatScroll.scrollbarRef.scrollIntoView(this.scrollToBottomElem.nativeElement, {
           alignToTop: false
@@ -209,7 +213,7 @@ export class SentComponent implements OnInit, OnDestroy, AfterViewChecked {
   }
 
   ngOnDestroy() {
-    console.log('@@@mainscrollbarelem ondestroy', this.mainScrollbarElem)
+    //console.log('@@@mainscrollbarelem ondestroy', this.mainScrollbarElem)
     if(this.mainScrollbarElem != undefined){
       Scrollbar.init(this.mainScrollbarElem, scrollbarOptions);
     }
