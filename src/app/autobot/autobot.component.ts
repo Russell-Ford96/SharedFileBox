@@ -8,6 +8,7 @@ import { BotRequest } from './bot-request.model';
 import { FileUploader } from 'ng2-file-upload/ng2-file-upload';
 
 import { AppService} from '../app.service';
+import { AppSocketService } from '../app.socket.service';
 
 @Component({
   selector: 'vr-autobot',
@@ -53,7 +54,8 @@ export class AutobotComponent implements OnInit {
 
   constructor(
     private appService: AppService,
-    private cdr:ChangeDetectorRef,
+    private socketService: AppSocketService,
+    private cdr: ChangeDetectorRef,
     private route: ActivatedRoute
   ) {
 
@@ -251,11 +253,13 @@ export class AutobotComponent implements OnInit {
 
   private saveRequest(){
     this.appService.setLoading(true);
+    this.cdr.detectChanges();
     this.appService.createBotRequest( this.botRequest )
       .then(res => {
         let error_str = res._body.slice(26);
 
-          //this.socketService.sendMessage('new Request from save');
+          this.socketService.sendNotification( this.botRequest.customerFullName + ' from ' + this.botRequest.bot.name);
+          console.log("sendNotification");
           console.log(res);
           this.appService.setLoading(false);
           this.cdr.detectChanges();

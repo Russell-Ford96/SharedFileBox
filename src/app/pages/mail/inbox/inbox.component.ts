@@ -1,11 +1,12 @@
 import * as _ from 'lodash';
 import { ROUTE_TRANSITION } from '../../../app.animation';
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, ChangeDetectorRef } from '@angular/core';
 import { FormArray, FormGroup, FormBuilder, Validators,FormControl } from '@angular/forms';
 import { Observable } from 'rxjs/Rx';
-import {AnonymousSubscription} from "rxjs/Subscription";
-import {AuthService} from '../../../auth/auth.service';
-import {AppService} from '../../../app.service';
+import { AnonymousSubscription} from "rxjs/Subscription";
+import { AppSocketService } from '../../../app.socket.service';
+import { AuthService } from '../../../auth/auth.service';
+import { AppService } from '../../../app.service';
 
 
 
@@ -34,10 +35,27 @@ export class InboxComponent implements OnInit{
 
 
   constructor( private appService: AppService,
-               private auth: AuthService){}
+               private auth: AuthService,
+               private socketService: AppSocketService,
+               private cdr: ChangeDetectorRef,){}
 
   ngOnInit(){
 
+    this.getData();
+    // This service is to update the data in real time through socket
+    this.socketService
+      .getMessages()
+      .subscribe((message: any) => {
+        console.log(message);
+        console.log(" *********** On Request Component ********** ");
+        this.getData();
+        this.cdr.detectChanges();
+      });
+
+
+  }
+
+  getData(){
     if(this.auth.userProfile){
       this.userid = this.auth.userProfile.sub.split("|")[1];
       this.userUpload(this.userid);
@@ -48,7 +66,6 @@ export class InboxComponent implements OnInit{
 
       });
     }
-
   }
 
   userUpload(id:string){
@@ -57,7 +74,7 @@ export class InboxComponent implements OnInit{
 
     this.appService.getRequestInbox(id).subscribe(results => {
 
-      this.subscribeToData(this.userid);
+      //this.subscribeToData(this.userid);
       this.theData = results;
 
 
@@ -81,11 +98,11 @@ export class InboxComponent implements OnInit{
 
   }
 
-  public subscribeToData(id: string)
-  {
-    this.userid = id;
-    //this.timerSubscription = Observable.timer(5000).first().subscribe(() => this.userUpload(this.userid));
-  }
+  // public subscribeToData(id: string)
+  // {
+  //   this.userid = id;
+  //   this.timerSubscription = Observable.timer(5000).first().subscribe(() => this.userUpload(this.userid));
+  // }
 
   setActiveMsg(item) {
     this.activeMsg = item;

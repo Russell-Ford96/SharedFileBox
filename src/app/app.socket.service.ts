@@ -9,6 +9,10 @@ export class AppSocketService {
         this.socket = io(this.url);
     }
 
+    public sendNotification(message) {
+        this.socket.emit('new_notification', message);
+    }
+
     public sendMessage(message) {
         this.socket.emit('new_message', message);
     }
@@ -24,5 +28,15 @@ export class AppSocketService {
     }
     
 
+
+    public getNotification = () => {
+        return Observable.create((observer) => {
+            this.socket.on('new_notification', (message) => {
+                console.log("new_notification");
+                console.log(message);
+                observer.next(message);
+            });
+        });
+    }
 
 }

@@ -28,7 +28,7 @@ export class BotSimulatorComponent {
   id: any;
   docRequest: any;
   fileIndex: number;
-  
+
   dateUpdate = new Date();
 
 

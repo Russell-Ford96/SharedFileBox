@@ -78,10 +78,13 @@ export class ProfileComponent implements OnInit, AfterViewInit {
   getAllBots() {
     console.log("getAllBots -> setLoading TRUE");
     this.appService.setLoading(true);
+
+    this.cdr.detectChanges();
     this.appService.getAllBotData().then((bots: any[]) => {
       this.botsElements = bots;
       console.log("getAllBots -> setLoading FALSE");
       this.appService.setLoading(false);
+
       this.cdr.detectChanges();
 
       return bots;

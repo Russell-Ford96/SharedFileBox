@@ -23,13 +23,12 @@ io.on('connection', (socket) => {
       console.log(message);
       io.emit('new_message',message);
     });
-    //sent message socket
-    socket.on('sent_message', (message) => {
-      console.log('---> on api sent_message');
-      io.emit('sent_message', message);
-      console.log('socket emit sent_message')
-    })
 
+    socket.on('new_notification', (message) => {
+      console.log("*****************************");
+      console.log(message);
+      io.emit('new_notification',message);
+    });
 });
 
 server.listen(socketPort, () => {

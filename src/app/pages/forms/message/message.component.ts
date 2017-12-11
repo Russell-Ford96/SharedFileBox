@@ -67,15 +67,21 @@ export class MessageComponent implements OnInit {
 
   save(): void {
     this.appService.setLoading(true);
+
+    this.cdr.detectChanges();
     if(
       this.requestForm.value.refnumb == '' ||
       this.requestForm.value.email == '' ||
       this.requestForm.value.phone == ''){
       this.appService.setLoading(false);
+
+      this.cdr.detectChanges();
       return
     }
     if(this.formErrors.refnumb || this.formErrors.email || this.formErrors.phone){
       this.appService.setLoading(false);
+
+      this.cdr.detectChanges();
       return
     }
     let formValues = this.requestForm.value;
@@ -92,9 +98,9 @@ export class MessageComponent implements OnInit {
             this.phonemsg = res._body;
             this.dialogDataService.changeMessage(res._body);
             this.socketService.sendMessage('newRequest ERROR');
+            this.appService.setLoading(false);
 
             this.cdr.detectChanges();
-            this.appService.setLoading(false);
         }
         else{
           this.phonemsg = '';
@@ -105,6 +111,7 @@ export class MessageComponent implements OnInit {
           }.bind(this), 5000);
           this.socketService.sendMessage('new Request from save');
           this.appService.setLoading(false);
+
           this.cdr.detectChanges();
         }
       });

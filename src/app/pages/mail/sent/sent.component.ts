@@ -39,7 +39,6 @@ export class SentComponent implements OnInit, OnDestroy, AfterViewChecked {
 
 
 
-
   @ViewChild('scrollToBottomElem') scrollToBottomElem: ElementRef;
   @ViewChild('chatScroll') chatScroll: ScrollbarComponent;
 
