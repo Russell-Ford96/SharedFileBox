@@ -15,8 +15,6 @@ import { ScrollbarModule } from "../../core/scrollbar/scrollbar.module";
 import { InboxComponent } from "./inbox/inbox.component";
 import { SentComponent } from "./sent/sent.component";
 import { TimeAgoPipe } from "time-ago-pipe";
-import { SentListComponent } from './sent/sent-list/sent-list.component';
-import { SentDetailComponent } from './sent/sent-detail/sent-detail.component';
 
 @NgModule({
   imports: [
@@ -43,8 +41,6 @@ import { SentDetailComponent } from './sent/sent-detail/sent-detail.component';
   ],
   declarations: [ InboxComponent,
                   SentComponent,
-                  TimeAgoPipe,
-                  SentListComponent,
-                  SentDetailComponent]
+                  TimeAgoPipe]
 })
 export class MailModule { }
