@@ -4,3 +4,43 @@
 .md-padding{
   padding: 8px;
 }
+
+.page-chat .chat-container .chat {
+    background: white;
+    height: calc(100% - 74px);
+    max-height: 100%;
+}
+
+.chat-img img {
+   border-radious:50%;
+   width: 40px;
+}
+
+.page-chat .chat-container {
+    height: 100%;
+    position: relative;
+    width: 80%;
+}
+
+
+@media all and (max-width: 750px) {
+
+    mat-card{
+      margin-left: 5px !important;
+      position: absolute;
+      margin-top: 0px !important;
+      background-color: white;
+      width: auto !important;
+    }
+
+    .page-chat .chat-container {
+        height: 100%;
+        position: relative;
+    }
+
+    // mat-nav-list{
+    //   width:100%;
+    //   margin-top: 259px;
+    // }
+
+}
