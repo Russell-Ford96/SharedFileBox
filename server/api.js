@@ -5,6 +5,29 @@ const path = require('path');
 const nodemailer = require('nodemailer');
 var fs = require('fs');
 
+
+//APIAI GOOGLE
+//---------------------------------->>
+
+var apiai = require('apiai');
+var app = apiai("f6d61fd8a3ba40e5aaf3b28e73099875"); //<your client access token>
+
+var request = app.textRequest('Hi', {      //<Your text query>
+    sessionId: '12112017'                            //<unique session id>
+});
+
+request.on('response', function(response) {
+    console.log(response.result.fulfillment.speech);
+});
+
+request.on('error', function(error) {
+    console.log(error);
+});
+
+request.end();
+
+//<<----------------------- APIAI GOOGLE
+
 //Socket.io
 var app = express();
 var http = require('http');
