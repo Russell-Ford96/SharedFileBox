@@ -62,12 +62,6 @@ export class RequestComponent implements OnInit {
         this.cdr.detectChanges();
       });
 
-
-
-
-
-
-
   }
 
 
@@ -142,8 +136,6 @@ export class RequestDatabase {
 
   requestByUser(id: string) {
     this.userid = id;
-
-
     this.appService.getAllRequestData(id).subscribe(data => {
 
 

@@ -41,6 +41,10 @@ testem.log
 .DS_Store
 Thumbs.db
 
+# gource files
+
+gource.mp4
+
 # compiled output
 /dist
 /tmp
@@ -68,6 +72,9 @@ testem.log
 # e2e
 /e2e/*.js
 /e2e/*.map
+
+#gource
+gource.mp4
 
 #System Files
 .DS_Store

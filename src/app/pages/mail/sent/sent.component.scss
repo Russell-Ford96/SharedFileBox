@@ -1,46 +1,115 @@
-::ng-deep .mat-drawer-content {
-  margin-left: 275px;
-}
-.md-padding{
-  padding: 8px;
+@import "../../../../styles/var";
+
+.slide-right{
+  width:100%;
+  top: 0px;
+  position:absolute;
 }
 
-.page-chat .chat-container .chat {
+
+.mail-card {
+  width: 100% !important;
+  height: 90% !important;
+  // margin-top: 120px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: auto;
+}
+
+.inbox-cards {
+
+  .list-card {
     background: white;
-    height: calc(100% - 74px);
-    max-height: 100%;
-}
+    width: 150px;
+    @include responsivePadding();
 
-.chat-img img {
-   border-radious:50%;
-   width: 40px;
-}
+    @include mat-elevation(4);
 
-.page-chat .chat-container {
-    height: 100%;
-    position: relative;
-    width: 80%;
-}
+    .list-details {
 
+      .value {
+        font-size: 30px;
+      }
 
-@media all and (max-width: 750px) {
+      .description {
+        color: $color__text-dark;
+      }
 
-    mat-card{
-      margin-left: 5px !important;
-      position: absolute;
-      margin-top: 0px !important;
-      background-color: white;
-      width: auto !important;
+      .arrow {
+        color: $color__text-dark;
+        @include responsivePaddingHalf(right, true);
+        @include responsivePaddingHalf(bottom, true);
+      }
     }
+  }
+  .detail-card {
+    background: white;
+    @include responsivePadding();
 
-    .page-chat .chat-container {
-        height: 100%;
-        position: relative;
+    @include mat-elevation(4);
+
+    .detail-details {
+
+      .value {
+        font-size: 30px;
+      }
+
+      .description {
+        color: $color__text-dark;
+      }
+
+      .arrow {
+        color: $color__text-dark;
+        @include responsivePaddingHalf(right, true);
+        @include responsivePaddingHalf(bottom, true);
+      }
     }
-
-    // mat-nav-list{
-    //   width:100%;
-    //   margin-top: 259px;
-    // }
-
+  }
 }
+
+// ::ng-deep .mat-drawer-content {
+//   margin-left: 275px;
+// }
+// .md-padding{
+//   padding: 8px;
+// }
+//
+// .page-chat .chat-container .chat {
+//     background: white;
+//     height: calc(100% - 74px);
+//     max-height: 100%;
+// }
+//
+// .chat-img img {
+//    border-radious:50%;
+//    width: 40px;
+// }
+//
+// .page-chat .chat-container {
+//     height: 100%;
+//     position: relative;
+//     width: 80%;
+// }
+//
+//
+// @media all and (max-width: 750px) {
+//
+//     mat-card{
+//       margin-left: 5px !important;
+//       position: absolute;
+//       margin-top: 0px !important;
+//       background-color: white;
+//       width: auto !important;
+//     }
+//
+//     .page-chat .chat-container {
+//         height: 100%;
+//         position: relative;
+//     }
+//
+//     mat-nav-list{
+//       width:100%;
+//       margin-top: 259px;
+//     }
+//
+// }

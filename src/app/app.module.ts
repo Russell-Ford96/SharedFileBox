@@ -26,10 +26,11 @@ import { LoginGuard } from './auth/login.guard';
 import { FileUploadResolve } from './file-upload/file-upload.resolve';
 import { FileUploadComponent } from './file-upload/file-upload.component';
 import { ProfileComponent } from './profile/profile.component';
-import { FileSelectDirective } from 'ng2-file-upload';
+import { FileUploadModule } from 'ng2-file-upload';
 import { RouterModule } from '@angular/router';
 import { LoadingModule, ANIMATION_TYPES } from 'ngx-loading';
 import { Angular2FlexModule } from "angular2-flex";
+import { AutobotModule } from './autobot/autobot.module';
 
 
 @NgModule({
@@ -37,6 +38,7 @@ import { Angular2FlexModule } from "angular2-flex";
     BrowserModule,
     BrowserAnimationsModule,
     HttpModule,
+    FileUploadModule,
     LoadingModule.forRoot({
         //animationType: ANIMATION_TYPES.threeBounce,
         //animationType: ANIMATION_TYPES.wanderingCubes,
@@ -59,7 +61,8 @@ import { Angular2FlexModule } from "angular2-flex";
     CoreModule,
     PagesModule,
     RouteHandlerModule,
-    Angular2FlexModule
+    Angular2FlexModule,
+    AutobotModule
 
 
 
@@ -79,7 +82,6 @@ import { Angular2FlexModule } from "angular2-flex";
     AppComponent,
     FileUploadComponent,
     ProfileComponent,
-    FileSelectDirective,
 
 
 

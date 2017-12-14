@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, ElementRef, OnDestroy, OnInit, ViewChild, AfterViewChecked, HostListener, NgZone } from '@angular/core';
+import { ChangeDetectorRef, Component, ElementRef, OnDestroy, OnInit, ViewChild, AfterViewChecked} from '@angular/core';
 import * as _ from 'lodash';
 import * as moment from 'moment';
 import { ScrollbarComponent, scrollbarOptions } from '../../../core/scrollbar/scrollbar.component';
@@ -7,47 +7,79 @@ import { ROUTE_TRANSITION } from '../../../app.animation';
 import {AppService} from "../../../app.service";
 import {AuthService} from "../../../auth/auth.service";
 import { Observable } from 'rxjs/Rx';
-import {AnonymousSubscription} from "rxjs/Subscription";
+import { AnonymousSubscription} from "rxjs/Subscription";
 import { AppSocketService } from  "../../../app.socket.service";
-// import { trigger, state, style, animate, transition, query, stagger } from '@angular/animations';
+import { trigger, state, style, animate, transition, stagger, query, keyframes } from '@angular/animations';
+
 
 
 @Component({
   selector: 'vr-sent',
   templateUrl: './sent.component.html',
   styleUrls: ['./sent.component.scss'],
-  // host: { '[@routeTransition]': '' },
+  host: { '[@routeTransition]': '' },
 
-  // animations: [...ROUTE_TRANSITION,
-  //   trigger('cardslider', [
-  //     transition('* => *', [
-  //       query('mat-card', style({ transform: 'translateX(-100%)'})),
-  //       query('mat-card',
-  //         stagger('600ms', [
-  //           animate('900ms', style({ transform: 'translateX(0)'}))
-  //           ]))
-  //         ])
-  //       ]),
-  //   ]
+  animations: [...ROUTE_TRANSITION,
+    trigger('popOverState', [
+      state('hide',  style({ transform: 'translateX(100%)' })),
+      state('close',  style({ transform: 'translateX(100%)' })),
+      state('show',  style({ transform: 'translateX(0%)' })),
+      transition('* => show', animate('700ms ease')),
+      transition('show => close', animate('700ms ease')),
+      transition('show => hide', [
+      animate(350, keyframes([
+        style({transform: 'translateX(0%)' }),
+        style({transform: 'translateX(100%)' }),
+      ]))
+    ])
+  ])
+
+
+  ]
 })
 
 
+
 export class SentComponent implements OnInit, OnDestroy, AfterViewChecked {
+
+
+  state: string = '*';
+  activeMsgGlobal :string = '';
+
+  animateDetailsIn(){
+    this.state = this.state === 'hide'? 'show': 'hide';
+    console.log('****', this.state)
+  }
+
+  animateDetailsIn2(){
+    console.log('#####@', this.state)
+    if(this.state === 'close'){
+      this.activeMsg = null;
+    }
+    if(this.state === 'hide'){
+      this.state = 'show';
+      this.activeMsg = this.activeMsgGlobal;
+      // this.activeMsg = item;
+    }
+  }
+
+
 
   timerSubscription: AnonymousSubscription;
   mainScrollbarElem: any;
   scrollbar: any;
   userid: string;
   sentData: any;
-  theData : any;
-
+  theData: any;
+  showDetails: boolean = true;
+  colspanList: number = 4;
+  heightList: number = 800;
+  colspanDetail: number = 8;
+  showList: boolean = true;
   chats: any[];
-  activeMsg: any;
+  activeMsg: any = '';
   newMessage: string;
 
-  showList: boolean;
-  showCard: boolean;
-  show = false;
 
 
   @ViewChild('scrollToBottomElem') scrollToBottomElem: ElementRef;
@@ -57,55 +89,97 @@ export class SentComponent implements OnInit, OnDestroy, AfterViewChecked {
               private appService: AppService,
               private auth: AuthService,
               private socketService: AppSocketService,
-              private ngZone: NgZone,
-            ) {
-                window.onresize = (e) =>{
-                  this.ngZone.run(() =>{
-                    if(window.innerWidth >= 750 && this.showCard == true){
-                      this.showListandCard();
-                    }
-                    if(window.innerWidth >= 750 && this.showCard == false){
-                      this.showListOnly();
-                    }
-                    if(window.innerWidth <= 750 && this.showCard == true){
-                      this.showCardOnly();
-                    }
-                    if(window.innerWidth <= 750 && this.showCard == false){
-                      this.showListOnly();
-                    }
-                  })
-                }
-            }
-
-
+            ) {}
 
   ngAfterViewChecked(){
     this.mainScrollbarElem = document.getElementById('main-scrollbar');
+    //console.log('### mainscrollbarelemonInit', this.mainScrollbarElem);
     this.scrollbar = Scrollbar.get(this.mainScrollbarElem);
     if(this.scrollbar){this.scrollbar.destroy();
     }
+
+    this.onResize(innerWidth, innerHeight);
+  }
+
+  onResize(wdwidth, wdHeight) {
+
+    if(wdwidth < 768){
+    /* xs */
+      if(this.showDetails == true){
+        this.colspanList = 0;
+        this.colspanDetail = 12;
+        // this.animateDetails();
+      }else{
+      this.colspanList = 12;
+      this.colspanDetail = 0;
+      }
+    }
+    /* sm */
+     if(wdwidth >= 768 && wdwidth < 992){
+     /* sm */
+       //console.log('sm', wdwidth);
+       this.colspanList = 5;
+       this.colspanDetail = 7;
+     }
+    /* md */
+     if(wdwidth >= 992 && wdwidth < 1200){
+     /* md */
+      this.colspanList = 4;
+      this.colspanDetail = 8;
+       //console.log('md', wdwidth);
+     }
+    /* lg */
+    if(wdwidth >= 1200){
+    /* lg */
+      this.colspanList = 4;
+      this.colspanDetail = 8;
+      //console.log('lg', wdwidth);
+    }
+
+    //console.log(wdwidth);
+
+  }
+
+  OnShowList(){
+    if((this.showDetails == true)&&(this.colspanList == 12)){
+        this.colspanList = 0;
+        this.colspanDetail = 12;
+        return false;
+    }else{
+      return true;
+    }
+  }
+
+  setCloseDetails(){
+    // this.showDetails = false;
+
+    this.state = 'close';
   }
 
   ngOnInit() {
-    this.showListOnly();
     //socket
     this.socketService
       .getMessages()
       .subscribe((message: any) => {
        this.getData();
       });
+
       this.getData();
       this.cd.detectChanges();
   }
 
+
   getData(){
+    //console.log("**************************************");
     if(this.auth.userProfile){
         this.userid = this.auth.userProfile.sub.split("|")[1];
         this.requestByUser(this.userid);
+        this.cd.detectChanges();
     }else{
         this.auth.getProfile((err, profile) => {
         this.userid = profile.sub.split("|")[1];
         this.requestByUser(this.userid);
+        this.cd.detectChanges();
       });
     }
   }
@@ -116,8 +190,10 @@ export class SentComponent implements OnInit, OnDestroy, AfterViewChecked {
 
     this.appService.getAllRequestData(id).subscribe(results => {
 
-      // this.subscribeToData(this.userid);//
       this.theData = results;
+
+      //console.log("*******************************");
+      //console.log(this.theData);
 
       this.theData.sort(function compare(a, b) {
         var dateA = +new Date(a.datetime);
@@ -130,12 +206,15 @@ export class SentComponent implements OnInit, OnDestroy, AfterViewChecked {
   }
 
 
-  // public subscribeToData(id: string)
-  // {
-  //  this.userid = id;
-  //  this.timerSubscription = Observable.timer(5000).first().subscribe(() => this.requestByUser(this.userid));
-  // }
-
+  setActiveMsg(item) {
+    if(this.activeMsg != item){
+        this.animateDetailsIn();
+    }
+    this.showDetails = true;
+    //if(this.state === 'show'){
+      this.activeMsgGlobal = item;
+    //}
+  }
 
 
   send() {
@@ -146,7 +225,8 @@ export class SentComponent implements OnInit, OnDestroy, AfterViewChecked {
         who: 'me'
       });
       this.newMessage = '';
-      this.cd.markForCheck();
+      //this.cd.markForCheck();
+      this.cd.detectChanges();
       this.chatScroll.scrollbarRef.scrollIntoView(this.scrollToBottomElem.nativeElement, {
         alignToTop: false
       });
@@ -157,7 +237,8 @@ export class SentComponent implements OnInit, OnDestroy, AfterViewChecked {
           when: moment(),
           who: 'partner'
         });
-        this.cd.markForCheck();
+        //this.cd.markForCheck();
+        this.cd.detectChanges();
 
         this.chatScroll.scrollbarRef.scrollIntoView(this.scrollToBottomElem.nativeElement, {
           alignToTop: false
@@ -171,54 +252,15 @@ export class SentComponent implements OnInit, OnDestroy, AfterViewChecked {
   }
 
   ngOnDestroy() {
-    console.log('@@@mainscrollbarelem ondestroy', this.mainScrollbarElem)
+    //console.log('@@@mainscrollbarelem ondestroy', this.mainScrollbarElem)
     if(this.mainScrollbarElem != undefined){
       Scrollbar.init(this.mainScrollbarElem, scrollbarOptions);
     }
   }
 
 //message card on small screens
-  setActiveMsg(item) {
-    this.activeMsg = item;
-    if(innerWidth >= 750){
-      this.showList = true;
-      this.showCard = true;
-    }
-    else if(innerWidth <= 750){
-      this.showList = false;
-      this.showCard = true;
-    }
-  }
-
-  closeCard(): void{
-    this.showCard = false;
-    this.showList = true;
-    this.show = !this.show;
-  }
-
-  showListOnly():void{
-      this.showCard = false;
-      this.showList = true;
-  }
-
-  showCardOnly():void{
-      this.showCard = true;
-      this.showList = false;
-  }
-
-  showListandCard():void{
-      this.showCard = true;
-      this.showList = true;
-  }
-
-
-  showCardWide():void{
-      this.showCard = true;
-      this.showList = false;
-  }
-
-  get stateName() {
-    return this.show ? 'show' : 'hide'
+  onClose(): void{
+    this.activeMsg = '';
   }
 
 

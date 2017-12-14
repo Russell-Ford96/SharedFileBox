@@ -1,0 +1,12 @@
+<vr-scrollbar class="overflow-container">
+     <mat-nav-list style="border:thin solid lightgrey; color:red;">
+        <mat-list-item style="border-bottom:thin solid #f7f7f7fc;" *ngFor="let item of data" (click)="setActiveMsg(item)">
+           <h5 mat-line class="chat-img pull-left">
+             <img src="https://i.pinimg.com/originals/7c/c7/a6/7cc7a630624d20f7797cb4c8e93c09c1.png">
+             {{ item.phone }}
+             <span style="font-size:x-small; float:right;"> {{ item.datetime | timeAgo }}</span>
+           </h5>
+           <p mat-line style="color:#797979;">{{ item.shortmessage }}</p>
+        </mat-list-item>
+    </mat-nav-list>
+</vr-scrollbar>

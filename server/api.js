@@ -4,10 +4,29 @@ const router = express.Router();
 const path = require('path');
 const nodemailer = require('nodemailer');
 var fs = require('fs');
-const crypto = require('crypto');
-var jwt = require('jsonwebtoken');
-var bcrypt = require('bcrypt');
-const saltRounds = 10;
+
+
+//APIAI GOOGLE
+//---------------------------------->>
+
+var apiai = require('apiai');
+var app = apiai("f6d61fd8a3ba40e5aaf3b28e73099875"); //<your client access token>
+
+var request = app.textRequest('Hi', {      //<Your text query>
+    sessionId: '12112017'                            //<unique session id>
+});
+
+request.on('response', function(response) {
+    console.log(response.result.fulfillment.speech);
+});
+
+request.on('error', function(error) {
+    console.log(error);
+});
+
+request.end();
+
+//<<----------------------- APIAI GOOGLE
 
 //Socket.io
 var app = express();
@@ -22,13 +41,23 @@ const socketPort = process.env.PORT || 3100;
 io.on('connection', (socket) => {
 
     socket.on('new_message', (message) => {
+      console.log(io.sockets.name);
+      console.log(" on api socket");
+      console.log(message);
       io.emit('new_message',message);
+    });
+
+    socket.on('new_notification', (message) => {
+      console.log("*****************************");
+      console.log(message);
+      io.emit('new_notification',message);
     });
 });
 
 server.listen(socketPort, () => {
     console.log(`started on port: ${socketPort}`);
 });
+
 
 var azure = require('azure-storage');
 var blobSvc = azure.createBlobService();
@@ -79,31 +108,6 @@ router.get('/getimage/:createdBy/:refnumb/:file', function(req, res) {
     });
 });
 
-/*
-
-router.get('/getimage/:createdBy/:refnumb/:file', function(req, res) {
-
-  var blobName = req.params.refnumb +'/'+ req.params.file;
-  var containerName= req.params.createdBy;
-  blobSvc.getBlobToStream(
-    containerName,
-    blobName,
-    res,
-    function(err, blob) {
-      if (!err) {
-        res.writeHead(200,{'Content-Type': 'image/png'});
-        console.error("Couldn't download blob %s", blobName);
-        console.error(err);
-
-      } else {
-        console.log("Sucessfully downloaded blob %s", blobName);
-        res.end();
-
-      }
-    });
-});
-*/
-
 
 router.get('/getdoc/:id', (req, res) => {
   mongodb.MongoClient.connect(uri, function(err, db) {
@@ -118,6 +122,72 @@ router.get('/getdoc/:id', (req, res) => {
     var docRequestCollection = db.collection('docRequest');
     docRequestCollection.findOne({
       _id: o_id
+    }, function(err, result) {
+      if (err) {
+        console.log(err);
+      }
+      db.close();
+      if (result != undefined)
+        return res.send(result);
+      else
+        return res.status(404).send("request not found");
+    });
+  });
+});
+
+
+router.post('/createBotRequest', (req, res) => {
+    console.log(req.body);
+    var customerFullName = req.body.customerFullName;
+    var botName = req.body.bot.name;
+    var botUrl = req.body.bot.url;
+    var botId = req.body.bot._id;
+    var requests = req.body.requests;
+    var answerDate = new Date();
+
+  mongodb.MongoClient.connect(uri, function(err, db) {
+    if (err) {
+      console.log(err);
+    }
+    var botRequest = db.collection('botRequest');
+
+          botRequest.insert({
+            customerFullName: customerFullName,
+            botName: botName,
+            botUrl: botUrl,
+            botId: botId,
+            requests: requests,
+            answerDate: answerDate
+          }, function(err, result) {
+            if (err)
+              return res.send("An error has occured");
+            else {
+              var id = result.insertedIds[0];
+              return res.send(id);
+            }
+          })
+          db.close();
+
+      });
+  });
+
+
+// Get AutoBot by Url
+router.get('/getbotbyurl/:url', (req, res) => {
+  console.log("api/getBotByUrl");
+  mongodb.MongoClient.connect(uri, function(err, db) {
+    if (err) {
+      console.log(err);
+      return res.status(500).send("Error connecting to db");
+    }
+
+    //create a new mongo ID using the supplied ID
+    //var o_url = new mongodb.ObjectID(req.params.url);
+    var o_url = req.params.url;
+
+    var docRequestCollection = db.collection('bot');
+    docRequestCollection.findOne({
+      url: o_url
     }, function(err, result) {
       if (err) {
         console.log(err);
@@ -196,8 +266,6 @@ router.post('/upload', function(req, res, next) {
 
       return res.send(fullAzurePath);
     });
-
-
 
     console.log('stream uploaded successfully');
     req.model.data = response;
@@ -347,6 +415,7 @@ router.post('/createbot', (req, res) => {
         } else {
           reqBots.insert({
             name: req.body.name,
+            avatar: req.body.avatar,
             description: req.body.description,
             url: req.body.url,
             itemArray: req.body.itemArray,
@@ -372,6 +441,7 @@ router.post('/updatebot', (req, res) => {
   console.log(req.body);
   var o_id = new mongodb.ObjectID(req.body._id);
   var reqName = req.body.name;
+  var reqAvatar = req.body.avatar;
   var reqDescription = req.body.description;
   var reqUrl = req.body.url;
   var reqItemArray = req.body.itemArray;
@@ -390,6 +460,7 @@ router.post('/updatebot', (req, res) => {
     }, {
       $set: {
         name: reqName,
+        avatar: reqAvatar,
         url: reqUrl,
         description: reqDescription,
         itemArray: reqItemArray,
