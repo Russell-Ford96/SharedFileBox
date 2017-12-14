@@ -34,10 +34,10 @@ export class AutobotComponent implements OnInit {
   public uploader: FileUploader = new FileUploader({
     url: 'http://localhost:5000/api/upload', itemAlias: "single", autoUpload: true
   });
-
+  count = 0;
   audio = new Audio();
   state = 'normal';
-  showBot = false;
+  showBot = true;
   fileIndex: number;
   lastindex: number;
   dateUpdate: Date;
@@ -46,7 +46,7 @@ export class AutobotComponent implements OnInit {
   bot: any;
   index: number;
   showtime: number;
-  //botAvatar = '../../assets/avatar-chica.png';
+  botAvatar = '../../assets/avatar-chica.png';
   //botName: string;
   botTyping = ' online';
   itemsBot:any[] = [{}];
@@ -70,7 +70,8 @@ export class AutobotComponent implements OnInit {
   }
 
   ngOnInit() {
-
+    if(this.count == 0){
+    this.count++;
     this.route.data
       .subscribe((data: { bot: any }) => {
         this.bot = data.bot;
@@ -86,6 +87,30 @@ export class AutobotComponent implements OnInit {
           this.bot.itemArray[doc].show = false;
         }
       });
+
+    this.socketService.sendMessageApiai("WELCOME");
+   }
+    // This service is to update the data in real time through socket
+    this.socketService
+      .getResponceApiai()
+      .subscribe((message: any) => {
+        console.log(message);
+        console.log(" *********** socketService On Request Component ********** ");
+        // this.itemsBot.push( {
+        //                 'avatar': this.bot.avatar,
+        //                 'name': this.bot.name,
+        //                 'user': 'bot',
+        //                 'msj': message,//this.bot.itemArray[this.index].name,
+        //                 'date': new Date(),
+        //                 'file': false,//this.bot.itemArray[this.index].file,
+        //                 'show': false,
+        //                 'docIndex': 0
+        //               });
+        this.messageSimulation(message.split(" ").length,message,false);
+        this.cdr.detectChanges();
+      });
+
+
 
       this.itemsBot.splice(0, 1);
 
@@ -121,8 +146,7 @@ export class AutobotComponent implements OnInit {
 
       };
 
-      //this.messageSimulation();
-
+      // this.messageSimulation(message.length,message,false);
   }
 
   updateFileIndex(index: number) {
@@ -139,21 +163,21 @@ export class AutobotComponent implements OnInit {
     this.botRequest.customerFullName = data.customerFullName;
     this.showBot = true;
 
-    this.itemsBot.push( {
-                    'avatar': this.bot.avatar,
-                    'name': this.bot.name,
-                    'user': 'bot',
-                    'msj': "Hello welcome " + this.botRequest.customerFullName.split(" ")[0] + " a pleasure to help you",//this.bot.itemArray[this.index].name,
-                    'date': new Date(),
-                    'file': false,//this.bot.itemArray[this.index].file,
-                    'show': false,
-                    'docIndex': 0
-                  });
-    this.messageSimulation();
+    // this.itemsBot.push( {
+    //                 'avatar': this.bot.avatar,
+    //                 'name': this.bot.name,
+    //                 'user': 'bot',
+    //                 'msj': "Hello welcome " + this.botRequest.customerFullName.split(" ")[0] + " a pleasure to help you",//this.bot.itemArray[this.index].name,
+    //                 'date': new Date(),
+    //                 'file': false,//this.bot.itemArray[this.index].file,
+    //                 'show': false,
+    //                 'docIndex': 0
+    //               });
+    //this.messageSimulation();
   }
 
 
-  private typingSimulation(x: number){
+  private typingSimulation(x: number,message: string,file: boolean){
     console.log("Palabras ",x);
     setTimeout(() => {
       this.botTyping = ' Typing.';
@@ -171,9 +195,10 @@ export class AutobotComponent implements OnInit {
           console.log(this.botTyping);
           x--;
             if(x <= 1){
-              this.sendMessgeBot(this.bot.itemArray[this.index].name,this.bot.itemArray[this.index].file);
+              this.sendMessgeBot(message,file);
+              //this.sendMessgeBot(this.bot.itemArray[this.index].name,this.bot.itemArray[this.index].file);
             }else{
-              this.typingSimulation(x);
+              this.typingSimulation(x,message,file);
             }
 
         },200);
@@ -182,11 +207,11 @@ export class AutobotComponent implements OnInit {
   }
 
   private send() {
-    if (this.newMessage) {
+     if (this.newMessage) {
       var i = this.itemsBot.length + 1;
       this.itemsBot.push( {
                       'avatar': '../../assets/img/avatars/noavatar.png',
-                      'name': this.botRequest.customerFullName.split(" ")[0],
+                      'name': 'Customer',
                       'user': 'client',
                       'msj': this.newMessage,
                       'date': new Date(),
@@ -202,12 +227,13 @@ export class AutobotComponent implements OnInit {
         console.log(this.botRequest.requests[this.lastindex].question);
         console.log(this.botRequest.requests[this.lastindex].answer);
       }
-
-      this.newMessage = '';
+    //
+    //   this.newMessage = '';
       this.audio.play();
       this.cdr.detectChanges();
-
-      this.messageSimulation();
+      this.socketService.sendMessageApiai(this.newMessage);
+      this.newMessage = '';
+      //this.messageSimulation();
     }
   }
 
@@ -230,24 +256,25 @@ export class AutobotComponent implements OnInit {
               }, 100);
   }
 
-  private messageSimulation() {
-    if(this.bot.itemArray){
-      if(this.bot.itemArray.length > this.index){
-      console.log("BOT messageSimulation  _------------------_");
-      console.log(this.bot.itemArray[this.index].name);
-
-
-      var x = this.bot.itemArray[this.index].name.split(" ").length;
-
-      this.typingSimulation(x);
-      //this.typingSimulation();
-
-    }else{
-      this.sendMessgeBot(this.bot.thanks,false);
-      this.saveRequest();
-      console.log(this.botRequest);
-    }
-    }
+  private messageSimulation(x:number, message:string, file:boolean) {
+    this.typingSimulation(x,message,file);
+    // if(this.bot.itemArray){
+    //   if(this.bot.itemArray.length > this.index){
+    //   console.log("BOT messageSimulation  _------------------_");
+    //   console.log(this.bot.itemArray[this.index].name);
+    //
+    //
+    //   var x = this.bot.itemArray[this.index].name.split(" ").length;
+    //
+    //   this.typingSimulation(x);
+    //   //this.typingSimulation();
+    //
+    // }else{
+    //   this.sendMessgeBot(this.bot.thanks,false);
+    //   this.saveRequest();
+    //   console.log(this.botRequest);
+    // }
+    // }
 
   }
 

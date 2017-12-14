@@ -17,6 +17,21 @@ export class AppSocketService {
         this.socket.emit('new_message', message);
     }
 
+    public sendMessageApiai(message) {
+        this.socket.emit('new_apiai_messge', message);
+    }
+
+
+    public getResponceApiai = () => {
+        return Observable.create((observer) => {
+            this.socket.on('new_apiai_messge', (message) => {
+                console.log("new message ");
+                console.log(message);
+                observer.next(message);
+            });
+        });
+    }
+
     public getMessages = () => {
         return Observable.create((observer) => {
             this.socket.on('new_message', (message) => {
@@ -26,7 +41,7 @@ export class AppSocketService {
             });
         });
     }
-    
+
 
 
     public getNotification = () => {
