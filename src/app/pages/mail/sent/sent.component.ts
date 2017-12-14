@@ -26,43 +26,15 @@ import { trigger, state, style, animate, transition, stagger, query, keyframes }
       state('show',  style({ transform: 'translateX(0%)' })),
       transition('* => show', animate('700ms ease')),
       transition('show => close', animate('700ms ease')),
-      transition('show => hide', [
-      animate(350, keyframes([
-        style({transform: 'translateX(0%)' }),
-        style({transform: 'translateX(100%)' }),
-      ]))
+      transition('show => hide', [ animate('700ms ease'),
+      ])
     ])
-  ])
-
-
   ]
 })
 
 
 
 export class SentComponent implements OnInit, OnDestroy, AfterViewChecked {
-
-
-  state: string = '*';
-  activeMsgGlobal :string = '';
-
-  animateDetailsIn(){
-    this.state = this.state === 'hide'? 'show': 'hide';
-    console.log('****', this.state)
-  }
-
-  animateDetailsIn2(){
-    console.log('#####@', this.state)
-    if(this.state === 'close'){
-      this.activeMsg = null;
-    }
-    if(this.state === 'hide'){
-      this.state = 'show';
-      this.activeMsg = this.activeMsgGlobal;
-      // this.activeMsg = item;
-    }
-  }
-
 
 
   timerSubscription: AnonymousSubscription;
@@ -79,7 +51,9 @@ export class SentComponent implements OnInit, OnDestroy, AfterViewChecked {
   chats: any[];
   activeMsg: any = '';
   newMessage: string;
-
+  //animation variables
+  state: string = '*';
+  activeMsgGlobal: string = '';
 
 
   @ViewChild('scrollToBottomElem') scrollToBottomElem: ElementRef;
@@ -91,9 +65,39 @@ export class SentComponent implements OnInit, OnDestroy, AfterViewChecked {
               private socketService: AppSocketService,
             ) {}
 
+
+  //animations
+  animateDetailsIn(){
+    this.state = this.state === 'hide'? 'show': 'hide';
+  }
+
+  animateDetailsIn2(){
+    if(this.state === 'close'){
+      this.activeMsg = null;
+    }
+    if(this.state === 'hide'){
+      this.state = 'show';
+      this.activeMsg = this.activeMsgGlobal;
+    }
+  }
+
+  //close details
+  setCloseDetails(){
+    this.state = 'close';
+  }
+
+
+  setActiveMsg(item) {
+    if(this.activeMsg != item){
+        this.animateDetailsIn();
+    }
+    this.showDetails = true;
+    this.activeMsgGlobal = item;
+  }
+
+
   ngAfterViewChecked(){
     this.mainScrollbarElem = document.getElementById('main-scrollbar');
-    //console.log('### mainscrollbarelemonInit', this.mainScrollbarElem);
     this.scrollbar = Scrollbar.get(this.mainScrollbarElem);
     if(this.scrollbar){this.scrollbar.destroy();
     }
@@ -108,7 +112,6 @@ export class SentComponent implements OnInit, OnDestroy, AfterViewChecked {
       if(this.showDetails == true){
         this.colspanList = 0;
         this.colspanDetail = 12;
-        // this.animateDetails();
       }else{
       this.colspanList = 12;
       this.colspanDetail = 0;
@@ -117,7 +120,6 @@ export class SentComponent implements OnInit, OnDestroy, AfterViewChecked {
     /* sm */
      if(wdwidth >= 768 && wdwidth < 992){
      /* sm */
-       //console.log('sm', wdwidth);
        this.colspanList = 5;
        this.colspanDetail = 7;
      }
@@ -126,19 +128,15 @@ export class SentComponent implements OnInit, OnDestroy, AfterViewChecked {
      /* md */
       this.colspanList = 4;
       this.colspanDetail = 8;
-       //console.log('md', wdwidth);
      }
     /* lg */
     if(wdwidth >= 1200){
     /* lg */
       this.colspanList = 4;
       this.colspanDetail = 8;
-      //console.log('lg', wdwidth);
     }
-
-    //console.log(wdwidth);
-
   }
+
 
   OnShowList(){
     if((this.showDetails == true)&&(this.colspanList == 12)){
@@ -150,11 +148,7 @@ export class SentComponent implements OnInit, OnDestroy, AfterViewChecked {
     }
   }
 
-  setCloseDetails(){
-    // this.showDetails = false;
 
-    this.state = 'close';
-  }
 
   ngOnInit() {
     //socket
@@ -170,7 +164,6 @@ export class SentComponent implements OnInit, OnDestroy, AfterViewChecked {
 
 
   getData(){
-    //console.log("**************************************");
     if(this.auth.userProfile){
         this.userid = this.auth.userProfile.sub.split("|")[1];
         this.requestByUser(this.userid);
@@ -192,29 +185,17 @@ export class SentComponent implements OnInit, OnDestroy, AfterViewChecked {
 
       this.theData = results;
 
-      //console.log("*******************************");
-      //console.log(this.theData);
-
       this.theData.sort(function compare(a, b) {
         var dateA = +new Date(a.datetime);
         var dateB = +new Date(b.datetime);
         return dateA - dateB;
       }).reverse();
       this.activeMsg = this.theData[0];
-      //console.log(this.theData);
     });
   }
 
 
-  setActiveMsg(item) {
-    if(this.activeMsg != item){
-        this.animateDetailsIn();
-    }
-    this.showDetails = true;
-    //if(this.state === 'show'){
-      this.activeMsgGlobal = item;
-    //}
-  }
+
 
 
   send() {
@@ -225,7 +206,6 @@ export class SentComponent implements OnInit, OnDestroy, AfterViewChecked {
         who: 'me'
       });
       this.newMessage = '';
-      //this.cd.markForCheck();
       this.cd.detectChanges();
       this.chatScroll.scrollbarRef.scrollIntoView(this.scrollToBottomElem.nativeElement, {
         alignToTop: false
@@ -237,7 +217,6 @@ export class SentComponent implements OnInit, OnDestroy, AfterViewChecked {
           when: moment(),
           who: 'partner'
         });
-        //this.cd.markForCheck();
         this.cd.detectChanges();
 
         this.chatScroll.scrollbarRef.scrollIntoView(this.scrollToBottomElem.nativeElement, {
@@ -252,13 +231,12 @@ export class SentComponent implements OnInit, OnDestroy, AfterViewChecked {
   }
 
   ngOnDestroy() {
-    //console.log('@@@mainscrollbarelem ondestroy', this.mainScrollbarElem)
     if(this.mainScrollbarElem != undefined){
       Scrollbar.init(this.mainScrollbarElem, scrollbarOptions);
     }
   }
 
-//message card on small screens
+
   onClose(): void{
     this.activeMsg = '';
   }
