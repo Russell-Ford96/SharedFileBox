@@ -10,6 +10,7 @@ export class AppSocketService {
     }
 
     public sendNotification(message) {
+        console.log("New Notification ",message);
         this.socket.emit('new_notification', message);
     }
 

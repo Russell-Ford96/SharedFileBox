@@ -107,6 +107,9 @@ export class AutobotComponent implements OnInit {
         //                 'docIndex': 0
         //               });
         this.messageSimulation(message.split(" ").length,message,false);
+        if(message === ""){
+          this.saveRequest();
+        }
         this.cdr.detectChanges();
       });
 
