@@ -87,5 +87,26 @@ module.exports = function(router,mongodb,uri){
       });
 
     })
-  })
+  });
+
+  //detailed request detail by reference number
+  router.get('/request/detail/:refNumb', function(req, res) {
+    mongodb.MongoClient.connect(uri, function(err, db) {
+      if (err) {
+        throw err;
+      }
+      var docRequestCollection = db.collection('docRequest');
+      docRequestCollection.findOne({
+        refnumb: req.params.refNumb
+      }, function(err, results) {
+        if (err) {
+          console.log(err);
+          return res.status(500).send("There was a problem finding the request.");
+        }
+        //console.log(results);
+        return res.status(200).send(results);
+      });
+    });
+  });
+
 }
