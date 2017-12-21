@@ -46,6 +46,12 @@ export class RequestComponent implements OnInit {
 
   }
 
+  onDetectChanges(){
+    if (!this.cdr['destroyed']) {
+      this.cdr.detectChanges();
+    }
+  }
+
 
   ngOnInit() {
 
@@ -59,7 +65,7 @@ export class RequestComponent implements OnInit {
         console.log(message);
         console.log(" *********** On Request Component ********** ");
         this.requestDatabase.getData();
-        this.cdr.detectChanges();
+        this.onDetectChanges();
       });
 
   }

@@ -17,7 +17,7 @@ io.on('connection', (socket) => {
 
     socket.on('new_message', (message) => {
       console.log(io.sockets.name);
-      console.log(" on api socket");
+      console.log("on api socket");
       console.log(message);
       io.emit('new_message',message);
     });
