@@ -22,7 +22,9 @@ import {RequestDetailComponent} from './pages/request/request-detail/request-det
 import {LoginComponent} from './pages/auth/login/login.component';
 import {mailRoutes} from "./pages/mail/mail.routing";
 import {chatRoutes} from "./pages/chat/chat.routing";
-
+import {AutobotComponent} from "./autobot/autobot.component"
+import {AutobotResolve} from "./autobot/autobot.resolve"
+import { botChatRoutes } from './pages/botchats/botchats.routing';
 
 const routes: Routes = [
 
@@ -31,6 +33,11 @@ const routes: Routes = [
     component: LoginComponent,
     canActivate: [LoginGuard]
 
+  },
+  {
+    path: 'autobot/:url',
+    component: AutobotComponent,
+    resolve: { bot: AutobotResolve }
   },
   {
     path: 'upload/:id',
@@ -58,7 +65,7 @@ const routes: Routes = [
       ...mapsRoutes,
       ...projectsRoutes,
       ...projectDetailsRoutes,
-
+      ...botChatRoutes,
 
     ]
   },
@@ -69,7 +76,8 @@ const routes: Routes = [
   imports: [RouterModule.forRoot(routes,{ useHash: false })],
   exports: [RouterModule],
   providers: [
-    FileUploadResolve
+    FileUploadResolve,
+    AutobotResolve
   ]
 })
 export class AppRoutingModule { }

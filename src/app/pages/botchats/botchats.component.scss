@@ -1,0 +1,42 @@
+@import "../../../styles/var";
+
+.form-elements {
+
+  @include responsivePadding();
+
+  #phonemsg{
+    color: #f44336;
+    font-size: 9px;
+    margin-top: 6px !important;
+    position: absolute;
+  }
+
+
+  .card.alternative {
+
+    .content {
+      padding-top: 16px;
+
+      .source {
+        @include responsivePadding(left, true);
+        @include responsivePadding(right, true);
+        margin-bottom: 12px;
+      }
+
+      .result {
+
+        .description {
+          color: $color__text-dark;
+          margin: 0 0 8px 0;
+          font-size: 14px;
+        }
+      }
+    }
+  }
+  .mat-form-field-subscript-wrapper {
+    font-size: 75%;
+    margin-top: 0.741667em !important;
+    top: calc(100% - 1.66666667em);
+}
+
+}

@@ -1,24 +1,83 @@
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit, trigger, state, style, transition, animate } from '@angular/core';
 import moment from 'moment/src/moment';
 import { LIST_FADE_ANIMATION } from '../../utils/list.animation';
+import { AppSocketService } from '../../../app.socket.service';
 
 @Component({
   selector: 'vr-toolbar-notifications',
   templateUrl: './toolbar-notifications.component.html',
   styleUrls: ['./toolbar-notifications.component.scss'],
-  animations: [...LIST_FADE_ANIMATION]
+  animations: [...LIST_FADE_ANIMATION,
+      trigger('notificationAnimation',[
+          state('small',style({
+            //transform: 'scale(1)',
+            transform: 'rotate(0)',
+            opacity: 1
+          })),
+          state('large', style({
+            //transform: 'scale(1.4)',
+            transform: 'rotate(-60deg)',
+            opacity: 1,
+
+          })),
+          state('leave', style({
+            //transform: 'scale(0.2)',
+            transform: 'rotate(0)',
+            opacity: 0
+          })),
+
+          //transition('small  => large', animate('300ms cubic-bezier(.92,1.84,.87,-1.02)')),
+          transition('small  => large', animate('300ms cubic-bezier(.92,1.84,.26,-0.77)')),
+          transition('large  => small', animate('100ms cubic-bezier(.51,.5,.52,.51)')),
+          transition('*  => leave', animate('300ms ease-in')),
+        ])
+  ]
 })
 export class ToolbarNotificationsComponent implements OnInit {
-
+  state: string = 'small';
   isOpen: boolean;
   notifications: any[];
   demoTriggers = 0;
 
   constructor(
+    private socketService: AppSocketService,
     private cd: ChangeDetectorRef
   ) { }
 
+
+  setBackToSmall(){
+    console.log( this.state);
+    console.log("setBackToSmall");
+    this.state = 'small';
+  }
+
+  onAnimateNotification(){
+
+
+    this.state = (this.state === 'large' ? 'small' : 'large');
+  }
+
   ngOnInit() {
+
+    // This service is to update the data in real time through socket
+    this.socketService
+      .getNotification()
+      .subscribe((message: any) => {
+        console.log(message);
+        console.log(" *********** On ToolbarNotificationsComponent ********** ");
+        //this.getData();
+        this.notifications.unshift({
+          icon: 'notifications',
+          name: message,
+          time: moment().fromNow(),
+          read: false,
+          colorClass: 'accent'
+        })
+
+        this.onAnimateNotification();
+        this.cd.markForCheck();
+      });
+
     this.notifications = [
       {
         icon: 'notifications',
@@ -65,6 +124,8 @@ export class ToolbarNotificationsComponent implements OnInit {
   dismiss(notification) {
     this.notifications.splice(this.notifications.indexOf(notification), 1);
     this.triggerDemoNotification();
+    this.onAnimateNotification();
+
   }
 
   toggleDropdown() {
@@ -88,7 +149,7 @@ export class ToolbarNotificationsComponent implements OnInit {
           read: false,
           colorClass: '',
         });
-
+        this.onAnimateNotification();
         this.cd.markForCheck();
       }, 2000);
     } else if (this.demoTriggers === 1) {
@@ -102,7 +163,7 @@ export class ToolbarNotificationsComponent implements OnInit {
           read: false,
           colorClass: 'primary'
         });
-
+        this.onAnimateNotification();
         this.cd.markForCheck();
       }, 2000);
     }

@@ -35,7 +35,7 @@ export class ProfileComponent implements OnInit, AfterViewInit {
 
     this.tabSelected = 0;
     this.showFormBot = false;
-    this.botSelected = { _id: "", name: "", description: "", url: "", itemArray: [{}], createdBy: "", thanks: "", active: true };
+    this.botSelected = { _id: "", name: "", avatar:"", description: "", url: "", itemArray: [{}], createdBy: "", thanks: "", active: true };
     if (this.auth.userProfile) {
       this.picture = this.auth.userProfile.picture;
       this.email = this.auth.userProfile.email;
@@ -52,7 +52,7 @@ export class ProfileComponent implements OnInit, AfterViewInit {
   }
 
   onNewBot() {
-    this.botSelected = { _id: "", name: "", description: "", url: "", itemArray: [{}], createdBy: "", thanks: "", active: true };
+    this.botSelected = { _id: "", name: "", avatar:"", description: "", url: "", itemArray: [{}], createdBy: "", thanks: "", active: true };
     this.tabSelected = 1;
     this.showFormBot = true;
   }
@@ -78,10 +78,13 @@ export class ProfileComponent implements OnInit, AfterViewInit {
   getAllBots() {
     console.log("getAllBots -> setLoading TRUE");
     this.appService.setLoading(true);
+
+    this.cdr.detectChanges();
     this.appService.getAllBotData().then((bots: any[]) => {
       this.botsElements = bots;
       console.log("getAllBots -> setLoading FALSE");
       this.appService.setLoading(false);
+
       this.cdr.detectChanges();
 
       return bots;

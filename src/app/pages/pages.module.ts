@@ -16,6 +16,7 @@ import { ProjectDetailsModule } from './project-details/project-details.module';
 import { RequestModule } from './request/request.module';
 import {MailModule} from "./mail/mail.module";
 import {ChatModule} from "./chat/chat.module";
+import { BotChatsModule } from './botchats/botchats.module';
 
 
 @NgModule({
@@ -36,9 +37,8 @@ import {ChatModule} from "./chat/chat.module";
     ProjectDetailsModule,
     RequestModule,
     MailModule,
-    ChatModule
-
-
+    ChatModule,
+    BotChatsModule,
   ],
   declarations: []
 })

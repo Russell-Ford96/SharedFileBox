@@ -13,7 +13,6 @@ import { Bot } from '../bot.model';
 })
 export class BotsPreviewComponent implements OnInit {
   @Input() bot: Bot;
-  // @Output() onLoading = new EventEmitter<boolean>();
   @Output() closePreview = new EventEmitter<boolean>();
 
   private reloadSimulator: boolean;
@@ -25,6 +24,18 @@ export class BotsPreviewComponent implements OnInit {
 
   isNewBot(){
     return this.bot._id == '';
+  }
+
+  isFile(file){
+    var value: string;
+    console.log(file);
+    if(file){
+      value = "accent";
+    }else{
+      value = "void";
+    }
+      console.log(value);
+    return value
   }
 
   setLabelNewOrEdit(){

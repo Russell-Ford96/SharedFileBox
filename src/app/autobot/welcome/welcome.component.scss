@@ -1,0 +1,29 @@
+.welcome-card {
+  width: 400px;
+  margin-top: 120px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.mybody {
+  margin-top: -100px;
+  min-height: 800px;
+  height: 800px;
+  line-height: normal;
+  font-family: Roboto, 'Helvetica Neue', Arial, sans-serif;
+  color: #111;
+  -webkit-tap-highlight-color: transparent;
+  -webkit-touch-callout: none;
+  -webkit-text-size-adjust: 100%;
+  -ms-text-size-adjust: 100%;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-family: Century;
+  -webkit-font-smoothing: antialiased;
+  background-image: url("../../../assets/bg.jpg");
+}
+
+.welcome-header-image {
+  background-image: url('http://material.angular.io/assets/img/examples/shiba1.jpg');
+  background-size: cover;
+}

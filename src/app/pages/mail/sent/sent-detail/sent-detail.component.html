@@ -1,0 +1,29 @@
+<!-- <mat-card   class="details-card" [@detailAnimations]="state" > -->
+  <mat-card   class="details-card">
+     <i class="fa fa-times" style="color:#e0e0e0; cursor:pointer; font-size:25px; float:right;" aria-hidden="true"  (click)="onClose()"></i>
+      <mat-card-header>
+        <span mat-line class="chat-img pull-left" style="margin-right: 10px;">
+          <img src="https://i.pinimg.com/originals/7c/c7/a6/7cc7a630624d20f7797cb4c8e93c09c1.png">
+       </span>
+        <div fxLayout="column"  *ngIf="activeMsg" style="padding-bottom:15px; margin-left:10px;">
+          <span class="name"><b>{{ activeMsg.phone }}</b></span>
+          <span class="status" style="color:#797979;">{{ activeMsg.shortmessage }}</span>
+        </div>
+      </mat-card-header>
+      <mat-divider></mat-divider>
+
+
+      <mat-card-content>
+        <div class="chat-content" fxLayout="column" fxLayoutAlign="start stretch">
+            <div class="messages-container">
+              <div *ngIf="activeMsg">
+                <p style="margin-top:10px;">Message sent to {{activeMsg.phone}} requesting
+                  <span *ngFor="let doc of activeMsg.docArray">{{doc.name}}  </span>
+                  for {{activeMsg.refnumb}} application
+                </p>
+              </div>
+            </div>
+        </div>
+        <mat-divider></mat-divider>
+      </mat-card-content>
+</mat-card>

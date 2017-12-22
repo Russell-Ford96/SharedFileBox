@@ -2,6 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpModule } from '@angular/http';
 import { environment } from '../environments/environment';
+// import { TimeAgoPipe } from "time-ago-pipe";
 
 import 'hammerjs';
 
@@ -26,21 +27,19 @@ import { LoginGuard } from './auth/login.guard';
 import { FileUploadResolve } from './file-upload/file-upload.resolve';
 import { FileUploadComponent } from './file-upload/file-upload.component';
 import { ProfileComponent } from './profile/profile.component';
-import { FileSelectDirective } from 'ng2-file-upload';
+import { FileUploadModule } from 'ng2-file-upload';
 import { RouterModule } from '@angular/router';
 import { LoadingModule, ANIMATION_TYPES } from 'ngx-loading';
 import { Angular2FlexModule } from "angular2-flex";
-
+import { AutobotModule } from './autobot/autobot.module';
 
 @NgModule({
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
     HttpModule,
+    FileUploadModule,
     LoadingModule.forRoot({
-        //animationType: ANIMATION_TYPES.threeBounce,
-        //animationType: ANIMATION_TYPES.wanderingCubes,
-        //animationType: ANIMATION_TYPES.rotatingPlane,
         animationType: ANIMATION_TYPES.rectangleBounce,
         backdropBackgroundColour: 'rgba(0,0,0,0.1)',
         backdropBorderRadius: '4px',
@@ -59,31 +58,33 @@ import { Angular2FlexModule } from "angular2-flex";
     CoreModule,
     PagesModule,
     RouteHandlerModule,
-    Angular2FlexModule
-
-
-
+    Angular2FlexModule,
+    AutobotModule
   ],
-  providers: [AppService,{
-    provide: LocationStrategy,
-    useClass: PathLocationStrategy
+
+
+  providers: [
+    AppService,{
+      provide: LocationStrategy,
+      useClass: PathLocationStrategy
   },
     AppService,
     AppSocketService,
     AuthService,
     AuthGuard,
     LoginGuard,
-    FileUploadResolve],
+    FileUploadResolve
+  ],
 
   declarations: [
     AppComponent,
     FileUploadComponent,
     ProfileComponent,
-    FileSelectDirective,
-
-
-
+    // TimeAgoPipe,
   ],
+
+
   bootstrap: [AppComponent]
 })
+
 export class AppModule { }

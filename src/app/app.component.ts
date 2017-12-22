@@ -25,7 +25,17 @@ export class AppComponent {
   }
 
   isLoading(){
-    return this.appService.isLoading();
+    //setTimeout(() => {
+          //console.log(this.loading);
+      try{
+       return this.appService.isLoading();
+      } catch (e) {
+      // No content response..
+       console.log(e);
+       return false;
+      }
+     //}, 0);
+    //return this.appService.loading;
   }
 
 
