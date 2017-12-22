@@ -167,9 +167,9 @@ router.post('/createBotRequest', (req, res) => {
             }
           })
           db.close();
-
       });
   });
+
 
 
 // Get AutoBot by Url
@@ -388,6 +388,28 @@ router.get('/bots', function(req, res) {
       }
       //console.log(results);
       return res.status(200).send(results);
+    });
+  });
+});
+
+
+//get bot conversations
+router.get('/botchats', (req, res) => {
+  console.log('!!!!! bot conversations api !!!!!!!!')
+  mongodb.MongoClient.connect(uri, function(err, db){
+    if(err){
+      console.log(err);
+    }
+    var botConversations = db.collection('botRequest');
+    botConversations.find().toArray(function(err, results){
+        if(err){
+          console.log(err)
+        }
+        // var arr = []
+        // for(var i = 0, i < results.length; i++){
+        //   arr[i] = results[i]['requests']
+        // }
+        res.send(results)
     });
   });
 });

@@ -1,0 +1,43 @@
+
+<div class="page-chat">
+  <!-- <vr-page-header [height]="'160px'" background="url(/assets/img/demo/headers/mac-2.png)" [reverse]="true"></vr-page-header> -->
+
+    <div class="page chat-container container">
+
+        <!-- <vr-breadcrumbs [currentPage]="'Sent'" [names]="['Mail']" [header]="'primary'"></vr-breadcrumbs> -->
+
+            <!-- <mat-card  class="mail-card"> -->
+                 <!-- <mat-grid-list cols="12" rowHeight="100%"> -->
+
+                   <!-- <div *ngIf="OnShowList()">
+                     <mat-grid-tile [colspan]="colspanList" [rowspan]="1" [style.background]="'white'">
+                         <vr-botchats-list [data]="theData"  (activeMsg)="setActiveMsg($event)"></vr-botchats-list>
+                     </mat-grid-tile>
+                   </div> -->
+
+
+                   <!-- <div *ngIf="colspanDetail > 0">
+                     <mat-grid-tile    [style.background]="'white'">
+                       <div [@popOverState]="state"
+                            (@popOverState.done)="animateDetailsIn2($event)"
+                              class="slide-right">
+                           <vr-sent-detail *ngIf="showDetails" ></vr-sent-detail>
+                       </div>
+                    </mat-grid-tile>
+                  </div> -->
+
+               <!-- </mat-grid-list> -->
+          <!-- </mat-card> -->
+
+    </div>
+</div>
+
+
+
+<!-- <mat-grid-list cols="12" rowHeight="100%"> -->
+    <!-- <vr-botchats-list [data]="theData" *ngFor="let item of theData"> -->
+    <div *ngFor="let item of theData">
+      <p> {{ item }} </p>
+    </div>
+    <!-- </vr-botchats-list> -->
+<!-- </mat-grid-list cols="12" rowHeight="100%"> -->

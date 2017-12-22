@@ -106,7 +106,7 @@ export class SentComponent implements OnInit, OnDestroy, AfterViewChecked {
   }
 
   onResize(wdwidth, wdHeight) {
-
+    console.log('@@@@', wdwidth)
     if(wdwidth < 768){
     /* xs */
       if(this.showDetails == true){
@@ -226,9 +226,11 @@ export class SentComponent implements OnInit, OnDestroy, AfterViewChecked {
     }
   }
 
+
   clearMessages(activeChat) {
     activeChat.messages.length = 0;
   }
+
 
   ngOnDestroy() {
     if(this.mainScrollbarElem != undefined){

@@ -11,11 +11,11 @@ import { BehaviorSubject } from "rxjs/BehaviorSubject";
 import * as io from 'socket.io-client';
 
 @Injectable()
-
-
 export class AppService {
+
   private headers = new Headers({ 'Content-Type': 'application/json' });
   private loading = false;
+
 
   constructor(private http: Http) {
   }
@@ -36,6 +36,8 @@ export class AppService {
       .then(response => response)
       .catch(this.handleError);
   }
+
+
   isLoading(){
     return this.loading;
   }
@@ -76,6 +78,15 @@ export class AppService {
       .toPromise()
       .then(response => response)
       .catch(this.handleError);
+  }
+
+  //gets all json from "botRequest" collection
+  getBotchats(): Promise<RequestData[]> {
+    console.log('^^^^botchats service^^^^')
+    return this.http.get('api/botchats/', { headers: this.headers })
+      .toPromise()
+      .then(response => response.json())
+      .catch(this.handleError)
   }
 
   getAllBotData(): Promise<RequestData[]> {

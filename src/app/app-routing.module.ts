@@ -24,6 +24,7 @@ import {mailRoutes} from "./pages/mail/mail.routing";
 import {chatRoutes} from "./pages/chat/chat.routing";
 import {AutobotComponent} from "./autobot/autobot.component"
 import {AutobotResolve} from "./autobot/autobot.resolve"
+import { botChatRoutes } from './pages/botchats/botchats.routing';
 
 const routes: Routes = [
 
@@ -64,7 +65,7 @@ const routes: Routes = [
       ...mapsRoutes,
       ...projectsRoutes,
       ...projectDetailsRoutes,
-
+      ...botChatRoutes,
 
     ]
   },
