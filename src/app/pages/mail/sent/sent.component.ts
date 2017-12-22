@@ -84,6 +84,7 @@ export class SentComponent implements OnInit, OnDestroy, AfterViewChecked {
   //close details
   setCloseDetails(){
     this.state = 'close';
+    this.showDetails = false;
   }
 
 
@@ -106,8 +107,9 @@ export class SentComponent implements OnInit, OnDestroy, AfterViewChecked {
   }
 
   onResize(wdwidth, wdHeight) {
-    console.log('@@@@', wdwidth)
+
     if(wdwidth < 768){
+
     /* xs */
       if(this.showDetails == true){
         this.colspanList = 0;
