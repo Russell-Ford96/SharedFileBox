@@ -150,7 +150,11 @@ export class SentComponent implements OnInit, OnDestroy, AfterViewChecked {
     }
   }
 
-
+  onDetectChanges(){
+    if (!this.cd['destroyed']) {
+      this.cd.detectChanges();
+    }
+  }
 
   ngOnInit() {
     //socket
@@ -158,10 +162,11 @@ export class SentComponent implements OnInit, OnDestroy, AfterViewChecked {
       .getMessages()
       .subscribe((message: any) => {
        this.getData();
+       this.onDetectChanges();
       });
 
       this.getData();
-      this.cd.detectChanges();
+
   }
 
 
@@ -169,12 +174,10 @@ export class SentComponent implements OnInit, OnDestroy, AfterViewChecked {
     if(this.auth.userProfile){
         this.userid = this.auth.userProfile.sub.split("|")[1];
         this.requestByUser(this.userid);
-        this.cd.detectChanges();
     }else{
         this.auth.getProfile((err, profile) => {
         this.userid = profile.sub.split("|")[1];
         this.requestByUser(this.userid);
-        this.cd.detectChanges();
       });
     }
   }
@@ -193,6 +196,7 @@ export class SentComponent implements OnInit, OnDestroy, AfterViewChecked {
         return dateA - dateB;
       }).reverse();
       this.activeMsg = this.theData[0];
+      this.onDetectChanges();
     });
   }
 
@@ -208,7 +212,7 @@ export class SentComponent implements OnInit, OnDestroy, AfterViewChecked {
         who: 'me'
       });
       this.newMessage = '';
-      this.cd.detectChanges();
+      this.onDetectChanges();
       this.chatScroll.scrollbarRef.scrollIntoView(this.scrollToBottomElem.nativeElement, {
         alignToTop: false
       });
@@ -219,7 +223,7 @@ export class SentComponent implements OnInit, OnDestroy, AfterViewChecked {
           when: moment(),
           who: 'partner'
         });
-        this.cd.detectChanges();
+        this.onDetectChanges();
 
         this.chatScroll.scrollbarRef.scrollIntoView(this.scrollToBottomElem.nativeElement, {
           alignToTop: false
