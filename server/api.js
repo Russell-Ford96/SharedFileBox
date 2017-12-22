@@ -17,7 +17,7 @@ const uri = credentials.MLABS_URI;
 // Get doc
 require('./routes/doc-api')(router,mongodb,uri);
 
-// // Get AutoBot by Url
+// AutoBot
 require('./routes/autobot-api')(router,mongodb,uri);
 
 //upload docs
