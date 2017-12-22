@@ -10,11 +10,27 @@ export class AppSocketService {
     }
 
     public sendNotification(message) {
+        console.log("New Notification ",message);
         this.socket.emit('new_notification', message);
     }
 
     public sendMessage(message) {
         this.socket.emit('new_message', message);
+    }
+
+    public sendMessageApiai(message) {
+        this.socket.emit('new_apiai_messge', message);
+    }
+
+
+    public getResponceApiai = () => {
+        return Observable.create((observer) => {
+            this.socket.on('new_apiai_messge', (message) => {
+                console.log("new message ");
+                console.log(message);
+                observer.next(message);
+            });
+        });
     }
 
     public getMessages = () => {
@@ -26,7 +42,7 @@ export class AppSocketService {
             });
         });
     }
-    
+
 
 
     public getNotification = () => {

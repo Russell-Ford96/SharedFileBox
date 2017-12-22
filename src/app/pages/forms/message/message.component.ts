@@ -64,24 +64,33 @@ export class MessageComponent implements OnInit {
     this.save();
   }
 
+  onDetectChanges(){
+    if (!this.cdr['destroyed']) {
+      this.cdr.detectChanges();
+    }
+  }
+
 
   save(): void {
     this.appService.setLoading(true);
 
-    this.cdr.detectChanges();
+
+     this.onDetectChanges();
+
+
     if(
       this.requestForm.value.refnumb == '' ||
       this.requestForm.value.email == '' ||
       this.requestForm.value.phone == ''){
       this.appService.setLoading(false);
 
-      this.cdr.detectChanges();
+      this.onDetectChanges();
       return
     }
     if(this.formErrors.refnumb || this.formErrors.email || this.formErrors.phone){
       this.appService.setLoading(false);
 
-      this.cdr.detectChanges();
+      this.onDetectChanges();
       return
     }
     let formValues = this.requestForm.value;
@@ -100,7 +109,7 @@ export class MessageComponent implements OnInit {
             this.socketService.sendMessage('newRequest ERROR');
             this.appService.setLoading(false);
 
-            this.cdr.detectChanges();
+            this.onDetectChanges();
         }
         else{
           this.phonemsg = '';
@@ -112,7 +121,7 @@ export class MessageComponent implements OnInit {
           this.socketService.sendMessage('new Request from save');
           this.appService.setLoading(false);
 
-          this.cdr.detectChanges();
+          this.onDetectChanges();
         }
       });
   }
