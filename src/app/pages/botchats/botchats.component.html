@@ -36,8 +36,20 @@
 
 <!-- <mat-grid-list cols="12" rowHeight="100%"> -->
     <!-- <vr-botchats-list [data]="theData" *ngFor="let item of theData"> -->
-    <div *ngFor="let item of theData">
-      <p> {{ item }} </p>
-    </div>
+
+
+    <div *ngFor="let name of botnames">
+        <div *ngFor="let question of bot_questions">
+            <div *ngFor="let answer of answers">
+                Bot name: <p> {{ name }} </p>
+                Q:<p> {{ question }} </p>
+                A:<p>{{ answer }}</p>
+            </div>
+        </div>
+     </div>
+
+
+
+
     <!-- </vr-botchats-list> -->
 <!-- </mat-grid-list cols="12" rowHeight="100%"> -->

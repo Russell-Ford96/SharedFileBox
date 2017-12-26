@@ -25,18 +25,20 @@ export class BotChatsComponent implements OnInit {
   userid: string;
   sendData: any;
   theData: any = [];
-  arr: any = [];
   showDetails: boolean = true;
   colspanList: number = 4;
   heightList: number = 800;
   colspanDetail: number = 8;
   showList: boolean = true;
-  chats: any[];
   activeMsg: any;
   newMessage: string;
   //animations
   state: string = '*';
   activeMsgGlobal: string = '';
+  //chats
+  bot_questions: any = [];
+  answers: any = [];
+  botnames: any = [];
 
 
   @ViewChild('scrollToBottomElem') scrollToBottomElem: ElementRef;
@@ -52,30 +54,26 @@ export class BotChatsComponent implements OnInit {
 
 
   ngOnInit(){
-    var bot_question = '';
+
     this.appService.getBotchats()
       .then(results => {
-        for(var item = 0; item < results.length; item++){
-                if(results[item]['botName'] != undefined) {
-                  this.arr[item] = results[item]['botName']
-                }
-        for(var k = 0; k < results[item]['requests'].length; k++){
-          bot_question = results[item]['requests'][k]['question'];
-          console.log(bot_question)
-        }
-      }
-        this.theData = this.arr;
+          for(var item = 0; item < results.length; item++){
 
-        // var arr = results;
-        // for(let i = 0; i < results.length; i++){
-        //   for(let k = 0; k < results.length; k++){
-        //     if(results[i][k] != undefined){
-        //       var str = 'Q:' + arr[i][k]['question'] + '\n' + 'A:' + arr[i][k]['answer'] + '\n'
-        //       this.theData[i] = str.split(',');
-        //     }
-        //   }
-        // }
+              if(results[item]['botName'] != undefined) {
+                  this.botnames[item] = results[item]['botName']
+                  console.log('botname: ', this.botnames[item])
+              }
+          for(var k = 0; k < results[item]['requests'].length; k++){
+
+              this.bot_questions[k] = results[item]['requests'][k]['question'];
+              this.answers[k] = results[item]['requests'][k]['answer'];
+              console.log('Q: ', this.bot_questions[k])
+              console.log('A:', this.answers[k])
+          }
+        }
      });
+
+
     // socket
     // this.socketService.getMessages()
     //   .subscribe((message: any) => {
