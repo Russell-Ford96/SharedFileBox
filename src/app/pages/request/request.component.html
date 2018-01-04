@@ -52,7 +52,9 @@
             <div *ngIf="row.checkdocs==true; else minus">
               <i class="fa fa-check" style="color:green" aria-hidden="true"></i>
             </div>
-            <ng-template #minus><i class="fa fa-minus-circle" style="color:red;" aria-hidden="true"></i> </ng-template>
+            <ng-template #minus>
+              <i class="fa fa-minus-circle" style="color:red;" aria-hidden="true"></i>
+            </ng-template>
           </mat-cell>
 
         </ng-container>

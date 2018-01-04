@@ -1,14 +1,22 @@
 
+
+
 <vr-scrollbar class="overflow-container">
      <mat-nav-list style="border:thin solid lightgrey; color:red;">
-        <mat-list-item style="border-bottom:thin solid #f7f7f7fc;" *ngFor="let d of data" (click)="setActiveMsg(item)">
-           <h5 mat-line class="chat-img pull-left">
-             <img src="https://i.pinimg.com/originals/7c/c7/a6/7cc7a630624d20f7797cb4c8e93c09c1.png">
-             <!-- {{ item.phone }} -->
-             <!-- <span style="font-size:x-small; float:right;"> {{ item.datetime }}</span> -->
-           </h5>
-           <!-- <p mat-line style="color:#797979;">{{ item.shortmessage }}</p> -->
-           <p mat-line style="color:#797979;">{{ d }}</p>
+        <mat-list-item style="border-bottom:thin solid #f7f7f7fc;" *ngFor="let item of data" (click)="setActiveMsg(item)">
+
+              <h5 mat-line class="chat-img pull-left">
+                 <img src="https://pbs.twimg.com/profile_images/2958932425/163f7d3b06f8da73ca47c0091f1eeece.jpeg">
+                 {{ item.botName }}
+                 <span style="font-size:x-small; float:right;"> {{ item.answerDate }}</span>
+               </h5>
+               <p style="font-size:small;"> Client: {{item.customerFullName}} </p>
+
+              <p mat-line style="color:#797979;" *ngFor="let requests of item.requests">
+                {{ requests.question }}
+                {{ requests.answer }}
+              </p>
+
         </mat-list-item>
     </mat-nav-list>
 </vr-scrollbar>

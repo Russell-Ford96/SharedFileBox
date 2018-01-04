@@ -1,55 +1,34 @@
 
 <div class="page-chat">
-  <!-- <vr-page-header [height]="'160px'" background="url(/assets/img/demo/headers/mac-2.png)" [reverse]="true"></vr-page-header> -->
+  <vr-page-header [height]="'160px'" background="url(/assets/img/demo/headers/mac-2.png)" [reverse]="true"></vr-page-header>
 
     <div class="page chat-container container">
 
-        <!-- <vr-breadcrumbs [currentPage]="'Sent'" [names]="['Mail']" [header]="'primary'"></vr-breadcrumbs> -->
+        <vr-breadcrumbs [currentPage]="'Botchats'" [names]="['Pages']" [header]="'primary'"></vr-breadcrumbs>
 
-            <!-- <mat-card  class="mail-card"> -->
-                 <!-- <mat-grid-list cols="12" rowHeight="100%"> -->
+            <mat-card  class="mail-card">
+                 <mat-grid-list cols="12" rowHeight="100%">
 
-                   <!-- <div *ngIf="OnShowList()">
+                   <div *ngIf="OnShowList()">
                      <mat-grid-tile [colspan]="colspanList" [rowspan]="1" [style.background]="'white'">
-                         <vr-botchats-list [data]="theData"  (activeMsg)="setActiveMsg($event)"></vr-botchats-list>
+                         <vr-botchats-list [data]="botchatData"  (activeMsg)="setActiveMsg($event)"></vr-botchats-list>
                      </mat-grid-tile>
-                   </div> -->
+                   </div>
 
 
-                   <!-- <div *ngIf="colspanDetail > 0">
-                     <mat-grid-tile    [style.background]="'white'">
-                       <div [@popOverState]="state"
-                            (@popOverState.done)="animateDetailsIn2($event)"
-                              class="slide-right">
-                           <vr-sent-detail *ngIf="showDetails" ></vr-sent-detail>
-                       </div>
-                    </mat-grid-tile>
-                  </div> -->
+                   <div *ngIf="colspanDetail > 0">
+                       <mat-grid-tile  [colspan]="colspanDetail" [rowspan]="1"  [style.background]="'white'">
+                         <div [@popOverState]="state"
+                              (@popOverState.done)="animateDetailsIn2($event)"
+                                class="slide-right">
+                             <vr-botchats-detail [activeMsg]="activeMsg"  (closeDetailds)="setCloseDetails($event)"
+                             *ngIf="showDetails" ></vr-botchats-detail>
+                         </div>
+                      </mat-grid-tile>
+                  </div>
 
-               <!-- </mat-grid-list> -->
-          <!-- </mat-card> -->
+               </mat-grid-list>
+          </mat-card>
 
     </div>
 </div>
-
-
-
-<!-- <mat-grid-list cols="12" rowHeight="100%"> -->
-    <!-- <vr-botchats-list [data]="theData" *ngFor="let item of theData"> -->
-
-
-    <div *ngFor="let name of botnames">
-        <div *ngFor="let question of bot_questions">
-            <div *ngFor="let answer of answers">
-                Bot name: <p> {{ name }} </p>
-                Q:<p> {{ question }} </p>
-                A:<p>{{ answer }}</p>
-            </div>
-        </div>
-     </div>
-
-
-
-
-    <!-- </vr-botchats-list> -->
-<!-- </mat-grid-list cols="12" rowHeight="100%"> -->

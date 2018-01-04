@@ -1,0 +1,32 @@
+
+<mat-card   class="details-card">
+     <i class="fa fa-times" style="color:#e0e0e0; cursor:pointer; font-size:25px; float:right;" aria-hidden="true"  (click)="onClose()"></i>
+      <mat-card-header>
+        <span mat-line class="chat-img pull-left" style="margin-right: 10px;">
+          <img src="https://pbs.twimg.com/profile_images/2958932425/163f7d3b06f8da73ca47c0091f1eeece.jpeg">
+       </span>
+        <div fxLayout="column"  *ngIf="activeMsg" style="padding-bottom:15px; margin-left:10px;">
+          <span class="name"><b>{{ activeMsg.botName }}</b></span>
+          <span class="status" style="color:#797979;">{{ activeMsg.answerDate }}</span>
+        </div>
+      </mat-card-header>
+      <mat-divider></mat-divider>
+
+
+      <mat-card-content>
+        <div class="chat-content" fxLayout="column" fxLayoutAlign="start stretch">
+            <div class="messages-container">
+              <div *ngIf="activeMsg">
+                <p style="margin-top:10px;">
+                  <span *ngFor="let doc of activeMsg.requests">
+                    {{ activeMsg.botName }}: {{ doc.question }} <br>
+                    {{ activeMsg.customerFullName || "Client" }}: {{ doc.answer }}
+                    <br>
+                  </span>
+                </p>
+              </div>
+            </div>
+        </div>
+        <mat-divider></mat-divider>
+      </mat-card-content>
+</mat-card>

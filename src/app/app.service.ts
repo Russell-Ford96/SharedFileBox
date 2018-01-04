@@ -7,6 +7,7 @@ import { toPromise } from "rxjs/operator/toPromise";
 import { Observable } from 'rxjs/Observable';
 import { RequestData } from './pages/request/requestdata';
 import { BehaviorSubject } from "rxjs/BehaviorSubject";
+import { BotchatData } from './pages/botchats/botchatdata';
 
 import * as io from 'socket.io-client';
 
@@ -81,13 +82,11 @@ export class AppService {
   }
 
   //gets all json from "botRequest" collection
-  getBotchats(): Promise<RequestData[]> {
-    console.log('^^^^botchats service^^^^')
+  getBotchats(): Observable<BotchatData[]> {
     return this.http.get('api/botchats/', { headers: this.headers })
-      .toPromise()
-      .then(response => response.json())
-      .catch(this.handleError)
+      .map(response => response.json() as BotchatData[])
   }
+
 
   getAllBotData(): Promise<RequestData[]> {
     return this.http.get('api/bots/', { headers: this.headers })

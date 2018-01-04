@@ -79,6 +79,7 @@ module.exports = function(router,mongodb,uri){
           // for(var i = 0, i < results.length; i++){
           //   arr[i] = results[i]['requests']
           // }
+          console.log('results: ', results)
           res.send(results)
       });
     });

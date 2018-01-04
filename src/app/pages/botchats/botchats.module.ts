@@ -6,6 +6,7 @@ import { BreadcrumbsModule } from "../../core/breadcrumbs/breadcrumbs.module";
 import { ScrollbarModule } from "../../core/scrollbar/scrollbar.module";
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { BotchatsListComponent } from './botchats-list/botchats-list.component';
+import { BotchatsDetailComponent } from './botchats-detail/botchats-detail.component';
 
 import {
   MatButtonModule, MatIconModule, MatInputModule, MatListModule, MatMenuModule, MatRippleModule, MatSidenavModule,
@@ -35,6 +36,7 @@ import {
   declarations: [
     BotChatsComponent,
     BotchatsListComponent,
+    BotchatsDetailComponent,
 
   ],
 })

@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, ElementRef, ViewChild } from '@angular/core';
+import { Component, OnInit, OnDestroy, ElementRef, ViewChild, ChangeDetectorRef, AfterViewChecked } from '@angular/core';
 import * as moment from 'moment';
 import { ScrollbarComponent, scrollbarOptions } from '../../core/scrollbar/scrollbar.component';
 import Scrollbar from 'smooth-scrollbar';
@@ -8,7 +8,6 @@ import { AuthService } from '../../auth/auth.service';
 import { Observable } from 'rxjs/Rx';
 import { AppSocketService } from '../../app.socket.service';
 import { trigger, state, style, animate, transition, stagger, query } from '@angular/animations';
-import { ChangeDetectorRef } from '@angular/core';
 
 
 
@@ -17,12 +16,25 @@ import { ChangeDetectorRef } from '@angular/core';
   templateUrl:'./botchats.component.html',
   styleUrls: ['./botchats.component.scss', ],
   host: { '[@routeTransition]': ''},
-  animations: [...ROUTE_TRANSITION, ]
+  animations: [...ROUTE_TRANSITION,
+    trigger('popOverState', [
+      state('hide',  style({ transform: 'translateX(100%)' })),
+      state('close',  style({ transform: 'translateX(100%)' })),
+      state('show',  style({ transform: 'translateX(0%)' })),
+      transition('* => show', animate('700ms ease')),
+      transition('show => close', animate('700ms ease')),
+      transition('show => hide', [ animate('700ms ease'),
+      ])
+    ])
+  ]
 })
 
-export class BotChatsComponent implements OnInit {
+export class BotChatsComponent implements OnInit, OnDestroy, AfterViewChecked {
 
   userid: string;
+  mainScrollbarElem: any;
+  scrollbar: any;
+
   sendData: any;
   theData: any = [];
   showDetails: boolean = true;
@@ -36,9 +48,8 @@ export class BotChatsComponent implements OnInit {
   state: string = '*';
   activeMsgGlobal: string = '';
   //chats
-  bot_questions: any = [];
-  answers: any = [];
-  botnames: any = [];
+  botchatData: any = [];
+
 
 
   @ViewChild('scrollToBottomElem') scrollToBottomElem: ElementRef;
@@ -56,24 +67,17 @@ export class BotChatsComponent implements OnInit {
   ngOnInit(){
 
     this.appService.getBotchats()
-      .then(results => {
-          for(var item = 0; item < results.length; item++){
+      .subscribe(data => {
+        this.botchatData = data.splice(-50)
+        this.botchatData.sort(function compare(a, b) {
+          var A = +new Date(a.datetime);
+          var B = +new Date(b.datetime);
+          return A - B;
+        }).reverse();
+        this.activeMsg = this.botchatData[0];
+        this.cd.detectChanges();
 
-              if(results[item]['botName'] != undefined) {
-                  this.botnames[item] = results[item]['botName']
-                  console.log('botname: ', this.botnames[item])
-              }
-          for(var k = 0; k < results[item]['requests'].length; k++){
-
-              this.bot_questions[k] = results[item]['requests'][k]['question'];
-              this.answers[k] = results[item]['requests'][k]['answer'];
-              console.log('Q: ', this.bot_questions[k])
-              console.log('A:', this.answers[k])
-          }
-        }
      });
-
-
     // socket
     // this.socketService.getMessages()
     //   .subscribe((message: any) => {
@@ -83,15 +87,6 @@ export class BotChatsComponent implements OnInit {
   }
 
 
-  setCloseDetails(){
-    this.state = 'close';
-  }
-
-
-  setActiveMsg(item){
-    if(this.activeMsg != item){}
-    this.showDetails = true;
-  }
 
 
   onResize(wdwidth, wdHeight){
@@ -135,35 +130,58 @@ export class BotChatsComponent implements OnInit {
     }
   }
 
-  getData(){
-    if(this.auth.userProfile){
-      this.userid = this.auth.userProfile.sub.split('|')[1];
-      this.requestByUser(this.userid);
-      this.cd.detectChanges();
+
+// ------//
+
+  ngOnDestroy() {
+    if(this.mainScrollbarElem != undefined){
+      Scrollbar.init(this.mainScrollbarElem, scrollbarOptions);
     }
-    else{
-      this.auth.getProfile((err, profile) => {
-        this.userid = profile.sub.split('|')[1];
-        this.requestByUser(this.userid);
+  }
+
+  ngAfterViewChecked(){
+    this.mainScrollbarElem = document.getElementById('main-scrollbar');
+    this.scrollbar = Scrollbar.get(this.mainScrollbarElem);
+    if(this.scrollbar){this.scrollbar.destroy();
+    }
+
+    this.onResize(innerWidth, innerHeight);
+  }
+
+
+  onDetectChanges(){
+      if (!this.cd['destroyed']) {
         this.cd.detectChanges();
-      });
+      }
     }
-  }
 
+    //animations
+    animateDetailsIn(){
+      this.state = this.state === 'hide'? 'show': 'hide';
+    }
 
-  requestByUser(id: string){
-    console.log('####', 'requestbyuser')
-    this.userid = id;
-    this.appService.getBotchats()
-      .then(results => {
-        this.theData = results;
-        this.activeMsg = this.theData[0];
-    });
-  }
+    animateDetailsIn2(){
+      if(this.state === 'close'){
+        this.activeMsg = null;
+      }
+      if(this.state === 'hide'){
+        this.state = 'show';
+        this.activeMsg = this.activeMsgGlobal;
+      }
+    }
 
+    //close detail
+    setCloseDetails(){
+      this.state = 'close';
+    }
 
-
-
+    setActiveMsg(item){
+      if(this.activeMsg != item){
+        this.animateDetailsIn()
+      }
+      this.showDetails = true;
+      this.activeMsgGlobal = item;
+    }
 
 
 

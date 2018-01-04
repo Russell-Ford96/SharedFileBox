@@ -204,33 +204,33 @@ export class SentComponent implements OnInit, OnDestroy, AfterViewChecked {
 
 
 
-  send() {
-    if (this.newMessage) {
-      this.chats[0].messages.push({
-        message: this.newMessage,
-        when: moment(),
-        who: 'me'
-      });
-      this.newMessage = '';
-      this.onDetectChanges();
-      this.chatScroll.scrollbarRef.scrollIntoView(this.scrollToBottomElem.nativeElement, {
-        alignToTop: false
-      });
-
-      setTimeout(() => {
-        this.chats[0].messages.push({
-          message: 'Oh look! I can even answer you. ;)',
-          when: moment(),
-          who: 'partner'
-        });
-        this.onDetectChanges();
-
-        this.chatScroll.scrollbarRef.scrollIntoView(this.scrollToBottomElem.nativeElement, {
-          alignToTop: false
-        });
-      }, 1000)
-    }
-  }
+  // send() {
+  //   if (this.newMessage) {
+  //     this.chats[0].messages.push({
+  //       message: this.newMessage,
+  //       when: moment(),
+  //       who: 'me'
+  //     });
+  //     this.newMessage = '';
+  //     this.onDetectChanges();
+  //     this.chatScroll.scrollbarRef.scrollIntoView(this.scrollToBottomElem.nativeElement, {
+  //       alignToTop: false
+  //     });
+  //
+  //     setTimeout(() => {
+  //       this.chats[0].messages.push({
+  //         message: 'Oh look! I can even answer you. ;)',
+  //         when: moment(),
+  //         who: 'partner'
+  //       });
+  //       this.onDetectChanges();
+  //
+  //       this.chatScroll.scrollbarRef.scrollIntoView(this.scrollToBottomElem.nativeElement, {
+  //         alignToTop: false
+  //       });
+  //     }, 1000)
+  //   }
+  // }
 
 
   clearMessages(activeChat) {

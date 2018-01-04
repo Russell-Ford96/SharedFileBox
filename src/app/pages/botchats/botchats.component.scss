@@ -1,42 +1,111 @@
 @import "../../../styles/var";
 
-.form-elements {
+// .form-elements {
+//
+//   @include responsivePadding();
+//
+//   #phonemsg{
+//     color: #f44336;
+//     font-size: 9px;
+//     margin-top: 6px !important;
+//     position: absolute;
+//   }
+//
+//
+//   .card.alternative {
+//
+//     .content {
+//       padding-top: 16px;
+//
+//       .source {
+//         @include responsivePadding(left, true);
+//         @include responsivePadding(right, true);
+//         margin-bottom: 12px;
+//       }
+//
+//       .result {
+//
+//         .description {
+//           color: $color__text-dark;
+//           margin: 0 0 8px 0;
+//           font-size: 14px;
+//         }
+//       }
+//     }
+//   }
+//   .mat-form-field-subscript-wrapper {
+//     font-size: 75%;
+//     margin-top: 0.741667em !important;
+//     top: calc(100% - 1.66666667em);
+// }
+//
+// }
 
-  @include responsivePadding();
-
-  #phonemsg{
-    color: #f44336;
-    font-size: 9px;
-    margin-top: 6px !important;
-    position: absolute;
-  }
 
 
-  .card.alternative {
+.slide-right{
+  width:100%;
+  top: 0px;
+  position:absolute;
+}
 
-    .content {
-      padding-top: 16px;
 
-      .source {
-        @include responsivePadding(left, true);
-        @include responsivePadding(right, true);
-        margin-bottom: 12px;
+.mail-card {
+  width: 100% !important;
+  height: 90% !important;
+  // margin-top: 120px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: auto;
+}
+
+.inbox-cards {
+
+  .list-card {
+    background: white;
+    width: 150px;
+    @include responsivePadding();
+
+    @include mat-elevation(4);
+
+    .list-details {
+
+      .value {
+        font-size: 30px;
       }
 
-      .result {
+      .description {
+        color: $color__text-dark;
+      }
 
-        .description {
-          color: $color__text-dark;
-          margin: 0 0 8px 0;
-          font-size: 14px;
-        }
+      .arrow {
+        color: $color__text-dark;
+        @include responsivePaddingHalf(right, true);
+        @include responsivePaddingHalf(bottom, true);
       }
     }
   }
-  .mat-form-field-subscript-wrapper {
-    font-size: 75%;
-    margin-top: 0.741667em !important;
-    top: calc(100% - 1.66666667em);
-}
+  .detail-card {
+    background: white;
+    @include responsivePadding();
 
+    @include mat-elevation(4);
+
+    .detail-details {
+
+      .value {
+        font-size: 30px;
+      }
+
+      .description {
+        color: $color__text-dark;
+      }
+
+      .arrow {
+        color: $color__text-dark;
+        @include responsivePaddingHalf(right, true);
+        @include responsivePaddingHalf(bottom, true);
+      }
+    }
+  }
 }
