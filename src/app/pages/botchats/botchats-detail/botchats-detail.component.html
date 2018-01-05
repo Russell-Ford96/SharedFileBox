@@ -2,13 +2,19 @@
 <mat-card   class="details-card">
      <i class="fa fa-times" style="color:#e0e0e0; cursor:pointer; font-size:25px; float:right;" aria-hidden="true"  (click)="onClose()"></i>
       <mat-card-header>
-        <span mat-line class="chat-img pull-left" style="margin-right: 10px;">
-          <img src="https://pbs.twimg.com/profile_images/2958932425/163f7d3b06f8da73ca47c0091f1eeece.jpeg">
-       </span>
+
         <div fxLayout="column"  *ngIf="activeMsg" style="padding-bottom:15px; margin-left:10px;">
-          <span class="name"><b>{{ activeMsg.botName }}</b></span>
+
+          <span mat-line class="chat-img pull-left" style="margin-right: 10px;" [ngSwitch]="activeMsg.botName">
+            <img *ngSwitchCase="'Eva'" src="https://images.martechadvisor.com/images/uploads/ckimages/images/chatbots_5954afe235630.jpg">
+            <img *ngSwitchCase="'Alexa'" src="https://profilepics.cf.kik.com/akW94fjo2qK3LH048g7e0QJN97c/orig.jpg">
+            <img *ngSwitchDefault src="https://flowxo.com/images/service-icons/integration_web/icon-100-2x.png">
+         </span>
+
+          <span class="name">{{ activeMsg.botName }}</span>
           <span class="status" style="color:#797979;">{{ activeMsg.answerDate }}</span>
         </div>
+
       </mat-card-header>
       <mat-divider></mat-divider>
 
@@ -18,7 +24,7 @@
             <div class="messages-container">
               <div *ngIf="activeMsg">
                 <p style="margin-top:10px;">
-                  <span *ngFor="let doc of activeMsg.requests">
+                  <span *ngFor="let doc of activeMsg.requests" style="color:#797979;">
                     {{ activeMsg.botName }}: {{ doc.question }} <br>
                     {{ activeMsg.customerFullName || "Client" }}: {{ doc.answer }}
                     <br>

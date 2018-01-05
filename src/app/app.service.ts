@@ -7,7 +7,7 @@ import { toPromise } from "rxjs/operator/toPromise";
 import { Observable } from 'rxjs/Observable';
 import { RequestData } from './pages/request/requestdata';
 import { BehaviorSubject } from "rxjs/BehaviorSubject";
-import { BotchatData } from './pages/botchats/botchatdata';
+
 
 import * as io from 'socket.io-client';
 
@@ -82,9 +82,9 @@ export class AppService {
   }
 
   //gets all json from "botRequest" collection
-  getBotchats(): Observable<BotchatData[]> {
+  getBotchats(): Observable<any> {
     return this.http.get('api/botchats/', { headers: this.headers })
-      .map(response => response.json() as BotchatData[])
+      .map(response => response.json())
   }
 
 

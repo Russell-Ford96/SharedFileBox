@@ -2,20 +2,28 @@
 
 
 <vr-scrollbar class="overflow-container">
-     <mat-nav-list style="border:thin solid lightgrey; color:red;">
-        <mat-list-item style="border-bottom:thin solid #f7f7f7fc;" *ngFor="let item of data" (click)="setActiveMsg(item)">
+     <mat-nav-list style="border:solid thin lightgrey; color:red;">
+        <mat-list-item style="border-bottom:solid thin lightgray; margin-top:10px; padding-bottom:30px; padding-top:30px; height:auto;" *ngFor="let item of data" (click)="setActiveMsg(item)">
 
-              <h5 mat-line class="chat-img pull-left">
-                 <img src="https://pbs.twimg.com/profile_images/2958932425/163f7d3b06f8da73ca47c0091f1eeece.jpeg">
-                 {{ item.botName }}
-                 <span style="font-size:x-small; float:right;"> {{ item.answerDate }}</span>
-               </h5>
-               <p style="font-size:small;"> Client: {{item.customerFullName}} </p>
+             <h5 mat-line class="chat-img pull-left">
+                 <div [ngSwitch]="item?.botName">
+                   <img *ngSwitchCase="'Alexa'" src="https://profilepics.cf.kik.com/akW94fjo2qK3LH048g7e0QJN97c/orig.jpg">
+                   <img *ngSwitchCase="'Eva'" src="https://images.martechadvisor.com/images/uploads/ckimages/images/chatbots_5954afe235630.jpg">
+                   <img *ngSwitchDefault src="https://flowxo.com/images/service-icons/integration_web/icon-100-2x.png">
+                   {{ item?.botName }}
+                 </div>
 
-              <p mat-line style="color:#797979;" *ngFor="let requests of item.requests">
-                {{ requests.question }}
-                {{ requests.answer }}
-              </p>
+                 <span style="font-size:x-small;"> {{ item?.answerDate }} </span>
+
+                 <span style="font-size:small;" [hidden]="!item?.customerFullName">
+                   <p> Client: {{item?.customerFullName}} </p>
+                 </span>
+             </h5>
+
+              <div mat-line style="color:#797979;" *ngFor="let requests of item.requests">
+                <span> {{ item?.botName }}: {{ requests?.question }} </span><br>
+                <span> {{ item?.customerFullName || "Client" }}:  {{ requests?.answer }} </span>
+              </div>
 
         </mat-list-item>
     </mat-nav-list>
